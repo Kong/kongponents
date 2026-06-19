@@ -29,6 +29,7 @@ interface FilterSelection {
   operator: FilterOperator // 'eq' | 'neq' | 'contains' | 'exists' | 'lt' | 'lte' | 'gt' | 'gte'
   value: string | string[] // the user's selection
   text: string // the display string for that selection
+  operatorDelimiter?: string // override the display string for the delimiter displayed in the pill
 }
 ```
 
@@ -46,7 +47,13 @@ interface FilterSelection {
       Add "In Progress" filter
     </KButton>
     <KButton
-      :disabled="modelSelection?.name?.value === 'My name' && Object.keys(modelSelection).length === 1"
+      :disabled="!modelSelection?.name || modelSelection?.name?.operatorDelimiter !== undefined"
+      @click="setOperatorDelimiter"
+    >
+      Set name's operatorDelimiter to '?'
+    </KButton>
+    <KButton
+      :disabled="modelSelection?.name?.value === 'My name' && Object.keys(modelSelection).length === 1 && modelSelection?.name?.operatorDelimiter === undefined"
       @click="resetModelSelection"
     >
       Reset
@@ -61,14 +68,20 @@ interface FilterSelection {
     :filters="filters"
   />
   <KButton
-    :disabled="modelSelection?.status?.value === 'inprogress'"
+    :disabled="selection?.status?.value === 'inprogress'"
     @click="filterInProgress"
   >
     Add "In Progress" filter
   </KButton>
   <KButton
-    :disabled="selection?.name?.value === 'My name' && Object.keys(selection).length === 1"
-    @click="resetModelSelection"
+    :disabled="!selection?.name || selection?.name?.operatorDelimiter !== undefined"
+    @click="setOperatorDelimiter"
+  >
+    Set name's operatorDelimiter to '?'
+  </KButton>
+  <KButton
+    :disabled="selection?.name?.value === 'My name' && Object.keys(selection).length === 1 && selection?.name?.operatorDelimiter === undefined"
+    @click="resetSelection"
   >
     Reset
   </KButton>
@@ -93,8 +106,9 @@ const selection = ref<FilterGroupSelection>({
   name: defaultNameSelection,
 })
 
-const resetModelSelection = () => {
-  selection.value.name = defaultNameSelection,
+const resetSelection = () => {
+  delete selection.value.name?.operatorDelimiter
+  selection.value = { name: defaultNameSelection }
 }
 
 const filterInProgress = () => {
@@ -108,6 +122,11 @@ const filterInProgress = () => {
   }
 }
 
+const setOperatorDelimiter = () => {
+  if (selection.value.name && selection.value.name.operatorDelimiter === undefined) {
+    selection.value.name.operatorDelimiter = ' ? '
+  }
+}
 </script>
 ```
 
@@ -748,6 +767,7 @@ const customItemsFilters: FilterGroupFilters = {
 }
 
 const resetModelSelection = () => {
+  delete modelSelection.value.name?.operatorDelimiter
   modelSelection.value = { name: defaultNameSelection }
 }
 
@@ -759,6 +779,12 @@ const filterInProgress = () => {
       value: 'inprogress',
       text: 'In Progress',
     }
+  }
+}
+
+const setOperatorDelimiter = () => {
+  if (modelSelection.value.name && modelSelection.value.name.operatorDelimiter === undefined) {
+    modelSelection.value.name.operatorDelimiter = ' ? '
   }
 }
 

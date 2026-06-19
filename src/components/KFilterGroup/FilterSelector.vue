@@ -116,6 +116,8 @@ const onToggle = async (open: boolean) => {
     pillFocus.value = true
 
     await nextTick()
+    // always reset the item search when we open
+    itemSearch.value = ''
     // if we have an filtering ref, focus on it
     itemFilteringInputRef.value?.input?.focus()
   } else {

@@ -1,3 +1,10 @@
+# [9.60.0](https://github.com/Kong/kongponents/compare/v9.59.0...v9.60.0) (2026-06-17)
+
+
+### Features
+
+* support operator delimiter overrides ([#3232](https://github.com/Kong/kongponents/issues/3232)) ([d6c3abc](https://github.com/Kong/kongponents/commit/d6c3abcba6888664e777c995ad8e38d2b30de2bc))
+
 # [9.59.0](https://github.com/Kong/kongponents/compare/v9.58.0...v9.59.0) (2026-06-08)
 
 
