@@ -205,7 +205,6 @@ const onClear = () => {
 </script>
 
 <style lang="scss" scoped>
-// Translucent focus ring kept themeable via the --kui-color-background-primary token using
 // color-mix() (legacy rgba() can't take a var()/color as an argument).
 /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
 $shadowFocusNarrow: 0 0 0 2px color-mix(in srgb, var(--kui-color-background-primary, $kui-color-background-primary) 20%, transparent);

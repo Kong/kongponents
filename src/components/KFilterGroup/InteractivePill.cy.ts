@@ -10,7 +10,7 @@ describe('KFilterGroup - InteractivePill', () => {
   const OPEN_ICON_ID = 'interactive-pill-open-icon'
 
   const PILL_FOCUS_BOX_SHADOW = 'rgba(0, 68, 244, 0.2) 0px 0px 0px 4px'
-  const CLEAR_FOCUS_BOX_SHADOW = 'rgba(0, 68, 244, 0.2) 0px 0px 0px 2px'
+  const CLEAR_FOCUS_BOX_SHADOW = 'color(srgb 0 0.266667 0.956863 / 0.2) 0px 0px 0px 2px'
 
   const render = ({
     label,
