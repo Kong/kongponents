@@ -28,10 +28,10 @@ export default [
   {
     files: ['**/*.vue'],
     plugins: {
-      '@kong/design-tokens': designTokens,
+      '@kong/eslint-plugin-design-tokens': designTokens,
     },
     rules: {
-      '@kong/design-tokens/token-constant-requires-css-var': 'error',
+      '@kong/eslint-plugin-design-tokens/token-constant-requires-css-var': 'error',
     },
   },
 ]
