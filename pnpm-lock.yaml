@@ -82,8 +82,8 @@ importers:
         specifier: 1.7.0
         version: 1.7.0(@typescript-eslint/parser@8.61.1(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)
       '@kong/stylelint-plugin-design-tokens':
-        specifier: 0.1.0
-        version: 0.1.0(stylelint@16.26.1(typescript@5.9.3))
+        specifier: 1.0.1
+        version: 1.0.1(stylelint@16.26.1(typescript@5.9.3))
       '@nuxt/kit':
         specifier: ^4.4.7
         version: 4.4.8(magicast@0.5.3)
@@ -1542,8 +1542,8 @@ packages:
     peerDependencies:
       vue: '>= 3.3.4 < 4'
 
-  '@kong/stylelint-plugin-design-tokens@0.1.0':
-    resolution: {integrity: sha512-OmCY8mc/z3mxvkfHWCluzWQjIsF+mp/j1qp74UNlRzVoaGPBvouJtLJHvIi9PODQ0Hi8hwZKHBDieGoIMFmQBg==}
+  '@kong/stylelint-plugin-design-tokens@1.0.1':
+    resolution: {integrity: sha512-OSyqM8VdcxBcETv8sQsBoUTstbwaFmuPmXI/m4E2Mtbvh5S2i9VGnbC6LJToZUudaE3ndLk8PLlQZA7j29a2sQ==}
     engines: {node: '>=20.19.5', pnpm: '>=10.28.2'}
     peerDependencies:
       stylelint: '>=14.0.0'
@@ -8748,7 +8748,7 @@ snapshots:
     dependencies:
       vue: 3.5.29(typescript@5.9.3)
 
-  '@kong/stylelint-plugin-design-tokens@0.1.0(stylelint@16.26.1(typescript@5.9.3))':
+  '@kong/stylelint-plugin-design-tokens@1.0.1(stylelint@16.26.1(typescript@5.9.3))':
     dependencies:
       stylelint: 16.26.1(typescript@5.9.3)
 
