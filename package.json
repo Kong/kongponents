@@ -204,33 +204,5 @@
       "jiraPrepend": "[",
       "jiraAppend": "]"
     }
-  },
-  "pnpm": {
-    "auditConfig": {
-      "ignoreGhsas": [
-        "GHSA-p9ff-h696-f583",
-        "GHSA-v2wj-q39q-566r"
-      ]
-    },
-    "overrides": {
-      "rollup": "npm:@rollup/wasm-node",
-      "axios@>=1.0.0 <1.12.0": ">=1.16.0",
-      "lodash@>=4.0.0 <=4.17.22": ">=4.18.1",
-      "devalue@<=5.6.3": ">=5.8.1",
-      "esbuild": ">=0.28.1",
-      "vite": ">=6.4.3",
-      "qs@>=6.11.1 <=6.15.1": "6.15.2",
-      "tmp": ">=0.2.7",
-      "shell-quote@>=1.1.0 <=1.8.3": ">=1.8.4",
-      "ws@>=8.0.0 <8.21.0": ">=8.21.0",
-      "form-data@>=4.0.0 <4.0.6": ">=4.0.6"
-    },
-    "onlyBuiltDependencies": [
-      "@evilmartians/lefthook",
-      "@parcel/watcher",
-      "cypress",
-      "esbuild",
-      "vue-demi"
-    ]
   }
 }
