@@ -207,13 +207,8 @@ const onClear = () => {
 <style lang="scss" scoped>
 @use "sass:color";
 // `var()` can't be used inside `rgba()` unless you pull out the individual colors.
-/* stylelint-disable-next-line @kong/design-tokens/token-var-usage */
-$shadowFocusNarrow: 0 0 0 2px rgba(
-  var(--kui-color-background-primary,
-  #{color.channel($kui-color-background-primary, "red", $space: rgb)},
-  #{color.channel($kui-color-background-primary, "green", $space: rgb)},
-  #{color.channel($kui-color-background-primary, "blue", $space: rgb)},
-), 0.2);
+/* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/token-var-usage */
+$shadowFocusNarrow: 0 0 0 2px color-mix(in srgb, var(--kui-color-background-primary, $kui-color-background-primary) 20%, transparent);
 
 .interactive-pill-tooltip :deep(.popover-container) {
   /* KTooltip doesn't automatically break-word. This prevents long words from breaking out of the tooltip */

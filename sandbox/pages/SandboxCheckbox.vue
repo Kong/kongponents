@@ -266,21 +266,21 @@ watch(indeterminateValues, () => {
 <style lang="scss" scoped>
 .kcheckbox-sandbox {
   .standalone-container {
-    margin-bottom: $kui-space-90;
+    margin-bottom: var(--kui-space-90, $kui-space-90);
   }
 
   .vertical-spacing {
     display: flex;
     flex-direction: column;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .grid-container {
     display: grid;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
     grid-template-columns: repeat(2, 1fr);
-    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-    max-width: $kui-breakpoint-tablet;
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+    max-width: var(--kui-breakpoint-tablet, $kui-breakpoint-tablet);
   }
 }
 </style>

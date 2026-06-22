@@ -20,8 +20,7 @@
   .table-toolbar {
     display: flex;
     gap: var(--kui-space-50, $kui-space-50);
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0)
-      var(--kui-space-20, $kui-space-20); // prevents focus outline in toolbar elements from being cut off
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20); // prevents focus outline in toolbar elements from being cut off
     width: 100%;
 
     .toolbar-default-items-container {
@@ -74,8 +73,7 @@
         }
 
         thead {
-          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-            var(--kui-color-border, $kui-color-border);
+          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
           height: 44px;
           position: sticky;
           top: 0;
@@ -105,13 +103,10 @@
 
             &.is-scrolled {
               &::after {
-                border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-                  var(--kui-color-border, $kui-color-border);
+                border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
                 box-shadow: var(--kui-shadow, $kui-shadow);
-                /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-                height: calc(
-                  100% - var(--kui-border-width-10, $kui-border-width-10)
-                ); // removes the tiny gap between the bottom border and the ::after layer
+                /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+                height: calc(100% - var(--kui-border-width-10, $kui-border-width-10)); // removes the tiny gap between the bottom border and the ::after layer
                 opacity: 1;
                 transition: opacity $kongponentsTransitionDurTimingFunc;
               }
@@ -211,8 +206,7 @@
 
               &.resize-hover {
                 // creates a 2px "border" on the right - can't use border property because it will "jump"
-                box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
-                  var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
+                box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset;
               }
             }
           }
@@ -223,8 +217,7 @@
             height: 48px;
 
             &:not(:last-child) {
-              border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-                var(--kui-color-border, $kui-color-border);
+              border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
             }
 
             td {
@@ -236,8 +229,7 @@
 
               &.resize-hover {
                 // creates a 2px "border" on the right - can't use the border because it will "jump"
-                box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
-                  var(--kui-color-border, $kui-color-border) inset;
+                box-shadow: calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset;
               }
 
               .actions-dropdown {
@@ -321,8 +313,7 @@
               height: auto;
 
               > td {
-                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
-                  var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0) var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
                 white-space: normal;
 
                 &:has(.k-table-view) {

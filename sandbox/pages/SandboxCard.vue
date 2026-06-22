@@ -110,18 +110,18 @@ import { KUI_COLOR_TEXT_SUCCESS, KUI_ICON_SIZE_40 } from '@kong/design-tokens'
   .horizontal-spacing {
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .limit-width {
-    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-    max-width: $kui-breakpoint-mobile;
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+    max-width: var(--kui-breakpoint-mobile, $kui-breakpoint-mobile);
   }
 
   .footer-content {
-    color: $kui-color-text-success;
+    color: var(--kui-color-text-success, $kui-color-text-success);
     display: flex;
-    gap: $kui-space-30;
+    gap: var(--kui-space-30, $kui-space-30);
   }
 }
 </style>
