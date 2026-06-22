@@ -45,5 +45,6 @@
     "**/.git",
     "**/bower_components"
   ],
-  "eslint.useFlatConfig": true
+  "eslint.useFlatConfig": true,
+  "scssFormatter.printWidth": 220
 }
