@@ -108,7 +108,7 @@
                 border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
                   var(--kui-color-border, $kui-color-border);
                 box-shadow: var(--kui-shadow, $kui-shadow);
-                /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+                /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
                 height: calc(
                   100% - var(--kui-border-width-10, $kui-border-width-10)
                 ); // removes the tiny gap between the bottom border and the ::after layer
@@ -344,14 +344,14 @@
 
                   /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
                   :deep(.k-table-view) {
-                    background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+                    background-color: var(--kui-color-background-neutral-weakest, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
 
                     .table-wrapper {
                       max-height: $expandedRowMaxHeight;
                     }
 
                     tr.is-scrolled {
-                      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+                      background-color: var(--kui-color-background-neutral-weakest, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
                     }
 
                     th,
@@ -376,7 +376,7 @@
                     }
 
                     .k-empty-state {
-                      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+                      background-color: var(--kui-color-background-neutral-weakest, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
                     }
                   }
                 }

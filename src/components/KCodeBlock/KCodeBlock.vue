@@ -803,10 +803,10 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
         left: calc(var(--kui-space-40, $kui-space-40) * -1);
         position: absolute;
-        /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
+        /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
         right: calc(var(--kui-space-40, $kui-space-40) * -1);
         top: 0;
         user-select: none;

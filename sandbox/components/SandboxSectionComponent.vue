@@ -46,54 +46,54 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
 <style lang="scss" scoped>
 .sandbox-section {
   &:not(:last-of-type) {
-    margin-bottom: $kui-space-90;
+    margin-bottom: var(--kui-space-90, $kui-space-90);
   }
 
   .section-header {
-    margin-bottom: $kui-space-70;
+    margin-bottom: var(--kui-space-70, $kui-space-70);
 
     .section-title {
-      color: $kui-color-text;
-      margin: $kui-space-0;
-      margin-left: $kui-space-50;
+      color: var(--kui-color-text, $kui-color-text);
+      margin: var(--kui-space-0, $kui-space-0);
+      margin-left: var(--kui-space-50, $kui-space-50);
       position: relative;
 
       & + .section-description {
-        margin-top: $kui-space-50;
+        margin-top: var(--kui-space-50, $kui-space-50);
       }
 
       &::before {
         bottom: 2px;
-        color: $kui-color-text-neutral;
+        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
         content: '#';
-        font-size: $kui-font-size-20;
+        font-size: var(--kui-font-size-20, $kui-font-size-20);
         left: -12px;
         position: absolute;
       }
     }
 
     .section-description {
-      color: $kui-color-text;
-      font-size: $kui-font-size-40;
-      line-height: $kui-line-height-40;
-      margin: $kui-space-0;
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      max-width: $kui-breakpoint-mobile;
+      color: var(--kui-color-text, $kui-color-text);
+      font-size: var(--kui-font-size-40, $kui-font-size-40);
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
+      margin: var(--kui-space-0, $kui-space-0);
+      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+      max-width: var(--kui-breakpoint-mobile, $kui-breakpoint-mobile);
     }
   }
 
   .section-content {
     :deep(> *:not(:last-of-type)) {
-      margin-bottom: $kui-space-70;
+      margin-bottom: var(--kui-space-70, $kui-space-70);
     }
 
     :slotted(> p) {
-      font-size: $kui-font-size-40;
-      line-height: $kui-line-height-40;
+      font-size: var(--kui-font-size-40, $kui-font-size-40);
+      line-height: var(--kui-line-height-40, $kui-line-height-40);
       margin: 0;
-      margin-bottom: $kui-space-50;
-      /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      max-width: $kui-breakpoint-mobile;
+      margin-bottom: var(--kui-space-50, $kui-space-50);
+      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+      max-width: var(--kui-breakpoint-mobile, $kui-breakpoint-mobile);
     }
   }
 }

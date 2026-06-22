@@ -45,25 +45,25 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
 
 <style lang="scss" scoped>
 .sandbox-title {
-  margin-bottom: $kui-space-70;
+  margin-bottom: var(--kui-space-70, $kui-space-70);
 
   .title {
-    margin: $kui-space-0;
+    margin: var(--kui-space-0, $kui-space-0);
 
     & + .description {
-      margin-top: $kui-space-50;
+      margin-top: var(--kui-space-50, $kui-space-50);
     }
 
     &.subtitle {
-      margin-left: $kui-space-50;
-      margin-top: $kui-space-50;
+      margin-left: var(--kui-space-50, $kui-space-50);
+      margin-top: var(--kui-space-50, $kui-space-50);
       position: relative;
 
       &::before {
         bottom: 2px;
-        color: $kui-color-text-primary;
+        color: var(--kui-color-text-primary, $kui-color-text-primary);
         content: '#';
-        font-size: $kui-font-size-30;
+        font-size: var(--kui-font-size-30, $kui-font-size-30);
         left: -12px;
         position: absolute;
       }
@@ -71,12 +71,12 @@ const hasDescription = computed((): boolean => !!(props.description || slots.des
   }
 
   .description {
-    color: $kui-color-text;
-    font-size: $kui-font-size-40;
-    line-height: $kui-line-height-40;
-    margin: $kui-space-0;
-    /* stylelint-disable-next-line @kong/design-tokens/use-proper-token */
-      max-width: $kui-breakpoint-mobile;
+    color: var(--kui-color-text, $kui-color-text);
+    font-size: var(--kui-font-size-40, $kui-font-size-40);
+    line-height: var(--kui-line-height-40, $kui-line-height-40);
+    margin: var(--kui-space-0, $kui-space-0);
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+    max-width: var(--kui-breakpoint-mobile, $kui-breakpoint-mobile);
   }
 }
 </style>
