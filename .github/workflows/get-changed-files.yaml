@@ -70,5 +70,5 @@ jobs:
         with:
           files: |
             package.json
-            pnpm-worspace.yaml
+            pnpm-workspace.yaml
             pnpm-lock.yaml
