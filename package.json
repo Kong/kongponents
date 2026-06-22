@@ -88,7 +88,7 @@
     "@evilmartians/lefthook": "^2.1.2",
     "@kong-ui-public/sandbox-layout": "^2.3.26",
     "@kong/design-tokens": "2.0.0",
-    "@kong/eslint-config-kong-ui": "1.7.0",
+    "@kong/eslint-config-kong-ui": "1.7.1",
     "@kong/stylelint-plugin-design-tokens": "1.0.1",
     "@nuxt/kit": "^4.4.7",
     "@semantic-release/changelog": "^6.0.3",
