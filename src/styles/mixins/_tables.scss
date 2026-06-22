@@ -20,8 +20,7 @@
   .table-toolbar {
     display: flex;
     gap: var(--kui-space-50, $kui-space-50);
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0)
-      var(--kui-space-20, $kui-space-20); // prevents focus outline in toolbar elements from being cut off
+    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0) var(--kui-space-20, $kui-space-20); // prevents focus outline in toolbar elements from being cut off
     width: 100%;
 
     .toolbar-default-items-container {
@@ -53,20 +52,14 @@
           white-space: nowrap;
 
           &.sticky-column {
-            background-color: var(
-              --kui-table-sticky-color-background,
-              var(--kui-color-background, $kui-color-background)
-            );
+            background-color: var(--kui-table-sticky-color-background, var(--kui-color-background, $kui-color-background));
             left: 0;
             position: sticky !important;
             z-index: 1;
           }
 
           &.actions-column {
-            background-color: var(
-              --kui-table-sticky-color-background,
-              var(--kui-color-background, $kui-color-background)
-            );
+            background-color: var(--kui-table-sticky-color-background, var(--kui-color-background, $kui-color-background));
             overflow: visible;
             position: sticky !important;
             right: 0;
@@ -80,8 +73,7 @@
         }
 
         thead {
-          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-            var(--kui-table-header-color-border, var(--kui-color-border, $kui-color-border));
+          border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
           height: 44px;
           position: sticky;
           top: 0;
@@ -111,13 +103,10 @@
 
             &.is-scrolled {
               &::after {
-                border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-                  var(--kui-table-header-color-border, var(--kui-color-border, $kui-color-border));
+                border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-table-header-color-border, var(--kui-color-border, $kui-color-border));
                 box-shadow: var(--kui-table-header-shadow-scrolled, var(--kui-shadow, $kui-shadow));
                 /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
-                height: calc(
-                  100% - var(--kui-border-width-10, $kui-border-width-10)
-                ); // removes the tiny gap between the bottom border and the ::after layer
+                height: calc(100% - var(--kui-border-width-10, $kui-border-width-10)); // removes the tiny gap between the bottom border and the ::after layer
                 opacity: 1;
                 transition: opacity $kongponentsTransitionDurTimingFunc;
               }
@@ -126,10 +115,7 @@
             th {
               color: var(--kui-table-header-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
               font-size: var(--kui-table-header-font-size, var(--kui-font-size-30, $kui-font-size-30));
-              font-weight: var(
-                --kui-table-header-font-weight,
-                var(--kui-font-weight-semibold, $kui-font-weight-semibold)
-              );
+              font-weight: var(--kui-table-header-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
               line-height: var(--kui-table-header-line-height, var(--kui-line-height-30, $kui-line-height-30));
               padding: var(--kui-table-header-padding, $tableThPaddingY var(--kui-space-60, $kui-space-60));
               text-align: left;
@@ -166,10 +152,7 @@
               }
 
               &.active-sort {
-                color: var(
-                  --kui-table-header-color-text-active-sort,
-                  var(--kui-color-text-primary, $kui-color-text-primary)
-                );
+                color: var(--kui-table-header-color-text-active-sort, var(--kui-color-text-primary, $kui-color-text-primary));
               }
 
               .sr-only {
@@ -225,8 +208,7 @@
                 // creates a 2px "border" on the right - can't use border property because it will "jump"
                 box-shadow: var(
                   --kui-table-header-shadow-resize-hover,
-                  calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
-                  var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset
+                  calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple) inset
                 );
               }
             }
@@ -238,8 +220,7 @@
             height: 48px;
 
             &:not(:last-child) {
-              border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid
-                var(--kui-table-row-color-border, var(--kui-color-border, $kui-color-border));
+              border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-table-row-color-border, var(--kui-color-border, $kui-color-border));
             }
 
             td {
@@ -251,11 +232,7 @@
 
               &.resize-hover {
                 // creates a 2px "border" on the right - can't use the border because it will "jump"
-                box-shadow: var(
-                  --kui-table-cell-shadow-resize-hover,
-                  calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0
-                  var(--kui-color-border, $kui-color-border) inset
-                );
+                box-shadow: var(--kui-table-cell-shadow-resize-hover, calc(-1 * var(--kui-border-width-20, $kui-border-width-20)) 0 0 0 var(--kui-color-border, $kui-color-border) inset);
               }
 
               .actions-dropdown {
@@ -335,15 +312,11 @@
             }
 
             &.expandable-content-row {
-              background-color: var(
-                --kui-table-row-color-background-expanded,
-                var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)
-              );
+              background-color: var(--kui-table-row-color-background-expanded, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
               height: auto;
 
               > td {
-                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0)
-                  var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
+                padding: var(--kui-space-50, $kui-space-50) var(--kui-space-0, $kui-space-0) var(--kui-space-50, $kui-space-50) var(--kui-space-60, $kui-space-60);
                 white-space: normal;
 
                 &:has(.k-table-view) {
@@ -365,20 +338,14 @@
 
                   /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
                   :deep(.k-table-view) {
-                    background-color: var(
-                      --kui-table-row-color-background-expanded,
-                      var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)
-                    );
+                    background-color: var(--kui-table-row-color-background-expanded, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
 
                     .table-wrapper {
                       max-height: $expandedRowMaxHeight;
                     }
 
                     tr.is-scrolled {
-                      background-color: var(
-                        --kui-table-row-color-background-expanded,
-                        var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)
-                      );
+                      background-color: var(--kui-table-row-color-background-expanded, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
                     }
 
                     th,
@@ -403,10 +370,7 @@
                     }
 
                     .k-empty-state {
-                      background-color: var(
-                        --kui-table-row-color-background-expanded,
-                        var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)
-                      );
+                      background-color: var(--kui-table-row-color-background-expanded, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
                     }
                   }
                 }
@@ -418,17 +382,11 @@
         // Variants
         &.has-hover {
           tbody tr:not(.expandable-content-row):hover {
-            background-color: var(
-              --kui-table-row-color-background-hover,
-              var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)
-            );
+            background-color: var(--kui-table-row-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
 
             .sticky-column,
             .actions-column {
-              background-color: var(
-                --kui-table-row-color-background-hover,
-                var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest)
-              );
+              background-color: var(--kui-table-row-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
             }
           }
         }

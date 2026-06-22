@@ -1,6 +1,5 @@
 import eslintKongUiConfig from '@kong/eslint-config-kong-ui'
 import eslintKongUiConfigCypress from '@kong/eslint-config-kong-ui/cypress'
-import designTokens from '@kong/eslint-plugin-design-tokens'
 
 export default [
   ...eslintKongUiConfig,
@@ -23,15 +22,6 @@ export default [
   {
     rules: {
       'cypress/unsafe-to-chain-command': 'off',
-    },
-  },
-  {
-    files: ['**/*.vue'],
-    plugins: {
-      '@kong/design-tokens': designTokens,
-    },
-    rules: {
-      '@kong/design-tokens/token-constant-requires-css-var': 'error',
     },
   },
 ]

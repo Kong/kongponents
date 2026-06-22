@@ -1,3 +1,17 @@
+## [9.60.2](https://github.com/Kong/kongponents/compare/v9.60.1...v9.60.2) (2026-06-22)
+
+
+### Bug Fixes
+
+* stylelint and eslint updates ([#3239](https://github.com/Kong/kongponents/issues/3239)) ([4f44a0f](https://github.com/Kong/kongponents/commit/4f44a0fb5a9e97628b6eede4765f375ccbdc6764))
+
+## [9.60.1](https://github.com/Kong/kongponents/compare/v9.60.0...v9.60.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* **pnpm:** workspace file and undici override ([#3240](https://github.com/Kong/kongponents/issues/3240)) ([f042d35](https://github.com/Kong/kongponents/commit/f042d35f91bb9eedf3d94c1fe511ccbc6c317126))
+
 # [9.60.0](https://github.com/Kong/kongponents/compare/v9.59.0...v9.60.0) (2026-06-17)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.60.0",
+  "version": "9.60.2",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -90,10 +90,9 @@
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^2.1.2",
     "@kong-ui-public/sandbox-layout": "^2.3.26",
-    "@kong/design-tokens": "1.23.1-pr.666.a262c18.0",
-    "@kong/eslint-config-kong-ui": "1.6.1",
-    "@kong/eslint-plugin-design-tokens": "0.0.2-pr.666.9dfbba3.0",
-    "@kong/stylelint-plugin-design-tokens": "0.0.2-pr.666.9dfbba3.0",
+    "@kong/design-tokens": "2.0.0",
+    "@kong/eslint-config-kong-ui": "1.7.1",
+    "@kong/stylelint-plugin-design-tokens": "1.0.1",
     "@nuxt/kit": "^4.4.7",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -211,33 +210,5 @@
       "jiraPrepend": "[",
       "jiraAppend": "]"
     }
-  },
-  "pnpm": {
-    "auditConfig": {
-      "ignoreGhsas": [
-        "GHSA-p9ff-h696-f583",
-        "GHSA-v2wj-q39q-566r"
-      ]
-    },
-    "overrides": {
-      "rollup": "npm:@rollup/wasm-node",
-      "axios@>=1.0.0 <1.12.0": ">=1.16.0",
-      "lodash@>=4.0.0 <=4.17.22": ">=4.18.1",
-      "devalue@<=5.6.3": ">=5.8.1",
-      "esbuild": ">=0.28.1",
-      "vite": ">=6.4.3",
-      "qs@>=6.11.1 <=6.15.1": "6.15.2",
-      "tmp": ">=0.2.7",
-      "shell-quote@>=1.1.0 <=1.8.3": ">=1.8.4",
-      "ws@>=8.0.0 <8.21.0": ">=8.21.0",
-      "form-data@>=4.0.0 <4.0.6": ">=4.0.6"
-    },
-    "onlyBuiltDependencies": [
-      "@evilmartians/lefthook",
-      "@parcel/watcher",
-      "cypress",
-      "esbuild",
-      "vue-demi"
-    ]
   }
 }
