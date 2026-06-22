@@ -1,3 +1,10 @@
+## [9.60.1](https://github.com/Kong/kongponents/compare/v9.60.0...v9.60.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* **pnpm:** workspace file and undici override ([#3240](https://github.com/Kong/kongponents/issues/3240)) ([f042d35](https://github.com/Kong/kongponents/commit/f042d35f91bb9eedf3d94c1fe511ccbc6c317126))
+
 # [9.60.0](https://github.com/Kong/kongponents/compare/v9.59.0...v9.60.0) (2026-06-17)
 
 
