@@ -70,4 +70,5 @@ jobs:
         with:
           files: |
             package.json
+            pnpm-worspace.yaml
             pnpm-lock.yaml
