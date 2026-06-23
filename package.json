@@ -139,9 +139,6 @@
     "vue-router": "^5.1.0",
     "vue-tsc": "^3.3.5"
   },
-  "resolutions": {
-    "rollup": "npm:@rollup/wasm-node"
-  },
   "author": {
     "name": "Kong Inc.",
     "url": "https://konghq.com/"
