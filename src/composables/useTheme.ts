@@ -52,7 +52,7 @@ let fallbackController: UseThemeReturn | undefined
  * @example
  * ```ts
  * const { theme, setTheme } = useTheme()
- * setTheme(darkTheme) // switch the app to dark
+ * setTheme(konnectNight) // switch the app to dark
  * ```
  */
 export const useTheme = (): UseThemeReturn => {
