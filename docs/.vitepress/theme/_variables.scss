@@ -19,7 +19,7 @@
   --vp-home-hero-name-background: linear-gradient(120deg, #169fcc, #42d782);
 
   // Surface, text, and font — bridge Kongponents tokens so theme switcher affects the docs UI.
-  // SCSS fallbacks ensure Classic (no active theme) still has correct values, since
+  // SCSS fallbacks ensure Classic Day still has correct values, since
   // --kui-* CSS custom properties are not loaded at runtime without an active theme.
   --vp-c-bg: var(--kui-color-background, #{$kui-color-background});
   --vp-c-bg-elv: var(--kui-color-background, #{$kui-color-background});
