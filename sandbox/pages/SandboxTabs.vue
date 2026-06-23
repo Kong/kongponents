@@ -138,6 +138,37 @@
             Tab 3 content
           </template>
         </KTabs>
+
+        <KTabs
+          appearance="minimal"
+          :tabs="items"
+        >
+          <template #tab1-anchor>
+            <KongIcon />
+            Kong
+          </template>
+          <template #tab2-anchor>
+            Updates
+            <KBadge appearance="decorative">
+              3
+            </KBadge>
+          </template>
+          <template #disabled-anchor>
+            <KTooltip text="This tab item is disabled.">
+              <div>Disabled</div>
+            </KTooltip>
+          </template>
+
+          <template #tab1>
+            Tab 1 content
+          </template>
+          <template #tab2>
+            Tab 2 content
+          </template>
+          <template #tab3>
+            Tab 3 content
+          </template>
+        </KTabs>
       </SandboxSectionComponent>
 
       <!-- Usage -->
