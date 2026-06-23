@@ -1,3 +1,10 @@
+## [9.60.3](https://github.com/Kong/kongponents/compare/v9.60.2...v9.60.3) (2026-06-23)
+
+
+### Bug Fixes
+
+* **ktabs:** minor styling fix ([#3244](https://github.com/Kong/kongponents/issues/3244)) ([9b66071](https://github.com/Kong/kongponents/commit/9b6607104bb434046b4ba3f6eb6054f69dd84ff7))
+
 ## [9.60.2](https://github.com/Kong/kongponents/compare/v9.60.1...v9.60.2) (2026-06-22)
 
 
