@@ -222,6 +222,7 @@ watch(() => modelValue, (newTabHash) => {
 
   &.minimal {
     ul {
+      align-items: center;
       gap: var(--kui-space-70, $kui-space-70);
       margin-bottom: var(--kui-space-40, $kui-space-40);
       padding-top: var(--kui-space-30, $kui-space-30);
