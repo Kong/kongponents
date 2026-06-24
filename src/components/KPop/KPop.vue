@@ -452,6 +452,7 @@ $kPopCaretOffset: 16px;
       font-size: var(--kui-pop-font-size, var(--kui-font-size-20, $kui-font-size-20));
       font-weight: var(--kui-pop-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
       line-height: var(--kui-pop-line-height, var(--kui-line-height-20, $kui-line-height-20));
+      scrollbar-width: thin;
 
       &.close-icon-spacing {
         margin-right: var(--kui-space-60, $kui-space-60);
