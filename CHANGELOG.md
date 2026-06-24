@@ -1,3 +1,17 @@
+## [9.60.4](https://github.com/Kong/kongponents/compare/v9.60.3...v9.60.4) (2026-06-24)
+
+
+### Bug Fixes
+
+* **deps:** bump lodash-es, nanoid ([#3253](https://github.com/Kong/kongponents/issues/3253)) ([55b2b51](https://github.com/Kong/kongponents/commit/55b2b5184687578a2e8d14040cd67ef23fe7ceb5))
+
+## [9.60.3](https://github.com/Kong/kongponents/compare/v9.60.2...v9.60.3) (2026-06-23)
+
+
+### Bug Fixes
+
+* **ktabs:** minor styling fix ([#3244](https://github.com/Kong/kongponents/issues/3244)) ([9b66071](https://github.com/Kong/kongponents/commit/9b6607104bb434046b4ba3f6eb6054f69dd84ff7))
+
 ## [9.60.2](https://github.com/Kong/kongponents/compare/v9.60.1...v9.60.2) (2026-06-22)
 
 
