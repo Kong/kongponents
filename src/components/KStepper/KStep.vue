@@ -83,6 +83,7 @@ $kStepDividerSpacing: var(--kui-space-60, $kui-space-60);
     gap: var(--kui-space-40, $kui-space-40);
     margin: auto;
     position: relative;
+    z-index: 0;
 
     .step-circle {
       align-items: center;
