@@ -137,14 +137,14 @@ const getEmptyStateIcon = computed((): EmptyStateIcon => {
 
 const getIconColor = computed((): string => {
   if (iconBackground) {
-    return KUI_COLOR_TEXT_DECORATIVE_AQUA
+    return `var(--kui-color-text-decorative-aqua, ${KUI_COLOR_TEXT_DECORATIVE_AQUA})`
   }
 
   switch (iconVariant) {
     case EmptyStateIconVariants.Error:
-      return KUI_COLOR_TEXT_WARNING
+      return `var(--kui-color-text-warning, ${KUI_COLOR_TEXT_WARNING})`
     default:
-      return KUI_COLOR_TEXT_NEUTRAL
+      return `var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`
   }
 })
 

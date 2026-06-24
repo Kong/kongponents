@@ -657,7 +657,7 @@ async function handleCopyCode(event: Event): Promise<void> {
   }
 }
 
-const getIconColor = computed(() => theme === 'light' ? KUI_COLOR_TEXT_NEUTRAL_STRONG : KUI_COLOR_TEXT_INVERSE)
+const getIconColor = computed(() => theme === 'light' ? `var(--kui-color-text-neutral-strong, ${KUI_COLOR_TEXT_NEUTRAL_STRONG})` : `var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`)
 
 type VirtualizerProps = InstanceType<typeof Virtualizer>['$props']
 
