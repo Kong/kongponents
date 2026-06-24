@@ -1,6 +1,0 @@
-- generic [active] [ref=e1]:
-  - button "Brand C ▲" [ref=e5] [cursor=pointer]:
-    - generic [ref=e7]: Brand C
-    - generic [ref=e8]: ▲
-  - generic "Toggle devtools panel" [ref=e10] [cursor=pointer]:
-    - img [ref=e11]

@@ -1,9 +1,0 @@
-- generic [active] [ref=e1]:
-  - button "Default ▲" [ref=e5] [cursor=pointer]:
-    - generic [ref=e7]: Default
-    - generic [ref=e8]: ▲
-  - generic [ref=e9]:
-    - generic "Toggle devtools panel" [ref=e10] [cursor=pointer]:
-      - img [ref=e11]
-    - generic "Toggle Component Inspector" [ref=e16] [cursor=pointer]:
-      - img [ref=e17]
