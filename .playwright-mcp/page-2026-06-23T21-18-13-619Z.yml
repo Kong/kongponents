@@ -1,0 +1,182 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - navigation [ref=e6]:
+        - list [ref=e7]:
+          - listitem [ref=e8]:
+            - link "Theming" [ref=e9] [cursor=pointer]:
+              - /url: "#/theming"
+          - listitem [ref=e10]:
+            - link "KAlert" [ref=e11] [cursor=pointer]:
+              - /url: "#/alert"
+          - listitem [ref=e12]:
+            - link "KBadge" [ref=e13] [cursor=pointer]:
+              - /url: "#/badge"
+          - listitem [ref=e14]:
+            - link "KButton" [ref=e15] [cursor=pointer]:
+              - /url: "#/button"
+          - listitem [ref=e16]:
+            - link "KBreadcrumbs" [ref=e17] [cursor=pointer]:
+              - /url: "#/breadcrumbs"
+          - listitem [ref=e18]:
+            - link "KCard" [ref=e19] [cursor=pointer]:
+              - /url: "#/card"
+          - listitem [ref=e20]:
+            - link "KCatalog" [ref=e21] [cursor=pointer]:
+              - /url: "#/catalog"
+          - listitem [ref=e22]:
+            - link "KCheckbox" [ref=e23] [cursor=pointer]:
+              - /url: "#/checkbox"
+          - listitem [ref=e24]:
+            - link "KCodeBlock" [ref=e25] [cursor=pointer]:
+              - /url: "#/codeblock"
+          - listitem [ref=e26]:
+            - link "KCollapse" [ref=e27] [cursor=pointer]:
+              - /url: "#/collapse"
+          - listitem [ref=e28]:
+            - link "KCopy" [ref=e29] [cursor=pointer]:
+              - /url: "#/copy"
+          - listitem [ref=e30]:
+            - link "KDateTimePicker" [ref=e31] [cursor=pointer]:
+              - /url: "#/datetimepicker"
+          - listitem [ref=e32]:
+            - link "KDropdown" [ref=e33] [cursor=pointer]:
+              - /url: "#/dropdown"
+          - listitem [ref=e34]:
+            - link "KEmptyState" [ref=e35] [cursor=pointer]:
+              - /url: "#/emptystate"
+          - listitem [ref=e36]:
+            - link "KFileUpload" [ref=e37] [cursor=pointer]:
+              - /url: "#/fileupload"
+          - listitem [ref=e38]:
+            - link "KFilterGroup" [ref=e39] [cursor=pointer]:
+              - /url: "#/filtergroup"
+          - listitem [ref=e40]:
+            - link "KInput" [ref=e41] [cursor=pointer]:
+              - /url: "#/input"
+          - listitem [ref=e42]:
+            - link "KInputSwitch" [ref=e43] [cursor=pointer]:
+              - /url: "#/inputswitch"
+          - listitem [ref=e44]:
+            - link "KLabel" [ref=e45] [cursor=pointer]:
+              - /url: "#/label"
+          - listitem [ref=e46]:
+            - link "KModal & KPrompt" [ref=e47] [cursor=pointer]:
+              - /url: "#/modals"
+          - listitem [ref=e48]:
+            - link "KMultiselect" [ref=e49] [cursor=pointer]:
+              - /url: "#/multiselect"
+          - listitem [ref=e50]:
+            - link "KPagination" [ref=e51] [cursor=pointer]:
+              - /url: "#/pagination"
+          - listitem [ref=e52]:
+            - link "KPop" [ref=e53] [cursor=pointer]:
+              - /url: "#/pop"
+          - listitem [ref=e54]:
+            - link "KRadio" [ref=e55] [cursor=pointer]:
+              - /url: "#/radio"
+          - listitem [ref=e56]:
+            - link "KSegmentedControl" [ref=e57] [cursor=pointer]:
+              - /url: "#/segmentedcontrol"
+          - listitem [ref=e58]:
+            - link "KSelect" [ref=e59] [cursor=pointer]:
+              - /url: "#/select"
+          - listitem [ref=e60]:
+            - link "KSkeleton" [ref=e61] [cursor=pointer]:
+              - /url: "#/skeleton"
+          - listitem [ref=e62]:
+            - link "KSlideout" [ref=e63] [cursor=pointer]:
+              - /url: "#/slideout"
+          - listitem [ref=e64]:
+            - link "KSlider" [ref=e65] [cursor=pointer]:
+              - /url: "#/slider"
+          - listitem [ref=e66]:
+            - link "KStepper" [ref=e67] [cursor=pointer]:
+              - /url: "#/stepper"
+          - listitem [ref=e68]:
+            - link "KTableData" [ref=e69] [cursor=pointer]:
+              - /url: "#/table-data"
+          - listitem [ref=e70]:
+            - link "KTableView" [ref=e71] [cursor=pointer]:
+              - /url: "#/table-view"
+          - listitem [ref=e72]:
+            - link "KTabs" [ref=e73] [cursor=pointer]:
+              - /url: "#/tabs"
+          - listitem [ref=e74]:
+            - link "KTextarea" [ref=e75] [cursor=pointer]:
+              - /url: "#/textarea"
+          - listitem [ref=e76]:
+            - link "KToaster" [ref=e77] [cursor=pointer]:
+              - /url: "#/toaster"
+          - listitem [ref=e78]:
+            - link "KTreeList" [ref=e79] [cursor=pointer]:
+              - /url: "#/treelist"
+      - generic [ref=e80]:
+        - heading "KDropdown" [level=1] [ref=e81]
+        - generic [ref=e82]:
+          - heading "# Props" [level=3] [ref=e84]
+          - generic [ref=e85]:
+            - 'heading "# triggerText (replacement for deprecated `label` prop)" [level=4] [ref=e87]'
+            - button "Documentation" [ref=e93] [cursor=pointer]
+          - generic [ref=e94]:
+            - 'heading "# selectionMenu (replacement for `appearance` prop)" [level=4] [ref=e96]'
+            - button "Selection menu" [ref=e102] [cursor=pointer]
+          - generic [ref=e103]:
+            - 'heading "# appearance (replacement for `buttonAppearance` prop)" [level=4] [ref=e105]'
+            - generic [ref=e107]:
+              - button "Primary" [ref=e112] [cursor=pointer]
+              - button "Secondary" [ref=e117] [cursor=pointer]
+              - button "Tertiary" [ref=e122] [cursor=pointer]
+              - button "Danger" [ref=e127] [cursor=pointer]
+          - generic [ref=e128]:
+            - heading "# showCaret" [level=4] [ref=e130]
+            - generic [ref=e132]:
+              - button "Show caret" [ref=e137] [cursor=pointer]:
+                - text: Show caret
+                - generic:
+                  - img
+              - button "Selection menu with caret" [ref=e142] [cursor=pointer]:
+                - text: Selection menu with caret
+                - generic:
+                  - img
+          - generic [ref=e143]:
+            - heading "# disabled" [level=4] [ref=e145]
+            - button "Disabled" [disabled] [ref=e151]
+          - generic [ref=e152]:
+            - heading "# disabledTooltip" [level=4] [ref=e154]
+            - button "Disabled with a tooltip" [disabled] [ref=e161]
+          - generic [ref=e162]:
+            - heading "# kpopAttributes" [level=4] [ref=e164]
+            - button "KPop attributes" [ref=e170] [cursor=pointer]
+          - heading "# Slots" [level=3] [ref=e172]
+          - generic [ref=e173]:
+            - heading "# default" [level=4] [ref=e175]
+            - button "Default slot" [ref=e181] [cursor=pointer]
+          - generic [ref=e182]:
+            - heading "# items" [level=4] [ref=e184]
+            - generic [ref=e185]:
+              - button [ref=e190] [cursor=pointer]:
+                - img [ref=e192]
+              - paragraph [ref=e194]: KDropdownItem takes care of spacing between the elements. However, should you need to implement some custom layout, you can sprinkle a little CSS in there.
+              - button "Slotted content positioning" [ref=e199] [cursor=pointer]
+              - generic [ref=e200]: "<template> <KDropdownItem> Updates <KBadge class=\"dropdown-item-content-end\"> 14 </KBadge> </KDropdownItem> </template> <style lang=\"scss\" scoped> .dropdown-item-content-end { margin-left: $kui-space-auto; } </style>"
+          - heading "# Legacy" [level=3] [ref=e202]
+          - generic [ref=e203]:
+            - 'heading "# Props: label & appearance" [level=4] [ref=e205]'
+            - button "Deprecated props" [ref=e211] [cursor=pointer]
+          - generic [ref=e212]:
+            - generic [ref=e213]:
+              - heading "# KDropdownMenu (deprecated)" [level=4] [ref=e214]
+              - paragraph [ref=e215]: The old KDropdownMenu component that utilizes the KDropdown under the hood still works as expected.
+            - button "KDropdownMenu" [ref=e221] [cursor=pointer]
+          - generic [ref=e222]:
+            - heading "# KDropdownItem isDangerous prop (deprecated)" [level=4] [ref=e224]
+            - button "Deprecated KDropdownItem prop" [ref=e230] [cursor=pointer]
+    - button "Paper ▲" [ref=e234] [cursor=pointer]:
+      - generic [ref=e236]: Paper
+      - generic [ref=e237]: ▲
+  - generic [ref=e238]:
+    - generic "Toggle devtools panel" [ref=e239] [cursor=pointer]:
+      - img [ref=e240]
+    - generic "Toggle Component Inspector" [ref=e245] [cursor=pointer]:
+      - img [ref=e246]

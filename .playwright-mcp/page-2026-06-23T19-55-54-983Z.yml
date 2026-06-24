@@ -1,0 +1,209 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - navigation [ref=e6]:
+        - list [ref=e7]:
+          - listitem [ref=e8]:
+            - link "Theming" [ref=e9] [cursor=pointer]:
+              - /url: "#/theming"
+          - listitem [ref=e10]:
+            - link "KAlert" [ref=e11] [cursor=pointer]:
+              - /url: "#/alert"
+          - listitem [ref=e12]:
+            - link "KBadge" [ref=e13] [cursor=pointer]:
+              - /url: "#/badge"
+          - listitem [ref=e14]:
+            - link "KButton" [ref=e15] [cursor=pointer]:
+              - /url: "#/button"
+          - listitem [ref=e16]:
+            - link "KBreadcrumbs" [ref=e17] [cursor=pointer]:
+              - /url: "#/breadcrumbs"
+          - listitem [ref=e18]:
+            - link "KCard" [ref=e19] [cursor=pointer]:
+              - /url: "#/card"
+          - listitem [ref=e20]:
+            - link "KCatalog" [ref=e21] [cursor=pointer]:
+              - /url: "#/catalog"
+          - listitem [ref=e22]:
+            - link "KCheckbox" [ref=e23] [cursor=pointer]:
+              - /url: "#/checkbox"
+          - listitem [ref=e24]:
+            - link "KCodeBlock" [ref=e25] [cursor=pointer]:
+              - /url: "#/codeblock"
+          - listitem [ref=e26]:
+            - link "KCollapse" [ref=e27] [cursor=pointer]:
+              - /url: "#/collapse"
+          - listitem [ref=e28]:
+            - link "KCopy" [ref=e29] [cursor=pointer]:
+              - /url: "#/copy"
+          - listitem [ref=e30]:
+            - link "KDateTimePicker" [ref=e31] [cursor=pointer]:
+              - /url: "#/datetimepicker"
+          - listitem [ref=e32]:
+            - link "KDropdown" [ref=e33] [cursor=pointer]:
+              - /url: "#/dropdown"
+          - listitem [ref=e34]:
+            - link "KEmptyState" [ref=e35] [cursor=pointer]:
+              - /url: "#/emptystate"
+          - listitem [ref=e36]:
+            - link "KFileUpload" [ref=e37] [cursor=pointer]:
+              - /url: "#/fileupload"
+          - listitem [ref=e38]:
+            - link "KFilterGroup" [ref=e39] [cursor=pointer]:
+              - /url: "#/filtergroup"
+          - listitem [ref=e40]:
+            - link "KInput" [ref=e41] [cursor=pointer]:
+              - /url: "#/input"
+          - listitem [ref=e42]:
+            - link "KInputSwitch" [ref=e43] [cursor=pointer]:
+              - /url: "#/inputswitch"
+          - listitem [ref=e44]:
+            - link "KLabel" [ref=e45] [cursor=pointer]:
+              - /url: "#/label"
+          - listitem [ref=e46]:
+            - link "KModal & KPrompt" [ref=e47] [cursor=pointer]:
+              - /url: "#/modals"
+          - listitem [ref=e48]:
+            - link "KMultiselect" [ref=e49] [cursor=pointer]:
+              - /url: "#/multiselect"
+          - listitem [ref=e50]:
+            - link "KPagination" [ref=e51] [cursor=pointer]:
+              - /url: "#/pagination"
+          - listitem [ref=e52]:
+            - link "KPop" [ref=e53] [cursor=pointer]:
+              - /url: "#/pop"
+          - listitem [ref=e54]:
+            - link "KRadio" [ref=e55] [cursor=pointer]:
+              - /url: "#/radio"
+          - listitem [ref=e56]:
+            - link "KSegmentedControl" [ref=e57] [cursor=pointer]:
+              - /url: "#/segmentedcontrol"
+          - listitem [ref=e58]:
+            - link "KSelect" [ref=e59] [cursor=pointer]:
+              - /url: "#/select"
+          - listitem [ref=e60]:
+            - link "KSkeleton" [ref=e61] [cursor=pointer]:
+              - /url: "#/skeleton"
+          - listitem [ref=e62]:
+            - link "KSlideout" [ref=e63] [cursor=pointer]:
+              - /url: "#/slideout"
+          - listitem [ref=e64]:
+            - link "KSlider" [ref=e65] [cursor=pointer]:
+              - /url: "#/slider"
+          - listitem [ref=e66]:
+            - link "KStepper" [ref=e67] [cursor=pointer]:
+              - /url: "#/stepper"
+          - listitem [ref=e68]:
+            - link "KTableData" [ref=e69] [cursor=pointer]:
+              - /url: "#/table-data"
+          - listitem [ref=e70]:
+            - link "KTableView" [ref=e71] [cursor=pointer]:
+              - /url: "#/table-view"
+          - listitem [ref=e72]:
+            - link "KTabs" [ref=e73] [cursor=pointer]:
+              - /url: "#/tabs"
+          - listitem [ref=e74]:
+            - link "KTextarea" [ref=e75] [cursor=pointer]:
+              - /url: "#/textarea"
+          - listitem [ref=e76]:
+            - link "KToaster" [ref=e77] [cursor=pointer]:
+              - /url: "#/toaster"
+          - listitem [ref=e78]:
+            - link "KTreeList" [ref=e79] [cursor=pointer]:
+              - /url: "#/treelist"
+      - generic [ref=e80]:
+        - heading "Theming" [level=1] [ref=e81]
+        - generic [ref=e82]:
+          - heading "# App-level theme (applied to :root)" [level=3] [ref=e84]
+          - paragraph [ref=e85]:
+            - text: The buttons below call
+            - code [ref=e86]: useTheme().setTheme()
+            - text: ", which writes the theme's"
+            - code [ref=e87]: "--kui-*"
+            - text: tokens to the document root. Notice that
+            - strong [ref=e88]: everything
+            - text: reskins — including the teleported modal and toaster, and the plain (non-Kongponents) box that simply reads
+            - code [ref=e89]: var(--kui-color-text)
+            - text: .
+          - generic [ref=e90]:
+            - heading "# Theme switcher" [level=4] [ref=e92]
+            - generic [ref=e94]:
+              - button "Classic Day" [ref=e95] [cursor=pointer]
+              - button "Classic Night" [ref=e96] [cursor=pointer]
+              - button "Konnect Day" [ref=e97] [cursor=pointer]
+              - button "Konnect Night" [ref=e98] [cursor=pointer]
+              - button "Brand A" [ref=e99] [cursor=pointer]
+              - button "Brand B" [ref=e100] [cursor=pointer]
+              - button "Brand C" [ref=e101] [cursor=pointer]
+          - generic [ref=e102]:
+            - heading "# Kongponents (atoms)" [level=4] [ref=e104]
+            - generic [ref=e105]:
+              - generic [ref=e106]:
+                - button "Primary" [ref=e107] [cursor=pointer]
+                - button "Secondary" [ref=e108] [cursor=pointer]
+                - generic [ref=e111]: Success
+                - textbox "Themed input" [ref=e114]
+              - generic [ref=e115]:
+                - generic [ref=e117]: Themed card
+                - generic [ref=e118]:
+                  - text: This card's surface, text, and border all come from
+                  - code [ref=e119]: "--kui-*"
+                  - text: tokens.
+          - generic [ref=e120]:
+            - heading "# Teleported content (proves :root reach)" [level=4] [ref=e122]
+            - generic [ref=e124]:
+              - button "Open modal" [ref=e125] [cursor=pointer]
+              - button "Show toast" [ref=e126] [cursor=pointer]
+          - generic [ref=e127]:
+            - heading "# Host-app / downstream component (raw token consumer)" [level=4] [ref=e129]
+            - generic [ref=e131]:
+              - text: Plain
+              - code [ref=e132]: <div>
+              - text: using
+              - code [ref=e133]: "color: var(--kui-color-text)"
+              - text: and
+              - code [ref=e134]: "border-color: var(--kui-color-border)"
+              - text: .
+          - heading "# Subtree theme (scoped via KThemeProvider)" [level=3] [ref=e136]
+          - paragraph [ref=e137]:
+            - text: This region is wrapped in
+            - code [ref=e138]: <KThemeProvider :theme="scopedTheme">
+            - text: ", so it shows a different brand than the app theme above — without affecting anything outside it. The scoped theme automatically contrasts the active app theme so the difference is always visible."
+          - generic [ref=e139]:
+            - heading "# Scoped brand region" [level=4] [ref=e141]
+            - generic [ref=e145]:
+              - button "Portal brand" [ref=e146] [cursor=pointer]
+              - generic [ref=e149]: Scoped
+              - textbox "Scoped input" [ref=e152]
+          - heading "# Component-level branding" [level=3] [ref=e154]
+          - paragraph [ref=e155]:
+            - text: Each region below applies a
+            - code [ref=e156]: KThemeProvider
+            - text: that sets a single
+            - strong [ref=e157]: component token
+            - text: — for example
+            - code [ref=e158]: "--kui-button-border-radius-*: 999px"
+            - text: — leaving all other components to inherit their geometry from whichever app-level theme is active. Switch the app theme above to see how the active brand's colors and typography apply everywhere while the targeted component stays pill-shaped regardless.
+          - generic [ref=e159]:
+            - heading "# Component-level token demo" [level=4] [ref=e161]
+            - generic [ref=e163]:
+              - generic [ref=e164]:
+                - paragraph [ref=e165]: Pill buttons — inputs follow the active theme
+                - generic [ref=e168]:
+                  - button "Primary" [ref=e169] [cursor=pointer]
+                  - button "Secondary" [ref=e170] [cursor=pointer]
+                  - textbox "Input (semantic)" [ref=e173]
+              - generic [ref=e174]:
+                - paragraph [ref=e175]: Pill inputs — buttons follow the active theme
+                - generic [ref=e178]:
+                  - button "Primary" [ref=e179] [cursor=pointer]
+                  - button "Secondary" [ref=e180] [cursor=pointer]
+                  - textbox "Pill input" [ref=e183]
+    - button "Brand C ▲" [ref=e187] [cursor=pointer]:
+      - generic [ref=e189]: Brand C
+      - generic [ref=e190]: ▲
+  - generic [ref=e191]:
+    - generic "Toggle devtools panel" [ref=e192] [cursor=pointer]:
+      - img [ref=e193]
+    - generic "Toggle Component Inspector" [ref=e198] [cursor=pointer]:
+      - img [ref=e199]

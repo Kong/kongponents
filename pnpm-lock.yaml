@@ -20,7 +20,7 @@ overrides:
   shell-quote@>=1.1.0 <=1.8.3: '>=1.8.4'
   tar@<=7.5.15: '>=7.5.16'
   tmp: '>=0.2.7'
-  undici@<7.28.0: '>=7.28.0'
+  undici@>=7.0.0 <7.28.0: '>=7.28.0 <8.0.0'
   vite: '>=6.4.3'
   ws@>=8.0.0 <8.21.0: '>=8.21.0'
 
@@ -6466,9 +6466,13 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici@8.5.0:
-    resolution: {integrity: sha512-xamtWoB1EshgjpmlXd7GGm2VfdDtw1+rD8uhry8pSNW3If6S8E0m2T2+orSKeZXEn/aPJMviCpDBA65WJt8zhg==}
-    engines: {node: '>=22.19.0'}
+  undici@6.27.0:
+    resolution: {integrity: sha512-YmfV3YnEDzXRC5lZ2jWtWWHKGUm1zIt8AhesR1tens+HTNv+YZlN/dp6G727LOvMJ8xjP9Be7Y2Sdr96LDm+pg==}
+    engines: {node: '>=18.17'}
+
+  undici@7.28.0:
+    resolution: {integrity: sha512-cRZYrTDwWznlnRiPjggAGxZXanty6M8RV1ff8Wm4LWXBp7/IG8v5DnOm74DtUBp9OONpK75YlPnIjQqX0dBDtA==}
+    engines: {node: '>=20.18.1'}
 
   unenv@2.0.0-rc.24:
     resolution: {integrity: sha512-i7qRCmY42zmCwnYlh9H2SvLEypEFGye5iRmEMKjcGi7zk9UquigRjFtTLz0TYqr0ZGLZhaMHl/foy1bZR+Cwlw==}
@@ -7074,7 +7078,7 @@ snapshots:
   '@actions/http-client@4.0.1':
     dependencies:
       tunnel: 0.0.6
-      undici: 8.5.0
+      undici: 6.27.0
 
   '@actions/io@3.0.2': {}
 
@@ -8826,7 +8830,7 @@ snapshots:
       p-filter: 4.1.0
       semantic-release: 25.0.5(typescript@5.9.3)
       tinyglobby: 0.2.17
-      undici: 8.5.0
+      undici: 7.28.0
       url-join: 5.0.0
     transitivePeerDependencies:
       - kerberos
@@ -13967,7 +13971,9 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  undici@8.5.0: {}
+  undici@6.27.0: {}
+
+  undici@7.28.0: {}
 
   unenv@2.0.0-rc.24:
     dependencies:

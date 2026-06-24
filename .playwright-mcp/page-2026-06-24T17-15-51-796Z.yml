@@ -1,0 +1,193 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - link "← Back to home" [ref=e6] [cursor=pointer]:
+        - /url: /home
+        - generic [ref=e7]: ←
+        - text: Back to home
+      - generic [ref=e8]:
+        - heading "Kongponents" [level=1] [ref=e9]
+        - heading "Last built on Jun 24, 2026, 11:12 AM MDT" [level=4] [ref=e10]
+      - generic [ref=e11]:
+        - tablist "Tabs" [ref=e12]:
+          - listitem [ref=e13]:
+            - tab "Kongponents & Tokens" [selected] [ref=e14] [cursor=pointer]:
+              - generic [ref=e15]: Kongponents & Tokens
+          - listitem [ref=e16]:
+            - tab "Chart colors NEW" [ref=e17] [cursor=pointer]:
+              - text: Chart colors
+              - generic [ref=e20]: NEW
+          - listitem [ref=e21]:
+            - tab "Themes" [ref=e22] [cursor=pointer]:
+              - generic [ref=e23]: Themes
+        - tabpanel "Kongponents & Tokens"
+        - tabpanel "Chart colors NEW"
+        - tabpanel "Themes"
+    - generic [ref=e24]:
+      - complementary "Documentation files" [ref=e25]:
+        - button "Design tokens NEW" [ref=e27] [cursor=pointer]:
+          - text: Design tokens
+          - generic [ref=e30]: NEW
+        - separator [ref=e31]
+        - generic [ref=e32]:
+          - heading "Components" [level=2] [ref=e33]
+          - list [ref=e34]:
+            - listitem [ref=e35]:
+              - button "Alert" [ref=e36] [cursor=pointer]
+            - listitem [ref=e37]:
+              - button "Badge" [ref=e38] [cursor=pointer]: Badge
+            - listitem [ref=e40]:
+              - button "Breadcrumbs" [ref=e41] [cursor=pointer]
+            - listitem [ref=e42]:
+              - button "Button" [ref=e43] [cursor=pointer]: Button
+            - listitem [ref=e45]:
+              - button "Card" [ref=e46] [cursor=pointer]
+            - listitem [ref=e47]:
+              - button "Catalog" [ref=e48] [cursor=pointer]
+            - listitem [ref=e49]:
+              - button "Checkbox" [ref=e50] [cursor=pointer]: Checkbox
+            - listitem [ref=e52]:
+              - button "Codeblock" [ref=e53] [cursor=pointer]: Codeblock
+            - listitem [ref=e55]:
+              - button "Collapse" [ref=e56] [cursor=pointer]: Collapse
+            - listitem [ref=e58]:
+              - button "Copy" [ref=e59] [cursor=pointer]
+            - listitem [ref=e60]:
+              - button "Datetime Picker" [ref=e61] [cursor=pointer]: Datetime Picker
+            - listitem [ref=e63]:
+              - button "Dropdown" [ref=e64] [cursor=pointer]: Dropdown
+            - listitem [ref=e66]:
+              - button "Empty State" [ref=e67] [cursor=pointer]
+            - listitem [ref=e68]:
+              - button "External Link" [ref=e69] [cursor=pointer]: External Link
+            - listitem [ref=e71]:
+              - button "File Upload" [ref=e72] [cursor=pointer]: File Upload
+            - listitem [ref=e74]:
+              - button "Filter Group" [ref=e75] [cursor=pointer]: Filter Group
+            - listitem [ref=e77]:
+              - button "Input Switch" [ref=e78] [cursor=pointer]: Input Switch
+            - listitem [ref=e80]:
+              - button "Input" [ref=e81] [cursor=pointer]: Input
+            - listitem [ref=e83]:
+              - button "Label" [ref=e84] [cursor=pointer]
+            - listitem [ref=e85]:
+              - button "Modal" [ref=e86] [cursor=pointer]
+            - listitem [ref=e87]:
+              - button "Multiselect" [ref=e88] [cursor=pointer]: Multiselect
+            - listitem [ref=e90]:
+              - button "Pagination" [ref=e91] [cursor=pointer]: Pagination
+            - listitem [ref=e93]:
+              - button "Popover" [ref=e94] [cursor=pointer]
+            - listitem [ref=e95]:
+              - button "Prompt" [ref=e96] [cursor=pointer]
+            - listitem [ref=e97]:
+              - button "Radio" [ref=e98] [cursor=pointer]: Radio
+            - listitem [ref=e100]:
+              - button "Clipboard Provider" [ref=e101] [cursor=pointer]
+            - listitem [ref=e102]:
+              - button "K Component" [ref=e103] [cursor=pointer]
+            - listitem [ref=e104]:
+              - button "Toggle" [ref=e105] [cursor=pointer]
+            - listitem [ref=e106]:
+              - button "Segmented Control" [ref=e107] [cursor=pointer]: Segmented Control
+            - listitem [ref=e109]:
+              - button "Select" [ref=e110] [cursor=pointer]: Select
+            - listitem [ref=e112]:
+              - button "Skeleton" [ref=e113] [cursor=pointer]: Skeleton
+            - listitem [ref=e115]:
+              - button "Slideout" [ref=e116] [cursor=pointer]
+            - listitem [ref=e117]:
+              - button "Slider" [ref=e118] [cursor=pointer]: Slider
+            - listitem [ref=e120]:
+              - button "Stepper" [ref=e121] [cursor=pointer]: Stepper
+            - listitem [ref=e123]:
+              - button "Table Data" [ref=e124] [cursor=pointer]
+            - listitem [ref=e125]:
+              - button "Table View" [ref=e126] [cursor=pointer]: Table View
+            - listitem [ref=e128]:
+              - button "Table" [ref=e129] [cursor=pointer]
+            - listitem [ref=e130]:
+              - button "Tabs" [ref=e131] [cursor=pointer]: Tabs
+            - listitem [ref=e133]:
+              - button "Textarea" [ref=e134] [cursor=pointer]: Textarea
+            - listitem [ref=e136]:
+              - button "Toaster" [ref=e137] [cursor=pointer]
+            - listitem [ref=e138]:
+              - button "Tooltip" [ref=e139] [cursor=pointer]
+            - listitem [ref=e140]:
+              - button "Tree List" [ref=e141] [cursor=pointer]: Tree List
+            - listitem [ref=e143]:
+              - button "Truncate" [ref=e144] [cursor=pointer]: Truncate
+      - generic [ref=e146]:
+        - heading "External Link" [level=1] [ref=e147]
+        - generic [ref=e148]:
+          - generic [ref=e151]:
+            - heading "⭐️ External Link changes" [level=1] [ref=e152]
+            - list [ref=e153]:
+              - listitem [ref=e154]:
+                - text: "Default link text color:"
+                - code [ref=e155]: "--kui-color-text-primary"
+                - text: →
+                - code [ref=e156]: "--kui-color-text-neutral"
+              - listitem [ref=e157]:
+                - text: "Hover link text color:"
+                - code [ref=e158]: "--kui-color-text-primary-strong"
+                - text: →
+                - code [ref=e159]: "--kui-color-text-neutral-strong"
+              - listitem [ref=e160]:
+                - text: "Focus-visible link text color:"
+                - code [ref=e161]: "--kui-color-text-primary-stronger"
+                - text: →
+                - code [ref=e162]: "--kui-color-text-neutral-stronger"
+              - listitem [ref=e163]:
+                - text: "Active link text color:"
+                - code [ref=e164]: "--kui-color-text-primary-strongest"
+                - text: →
+                - code [ref=e165]: "--kui-color-text-neutral-strongest"
+            - heading "NOTE:" [level=2] [ref=e166]
+            - list [ref=e167]:
+              - listitem [ref=e168]: I added a persistent text-decoration underline. This is key becuase these links now use gray. Users need an affordance for clickability.
+          - generic [ref=e171]:
+            - generic [ref=e172]: Variants
+            - generic [ref=e173]:
+              - generic [ref=e174]: Default
+              - link "Kong documentation" [ref=e176] [cursor=pointer]:
+                - /url: https://konghq.com
+                - text: Kong documentation
+                - generic:
+                  - img
+            - generic [ref=e177]:
+              - generic [ref=e178]: Hide icon
+              - link "Kong documentation" [ref=e180] [cursor=pointer]:
+                - /url: https://konghq.com
+            - generic [ref=e181]: In context
+            - generic [ref=e182]:
+              - generic [ref=e183]: Inline in body text
+              - generic [ref=e185]:
+                - text: For more information, see the
+                - link "Kong documentation" [ref=e186] [cursor=pointer]:
+                  - /url: https://konghq.com
+                  - text: Kong documentation
+                  - generic:
+                    - img
+                - text: or contact support.
+            - generic [ref=e187]:
+              - generic [ref=e188]: Small text
+              - link "View changelog" [ref=e191] [cursor=pointer]:
+                - /url: https://konghq.com
+                - text: View changelog
+                - generic:
+                  - img
+            - generic [ref=e192]:
+              - generic [ref=e193]: Large text
+              - link "Read the guide" [ref=e196] [cursor=pointer]:
+                - /url: https://konghq.com
+                - text: Read the guide
+                - generic:
+                  - img
+  - group "Theme" [ref=e197]:
+    - generic [ref=e198]: Theme
+    - generic [ref=e199]:
+      - button "Night v2" [ref=e200] [cursor=pointer]
+      - button "Day" [active] [pressed] [ref=e201] [cursor=pointer]
+      - button "Classic" [ref=e202] [cursor=pointer]
