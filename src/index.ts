@@ -15,9 +15,11 @@ export default {
       app.component(key, components[key])
     }
 
-    // Register an app-level theme controller so `useTheme()` works app-wide and,
-    // when a theme is provided, apply it to the document root so it cascades to
-    // every component (including teleported content) from a single definition.
+    /**
+     * Register an app-level theme controller so `useTheme()` works app-wide and,
+     * when a theme is provided, apply it to the document root so it cascades to
+     * every component (including teleported content) from a single definition.
+     */
     const themeController = createThemeController((theme) => applyTheme(theme), options.theme)
     app.provide(KONGPONENTS_THEME_INJECTION_KEY, themeController)
   },
