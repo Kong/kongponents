@@ -157,7 +157,8 @@ $kBadgeMethodWidth: 85px;
   &.method {
     .badge-content {
       justify-content: center;
-      min-width: $kBadgeMethodWidth !important;
+      // Not utilizing `!important` here because the `min-width` is only applied to method badges
+      min-width: $kBadgeMethodWidth;
       text-align: center;
       text-transform: uppercase;
     }
