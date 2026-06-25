@@ -1,3 +1,10 @@
+## [9.60.5](https://github.com/Kong/kongponents/compare/v9.60.4...v9.60.5) (2026-06-25)
+
+
+### Bug Fixes
+
+* **kbadge:** max-width remove important ([#3266](https://github.com/Kong/kongponents/issues/3266)) ([7159c76](https://github.com/Kong/kongponents/commit/7159c76c7ed24077be03d3c565ba1892df650a11))
+
 ## [9.60.4](https://github.com/Kong/kongponents/compare/v9.60.3...v9.60.4) (2026-06-24)
 
 
