@@ -19,7 +19,7 @@ onlyBuiltDependencies:
 
 overrides:
   '@babel/core@<=7.29.0': '>=7.29.6'
-  axios@>=1.0.0 <1.12.0: '>=1.16.0'
+  axios@>=1.0.0 <1.12.0: '>=1.16.1'
   devalue@<=5.6.3: '>=5.8.1'
   esbuild: '>=0.28.1'
   form-data@>=4.0.0 <4.0.6: '>=4.0.6'
