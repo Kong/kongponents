@@ -92,7 +92,7 @@ const componentType = computed((): DropdownItemRenderedType => {
 })
 
 // Strips falsy `disabled` attribute, so it does not fall onto native <a> elements.
-const strippedAttrs = computed((): typeof attrs => {
+const strippedAttrs = computed((): Omit<typeof attrs, 'class' | 'disabled' | 'style'> => {
   const modifiedAttrs = Object.assign({}, attrs)
 
   // remove some attributes because we want them on wrapper element not the trigger element

@@ -1,3 +1,10 @@
+## [9.60.6](https://github.com/Kong/kongponents/compare/v9.60.5...v9.60.6) (2026-06-25)
+
+
+### Bug Fixes
+
+* **deps:** bump vue, @vue/compiler-core ([#3267](https://github.com/Kong/kongponents/issues/3267)) ([6c996d3](https://github.com/Kong/kongponents/commit/6c996d3c4d049498538d79676c5720dc0a6c6f02))
+
 ## [9.60.5](https://github.com/Kong/kongponents/compare/v9.60.4...v9.60.5) (2026-06-25)
 
 
