@@ -88,7 +88,7 @@ import type { KongponentsTheme } from '@kong/kongponents'
 const activeTheme = ref<KongponentsTheme | undefined>(undefined)
 ```
 
-See the [list of available tokens](https://github.com/Kong/design-tokens/blob/main/TOKENS.md) for the full semantic token set. Component tokens are in the `KongponentsTheme` type and available via autocomplete in `defineKongponentsTheme`.
+See the [list of available tokens](https://github.com/Kong/design-tokens/blob/main/packages/design-tokens/TOKENS.md) for the full semantic token set. Component tokens are in the `KongponentsTheme` type and available via autocomplete in `defineKongponentsTheme`.
 
 ### Focus ring and atomic shadow overrides
 
@@ -107,15 +107,13 @@ Because each token wraps one complete shadow value, "change only the focus ring 
 
 ### Bundled themes
 
-Kongponents ships four ready-to-use themes you can import and use directly:
+The `@kong/design-tokens` package ships ready-to-use themes you can import and use directly:
 
 ```ts
 import {
-  lightTheme,    // Warm light palette — slightly softer than the design-token defaults
-  darkTheme,     // Inverted neutral surfaces and text for dark mode
-  brandATheme,   // "Obsidian Amber" — warm near-blacks, electric amber primaries, sharp geometry
-  brandBTheme,   // "Nocturne" — deep violet-black surfaces, electric amethyst, pill geometry
-} from '@kong/kongponents'
+  classicDay,
+  classicNight,
+} from '@kong/design-tokens/themes'
 ```
 
 ### Extending a bundled theme
@@ -123,10 +121,11 @@ import {
 Spread a bundled theme and override what you need:
 
 ```ts
-import { defineKongponentsTheme, darkTheme } from '@kong/kongponents'
+import { classicNight } from '@kong/design-tokens/themes'
+import { defineKongponentsTheme } from '@kong/kongponents'
 
 export const myDarkTheme = defineKongponentsTheme({
-  ...darkTheme,
+  ...classicNight,
   '--kui-color-text-primary': '#a78bfa', // replace the primary blue with violet
   '--kui-color-background-primary': '#7c3aed',
   '--kui-shadow-focus': '0 0 0 3px rgba(124, 58, 237, 0.5)',
@@ -156,12 +155,13 @@ Use the `useTheme` composable to change the theme later — for brand switching 
 
 ```vue
 <script setup lang="ts">
-import { useTheme, darkTheme, lightTheme } from '@kong/kongponents'
+import { classicDay, classicNight } from '@kong/design-tokens/themes'
+import { useTheme } from '@kong/kongponents'
 
 const { theme, setTheme } = useTheme()
 
-const enableDarkMode = () => setTheme(darkTheme)
-const enableLightMode = () => setTheme(lightTheme)
+const enableDarkMode = () => setTheme(classicNight)
+const enableLightMode = () => setTheme(classicDay)
 // Pass undefined to remove all previously-applied overrides and revert to
 // the @kong/design-tokens defaults.
 const resetToDefaults = () => setTheme(undefined)
@@ -176,11 +176,12 @@ const resetToDefaults = () => setTheme(undefined)
 
 ```ts
 import { createApp } from 'vue'
-import { applyTheme, darkTheme } from '@kong/kongponents'
+import { classicNight } from '@kong/design-tokens/themes'
+import { applyTheme } from '@kong/kongponents'
 import App from './App.vue'
 
 // Apply before mount so the first render is already themed.
-applyTheme(darkTheme)
+applyTheme(classicNight)
 
 const app = createApp(App)
 app.mount('#app')
@@ -210,20 +211,18 @@ Load a theme CSS file from `@kong/design-tokens` and toggle a single `data-kui-t
 
 ```ts
 // Import via your bundler (Vite, webpack, etc.)
-import '@kong/design-tokens/dist/themes/konnect-light.css'
-import '@kong/design-tokens/dist/themes/konnect-dark.css'
+import '@kong/design-tokens/dist/themes/classic-day.css'
+import '@kong/design-tokens/dist/themes/classic-night.css'
 ```
 
 ```ts
 // Switch the active theme
-document.documentElement.setAttribute('data-kui-theme', 'konnect-light')
-document.documentElement.setAttribute('data-kui-theme', 'konnect-dark')
+document.documentElement.setAttribute('data-kui-theme', 'classic-day')
+document.documentElement.setAttribute('data-kui-theme', 'classic-night')
 
 // Remove to fall back to @kong/design-tokens defaults
 document.documentElement.removeAttribute('data-kui-theme')
 ```
-
-Available themes: `konnect-light`, `konnect-dark`, `brand-a`, `brand-b`.
 
 The pre-built CSS files use `@layer kui.theme { [data-kui-theme="name"] { ... } }` — the layer ensures that customer `:root {}` overrides (unlayered) beat the theme automatically, with no `!important` or special selectors needed. Multiple theme files can coexist in the document without conflict; only the element whose `data-kui-theme` attribute matches activates that theme.
 
@@ -254,7 +253,7 @@ The simplest pattern is to always keep `data-kui-theme` set on `<html>` from the
 
 ```html
 <!-- Set server-side in the HTML template so it's present before JS runs (prevents FOUC) -->
-<html data-kui-theme="konnect-light">
+<html data-kui-theme="classic-day">
 ```
 
 If the attribute is ever absent, `[data-kui-theme]` rules stop matching and any `:root {}` declarations — including `@kong/design-tokens` defaults — apply as the fallback. You can use this intentionally: load a default theme as a `:root {}` CSS block and named alternates with `[data-kui-theme]` selectors. `[data-kui-theme]` specificity (`0,1,0,0`) beats `:root` (`0,0,1,0`) when the attribute is present; removing the attribute restores the `:root` default.
@@ -266,7 +265,7 @@ If the attribute is ever absent, `[data-kui-theme]` rules stop matching and any 
 }
 
 /* Named alternate — only active when the attribute matches */
-[data-kui-theme="konnect-dark"] {
+[data-kui-theme="classic-night"] {
   --kui-color-text-primary: #ccff00;
 }
 ```
@@ -283,14 +282,14 @@ const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
 // Apply on initial load
 document.documentElement.setAttribute(
   'data-kui-theme',
-  prefersDark.matches ? 'konnect-dark' : 'konnect-light',
+  prefersDark.matches ? 'classic-night' : 'classic-day',
 )
 
 // React to OS-level changes
 prefersDark.addEventListener('change', (e) => {
   document.documentElement.setAttribute(
     'data-kui-theme',
-    e.matches ? 'konnect-dark' : 'konnect-light',
+    e.matches ? 'classic-night' : 'classic-day',
   )
 })
 ```
@@ -304,8 +303,8 @@ Without `global`, `<KThemeProvider>` scopes its theme to its own subtree by sett
   <!-- The rest of the page keeps the app theme -->
   <KButton appearance="primary">Default brand</KButton>
 
-  <KThemeProvider :theme="brandATheme">
-    <!-- Only the components in here use brandATheme -->
+  <KThemeProvider :theme="classicDay">
+    <!-- Only the components in here use classicDay -->
     <KButton appearance="primary">Brand A</KButton>
     <KBadge appearance="success">Scoped</KBadge>
     <KInput placeholder="Scoped input" />
@@ -313,7 +312,7 @@ Without `global`, `<KThemeProvider>` scopes its theme to its own subtree by sett
 </template>
 
 <script setup lang="ts">
-import { brandATheme } from '@kong/kongponents'
+import { classicDay } from '@kong/design-tokens/themes'
 </script>
 ```
 
@@ -338,8 +337,8 @@ In Phase 2, when you have loaded the corresponding pre-built CSS file for a name
 
 ```vue
 <!-- Phase 2: CSS file loaded, name prop alone activates the theme for this subtree -->
-<KThemeProvider name="konnect-light">
-  <KButton appearance="primary">Konnect Light theme</KButton>
+<KThemeProvider name="classic-day">
+  <KButton appearance="primary">Light theme</KButton>
 </KThemeProvider>
 ```
 
@@ -373,14 +372,15 @@ Because a theme is just `--kui-*` overrides, you can skip the JavaScript API ent
 Use `themeToCssVars` to convert a theme object into a CSS rule string — useful for writing static theme files or injecting a `<style>` block server-side:
 
 ```ts
-import { themeToCssVars, brandATheme } from '@kong/kongponents'
+import { classicDay } from '@kong/design-tokens/themes'
+import { themeToCssVars } from '@kong/kongponents'
 
 // Default selector is ':root'
-console.log(themeToCssVars(brandATheme))
+console.log(themeToCssVars(classicDay))
 // => ':root {\n  --kui-color-background: #13110e;\n  --kui-color-text: #ede8dc;\n  ...\n}'
 
 // Custom selector for scoped targeting
-console.log(themeToCssVars(brandATheme, '[data-kui-theme="brand-a"]'))
+console.log(themeToCssVars(classicDay, '[data-kui-theme="brand-a"]'))
 // => '[data-kui-theme="brand-a"] {\n  --kui-color-background: #13110e;\n  ...\n}'
 ```
 
