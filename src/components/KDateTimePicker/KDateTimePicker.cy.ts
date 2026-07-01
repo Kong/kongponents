@@ -623,9 +623,17 @@ describe('KDateTimePicker', () => {
 
     it('does not apply full-day range for different days even with sameDayFullRange enabled', () => {
       const today = new Date()
-      const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000)
-      const todayDateString = format(today, 'yyyy-MM-dd')
-      const yesterdayDateString = format(yesterday, 'yyyy-MM-dd')
+      // Ensure both dates are in the current month's calendar view — if today is the 1st,
+      // yesterday would be in the previous month and not rendered by the calendar.
+      const isFirstOfMonth = today.getDate() === 1
+      const startDate = isFirstOfMonth
+        ? today
+        : new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1)
+      const endDate = isFirstOfMonth
+        ? new Date(today.getFullYear(), today.getMonth(), 2)
+        : today
+      const startDateString = format(startDate, 'yyyy-MM-dd')
+      const endDateString = format(endDate, 'yyyy-MM-dd')
 
       cy.mount(KDateTimePicker, {
         props: {
@@ -637,8 +645,8 @@ describe('KDateTimePicker', () => {
       })
 
       cy.getTestId(timepickerInput).click()
-      cy.get(`.id-${yesterdayDateString}`).click()
-      cy.get(`.id-${todayDateString}`).click()
+      cy.get(`.id-${startDateString}`).click()
+      cy.get(`.id-${endDateString}`).click()
 
       cy.getTestId('time-input-start').should('not.have.value', '00:00')
       cy.getTestId('time-input-end').should('not.have.value', '23:59')
