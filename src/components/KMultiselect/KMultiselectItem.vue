@@ -51,7 +51,7 @@ const handleClick = (): void => {
 
   button {
     align-items: center;
-    background-color: var(--kui-color-background, $kui-color-background);
+    background-color: var(--kui-select-item-color-background, var(--kui-color-background, $kui-color-background));
     border: none;
     display: flex;
     outline-offset: -1px;
@@ -64,7 +64,7 @@ const handleClick = (): void => {
 
       &:hover {
         .multiselect-item-label {
-          background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+          background-color: var(--kui-select-item-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
         }
       }
     }
@@ -75,8 +75,8 @@ const handleClick = (): void => {
 
     &.selected {
       .multiselect-item-label {
-        background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-        color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+        background-color: var(--kui-select-item-color-background-selected, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+        color: var(--kui-select-item-color-text-selected, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
       }
     }
 
@@ -84,12 +84,12 @@ const handleClick = (): void => {
       cursor: not-allowed;
 
       .multiselect-item-label {
-        color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+        color: var(--kui-select-item-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled));
       }
 
       &.selected {
         .multiselect-item-label {
-          background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+          background-color: var(--kui-select-item-color-background-selected-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled));
         }
       }
     }

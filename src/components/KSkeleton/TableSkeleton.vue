@@ -53,7 +53,9 @@ const calcWidth = (cell: number, row: number): SkeletonBoxWidth => {
     width: 100%;
 
     &:not(:last-child) {
-      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-bottom-color: var(--kui-skeleton-table-color-border, var(--kui-color-border, $kui-color-border));
+      border-bottom-style: solid;
+      border-bottom-width: var(--kui-skeleton-table-border-width, var(--kui-border-width-10, $kui-border-width-10));
     }
 
     .skeleton-cell-container {

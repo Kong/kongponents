@@ -58,21 +58,23 @@ const showCardHeader = computed((): boolean => {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: var(--kui-space-70, $kui-space-70);
+  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+  gap: var(--kui-card-gap, var(--kui-space-70, $kui-space-70));
   width: 100%;
 
   .card-header {
     align-items: flex-start;
     display: inline-flex;
-    gap: var(--kui-space-50, $kui-space-50);
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+    gap: var(--kui-card-header-gap, var(--kui-space-50, $kui-space-50));
     justify-content: space-between;
 
     .card-title {
       align-items: center;
-      color: var(--kui-color-text, $kui-color-text);
-      font-size: var(--kui-font-size-40, $kui-font-size-40);
-      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      color: var(--kui-card-title-color-text, var(--kui-color-text, $kui-color-text));
+      font-size: var(--kui-card-title-font-size, var(--kui-font-size-40, $kui-font-size-40));
+      font-weight: var(--kui-card-title-font-weight, var(--kui-font-weight-bold, $kui-font-weight-bold));
+      line-height: var(--kui-card-title-line-height, var(--kui-line-height-30, $kui-line-height-30));
       margin: var(--kui-space-0, $kui-space-0);
       text-align: left;
       width: 100%;
@@ -81,7 +83,8 @@ const showCardHeader = computed((): boolean => {
     .card-actions {
       display: flex;
       flex-shrink: 0;
-      gap: var(--kui-space-30, $kui-space-30);
+      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+      gap: var(--kui-card-actions-gap, var(--kui-space-30, $kui-space-30));
       margin-left: var(--kui-space-auto, $kui-space-auto);
     }
   }
@@ -99,7 +102,8 @@ const showCardHeader = computed((): boolean => {
     @include bodyText;
 
     display: flex;
-    gap: var(--kui-space-30, $kui-space-30);
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+    gap: var(--kui-card-footer-gap, var(--kui-space-30, $kui-space-30));
     width: 100%;
   }
 }

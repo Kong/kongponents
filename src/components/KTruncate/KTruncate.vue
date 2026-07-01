@@ -269,7 +269,7 @@ onBeforeUnmount(() => {
       background: var(--kui-color-background-transparent, $kui-color-background-transparent);
       border: 0;
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
-      color: var(--kui-color-text-primary, $kui-color-text-primary);
+      color: var(--kui-truncate-expand-trigger-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
       font-family: var(--kui-font-family-text, $kui-font-family-text);
       font-size: var(--kui-font-size-10, $kui-font-size-10);
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
@@ -281,15 +281,15 @@ onBeforeUnmount(() => {
       }
 
       &:focus-visible {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-truncate-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       &:hover {
-        color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+        color: var(--kui-truncate-expand-trigger-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       }
 
       &:focus {
-        color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+        color: var(--kui-truncate-expand-trigger-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       }
     }
   }
@@ -297,18 +297,18 @@ onBeforeUnmount(() => {
   .collapse-trigger {
     @include defaultButtonReset;
 
-    background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
+    background-color: var(--kui-truncate-collapse-trigger-color-background, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
     border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
+    color: var(--kui-truncate-collapse-trigger-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
     outline: none;
     padding: var(--kui-space-20, $kui-space-20);
 
     &:focus-visible {
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      box-shadow: var(--kui-truncate-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
     }
 
     &:hover {
-      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+      background-color: var(--kui-truncate-collapse-trigger-color-background-hover, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
 
       :deep(#{$kongponentsKongIconSelector}) {
         color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong) !important;
@@ -317,7 +317,8 @@ onBeforeUnmount(() => {
 
     &:focus,
     &:focus-within {
-      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
+      // Coordinates with :hover via the shared -hover token
+      background-color: var(--kui-truncate-collapse-trigger-color-background-hover, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
 
       :deep(#{$kongponentsKongIconSelector}) {
         color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger) !important;

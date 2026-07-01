@@ -5,14 +5,23 @@
 
 html,
 body {
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: var(--kui-font-family-text, #{$kui-font-family-text});
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--kui-font-family-heading, var(--kui-font-family-text, #{$kui-font-family-text}));
 }
 
 pre.json {
-  background-color: $kui-color-background-neutral-weaker;
-  border-radius: $kui-border-radius-40;
-  font-size: $kui-font-size-30;
-  padding: $kui-space-60;
+  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+  border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+  font-size: var(--kui-font-size-30, $kui-font-size-30);
+  padding: var(--kui-space-60, $kui-space-60);
   white-space: pre-wrap;
 }
 

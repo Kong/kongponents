@@ -68,17 +68,17 @@ const randomTooltipId = useId()
   cursor: default;
 
   .popover-container {
-    background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
+    background-color: var(--kui-tooltip-color-background, var(--kui-color-background-inverse, $kui-color-background-inverse));
     border: none;
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    padding: var(--kui-space-30, $kui-space-30);
+    border-radius: var(--kui-tooltip-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+    padding: var(--kui-tooltip-padding, var(--kui-space-30, $kui-space-30));
 
     .popover-content {
-      color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
-      font-size: var(--kui-font-size-20, $kui-font-size-20);
-      font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-      line-height: var(--kui-line-height-20, $kui-line-height-20);
+      color: var(--kui-tooltip-color-text, var(--kui-color-text-inverse, $kui-color-text-inverse));
+      font-family: var(--kui-tooltip-font-family, var(--kui-font-family-text, $kui-font-family-text));
+      font-size: var(--kui-tooltip-font-size, var(--kui-font-size-20, $kui-font-size-20));
+      font-weight: var(--kui-tooltip-font-weight, var(--kui-font-weight-medium, $kui-font-weight-medium));
+      line-height: var(--kui-tooltip-line-height, var(--kui-line-height-20, $kui-line-height-20));
 
       code {
         background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
@@ -86,7 +86,7 @@ const randomTooltipId = useId()
       }
 
       a {
-        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+        color: var(--kui-tooltip-color-text, var(--kui-color-text-inverse, $kui-color-text-inverse));
 
         &:hover {
           color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);

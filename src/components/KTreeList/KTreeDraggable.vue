@@ -339,7 +339,7 @@ $kTreeListIdentCollapsible: 6px;
     // the bar under the last child
     .has-no-children:last-of-type .child-drop-zone:last-of-type,
     &.has-no-children .child-drop-zone:last-of-type {
-      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
+      background-color: var(--kui-tree-list-color-background-drag-indicator, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
       border-radius: var(--kui-border-radius-round, $kui-border-radius-round);
       margin-left: var(--kui-space-0, $kui-space-0);
       margin-top: var(--kui-space-10, $kui-space-10);
@@ -415,9 +415,14 @@ $kTreeListIdentCollapsible: 6px;
     position: relative;
 
     // child connecting lines
+    // border shorthands split into longhands so the connector line color can be tokenized independently
     &:before {
-      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-      border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-bottom-color: var(--kui-tree-list-color-border-connector, var(--kui-color-border, $kui-color-border));
+      border-bottom-style: solid;
+      border-bottom-width: var(--kui-border-width-10, $kui-border-width-10);
+      border-left-color: var(--kui-tree-list-color-border-connector, var(--kui-color-border, $kui-color-border));
+      border-left-style: solid;
+      border-left-width: var(--kui-border-width-10, $kui-border-width-10);
       border-radius: var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) var(--kui-border-radius-0, $kui-border-radius-0) 5px;
       content: "";
       height: calc(#{$kTreeListDropZoneHeight} + 20px);
@@ -428,8 +433,11 @@ $kTreeListIdentCollapsible: 6px;
     }
 
     // connects siblings
+    // border shorthand split into longhands so the connector line color can be tokenized independently
     &:after {
-      border-left: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-left-color: var(--kui-tree-list-color-border-connector, var(--kui-color-border, $kui-color-border));
+      border-left-style: solid;
+      border-left-width: var(--kui-border-width-10, $kui-border-width-10);
       content: "";
       height: 100%;
       left: -($kTreeListBar);

@@ -3,17 +3,20 @@
 /* Cards mixins */
 
 @mixin cardDefaults {
-  background-color: var(--kui-color-background, $kui-color-background);
-  border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-  border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+  background-color: var(--kui-card-color-background, var(--kui-color-background, $kui-color-background));
+  // border shorthand split into longhands so each property is independently themeable
+  border-color: var(--kui-card-color-border, var(--kui-color-border, $kui-color-border));
+  border-radius: var(--kui-card-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+  border-style: solid;
+  border-width: var(--kui-card-border-width, var(--kui-border-width-10, $kui-border-width-10));
   font-family: var(--kui-font-family-text, $kui-font-family-text);
-  padding: var(--kui-space-70, $kui-space-70);
+  padding: var(--kui-card-padding, var(--kui-space-70, $kui-space-70));
 }
 
 @mixin bodyText {
-  color: var(--kui-color-text, $kui-color-text);
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  line-height: var(--kui-line-height-30, $kui-line-height-30);
+  color: var(--kui-card-body-color-text, var(--kui-color-text, $kui-color-text));
+  font-family: var(--kui-card-body-font-family, var(--kui-font-family-text, $kui-font-family-text));
+  font-size: var(--kui-card-body-font-size, var(--kui-font-size-30, $kui-font-size-30));
+  font-weight: var(--kui-card-body-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+  line-height: var(--kui-card-body-line-height, var(--kui-line-height-30, $kui-line-height-30));
 }

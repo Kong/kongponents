@@ -224,6 +224,12 @@ const componentRoutes: RouteRecordRaw[] = [
     meta: { title: 'Tree List Sandbox' },
     component: () => import('../pages/SandboxTreeList.vue'),
   },
+  {
+    path: '/theming',
+    name: 'theming',
+    meta: { title: 'Theming Sandbox' },
+    component: () => import('../pages/SandboxTheming.vue'),
+  },
 ]
 
 export default componentRoutes
