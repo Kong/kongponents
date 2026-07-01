@@ -11,8 +11,8 @@ const UNSAFE_CSS_RE = /[;{}\\]|<\/style/i
  */
 export type ThemeStyleRecord = Record<string, string>
 
-/** Cached Set for O(1) membership checks against the design-tokens contract. */
-const KNOWN_TOKENS = new Set<string>(KUI_THEMEABLE_TOKENS)
+/** Cached Set of themeable custom property names for O(1) membership checks against the design-tokens contract. */
+const KNOWN_TOKENS = new Set<string>(KUI_THEMEABLE_TOKENS.map((token) => token.name))
 
 /**
  * Convert a theme into a flat style record of `--kui-*` custom properties.

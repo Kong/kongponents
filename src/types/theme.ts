@@ -1,7 +1,8 @@
 import type { Ref, VNode } from 'vue'
 import type { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/themeable-tokens'
 
-type KongponentsThemeToken = (typeof KUI_THEMEABLE_TOKENS)[number]
+/** `KUI_THEMEABLE_TOKENS` is an array of `{ name, description, category, value }` records; the theme keys are their `name`s. */
+type KongponentsThemeToken = (typeof KUI_THEMEABLE_TOKENS)[number]['name']
 
 /**
  * A Kongponents theme.
