@@ -31,8 +31,8 @@ describe('KUI_THEMEABLE_TOKENS (from @kong/design-tokens)', () => {
     expect(KUI_THEMEABLE_TOKENS).toContain('--kui-badge-border-radius')
   })
 
-  it('does not contain breakpoint tokens', () => {
+  it('contains breakpoint tokens', () => {
     const breakpoints = KUI_THEMEABLE_TOKENS.filter(t => t.includes('breakpoint'))
-    expect(breakpoints).toHaveLength(0)
+    expect(breakpoints).toHaveLength(5)
   })
 })
