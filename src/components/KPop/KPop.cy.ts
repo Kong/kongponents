@@ -1,5 +1,6 @@
 import KPop from '@/components/KPop/KPop.vue'
-import { h } from 'vue'
+import { computed, h } from 'vue'
+import { POPOVER_PARENT_ZINDEX_KEY } from '@/utilities/injection-keys'
 
 describe('KPop', () => {
   it('renders props when passed', () => {
@@ -151,6 +152,33 @@ describe('KPop', () => {
     })
 
     cy.get('.popover').should('have.css', 'z-index', '2200')
+  })
+
+  it('elevates zIndex above a parent-provided z-index when not explicitly set', () => {
+    cy.mount(KPop, {
+      global: {
+        provide: {
+          [POPOVER_PARENT_ZINDEX_KEY as symbol]: computed(() => 9999),
+        },
+      },
+    })
+
+    cy.get('.popover').should('have.css', 'z-index', '10000')
+  })
+
+  it('prefers an explicit zIndex over a parent-provided z-index', () => {
+    cy.mount(KPop, {
+      props: {
+        zIndex: 500,
+      },
+      global: {
+        provide: {
+          [POPOVER_PARENT_ZINDEX_KEY as symbol]: computed(() => 9999),
+        },
+      },
+    })
+
+    cy.get('.popover').should('have.css', 'z-index', '500')
   })
 
   it('does not render close icon when prop is false', () => {

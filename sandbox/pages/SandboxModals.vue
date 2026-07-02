@@ -502,6 +502,14 @@
             @proceed="data.modalVisible = false"
           >
             Slotted KModel content
+
+            <KPop target="body">
+              <KButton>Popover</KButton>
+
+              <template #content>
+                Lorem ipsum.
+              </template>
+            </KPop>
           </KModal>
           <KPrompt
             :visible="data.promptVisible"
@@ -509,6 +517,14 @@
             @proceed="data.promptVisible = false"
           >
             Slotted KPrompt content
+
+            <KPop target="body">
+              <KButton>Popover</KButton>
+
+              <template #content>
+                Lorem ipsum.
+              </template>
+            </KPop>
           </KPrompt>
         </KComponent>
       </SandboxSectionComponent>
@@ -686,13 +702,13 @@ watch(inputAutofocusModalVisible, (newValue): void => {
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .vertical-container {
     display: flex;
     flex-direction: column;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .loading-container {

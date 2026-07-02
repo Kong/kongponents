@@ -1,4 +1,6 @@
 import KModal from '@/components/KModal/KModal.vue'
+import KPop from '@/components/KPop/KPop.vue'
+import { h } from 'vue'
 
 describe('KModal', () => {
   it('renders closed when visible is false', () => {
@@ -245,6 +247,22 @@ describe('KModal', () => {
     })
 
     cy.get('.k-modal .modal-backdrop').should('have.css', 'z-index', '1100') // default z-index
+  })
+
+  it('provides its z-index so a nested KPop elevates above it', () => {
+    cy.mount(KModal, {
+      props: {
+        visible: true,
+        zIndex: 1100,
+      },
+      slots: {
+        default: () => h(KPop, { target: 'body' }, {
+          content: () => 'Popover content',
+        }),
+      },
+    })
+
+    cy.get('.popover').should('have.css', 'z-index', '1101')
   })
 
   it('emits proceed event when action button is clicked', () => {

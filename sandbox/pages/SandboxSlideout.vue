@@ -138,6 +138,14 @@
             :visible="data.slideoutVisible"
             @close="data.slideoutVisible = false"
           >
+            <KPop target="body">
+              <KButton>Popover</KButton>
+
+              <template #content>
+                Lorem ipsum.
+              </template>
+            </KPop>
+
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacus viverra vitae congue eu consequat ac felis. Netus et malesuada fames ac turpis. Donec massa sapien faucibus et molestie ac feugiat. Cursus turpis massa tincidunt dui. Eget nullam non nisi est sit amet facilisis magna. Porttitor eget dolor morbi non arcu risus quis. Tempus urna et pharetra pharetra massa massa ultricies mi. Facilisi morbi tempus iaculis urna id volutpat lacus laoreet non. Elit eget gravida cum sociis natoque penatibus et. Lobortis mattis aliquam faucibus purus in massa tempor nec. Aliquet eget sit amet tellus cras adipiscing enim eu. Diam vulputate ut pharetra sit amet aliquam. Ultricies mi quis hendrerit dolor magna eget est lorem. Diam sollicitudin tempor id eu nisl nunc mi ipsum. Pellentesque habitant morbi tristique senectus et netus et. Aliquam ultrices sagittis orci a scelerisque purus.</p>
             <p>Tincidunt dui ut ornare lectus sit amet. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Egestas erat imperdiet sed euismod nisi porta lorem. Potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed. Sit amet cursus sit amet dictum sit amet justo donec. Augue mauris augue neque gravida in fermentum. Tristique risus nec feugiat in. Purus viverra accumsan in nisl. Massa sapien faucibus et molestie ac feugiat. Pharetra magna ac placerat vestibulum. Consequat mauris nunc congue nisi vitae.</p>
             <p>Turpis tincidunt id aliquet risus feugiat in ante. Congue nisi vitae suscipit tellus. Tincidunt id aliquet risus feugiat in ante. Tincidunt ornare massa eget egestas purus. Velit dignissim sodales ut eu sem. Suspendisse sed nisi lacus sed. At lectus urna duis convallis convallis tellus id interdum velit. Dignissim diam quis enim lobortis. Ullamcorper sit amet risus nullam eget. Id volutpat lacus laoreet non curabitur gravida arcu ac tortor.</p>
