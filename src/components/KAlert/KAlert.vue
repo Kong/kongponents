@@ -104,7 +104,7 @@ const getAlertIcon = computed((): AlertIcon => {
     .alert-message {
       :slotted(a),
       :deep(a) {
-        &:not([type='button']) {
+        &:not([type='button']):not([role='button']) {
           color: $textColor;
           text-decoration: underline;
 
