@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/themeable-tokens'
+import { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/tokens/themeable-tokens'
 
 describe('KUI_THEMEABLE_TOKENS (from @kong/design-tokens)', () => {
   it('is a non-empty array of token records', () => {

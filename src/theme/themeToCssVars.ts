@@ -1,5 +1,5 @@
 import type { KongponentsTheme } from '@/types/theme'
-import { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/themeable-tokens'
+import { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/tokens/themeable-tokens'
 
 // `;`/`{`/`}` inject rules or declarations; `\` initiates CSS unicode escapes that encode any dangerous char (e.g. `\7D` = `}`); `</style` closes the HTML <style> element.
 const UNSAFE_CSS_RE = /[;{}\\]|<\/style/i
