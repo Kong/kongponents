@@ -13,7 +13,10 @@ function mount(
 ): { el: HTMLElement, unmount: () => void } {
   const root = container ?? document.createElement('div')
   document.body.appendChild(root)
-  const app = createApp({ render: () => componentTree })
+  // eslint-disable-next-line vue/one-component-per-file
+  const app = createApp({
+    render: () => componentTree,
+  })
   app.mount(root)
   return {
     el: root,
@@ -63,10 +66,12 @@ describe('KThemeProvider — subtree mode (default)', () => {
     unmount()
   })
 
-  it('applies no inline style when theme prop is undefined', () => {
+  it('writes no --kui-* token custom properties when theme prop is undefined', () => {
     const { el, unmount } = mount(h(KThemeProvider, { theme: undefined }))
     const wrapper = el.querySelector<HTMLElement>('.k-theme-provider')!
-    expect(wrapper.getAttribute('style')).toBeFalsy()
+    // display is always set; no theme means no --kui-* custom properties
+    expect(wrapper.style.display).toBe('contents')
+    expect(Array.from(wrapper.style).filter(p => p.startsWith('--kui-'))).toHaveLength(0)
     unmount()
   })
 
@@ -94,6 +99,7 @@ describe('KThemeProvider — subtree mode (default)', () => {
   it('provides a theme controller to descendants via KONGPONENTS_THEME_INJECTION_KEY', () => {
     let injected: ReturnType<typeof inject> | undefined
 
+    // eslint-disable-next-line vue/one-component-per-file
     const Child = defineComponent({
       setup() {
         injected = inject(KONGPONENTS_THEME_INJECTION_KEY)
@@ -153,12 +159,90 @@ describe('KThemeProvider — global mode', () => {
     unmount()
   })
 
-  it('produces no inline style on the wrapper element in global mode', () => {
+  it('writes no --kui-* token custom properties on the wrapper element in global mode', () => {
     const theme: KongponentsTheme = { '--kui-color-text-primary': '#0044f4' }
     const { el, unmount } = mount(h(KThemeProvider, { theme, global: true }))
     const wrapper = el.querySelector<HTMLElement>('.k-theme-provider')!
-    expect(wrapper.getAttribute('style')).toBeFalsy()
+    // tokens go to the <head> style block; the wrapper carries only the display property
+    expect(Array.from(wrapper.style).filter(p => p.startsWith('--kui-'))).toHaveLength(0)
     unmount()
+  })
+})
+
+// display prop
+
+describe('KThemeProvider — display prop', () => {
+  it('defaults to display: contents', () => {
+    const { el, unmount } = mount(h(KThemeProvider, {}))
+    const wrapper = el.querySelector<HTMLElement>('.k-theme-provider')!
+    expect(wrapper.style.display).toBe('contents')
+    unmount()
+  })
+
+  it('applies a valid custom display value', () => {
+    const { el, unmount } = mount(h(KThemeProvider, { display: 'flex' }))
+    const wrapper = el.querySelector<HTMLElement>('.k-theme-provider')!
+    expect(wrapper.style.display).toBe('flex')
+    unmount()
+  })
+
+  it('falls back to contents for an invalid display value', () => {
+    const { el, unmount } = mount(h(KThemeProvider, { display: 'invalid-value' as any }))
+    const wrapper = el.querySelector<HTMLElement>('.k-theme-provider')!
+    expect(wrapper.style.display).toBe('contents')
+    unmount()
+  })
+})
+
+// tag prop validation
+
+describe('KThemeProvider — tag prop validation', () => {
+  it('renders a safe tag', () => {
+    const { el, unmount } = mount(h(KThemeProvider, { tag: 'section' }))
+    const wrapper = el.querySelector('.k-theme-provider')!
+    expect(wrapper.tagName).toBe('SECTION')
+    unmount()
+  })
+
+  it('renders a custom element tag (contains a hyphen)', () => {
+    const { el, unmount } = mount(h(KThemeProvider, { tag: 'my-wrapper' }))
+    const wrapper = el.querySelector('.k-theme-provider')!
+    expect(wrapper.tagName).toBe('MY-WRAPPER')
+    unmount()
+  })
+
+  it('falls back to div for blocked tags', () => {
+    for (const blocked of ['script', 'style', 'iframe', 'object', 'embed', 'link']) {
+      const { el, unmount } = mount(h(KThemeProvider, { tag: blocked }))
+      expect(el.querySelector('.k-theme-provider')!.tagName).toBe('DIV')
+      unmount()
+    }
+  })
+
+  it('falls back to div for uppercase blocked tags (case-insensitive check)', () => {
+    const { el, unmount } = mount(h(KThemeProvider, { tag: 'SCRIPT' }))
+    expect(el.querySelector('.k-theme-provider')!.tagName).toBe('DIV')
+    unmount()
+  })
+
+  it('falls back to div when tag contains a null byte (null-byte injection)', () => {
+    const { el, unmount } = mount(h(KThemeProvider, { tag: 'scr\x00ipt' }))
+    expect(el.querySelector('.k-theme-provider')!.tagName).toBe('DIV')
+    unmount()
+  })
+
+  it('falls back to div when tag has whitespace padding', () => {
+    const { el, unmount } = mount(h(KThemeProvider, { tag: ' script ' }))
+    expect(el.querySelector('.k-theme-provider')!.tagName).toBe('DIV')
+    unmount()
+  })
+
+  it('falls back to div when tag is empty or only special characters', () => {
+    for (const bad of ['', '   ', '123', '0div', '\x00']) {
+      const { el, unmount } = mount(h(KThemeProvider, { tag: bad }))
+      expect(el.querySelector('.k-theme-provider')!.tagName).toBe('DIV')
+      unmount()
+    }
   })
 })
 

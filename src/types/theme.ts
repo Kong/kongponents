@@ -40,6 +40,23 @@ export interface KongponentsPluginOptions {
   theme?: KongponentsTheme
 }
 
+/** CSS `display` values accepted by the `display` prop on {@link ThemeProviderProps}. Used at runtime for validation. */
+export const THEME_PROVIDER_DISPLAY_VALUES = [
+  'contents',
+  'block',
+  'inline',
+  'inline-block',
+  'flex',
+  'inline-flex',
+  'grid',
+  'inline-grid',
+  'flow-root',
+  'none',
+] as const
+
+/** Derived from {@link THEME_PROVIDER_DISPLAY_VALUES} — the single source of truth for valid values. */
+export type ThemeProviderDisplay = typeof THEME_PROVIDER_DISPLAY_VALUES[number]
+
 /**
  * Props for the `KThemeProvider` component.
  */
@@ -72,6 +89,20 @@ export interface ThemeProviderProps {
    * @default undefined
    */
   name?: string
+
+  /**
+   * The CSS `display` value applied to the wrapper element. Defaults to
+   * `'contents'`, which makes the wrapper transparent to layout so its children
+   * participate in the parent flex/grid context as if the provider were not there.
+   * Set to `'block'`, `'flex'`, `'grid'`, etc. when the wrapper itself should
+   * participate in layout.
+   *
+   * Note: `display: contents` removes the element from the browser accessibility
+   * tree in some environments. If the wrapper tag carries semantic meaning (e.g.
+   * `tag="section"`), set an explicit display value instead.
+   * @default 'contents'
+   */
+  display?: ThemeProviderDisplay
 }
 
 export interface ThemeProviderSlots {

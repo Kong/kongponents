@@ -58,8 +58,11 @@ describe('KThemeProvider', () => {
       slots: { default: '<div class="child">child</div>' },
     })
 
-    // In global mode the wrapper carries no inline custom properties...
-    cy.get('.k-theme-provider').should('not.have.attr', 'style')
+    // In global mode the wrapper carries no --kui-* inline custom properties...
+    cy.get('.k-theme-provider').then(($el) => {
+      const kuiProps = Array.from($el[0].style).filter((p: string) => p.startsWith('--kui-'))
+      expect(kuiProps).to.have.length(0)
+    })
 
     // ...they are written to the document root instead.
     cy.document().then((doc) => {
