@@ -1,4 +1,5 @@
 import KSlideout from '@/components/KSlideout/KSlideout.vue'
+import KPop from '@/components/KPop/KPop.vue'
 import { h } from 'vue'
 
 describe('KSlideout', () => {
@@ -58,6 +59,22 @@ describe('KSlideout', () => {
 
     cy.get('.k-slideout .slideout-container').should('have.css', 'z-index', '92929')
     cy.get('.k-slideout .slideout-backdrop').should('have.css', 'z-index', '92929')
+  })
+
+  it('provides its z-index so a nested KPop elevates above it', () => {
+    cy.mount(KSlideout, {
+      props: {
+        visible: true,
+        zIndex: 9999,
+      },
+      slots: {
+        default: () => h(KPop, { target: 'body' }, {
+          content: () => 'Popover content',
+        }),
+      },
+    })
+
+    cy.get('.popover').should('have.css', 'z-index', '10000')
   })
 
   it('renders close icon on right', () => {
