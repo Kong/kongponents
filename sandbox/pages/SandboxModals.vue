@@ -502,14 +502,6 @@
             @proceed="data.modalVisible = false"
           >
             Slotted KModel content
-
-            <KPop target="body">
-              <KButton>Popover</KButton>
-
-              <template #content>
-                Lorem ipsum.
-              </template>
-            </KPop>
           </KModal>
           <KPrompt
             :visible="data.promptVisible"
@@ -517,14 +509,6 @@
             @proceed="data.promptVisible = false"
           >
             Slotted KPrompt content
-
-            <KPop target="body">
-              <KButton>Popover</KButton>
-
-              <template #content>
-                Lorem ipsum.
-              </template>
-            </KPop>
           </KPrompt>
         </KComponent>
       </SandboxSectionComponent>
