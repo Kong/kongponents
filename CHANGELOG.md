@@ -1,3 +1,10 @@
+## [9.60.7](https://github.com/Kong/kongponents/compare/v9.60.6...v9.60.7) (2026-07-06)
+
+
+### Bug Fixes
+
+* **kpop, kmodal, kslideout:** teleported kpop z-index [KHCP-20474] ([#3276](https://github.com/Kong/kongponents/issues/3276)) ([16d7a79](https://github.com/Kong/kongponents/commit/16d7a79841c93c8993910c8adcbf7fdd6f1519f0))
+
 ## [9.60.6](https://github.com/Kong/kongponents/compare/v9.60.5...v9.60.6) (2026-06-25)
 
 
