@@ -138,7 +138,10 @@
             :visible="data.slideoutVisible"
             @close="data.slideoutVisible = false"
           >
-            <KPop target="body">
+            <KPop
+              placement="left"
+              target="body"
+            >
               <KButton>Popover</KButton>
 
               <template #content>
