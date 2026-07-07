@@ -4,7 +4,7 @@
       hide-close-icon
       placement="top-end"
       :popover-timeout="0"
-      width="200"
+      width="240"
     >
       <button class="fab-trigger">
         <span
