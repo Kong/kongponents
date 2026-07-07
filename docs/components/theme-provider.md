@@ -186,7 +186,7 @@ The tag used to render the provider's wrapper element. Defaults to `'div'`.
 </KThemeProvider>
 ```
 
-The wrapper always carries the `k-theme-provider` class regardless of `tag`. Tags that could be used for resource injection or script execution (`script`, `style`, `iframe`, `object`, `embed`, `link`, `base`, `meta`, and others) are not allowed and fall back to `'div'` with a console warning in development.
+The wrapper always carries the `k-theme-provider` class regardless of `tag`. Tags that could be used for resource injection or script execution (`script`, `style`, `iframe`, `object`, `embed`, `link`, `base`, `meta`, and others) are not allowed and fall back to `'div'`.
 
 ### name
 
