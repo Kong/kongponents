@@ -185,6 +185,33 @@ describe('KTableView', () => {
   })
 
   describe('default', () => {
+    const mountDynamicToolbar = ({
+      headers = options.headers.map(header => ({ ...header, hidable: false })),
+      ready = false,
+    }: { headers?: TableViewHeader[], ready?: boolean } = {}) => {
+      cy.mount({
+        components: { KTableView },
+        data: () => ({
+          headers,
+          ready,
+          rows: options.data,
+        }),
+        template: `
+          <KTableView
+            :data="rows"
+            :headers="headers"
+          >
+            <template
+              v-if="ready"
+              #toolbar
+            >
+              <div data-testid="toolbar-content">Toolbar</div>
+            </template>
+          </KTableView>
+        `,
+      })
+    }
+
     it('renders link in action slot', () => {
       cy.mount(KTableView, {
         props: {
@@ -212,6 +239,39 @@ describe('KTableView', () => {
 
       cy.get('.k-table-view .table-toolbar').find('button').should('be.visible')
       cy.get('.k-table-view .table-toolbar button').should('contain.text', 'Toolbar button')
+    })
+
+    it('renders a toolbar slot that is added after mount', () => {
+      mountDynamicToolbar()
+
+      cy.getTestId('table-toolbar').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+      cy.getTestId('table-toolbar').should('exist')
+      cy.getTestId('toolbar-content').should('exist')
+    })
+
+    it('removes a toolbar slot after mount when no default toolbar controls are active', () => {
+      mountDynamicToolbar({ ready: true })
+
+      cy.getTestId('table-toolbar').should('exist')
+      cy.getTestId('toolbar-content').should('exist')
+      cy.then(() => Cypress.vueWrapper.setData({ ready: false }))
+      cy.getTestId('toolbar-content').should('not.exist')
+      cy.getTestId('table-toolbar').should('not.exist')
+    })
+
+    it('removes a toolbar slot after mount while keeping active default toolbar controls', () => {
+      mountDynamicToolbar({
+        headers: options.headers.map((header, index) => ({ ...header, hidable: index === 1 })),
+        ready: true,
+      })
+
+      cy.getTestId('table-toolbar').should('exist')
+      cy.getTestId('toolbar-content').should('exist')
+      cy.then(() => Cypress.vueWrapper.setData({ ready: false }))
+      cy.getTestId('toolbar-content').should('not.exist')
+      cy.getTestId('table-toolbar').should('exist')
+      cy.getTestId('column-visibility-menu-button').should('exist')
     })
 
     it('has hover class when passed', () => {

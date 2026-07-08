@@ -4,23 +4,23 @@
     :class="{ 'hide-headers': hideHeaders }"
   >
     <div
-      v-if="hasToolbarSlot"
+      v-if="hasToolbar()"
       class="table-toolbar"
       data-testid="table-toolbar"
     >
       <slot name="toolbar" />
 
       <div
-        v-if="showBulkActionsToolbar || hasColumnVisibilityMenu"
+        v-if="showBulkActionsToolbar() || hasColumnVisibilityMenu()"
         class="toolbar-default-items-container"
       >
         <slot
-          v-if="showBulkActionsToolbar"
+          v-if="showBulkActionsToolbar()"
           name="bulk-actions"
           :selected-rows="bulkActionsSelectedRows"
         >
           <BulkActionsDropdown
-            v-if="!$slots['bulk-actions']"
+            v-if="!slots['bulk-actions']"
             :button-label="tableHeaders.find((header: TableViewHeader) => header.key === TableViewHeaderKeys.BULK_ACTIONS)!.label"
             :count="bulkActionsSelectedRowsCount"
             :disabled="!bulkActionsSelectedRowsCount || loading || !data.length"
@@ -35,7 +35,7 @@
         </slot>
 
         <ColumnVisibilityMenu
-          v-if="hasColumnVisibilityMenu"
+          v-if="hasColumnVisibilityMenu()"
           :columns="visibilityColumns"
           :disabled="columnVisibilityDisabled"
           :table-id="tableId"
@@ -190,7 +190,7 @@
                   </div>
 
                   <KTooltip
-                    v-if="column.tooltip || $slots[getColumnTooltipSlotName(column.key)]"
+                    v-if="column.tooltip || slots[getColumnTooltipSlotName(column.key)]"
                     :data-testid="getColumnTooltipSlotName(column.key)"
                     :kpop-attributes="{ target: tooltipTarget }"
                     max-width="300"
@@ -592,26 +592,24 @@ const resizerHoveredColumn = ref('') as Ref<ColumnKey | ''>
 const currentHoveredColumn = ref('') as Ref<ColumnKey | ''>
 const hasRowActions = computed((): boolean => (tableHeaders.value.some((header) => header.key === TableViewHeaderKeys.ACTIONS)))
 const hasHidableColumns = computed((): boolean => tableHeaders.value.filter((header) => header.hidable).length > 0)
-const hasColumnVisibilityMenu = computed((): boolean => {
+const hasColumnVisibilityMenu = (): boolean => {
   if (nested || !hasHidableColumns.value || error) {
     return false
   }
 
   if (slots.toolbar) {
-    // when toolbar slot is present, we want to disable column visibility menu rather than hide it in certain states
     return true
   }
 
-  // show when not loading and there is data
   return !loading && !!data && !!data.length
-})
+}
 const columnVisibilityDisabled = computed((): boolean => loading || !(data && data.length))
 // columns whose visibility can be toggled
 const visibilityColumns = computed(() => tableHeaders.value.filter((header) => header.hidable && !isSpecialColumn(header.key)))
 // visibility preferences from the host app (initialized by app)
-const visibilityPreferences = computed(() => (hasColumnVisibilityMenu.value ? tablePreferences.columnVisibility || {} : {})) as Ref<ColumnVisibility>
+const visibilityPreferences = computed(() => (nested || !hasHidableColumns.value || error ? {} : tablePreferences.columnVisibility || {})) as Ref<ColumnVisibility>
 // current column visibility state
-const columnVisibility = ref(hasColumnVisibilityMenu.value ? tablePreferences.columnVisibility || {} : {}) as Ref<ColumnVisibility>
+const columnVisibility = ref(hasColumnVisibilityMenu() ? tablePreferences.columnVisibility || {} : {}) as Ref<ColumnVisibility>
 
 const tableWrapperHeight = ref<string>('100%')
 const isScrollableVertically = ref<boolean>(false)
@@ -622,7 +620,6 @@ const sortColumnKey = ref(tablePreferences.sortColumnKey || '') as Ref<ColumnKey
 const DEFAULT_INITIAL_SORT_ORDER: SortColumnOrder = 'desc'
 const sortColumnOrder = ref<SortColumnOrder>(tablePreferences.sortColumnOrder || DEFAULT_INITIAL_SORT_ORDER)
 const isClickable = ref(false)
-const hasToolbarSlot = computed((): boolean => !hideToolbar && !nested && (!!slots.toolbar || hasColumnVisibilityMenu.value || showBulkActionsToolbar.value))
 const actionsDropdownRef = useTemplateRef('actionsDropdown')
 const isActionsDropdownHovered = ref<boolean>(false)
 const tableWrapperStyles = computed((): CSSProperties => ({
@@ -633,19 +630,19 @@ const scrollbarWidth = computed((): string => `${getScrollbarSize()}px`)
 const bulkActionsSelectedRows = ref([]) as Ref<Row[]>
 const hasBulkActions = computed((): boolean => !nested && !error && tableHeaders.value.some((header) => header.key === TableViewHeaderKeys.BULK_ACTIONS) && !!(slots['bulk-action-items'] || slots['bulk-actions']) && !!data.every((row) => getRowKey(row)))
 const dataSelectState = ref([]) as Ref<Array<TableViewSelectState<Row>>>
-const showBulkActionsToolbar = computed((): boolean => {
+const showBulkActionsToolbar = (): boolean => {
   if (nested || !hasBulkActions.value || error) {
     return false
   }
 
   if (slots.toolbar) {
-    // when toolbar slot is present, we want to disable bulk actions dropdown rather than hide it in certain states
     return true
   }
 
-  // show when not loading and there is data
   return !loading && !!data && !!data.length
-})
+}
+
+const hasToolbar = (): boolean => !hideToolbar && !nested && (!!slots.toolbar || hasColumnVisibilityMenu() || showBulkActionsToolbar())
 const bulkActionsSelectedRowsCount = computed((): string => {
   const selectedRowsCount = bulkActionsSelectedRows.value.length
 
@@ -1290,7 +1287,7 @@ watch([columnVisibility, tableHeaders, hasExpandableRows], (newVals) => {
 }, { deep: true, immediate: true })
 
 // because hasColumnVisibilityMenu also accounts for error/loading/empty state, we need to watch it
-watch(hasColumnVisibilityMenu, (newVal) => {
+watch(() => hasColumnVisibilityMenu(), (newVal) => {
   if (newVal) {
     columnVisibility.value = tablePreferences.columnVisibility || {}
   }

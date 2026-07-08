@@ -10,7 +10,7 @@
     </component>
 
     <div
-      v-if="hasToolbarSlot"
+      v-if="slots.toolbar"
       class="catalog-toolbar"
       data-testid="catalog-toolbar"
     >
@@ -231,7 +231,6 @@ const previousOffset = computed((): string | null => offsets.value[page.value - 
 const nextOffset = ref<string | null>(null)
 const hasNextPage = ref<boolean>(true)
 const hasInitialized = ref<boolean>(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar)
 
 const defaultFetcherProps = {
   page: 1,
