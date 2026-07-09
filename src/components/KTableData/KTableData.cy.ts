@@ -237,6 +237,41 @@ describe('KTableData', () => {
       cy.get('.k-table-data .table-toolbar button').should('contain.text', 'Toolbar button')
     })
 
+    it('forwards a toolbar slot that is added after mount', () => {
+      cy.mount({
+        components: { KTableData },
+        data: () => ({
+          headers: options.headers.map(header => ({ ...header, hidable: false })),
+          ready: false,
+        }),
+        methods: {
+          fetcher() {
+            return { data: options.data }
+          },
+        },
+        template: `
+          <KTableData
+            cache-identifier="dynamic-toolbar-table-data"
+            :fetcher="fetcher"
+            :headers="headers"
+            hide-pagination
+          >
+            <template
+              v-if="ready"
+              #toolbar
+            >
+              <div data-testid="toolbar-content">Toolbar</div>
+            </template>
+          </KTableData>
+        `,
+      })
+
+      cy.getTestId('table-toolbar').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+      cy.getTestId('table-toolbar').should('exist')
+      cy.getTestId('toolbar-content').should('exist')
+    })
+
     it('has hover class when passed', () => {
       cy.mount(KTableData, {
         props: {
