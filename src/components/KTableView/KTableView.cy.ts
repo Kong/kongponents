@@ -252,9 +252,6 @@ describe('KTableView', () => {
         cy.get('.resize-handle').first().should(([handle]) => {
           const row = handle.closest('tr')
 
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          expect(row).to.exist
-
           expect(parseFloat(window.getComputedStyle(handle).height))
             .to.be.closeTo(row!.getBoundingClientRect().height, 1)
         })
