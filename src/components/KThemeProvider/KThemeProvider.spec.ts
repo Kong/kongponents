@@ -28,7 +28,10 @@ function mount(
 }
 
 afterEach(() => {
-  // Clean up any --kui-* tokens written to document root by global-mode tests.
+  // Clean up any injected <style> theme overrides created by global-mode tests.
+  document.getElementById('kongponents-theme')?.remove()
+
+  // Clean up any --kui-* tokens written to document root by tests that set inline vars.
   for (const token of Array.from(document.documentElement.style)) {
     if (token.startsWith('--kui-')) {
       document.documentElement.style.removeProperty(token)
