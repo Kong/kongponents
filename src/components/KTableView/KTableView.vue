@@ -877,7 +877,10 @@ const resizeHoverColumn = computed(() => {
 // get the resizable header divs to be used for the resize observers
 // eslint-disable-next-line no-undef
 const headerElems = computed((): NodeListOf<Element> | undefined => headerRowRef.value?.querySelectorAll('th.resizable'))
-const { height: headerRowHeight } = useElementSize(headerRowRef)
+// resize handles are only ever rendered when this is true (see showResizeHandle) - avoid
+// observing the header row's size when there's nothing that needs its height
+const isResizable = computed((): boolean => resizeColumns && !nested)
+const { height: headerRowHeight } = useElementSize(computed(() => isResizable.value ? headerRowRef.value : null))
 const headerHeight = computed((): string => headerRowHeight.value ? `${headerRowHeight.value}px` : 'auto')
 
 const startResize = (evt: MouseEvent, colKey: ColumnKey) => {
