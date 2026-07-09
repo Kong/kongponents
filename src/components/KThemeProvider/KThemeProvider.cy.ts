@@ -8,10 +8,8 @@ const theme: KongponentsTheme = {
 
 describe('KThemeProvider', () => {
   afterEach(() => {
-    // Clean up any tokens applied to the document root by global-mode tests.
-    Object.keys(theme).forEach((token) => {
-      document.documentElement.style.removeProperty(token)
-    })
+    // Clean up any theme overrides created by global-mode tests.
+    document.getElementById('kongponents-theme')?.remove()
   })
 
   it('applies theme tokens as inline custom properties on its wrapper (subtree scope)', () => {
