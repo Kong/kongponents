@@ -28,7 +28,11 @@ export const createThemeController = (
   }
 
   // Apply the initial theme immediately so the controller and the DOM agree from the start.
-  apply(initialTheme)
+  // Skip when there's no initial theme so simply creating a controller can't clear a
+  // theme another app instance already applied to the shared document.
+  if (initialTheme !== undefined) {
+    apply(initialTheme)
+  }
 
   return { theme, setTheme }
 }

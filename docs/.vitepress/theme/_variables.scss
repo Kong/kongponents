@@ -11,8 +11,11 @@
   // and have poor legibility as link text on the docs' white background.
   --vp-c-brand-3: var(--kui-color-background-primary, #{$kui-color-background-primary});
   --vp-c-brand-soft: var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest});
-  --vp-button-brand-bg: var(--kui-color-background-primary, #{$kui-color-background-primary});
+  --vp-button-brand-text: var(--kui-button-color-text-primary, var(--kui-color-text-inverse, #{$kui-color-text-inverse}));
+  --vp-button-brand-bg: var(--kui-button-color-background-primary, var(--kui-color-background-primary, #{$kui-color-background-primary}));
   --vp-button-brand-hover-bg: var(--kui-color-background-primary-strong, #{$kui-color-background-primary-strong});
+
+  --vp-button-alt-text: var(--kui-color-text-neutral, #{$kui-color-text-neutral});
 
   // Homepage site name color
   --vp-home-hero-name-color: transparent;

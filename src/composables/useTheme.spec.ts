@@ -15,11 +15,12 @@ describe('createThemeController', () => {
     expect(apply).toHaveBeenCalledWith(initialTheme)
   })
 
-  it('calls apply with undefined when no initial theme is provided', () => {
+  it('does not call apply on creation when no initial theme is provided', () => {
+    // Guards against a controller creation silently clearing a theme another
+    // app instance already applied to the shared document (see applyTheme.ts).
     const apply = vi.fn()
     createThemeController(apply)
-    expect(apply).toHaveBeenCalledOnce()
-    expect(apply).toHaveBeenCalledWith(undefined)
+    expect(apply).not.toHaveBeenCalled()
   })
 
   it('initialises theme ref to the provided initial theme', () => {
@@ -173,8 +174,8 @@ describe('useTheme — with a provided controller', () => {
     const theme: KongponentsTheme = { '--kui-color-text-primary': '#abc' }
     result.setTheme(theme)
     expect(providedSetTheme).toHaveBeenCalledWith(theme)
-    // The fallback path writes to document.documentElement; confirm it was not triggered.
-    expect(document.documentElement.style.getPropertyValue('--kui-color-text-primary')).toBe('')
+    // The fallback path writes via applyTheme(), injecting <style id="kongponents-theme">; confirm it was not triggered.
+    expect(document.getElementById('kongponents-theme')).toBeNull()
   })
 })
 
@@ -187,6 +188,12 @@ describe('useTheme — SSR path (window undefined)', () => {
     // a full Vue app, which itself requires window.ShadowRoot.
     vi.spyOn(console, 'warn').mockImplementation(() => undefined)
     vi.stubGlobal('window', undefined)
+  })
+
+  afterEach(() => {
+    // vi.stubGlobal isn't covered by vitest.config.ts's restoreMocks, so it must be
+    // unstubbed explicitly to avoid leaking `window === undefined` into later tests.
+    vi.unstubAllGlobals()
   })
 
   it('returns a controller without throwing', () => {
