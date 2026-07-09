@@ -26,7 +26,10 @@
             class="theme-option"
             :class="{ 'theme-option--active': label === activeThemeLabel }"
             role="option"
+            tabindex="0"
             @click="selectTheme(label)"
+            @keydown.enter.prevent="selectTheme(label)"
+            @keydown.space.prevent="selectTheme(label)"
           >
             <span
               class="theme-option-swatch"
