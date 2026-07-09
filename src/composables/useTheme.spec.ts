@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { createApp } from 'vue'
 import { KONGPONENTS_THEME_INJECTION_KEY, createThemeController, useTheme } from './useTheme'
