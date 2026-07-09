@@ -13,7 +13,7 @@ router.beforeEach((to, _from, next) => {
 })
 
 router.afterEach(() => {
-  document.body.scrollTop = 0
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
 })
 
 export default router
