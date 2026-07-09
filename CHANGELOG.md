@@ -1,3 +1,10 @@
+## [9.60.8](https://github.com/Kong/kongponents/compare/v9.60.7...v9.60.8) (2026-07-09)
+
+
+### Bug Fixes
+
+* **kcatalog, ktableview:** render dynamic toolbar slots [KM-2835] ([#3281](https://github.com/Kong/kongponents/issues/3281)) ([618a83b](https://github.com/Kong/kongponents/commit/618a83b77660d4eb217cfc139a6a4eae06b4e8b4))
+
 ## [9.60.7](https://github.com/Kong/kongponents/compare/v9.60.6...v9.60.7) (2026-07-06)
 
 
