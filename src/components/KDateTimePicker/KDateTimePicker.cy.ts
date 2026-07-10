@@ -572,7 +572,7 @@ describe('KDateTimePicker', () => {
   })
 
   describe('sameDayFullRange', () => {
-    it('applies full-day range when same day selected with sameDayFullRange enabled', () => {
+    it('applies full-day range when exact same day selected with sameDayFullRange enabled', () => {
       const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
       const calendarSelector = `.id-${calendarTargetDateString}`
 
@@ -593,6 +593,70 @@ describe('KDateTimePicker', () => {
 
       cy.getTestId('time-input-start').should('have.value', '00:00')
       cy.getTestId('time-input-end').should('have.value', '23:59')
+      cy.getTestId(submitButton).should('not.be.disabled')
+    })
+
+    it('applies full-day range when the end time is less than the start time on the same day selected with sameDayFullRange enabled', () => {
+      const startDay = 1
+      const endDay = 2
+      const targetDay = 3
+
+      const calendarTargetDateString = format(new Date(today.getFullYear(), today.getMonth(), targetDay), 'yyyy-MM-dd')
+      const calendarSelector = `.id-${calendarTargetDateString}`
+
+      // the dates are different, but the start hour is after the end hour, so it will reset
+      const start = new Date(today.getFullYear(), today.getMonth(), startDay, 4)
+      const end = new Date(today.getFullYear(), today.getMonth(), endDay, 1)
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start, end, timePeriodsKey: '' },
+          range: true,
+          sameDayFullRange: true,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+
+      // Select the same day twice for start and end
+      cy.get(calendarSelector).click()
+      cy.get(calendarSelector).click()
+
+      cy.getTestId('time-input-start').should('have.value', '00:00')
+      cy.getTestId('time-input-end').should('have.value', '23:59')
+      cy.getTestId(submitButton).should('not.be.disabled')
+    })
+
+    it('does NOT apply full-day range when the end time is greater than the start time on the same day selected with sameDayFullRange enabled', () => {
+      const startDay = 1
+      const endDay = 2
+      const targetDay = 3
+
+      const calendarTargetDateString = format(new Date(today.getFullYear(), today.getMonth(), targetDay), 'yyyy-MM-dd')
+      const calendarSelector = `.id-${calendarTargetDateString}`
+
+      // the dates are different, but the end hour is after the after hour, so it won't reset
+      const start = new Date(today.getFullYear(), today.getMonth(), startDay, 1)
+      const end = new Date(today.getFullYear(), today.getMonth(), endDay, 4)
+
+      cy.mount(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start, end, timePeriodsKey: '' },
+          range: true,
+          sameDayFullRange: true,
+        },
+      })
+
+      cy.getTestId(timepickerInput).click()
+
+      // Select the same day twice for start and end
+      cy.get(calendarSelector).click()
+      cy.get(calendarSelector).click()
+
+      cy.getTestId('time-input-start').should('have.value', '01:00')
+      cy.getTestId('time-input-end').should('have.value', '04:00')
       cy.getTestId(submitButton).should('not.be.disabled')
     })
 
@@ -627,18 +691,23 @@ describe('KDateTimePicker', () => {
       // yesterday would be in the previous month and not rendered by the calendar.
       const isFirstOfMonth = today.getDate() === 1
       const startDate = isFirstOfMonth
-        ? today
+        ? new Date(today.getFullYear(), today.getMonth(), today.getDate())
         : new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1)
       const endDate = isFirstOfMonth
         ? new Date(today.getFullYear(), today.getMonth(), 2)
-        : today
+        : new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
+      // force both dates to have a time set that doesn't match what we're trying to detect
+      startDate.setHours(1)
+      endDate.setHours(2)
+
       const startDateString = format(startDate, 'yyyy-MM-dd')
       const endDateString = format(endDate, 'yyyy-MM-dd')
 
       cy.mount(KDateTimePicker, {
         props: {
           mode: 'dateTime',
-          modelValue: { start: null, end: null, timePeriodsKey: '' },
+          modelValue: { start: startDate, end: endDate, timePeriodsKey: '' },
           range: true,
           sameDayFullRange: true,
         },
@@ -648,8 +717,8 @@ describe('KDateTimePicker', () => {
       cy.get(`.id-${startDateString}`).click()
       cy.get(`.id-${endDateString}`).click()
 
-      cy.getTestId('time-input-start').should('not.have.value', '00:00')
-      cy.getTestId('time-input-end').should('not.have.value', '23:59')
+      cy.getTestId('time-input-start').should('have.value', '01:00')
+      cy.getTestId('time-input-end').should('have.value', '02:00')
       cy.getTestId(submitButton).should('not.be.disabled')
     })
   })
