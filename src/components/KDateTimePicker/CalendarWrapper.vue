@@ -82,9 +82,9 @@
 <script lang="ts" setup>
 import type { DatePickerModel, DatePickerRangeObject, DateTimePickerMode, TimeGranularity } from '@/types'
 
-import { computed, nextTick, onMounted, ref, useId, watch } from 'vue'
+import { computed, onMounted, ref, useId, watch } from 'vue'
 import { DatePicker } from 'v-calendar'
-import { format, isBefore, isSameDay, startOfToday } from 'date-fns'
+import { format, isBefore, isSameSecond, isSameDay, parse, startOfToday } from 'date-fns'
 
 const {
   isRange,
@@ -118,7 +118,6 @@ const calendarVModel = defineModel<DatePickerModel>({ required: true })
 const hasError = defineModel<boolean>('error', { default: false })
 const startTimeValue = ref<string>(formatTimeForInput(new Date(), timeGranularity))
 const endTimeValue = ref<string>(formatTimeForInput(new Date(), timeGranularity))
-const isApplyingFullDayRange = ref(false)
 const originalTimeValues = ref<{ start: string, end: string }>({
   start: formatTimeForInput(new Date(), timeGranularity),
   end: formatTimeForInput(new Date(), timeGranularity),
@@ -197,7 +196,7 @@ const isValidDateRange = (
  * Automatically adjust times to create a full-day range (00:00:00 - 23:59:59)
  * @returns true if full-day range was applied, false otherwise
  */
-const applyFullDayRangeIfSameDay = async (): Promise<boolean> => {
+const applyFullDayRangeIfSameDay = (): boolean => {
   if (!sameDayFullRange || !isRange) {
     return false
   }
@@ -206,21 +205,32 @@ const applyFullDayRangeIfSameDay = async (): Promise<boolean> => {
     return false
   }
 
-  if (!isSameDay(calendarVModel.value.start, calendarVModel.value.end)) {
-    return false
+  const actualTimeStart = calendarVModel.value.start.getTime()
+  const actualTimeEnd = calendarVModel.value.end.getTime()
+
+  // due to watchers and state that is manipulated elsewhere, we need to look at
+  // the value within the time inputs themselves to calculate what time is being
+  // requested and we also need to look at what's in the model
+  const format = timeGranularity === 'secondly' ? 'HH:mm:ss' : 'HH:mm'
+  const timeStart = startTimeValue.value
+    ? parse(startTimeValue.value, format, calendarVModel.value.start).getTime()
+    : actualTimeStart
+  const timeEnd = endTimeValue.value
+    ? parse(endTimeValue.value, format, calendarVModel.value.end).getTime()
+    : actualTimeEnd
+
+  const sameDay = isSameDay(calendarVModel.value.start, calendarVModel.value.end)
+  const sameSecond = isSameSecond(calendarVModel.value.start, calendarVModel.value.end)
+
+  // if we are requesting the exact same date, or in the same day requesting a
+  // start time that's greater than the end time (either in the time picker or
+  // in the model as explained above), then set start to the beginning of the
+  // day and end to the end of the day
+  if (sameSecond || (sameDay && (timeStart >= timeEnd || actualTimeStart >= actualTimeEnd))) {
+    // this will cause the timeValues to be set via the calendarVModel watcher
+    calendarVModel.value.start.setHours(0, 0, 0, 0)
+    calendarVModel.value.end.setHours(23, 59, 59, 999)
   }
-
-  // Prevents time watchers from overwriting the calendarVModel
-  isApplyingFullDayRange.value = true
-
-  startTimeValue.value = '00:00'
-  endTimeValue.value = '23:59'
-
-  calendarVModel.value.start.setHours(0, 0, 0, 0)
-  calendarVModel.value.end.setHours(23, 59, 59, 999)
-
-  await nextTick()
-  isApplyingFullDayRange.value = false
 
   return true
 }
@@ -274,7 +284,7 @@ const calendarSelectAttributes = {
 }
 
 watch(() => startTimeValue.value, (newTime) => {
-  if (!newTime || isApplyingFullDayRange.value) {
+  if (!newTime) {
     return
   }
 
@@ -289,7 +299,7 @@ watch(() => startTimeValue.value, (newTime) => {
 })
 
 watch(() => endTimeValue.value, (newTime) => {
-  if (!newTime || isApplyingFullDayRange.value) {
+  if (!newTime) {
     return
   }
 
@@ -303,16 +313,18 @@ watch(() => endTimeValue.value, (newTime) => {
 
 watch(() => calendarVModel.value, () => {
   if (isRange && isValidDateRange(calendarVModel.value)) {
-    if (!applyFullDayRangeIfSameDay()) {
-      startTimeValue.value = formatTimeForInput(calendarVModel.value.start, timeGranularity)
-      endTimeValue.value = formatTimeForInput(calendarVModel.value.end, timeGranularity)
-    }
+    applyFullDayRangeIfSameDay()
+    startTimeValue.value = formatTimeForInput(calendarVModel.value.start, timeGranularity)
+    endTimeValue.value = formatTimeForInput(calendarVModel.value.end, timeGranularity)
 
     hasError.value = isInvalidRange(calendarVModel.value.start, calendarVModel.value.end)
   } else if (calendarVModel.value instanceof Date) {
     startTimeValue.value = formatTimeForInput(calendarVModel.value, timeGranularity)
   }
-}, { immediate: true, deep: true })
+  // we don't want to calculate this immediately, because we need to wait for
+  // initTimeInputs to execute. Otherwise it can mistakenly reset the times to
+  // midnight/midnight when a valid time had already been selected (e.g. 5-10am)
+}, { immediate: false, deep: true })
 
 // Keep track of original time values if time granularity changes
 watch(() => timeGranularity, () => {
