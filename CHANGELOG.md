@@ -1,3 +1,10 @@
+## [9.60.9](https://github.com/Kong/kongponents/compare/v9.60.8...v9.60.9) (2026-07-10)
+
+
+### Bug Fixes
+
+* calendar only tries to reset times when appropriate ([#3283](https://github.com/Kong/kongponents/issues/3283)) ([3801a1d](https://github.com/Kong/kongponents/commit/3801a1d8a04663df9c9be68d0ddb6b8f050a0dcc))
+
 ## [9.60.8](https://github.com/Kong/kongponents/compare/v9.60.7...v9.60.8) (2026-07-09)
 
 
