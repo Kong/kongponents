@@ -299,6 +299,31 @@ describe('KTableView', () => {
       cy.get('.resize-handle').should('exist')
     })
 
+    it('keeps the resize handle height in sync when the header row height changes', () => {
+      cy.mount(KTableView, {
+        props: {
+          headers: options.headers,
+          data: options.data,
+          resizeColumns: true,
+        },
+      })
+
+      const expectHandleHeightMatchesRow = () => {
+        cy.get('.resize-handle').first().should(([handle]) => {
+          const row = handle.closest('tr')
+
+          expect(parseFloat(window.getComputedStyle(handle).height))
+            .to.be.closeTo(row!.getBoundingClientRect().height, 1)
+        })
+      }
+
+      expectHandleHeightMatchesRow()
+
+      cy.get('th.table-headers').invoke('css', 'padding-top', '60px')
+
+      expectHandleHeightMatchesRow()
+    })
+
     it('renders column show/hide when headers.hidable is set', () => {
       // make ID column hidable
       options.headers[1].hidable = true

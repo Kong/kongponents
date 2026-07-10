@@ -491,7 +491,7 @@ import KCheckbox from '@/components/KCheckbox/KCheckbox.vue'
 import BulkActionsDropdown from './BulkActionsDropdown.vue'
 import { getInitialPageSize, getUniqueStringId } from '@/utilities'
 import { getScrollbarSize } from '@/utilities/browser'
-import { useResizeObserver } from '@vueuse/core'
+import { useElementSize, useResizeObserver } from '@vueuse/core'
 import type { CSSProperties, Ref } from 'vue'
 import { mapValues } from 'lodash-es'
 import { normalizeSize } from '@/utilities/css'
@@ -874,16 +874,11 @@ const resizeHoverColumn = computed(() => {
 // get the resizable header divs to be used for the resize observers
 // eslint-disable-next-line no-undef
 const headerElems = computed((): NodeListOf<Element> | undefined => headerRowRef.value?.querySelectorAll('th.resizable'))
-const headerHeight = computed((): string => {
-  const elem = headerElems.value?.item(0)
-  if (elem) {
-    const styles = window?.getComputedStyle(elem)
-    if (styles?.height) {
-      return `${parseInt(styles.height, 10)}px`
-    }
-  }
-  return 'auto'
-})
+// resize handles are only ever rendered when this is true (see showResizeHandle) - avoid
+// observing the header row's size when there's nothing that needs its height
+const isResizable = computed((): boolean => resizeColumns && !nested)
+const { height: headerRowHeight } = useElementSize(computed(() => isResizable.value ? headerRowRef.value : null))
+const headerHeight = computed((): string => headerRowHeight.value ? `${headerRowHeight.value}px` : 'auto')
 
 const startResize = (evt: MouseEvent, colKey: ColumnKey) => {
   // right clicks should be ignored
