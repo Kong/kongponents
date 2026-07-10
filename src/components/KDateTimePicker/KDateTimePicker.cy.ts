@@ -4,6 +4,27 @@ import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
 import { ref } from 'vue'
 import type { TimeRange } from '@/types'
 
+// test utilities.
+// please use cy.clock() when necessary : https://docs.cypress.io/api/commands/clock
+// please do not use non-deterministic Dates to test/assert on
+// please do not introduce state to the utilities
+// examples:
+//
+// cy.clock(today())
+// today()
+// today(- (5 * DAYS))
+// today(5 * DAYS)
+// today(- 10 * YEARS)
+
+
+const HOURS = 60 * 60 * 1000
+const DAYS = 24 * HOURS
+const YEARS = 365 * DAYS
+const today = (num = 0) => new Date(new Date('Sun May 31 2026 00:00:00 UTC+0000').getTime() + num)
+
+// end test utilities
+
+
 const exampleTimeFrames = [
   {
     section: 'Last',
@@ -33,19 +54,19 @@ const exampleTimeFrames = [
   },
 ]
 
-const today = new Date() // eg: 'Thu Sep 08 2022 13:03:28 GMT-0700 (Pacific Daylight Time)'
-const todayDateString = format(new Date(today), 'PP')
-const todayDateTimeString = format(new Date(today), 'PP hh:mm a')
-const twoDaysAgo = new Date(today.getTime() - (2 * 24 * 60 * 60 * 1000))
-const minDate = new Date(today.getTime() - (365 * 24 * 60 * 60 * 1000))
-const maxDate = today
+
+const todayDateString = format(today(), 'PP')
+const todayDateTimeString = format(today(), 'PP hh:mm a')
+const twoDaysAgo = today(- (2 * DAYS))
+const minDate = today(- (1 * YEARS))
+const maxDate = today()
 const singleDate = {
-  start: today,
+  start: today(),
   end: null,
 }
 const defaultTimeRange = {
   start: twoDaysAgo,
-  end: today,
+  end: today(),
   timePeriodsKey: TimeframeKeys.ONE_DAY,
 }
 const emptyTimeRange = {
@@ -347,13 +368,13 @@ describe('KDateTimePicker', () => {
 
   it('reacts to changes in the modelValue', () => {
     const modelValue = ref<TimeRange>({
-      start: new Date('2025-01-01T00:00:00'),
-      end: new Date('2025-01-01T00:00:00'),
+      start: today(),
+      end: today(),
     })
 
     const newDate = {
-      start: new Date('2025-01-01T01:00:00'),
-      end: new Date('2025-01-01T01:00:00'),
+      start: today(1 * HOURS),
+      end: today(1 * HOURS),
     }
 
     cy.mount(KDateTimePicker, {
@@ -376,8 +397,8 @@ describe('KDateTimePicker', () => {
 
   it('resets time to original values when popover is closed without applying changes', () => {
     const modelValue = ref({
-      start: new Date('2025-01-01T00:00:00'),
-      end: new Date('2025-01-01T00:00:00'),
+      start: today(),
+      end: today(),
     })
 
     cy.mount(KDateTimePicker, {
@@ -408,8 +429,8 @@ describe('KDateTimePicker', () => {
 
   it('gracefully handles clearing time inputs', () => {
     const modelValue = ref({
-      start: new Date('2025-01-01T00:00:00'),
-      end: new Date('2025-01-01T00:00:00'),
+      start: today(),
+      end: today(),
     })
 
     cy.mount(KDateTimePicker, {
@@ -432,6 +453,7 @@ describe('KDateTimePicker', () => {
   })
 
   it('anchors calendar initial page to current month if modelValue is null and no min/max dates are set', () => {
+    cy.clock(today())
     const modelValue = ref<TimeRange>({ start: null, end: null })
 
     cy.mount(KDateTimePicker, {
@@ -442,12 +464,12 @@ describe('KDateTimePicker', () => {
     })
 
     cy.getTestId('datetime-picker-trigger').click()
-    cy.get('.vc-title > span').should('have.text', format(new Date(), 'MMMM yyyy'))
+    cy.get('.vc-title > span').should('have.text', format(today(), 'MMMM yyyy'))
   })
 
   it('anchors calendar initial page to maxDate month if modelValue is null and maxDate is set', () => {
     const modelValue = ref<TimeRange>({ start: null, end: null })
-    const maxDate = new Date('2025-08-15T00:00:00')
+    const maxDate = today()
 
     cy.mount(KDateTimePicker, {
       props: {
@@ -463,7 +485,7 @@ describe('KDateTimePicker', () => {
 
   it('anchors calendar initial page to maxDate month if maxDate is earlier than current month and modelValue is null', () => {
     const modelValue = ref<TimeRange>({ start: null, end: null })
-    const maxDate = new Date('2022-08-15T00:00:00')
+    const maxDate = today()
 
     cy.mount(KDateTimePicker, {
       props: {
@@ -479,8 +501,8 @@ describe('KDateTimePicker', () => {
 
   it('anchors calendar initial page to modelValue start', () => {
     const modelValue = ref({
-      start: new Date('2024-03-15T00:00:00'),
-      end: new Date('2024-03-20T00:00:00'),
+      start: today(),
+      end: today(),
     })
 
     cy.mount(KDateTimePicker, {
@@ -496,12 +518,11 @@ describe('KDateTimePicker', () => {
   })
 
   it('time granularity: minutely', () => {
-    const today = new Date()
-    const todayDateTimeStringMinutely = format(new Date(today), 'PP hh:mm a')
+    const todayDateTimeStringMinutely = format(today(), 'PP hh:mm a')
     const range = `${todayDateTimeStringMinutely} - ${todayDateTimeStringMinutely}`
     const modelValue = ref({
-      start: today,
-      end: today,
+      start: today(),
+      end: today(),
     })
     cy.mount(KDateTimePicker, {
       props: {
@@ -515,18 +536,17 @@ describe('KDateTimePicker', () => {
         expect(text.replace(/\s+/g, ' ').trim()).to.include(range)
       })
       cy.getTestId('datetime-picker-trigger').click()
-      cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm'))
-      cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm'))
+      cy.getTestId('time-input-start').should('have.value', format(today(), 'HH:mm'))
+      cy.getTestId('time-input-end').should('have.value', format(today(), 'HH:mm'))
     })
   })
 
   it('time granularity: secondly', () => {
-    const today = new Date()
-    const todayDateTimeStringSecondly = format(today, 'PP hh:mm:ss a')
+    const todayDateTimeStringSecondly = format(today(), 'PP hh:mm:ss a')
     const range = `${todayDateTimeStringSecondly} - ${todayDateTimeStringSecondly}`
     const modelValue = ref({
-      start: today,
-      end: today,
+      start: today(),
+      end: today(),
     })
     cy.mount(KDateTimePicker, {
       props: {
@@ -540,15 +560,15 @@ describe('KDateTimePicker', () => {
         expect(text.replace(/\s+/g, ' ').trim()).to.include(range)
       })
       cy.getTestId('datetime-picker-trigger').click()
-      cy.getTestId('time-input-start').should('have.value', format(today, 'HH:mm:ss'))
-      cy.getTestId('time-input-end').should('have.value', format(today, 'HH:mm:ss'))
+      cy.getTestId('time-input-start').should('have.value', format(today(), 'HH:mm:ss'))
+      cy.getTestId('time-input-end').should('have.value', format(today(), 'HH:mm:ss'))
     })
   })
 
   it('shows timezone for relative time', () => {
     const modelValue = ref({
-      start: new Date('2025-01-01T00:00:00'),
-      end: new Date('2025-01-01T00:00:00'),
+      start: today(),
+      end: today(),
       timePeriodsKey: TimeframeKeys.ONE_HOUR,
     })
 
@@ -573,7 +593,8 @@ describe('KDateTimePicker', () => {
 
   describe('sameDayFullRange', () => {
     it('applies full-day range when same day selected with sameDayFullRange enabled', () => {
-      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      cy.clock(today())
+      const calendarTargetDateString = format(today(), 'yyyy-MM-dd')
       const calendarSelector = `.id-${calendarTargetDateString}`
 
       cy.mount(KDateTimePicker, {
@@ -597,7 +618,8 @@ describe('KDateTimePicker', () => {
     })
 
     it('does not apply full-day range when sameDayFullRange is false (default)', () => {
-      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      cy.clock(today())
+      const calendarTargetDateString = format(today(), 'yyyy-MM-dd')
       const calendarSelector = `.id-${calendarTargetDateString}`
 
       cy.mount(KDateTimePicker, {
@@ -622,16 +644,11 @@ describe('KDateTimePicker', () => {
     })
 
     it('does not apply full-day range for different days even with sameDayFullRange enabled', () => {
-      const today = new Date()
-      // Ensure both dates are in the current month's calendar view — if today is the 1st,
-      // yesterday would be in the previous month and not rendered by the calendar.
-      const isFirstOfMonth = today.getDate() === 1
-      const startDate = isFirstOfMonth
-        ? today
-        : new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1)
-      const endDate = isFirstOfMonth
-        ? new Date(today.getFullYear(), today.getMonth(), 2)
-        : today
+      cy.clock(today(1 * HOURS))
+
+      const startDate = today(- (10 * DAYS))
+      const endDate = today(- (5 * DAYS))
+
       const startDateString = format(startDate, 'yyyy-MM-dd')
       const endDateString = format(endDate, 'yyyy-MM-dd')
 
@@ -656,7 +673,8 @@ describe('KDateTimePicker', () => {
 
   describe('customRangeValidation', () => {
     it('disables Apply button when customRangeValidation returns true', () => {
-      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      cy.clock(today())
+      const calendarTargetDateString = format(today(), 'yyyy-MM-dd')
       const calendarSelector = `.id-${calendarTargetDateString}`
 
       const customValidation = (start: Date, end: Date) => start.getTime() === end.getTime()
@@ -688,7 +706,8 @@ describe('KDateTimePicker', () => {
     })
 
     it('does not affect validation when customRangeValidation is not provided', () => {
-      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      cy.clock(today())
+      const calendarTargetDateString = format(today(), 'yyyy-MM-dd')
       const calendarSelector = `.id-${calendarTargetDateString}`
 
       cy.mount(KDateTimePicker, {
@@ -707,6 +726,7 @@ describe('KDateTimePicker', () => {
     })
 
     it('combines with built-in validation (start > end still invalid)', () => {
+      cy.clock(today())
       const customValidation = () => false
 
       cy.mount(KDateTimePicker, {
@@ -720,7 +740,7 @@ describe('KDateTimePicker', () => {
 
       cy.getTestId(timepickerInput).click()
 
-      const calendarTargetDateString = format(new Date(), 'yyyy-MM-dd')
+      const calendarTargetDateString = format(today(), 'yyyy-MM-dd')
       const calendarSelector = `.id-${calendarTargetDateString}`
       cy.get(calendarSelector).click()
       cy.get(calendarSelector).click()
