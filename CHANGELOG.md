@@ -1,3 +1,10 @@
+## [9.60.10](https://github.com/Kong/kongponents/compare/v9.60.9...v9.60.10) (2026-07-10)
+
+
+### Bug Fixes
+
+* **ktableview:** resize handle NaN height on mount [KM-2845] ([#3282](https://github.com/Kong/kongponents/issues/3282)) ([2f22e03](https://github.com/Kong/kongponents/commit/2f22e0353103811aee58b5707a3495d09430cca4))
+
 ## [9.60.9](https://github.com/Kong/kongponents/compare/v9.60.8...v9.60.9) (2026-07-10)
 
 
