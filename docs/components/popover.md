@@ -415,6 +415,8 @@ Attributes to be applied to `.popover` element.
 
 Pass a number to use for the `z-index` property. Default value is `1000`.
 
+When `KPop` is nested inside a `KModal`, `KPrompt`, or `KSlideout` and no explicit `zIndex` is provided, the popover automatically resolves to one above its parent container's `z-index`, so it always renders on top. An explicit `zIndex` prop always takes precedence.
+
 ### offset
 
 Prop for specifying popover offset (string). Default value is `16px`.
@@ -441,7 +443,11 @@ Prop for specifying popover offset (string). Default value is `16px`.
 
 ### target
 
-In certain scenarios, you may want to attach the popover to other target elements. To achieve this, use the `target` prop to specify a selector for the element where the popover will be teleported. When falsy value us passed, the teleport will be disabled, therefore popover won't be [teleported](https://vuejs.org/guide/built-ins/teleport). Defaults to `null`.
+In certain scenarios, you may want to attach the popover to other target elements. To achieve this, use the `target` prop to specify a selector for the element where the popover will be teleported. When falsy value is passed, the teleport will be disabled, therefore popover won't be [teleported](https://vuejs.org/guide/built-ins/teleport). Defaults to `null`.
+
+:::tip NOTE
+When a teleported popover is nested inside a `KSlideout`, `KModal`, or `KPrompt`, it automatically elevates its `z-index` above the parent container so it renders on top — even though teleporting moves it out of the parent's DOM subtree (`provide`/`inject` follows the component tree, not the DOM). If you set an explicit [`zIndex`](#zindex) prop, that value is used as-is, so make sure it is higher than the parent's `z-index` (`KSlideout` defaults to `9999`, `KModal`/`KPrompt` to `1100`).
+:::
 
 <KPop
   target="body"

@@ -183,6 +183,39 @@ describe('KCatalog', () => {
       cy.get('.k-catalog .catalog-toolbar button').should('contain.text', 'Toolbar button')
     })
 
+    it('renders a toolbar slot that is added after mount', () => {
+      cy.mount({
+        components: { KCatalog },
+        data: () => ({
+          ready: false,
+        }),
+        methods: {
+          fetcher() {
+            return { data: getItems(1), total: 1 }
+          },
+        },
+        template: `
+          <KCatalog
+            cache-identifier="dynamic-toolbar-catalog"
+            disable-pagination
+            :fetcher="fetcher"
+          >
+            <template
+              v-if="ready"
+              #toolbar
+            >
+              <div data-testid="toolbar-content">Toolbar</div>
+            </template>
+          </KCatalog>
+        `,
+      })
+
+      cy.getTestId('catalog-toolbar').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+      cy.getTestId('catalog-toolbar').should('exist')
+      cy.getTestId('toolbar-content').should('exist')
+    })
+
     it('can change card sizes - small', () => {
       const total = 5
 

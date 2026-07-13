@@ -46,12 +46,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useTemplateRef, onUnmounted, watch } from 'vue'
+import { computed, provide, useTemplateRef, onUnmounted, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 import type { KSlideoutEmits, KSlideoutProps, KSlideoutSlots } from '@/types/slideout'
 import { normalizeSize } from '@/utilities/css'
+import { POPOVER_PARENT_ZINDEX_KEY } from '@/utilities/injection-keys'
 
 const {
   visible,
@@ -67,6 +68,9 @@ const {
 const emit = defineEmits<KSlideoutEmits>()
 
 defineSlots<KSlideoutSlots>()
+
+// Provide the slideout's z-index so a nested (teleported) KPop can elevate its popover above the slideout.
+provide(POPOVER_PARENT_ZINDEX_KEY, computed(() => zIndex))
 
 const slideoutContainerElementRef = useTemplateRef('slideoutContainerElement')
 

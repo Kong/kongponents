@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed, watch, useId } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, inject, provide, watch, useId } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
 import type { PopProps, PopEmits, PopSlots, PopPlacement } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
@@ -100,6 +100,7 @@ import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
 import KPopTeleportWrapper from './KPopTeleportWrapper.vue'
 import { useEventListener } from '@vueuse/core'
 import { normalizeSize } from '@/utilities/css'
+import { POPOVER_PARENT_ZINDEX_KEY } from '@/utilities/injection-keys'
 
 const {
   buttonText = '',
@@ -118,13 +119,20 @@ const {
   popoverClasses = '',
   popoverElementAttributes = {},
   tag = 'div',
-  zIndex = 1000,
+  zIndex,
   offset = KUI_SPACE_60,
   target = null,
 } = defineProps<PopProps>()
 
 const emit = defineEmits<PopEmits>()
 const slots = defineSlots<PopSlots>()
+
+// A container (KModal, KSlideout) or an ancestor KPop may provide its z-index. When `zIndex` is not
+// explicitly set, resolve to just above the parent so a teleported popover renders above it; otherwise
+// fall back to the default of 1000. Provide the resolved value so nested popovers keep stacking above.
+const parentZIndex = inject(POPOVER_PARENT_ZINDEX_KEY, null)
+const resolvedZIndex = computed<number>(() => zIndex ?? (parentZIndex?.value != null ? parentZIndex.value + 1 : 1000))
+provide(POPOVER_PARENT_ZINDEX_KEY, resolvedZIndex)
 
 const popoverId = useId()
 const titleId = useId()
@@ -273,7 +281,7 @@ const marginStyles = computed(() => {
 const popoverStyles = computed(() => {
   return {
     ...floatingStyles.value,
-    zIndex,
+    zIndex: resolvedZIndex.value,
   }
 })
 

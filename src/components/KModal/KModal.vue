@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, ref, useAttrs, useId, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, provide, ref, useAttrs, useId, watch } from 'vue'
 import { FocusTrap } from 'focus-trap-vue'
 import { useTextSelection } from '@vueuse/core'
 import KButton from '@/components/KButton/KButton.vue'
@@ -99,6 +99,7 @@ import type { ModalProps, ModalEmits, ModalSlots } from '@/types'
 import { CloseIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 import { normalizeSize } from '@/utilities/css'
+import { POPOVER_PARENT_ZINDEX_KEY } from '@/utilities/injection-keys'
 
 defineOptions({
   inheritAttrs: false,
@@ -127,6 +128,9 @@ const {
 
 const emit = defineEmits<ModalEmits>()
 const slots = defineSlots<ModalSlots>()
+
+// Provide the modal's z-index so a nested (teleported) KPop can elevate its popover above the modal.
+provide(POPOVER_PARENT_ZINDEX_KEY, computed(() => zIndex))
 
 const attrs = useAttrs()
 

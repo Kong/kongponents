@@ -1,3 +1,31 @@
+## [9.60.10](https://github.com/Kong/kongponents/compare/v9.60.9...v9.60.10) (2026-07-10)
+
+
+### Bug Fixes
+
+* **ktableview:** resize handle NaN height on mount [KM-2845] ([#3282](https://github.com/Kong/kongponents/issues/3282)) ([2f22e03](https://github.com/Kong/kongponents/commit/2f22e0353103811aee58b5707a3495d09430cca4))
+
+## [9.60.9](https://github.com/Kong/kongponents/compare/v9.60.8...v9.60.9) (2026-07-10)
+
+
+### Bug Fixes
+
+* calendar only tries to reset times when appropriate ([#3283](https://github.com/Kong/kongponents/issues/3283)) ([3801a1d](https://github.com/Kong/kongponents/commit/3801a1d8a04663df9c9be68d0ddb6b8f050a0dcc))
+
+## [9.60.8](https://github.com/Kong/kongponents/compare/v9.60.7...v9.60.8) (2026-07-09)
+
+
+### Bug Fixes
+
+* **kcatalog, ktableview:** render dynamic toolbar slots [KM-2835] ([#3281](https://github.com/Kong/kongponents/issues/3281)) ([618a83b](https://github.com/Kong/kongponents/commit/618a83b77660d4eb217cfc139a6a4eae06b4e8b4))
+
+## [9.60.7](https://github.com/Kong/kongponents/compare/v9.60.6...v9.60.7) (2026-07-06)
+
+
+### Bug Fixes
+
+* **kpop, kmodal, kslideout:** teleported kpop z-index [KHCP-20474] ([#3276](https://github.com/Kong/kongponents/issues/3276)) ([16d7a79](https://github.com/Kong/kongponents/commit/16d7a79841c93c8993910c8adcbf7fdd6f1519f0))
+
 ## [9.60.6](https://github.com/Kong/kongponents/compare/v9.60.5...v9.60.6) (2026-06-25)
 
 
