@@ -259,8 +259,8 @@ const highlightedLines = ref<number[]>(origLines)
 const highlightedToggle = ref(true)
 const codeModified = ref(false)
 
-const highlight = async ({ codeElement, language, code, theme }: CodeBlockEventData) => {
-  codeElement.innerHTML = await codeToHtml(code, { lang: language, theme: theme === 'dark' ? 'material-theme-palenight' : 'catppuccin-latte', structure: 'inline' })
+const highlight = async ({ codeElement, language, code }: CodeBlockEventData) => {
+  codeElement.innerHTML = await codeToHtml(code, { lang: language, theme: 'catppuccin-latte', structure: 'inline' })
 }
 
 const code = computed((): string => `{

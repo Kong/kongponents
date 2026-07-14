@@ -27,8 +27,8 @@ html {
 // transparent so dark/brand themes show a clean surface. Active anchors restore their
 // background from --kui-navigation-color-background-selected (set per dark/brand theme).
 .sandbox-link a {
-  color: var(--kui-color-text, #000933) !important;
   background-color: transparent !important;
+  color: var(--kui-color-text, #000933) !important;
 }
 
 .sandbox-link a.router-link-active,
