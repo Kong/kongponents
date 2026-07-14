@@ -3,7 +3,6 @@
     :id="id"
     ref="codeBlock"
     class="k-code-block"
-    :class="[`theme-${theme}`]"
     data-testid="k-code-block"
     tabindex="-1"
     @blur="currentLineIndex = null"
@@ -58,7 +57,7 @@
             <ProgressIcon
               v-if="isProcessing"
               class="code-block-processing-icon"
-              :color="getIconColor"
+              :color="`var(--kui-color-text-neutral-strong, ${KUI_COLOR_TEXT_NEUTRAL_STRONG})`"
               data-testid="code-block-processing-icon"
               :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
               title="Loading"
@@ -91,7 +90,6 @@
           :aria-pressed="isRegExpMode"
           class="regexp-mode-button"
           data-testid="regexp-mode-button"
-          :theme="theme"
           :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
           @click="toggleRegExpMode"
         >
@@ -104,7 +102,6 @@
           :aria-pressed="isFilterMode"
           class="action-button filter-mode-button"
           data-testid="filter-mode-button"
-          :theme="theme"
           :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
           @click="toggleFilterMode"
         >
@@ -116,7 +113,6 @@
           class="previous-match-button"
           data-testid="previous-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          :theme="theme"
           title="Previous match (Shift+F3)"
           @click="jumpToPreviousMatch"
         >
@@ -128,7 +124,6 @@
           class="next-match-button"
           data-testid="next-match-button"
           :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          :theme="theme"
           title="Next match (F3)"
           @click="jumpToNextMatch"
         >
@@ -159,7 +154,6 @@
             class="code-block-copy-button"
             :copy-tooltip="`Copy (${ALT_SHORTCUT_LABEL}+C)`"
             :data-testid="`code-block-copy-button-${id}`"
-            :theme="theme"
             @click="handleCopyCode"
           >
             <CopyIcon decorative />
@@ -277,7 +271,6 @@ const {
   showCopyButton = true,
   showLineNumbers = true,
   showLineNumberLinks,
-  theme = 'light',
   singleLine,
   maxHeight = 'none',
 } = defineProps<CodeBlockProps>()
@@ -516,7 +509,6 @@ function getEventData(preElement: HTMLElement, codeElement: HTMLElement): CodeBl
     preElement,
     codeElement,
     code,
-    theme,
     language,
     query: query.value,
     matchingLineNumbers: matchingLineNumbers.value,
@@ -657,8 +649,6 @@ async function handleCopyCode(event: Event): Promise<void> {
   }
 }
 
-const getIconColor = computed(() => theme === 'light' ? `var(--kui-color-text-neutral-strong, ${KUI_COLOR_TEXT_NEUTRAL_STRONG})` : `var(--kui-color-text-inverse, ${KUI_COLOR_TEXT_INVERSE})`)
-
 type VirtualizerProps = InstanceType<typeof Virtualizer>['$props']
 
 // props definition see https://github.com/inokawa/virtua/blob/7539c2a0aa279f4c2be6eb6c268344e22404df11/src/vue/Virtualizer.tsx#L84-L141
@@ -700,15 +690,9 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
 </script>
 
 <style lang="scss" scoped>
-/* Component variables */
-
-// background color for the matching line (search or filter) in dark theme
-$kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't have a token for this
-
 /* Component styles */
 
 .k-code-block {
-  // light theme (treated as default)
   background-color: var(--kui-code-block-color-background, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
   border-radius: var(--kui-code-block-border-radius, var(--kui-border-radius-40, $kui-border-radius-40));
 
@@ -875,75 +859,11 @@ $kCodeBlockDarkLineMatchBackgroundColor: rgba(255, 255, 255, 0.12); // we don't 
       }
     }
   }
-
-  &.theme-dark {
-    background-color: var(--kui-code-block-color-background-dark, var(--kui-color-background-inverse, $kui-color-background-inverse));
-    // This improves scrollbar styles in dark mode
-    color-scheme: dark;
-
-    .code-block-actions {
-      border-bottom-color: var(--kui-code-block-actions-color-border-dark, var(--kui-color-border-inverse, $kui-color-border-inverse));
-
-      .code-block-search-input {
-        :deep(input) {
-          color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-
-          &::placeholder {
-            color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker);
-          }
-        }
-
-        .clear-query-button,
-        .code-block-search-icon {
-          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
-        }
-
-        // Sadly we need this to beat the specificity set by KInput for now
-        .clear-query-button:not([disabled]) {
-          &:hover, &:focus, &:focus-visible {
-            color: var(--kui-color-text-inverse, $kui-color-text-inverse) !important;
-          }
-        }
-      }
-
-      .code-block-search-results {
-        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-      }
-    }
-
-    .code-block-content {
-      pre {
-        .line-number-rows {
-          :deep(.line) {
-            .line-anchor {
-              color: var(--kui-code-block-line-number-color-text-dark, var(--kui-color-text-neutral-weak, $kui-color-text-neutral-weak));
-            }
-
-            &.line-is-match {
-              &::before {
-                background-color: $kCodeBlockDarkLineMatchBackgroundColor;
-              }
-
-              &.line-is-highlighted-match {
-                &::before {
-                  border-left-color: var(--kui-color-border-primary-weak, $kui-color-border-primary-weak);
-                }
-              }
-            }
-          }
-        }
-
-        code {
-          color: var(--kui-code-block-color-text-dark, var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker));
-        }
-      }
-    }
-  }
 }
 </style>
 
 <style lang="scss">
-// needs to be unscoped, applies to both light and dark themes
+// needs to be unscoped
 .k-code-block {
   pre.filtered-code-block {
     code {
