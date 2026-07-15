@@ -85,10 +85,13 @@ const getAlertIcon = computed((): AlertIcon => {
 <style lang="scss" scoped>
 /* Component mixins */
 
+// Accepts component-token expressions as params so each appearance class can pass its
+// own --kui-alert-color-* tokens with the correct semantic fallback.
+// Default params are the info appearance component tokens.
 @mixin kAlertAppearance(
-  $backgroundColor: var(--kui-color-background-info-weakest, $kui-color-background-info-weakest),
-  $textColor: var(--kui-color-text-info, $kui-color-text-info),
-  $hoverColor: var(--kui-color-text-info-strong, $kui-color-text-info-strong),
+  $backgroundColor: var(--kui-alert-color-background-info, var(--kui-color-background-info-weakest, $kui-color-background-info-weakest)),
+  $textColor: var(--kui-alert-color-text-info, var(--kui-color-text-info, $kui-color-text-info)),
+  $hoverColor: var(--kui-alert-color-text-info-hover, var(--kui-color-text-info-strong, $kui-color-text-info-strong)),
   $codeBackgroundColor: var(--kui-color-background-info-weaker, $kui-color-background-info-weaker)) {
   background-color: $backgroundColor;
   color: $textColor;
@@ -132,11 +135,11 @@ const getAlertIcon = computed((): AlertIcon => {
   // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
   // stylelint-disable-next-line no-duplicate-selectors
   & {
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border-radius: var(--kui-alert-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     box-sizing: border-box;
     display: flex;
     gap: var(--kui-space-30, $kui-space-30);
-    padding: var(--kui-space-50, $kui-space-50);
+    padding: var(--kui-alert-padding, var(--kui-space-50, $kui-space-50));
   }
 
   .alert-icon-container {
@@ -151,19 +154,19 @@ const getAlertIcon = computed((): AlertIcon => {
     display: flex;
     flex: 1;
     flex-direction: column;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
+    font-family: var(--kui-alert-font-family, var(--kui-font-family-text, $kui-font-family-text));
     gap: var(--kui-space-30, $kui-space-30);
 
     .alert-title {
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
+      font-size: var(--kui-alert-font-size, var(--kui-font-size-30, $kui-font-size-30));
       font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      line-height: var(--kui-alert-line-height, var(--kui-line-height-30, $kui-line-height-30));
     }
 
     .alert-message {
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      font-size: var(--kui-alert-font-size, var(--kui-font-size-30, $kui-font-size-30));
+      font-weight: var(--kui-alert-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+      line-height: var(--kui-alert-line-height, var(--kui-line-height-30, $kui-line-height-30));
 
       p {
         margin: 0;
@@ -203,34 +206,34 @@ const getAlertIcon = computed((): AlertIcon => {
 
   &.success {
     @include kAlertAppearance(
-      var(--kui-color-background-success-weakest, $kui-color-background-success-weakest),
-      var(--kui-color-text-success, $kui-color-text-success),
-      var(--kui-color-text-success-strong, $kui-color-text-success-strong),
-      #B5FFEE); // we don't have a kui-color-background-success-weaker token so use hardcoded value
+      var(--kui-alert-color-background-success, var(--kui-color-background-success-weakest, $kui-color-background-success-weakest)),
+      var(--kui-alert-color-text-success, var(--kui-color-text-success, $kui-color-text-success)),
+      var(--kui-alert-color-text-success-hover, var(--kui-color-text-success-strong, $kui-color-text-success-strong)),
+      #B5FFEE); // no semantic fallback available for success code background
   }
 
   &.warning {
     @include kAlertAppearance(
-      var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest),
-      var(--kui-color-text-warning, $kui-color-text-warning),
-      var(--kui-color-text-warning-strong, $kui-color-text-warning-strong),
+      var(--kui-alert-color-background-warning, var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest)),
+      var(--kui-alert-color-text-warning, var(--kui-color-text-warning, $kui-color-text-warning)),
+      var(--kui-alert-color-text-warning-hover, var(--kui-color-text-warning-strong, $kui-color-text-warning-strong)),
       var(--kui-color-background-warning-weaker, $kui-color-background-warning-weaker));
   }
 
   &.danger {
     @include kAlertAppearance(
-      var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest),
-      var(--kui-color-text-danger, $kui-color-text-danger),
-      var(--kui-color-text-danger-strong, $kui-color-text-danger-strong),
+      var(--kui-alert-color-background-danger, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest)),
+      var(--kui-alert-color-text-danger, var(--kui-color-text-danger, $kui-color-text-danger)),
+      var(--kui-alert-color-text-danger-hover, var(--kui-color-text-danger-strong, $kui-color-text-danger-strong)),
       var(--kui-color-background-danger-weaker, $kui-color-background-danger-weaker));
   }
 
   &.decorative {
     @include kAlertAppearance(
-      var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
-      var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
-      var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong),
-      #CFC8FF); // we don't have a kui-color-background-decorative-purple-weaker (purple.20) token so use hardcoded value
+      var(--kui-alert-color-background-decorative, var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest)),
+      var(--kui-alert-color-text-decorative, var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple)),
+      var(--kui-alert-color-text-decorative-hover, var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong)),
+      #CFC8FF); // no semantic fallback available for decorative code background
   }
 }
 </style>

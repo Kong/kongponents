@@ -146,11 +146,12 @@ export default {
   // stylelint-disable-next-line no-duplicate-selectors
   & {
     align-items: center;
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    // border-radius and border-width are size-specific — they live in the size mixins/blocks only.
+    border-style: solid;
     cursor: pointer;
     display: inline-flex;
     font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    font-weight: var(--kui-button-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
     justify-content: center;
     // Remove tap color highlight on mobile Safari
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -167,7 +168,7 @@ export default {
   }
 
   &:focus-visible {
-    box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+    box-shadow: var(--kui-button-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
   }
 
   &:disabled, &[disabled] {
@@ -178,104 +179,126 @@ export default {
   /* Appearances */
 
   &.primary {
-    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
-    border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+    background-color: var(--kui-button-color-background-primary, var(--kui-color-background-primary, $kui-color-background-primary));
+    border-color: var(--kui-button-color-border-primary, var(--kui-color-border-transparent, $kui-color-border-transparent));
+    color: var(--kui-button-color-text-primary, var(--kui-color-text-inverse, $kui-color-text-inverse));
 
     &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
-      background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
+      background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-primary-strong, $kui-color-background-primary-strong));
+      border-color: var(--kui-button-color-border-primary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:focus-visible {
-      background-color: var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger);
+      // -hover tokens drive both hover and focus-visible; semantic fallbacks retain distinct defaults.
+      background-color: var(--kui-button-color-background-primary-hover, var(--kui-color-background-primary-stronger, $kui-color-background-primary-stronger));
+      border-color: var(--kui-button-color-border-primary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-primary-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:active {
-      background-color: var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest);
+      background-color: var(--kui-button-color-background-primary-active, var(--kui-color-background-primary-strongest, $kui-color-background-primary-strongest));
+      border-color: var(--kui-button-color-border-primary-active, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-primary-active, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:disabled, &[disabled] {
-      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+      background-color: var(--kui-button-color-background-primary-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled));
+      border-color: var(--kui-button-color-border-primary-disabled, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-primary-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled));
     }
   }
 
   &.secondary {
-    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-primary, $kui-color-border-primary);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
+    background-color: var(--kui-button-color-background-secondary, var(--kui-color-background-transparent, $kui-color-background-transparent));
+    border-color: var(--kui-button-color-border-secondary, var(--kui-color-border-primary, $kui-color-border-primary));
+    color: var(--kui-button-color-text-secondary, var(--kui-color-text-primary, $kui-color-text-primary));
 
     &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      background-color: var(--kui-button-color-background-secondary-hover, var(--kui-color-background-transparent, $kui-color-background-transparent));
+      border-color: var(--kui-button-color-border-secondary-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
+      color: var(--kui-button-color-text-secondary-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
     }
 
     &:focus-visible {
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      // -hover tokens drive both hover and focus-visible; semantic fallbacks retain distinct defaults.
+      background-color: var(--kui-button-color-background-secondary-hover, var(--kui-color-background-transparent, $kui-color-background-transparent));
+      border-color: var(--kui-button-color-border-secondary-hover, var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger));
+      color: var(--kui-button-color-text-secondary-hover, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
     }
 
     &:active {
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      border-color: var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest);
-      color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
+      background-color: var(--kui-button-color-background-secondary-active, var(--kui-color-background-transparent, $kui-color-background-transparent));
+      border-color: var(--kui-button-color-border-secondary-active, var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest));
+      color: var(--kui-button-color-text-secondary-active, var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest));
     }
 
     &:disabled, &[disabled] {
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      border-color: var(--kui-color-border-disabled, $kui-color-border-disabled);
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+      background-color: var(--kui-button-color-background-secondary-disabled, var(--kui-color-background-transparent, $kui-color-background-transparent));
+      border-color: var(--kui-button-color-border-secondary-disabled, var(--kui-color-border-disabled, $kui-color-border-disabled));
+      color: var(--kui-button-color-text-secondary-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled));
     }
   }
 
   &.tertiary {
-    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-    border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
+    background-color: var(--kui-button-color-background-tertiary, var(--kui-color-background-transparent, $kui-color-background-transparent));
+    border-color: var(--kui-button-color-border-tertiary, var(--kui-color-border-transparent, $kui-color-border-transparent));
+    color: var(--kui-button-color-text-tertiary, var(--kui-color-text-primary, $kui-color-text-primary));
 
     &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
-      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      background-color: var(--kui-button-color-background-tertiary-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+      border-color: var(--kui-button-color-border-tertiary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-tertiary-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
     }
 
     &:focus-visible {
-      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      // -hover tokens drive both hover and focus-visible; semantic fallbacks retain distinct defaults.
+      background-color: var(--kui-button-color-background-tertiary-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+      border-color: var(--kui-button-color-border-tertiary-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-tertiary-hover, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
     }
 
     &:active {
-      background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-      color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
+      background-color: var(--kui-button-color-background-tertiary-active, var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker));
+      border-color: var(--kui-button-color-border-tertiary-active, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-tertiary-active, var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest));
     }
 
     &:disabled, &[disabled] {
-      background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+      background-color: var(--kui-button-color-background-tertiary-disabled, var(--kui-color-background-transparent, $kui-color-background-transparent));
+      border-color: var(--kui-button-color-border-tertiary-disabled, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-tertiary-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled));
     }
   }
 
   &.danger {
-    background-color: var(--kui-color-background-danger, $kui-color-background-danger);
-    border: var(--kui-border-width-20, $kui-border-width-20) solid var(--kui-color-border-transparent, $kui-color-border-transparent);
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+    background-color: var(--kui-button-color-background-danger, var(--kui-color-background-danger, $kui-color-background-danger));
+    border-color: var(--kui-button-color-border-danger, var(--kui-color-border-transparent, $kui-color-border-transparent));
+    color: var(--kui-button-color-text-danger, var(--kui-color-text-inverse, $kui-color-text-inverse));
 
     &:hover:not(:disabled):not([disabled]):not(:focus):not(:active) {
-      background-color: var(--kui-color-background-danger-strong, $kui-color-background-danger-strong);
+      background-color: var(--kui-button-color-background-danger-hover, var(--kui-color-background-danger-strong, $kui-color-background-danger-strong));
+      border-color: var(--kui-button-color-border-danger-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-danger-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:focus-visible {
-      background-color: var(--kui-color-background-danger-stronger, $kui-color-background-danger-stronger);
+      // -hover tokens drive both hover and focus-visible; semantic fallbacks retain distinct defaults.
+      background-color: var(--kui-button-color-background-danger-hover, var(--kui-color-background-danger-stronger, $kui-color-background-danger-stronger));
+      border-color: var(--kui-button-color-border-danger-hover, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-danger-hover, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:active {
-      background-color: var(--kui-color-background-danger-strongest, $kui-color-background-danger-strongest);
+      background-color: var(--kui-button-color-background-danger-active, var(--kui-color-background-danger-strongest, $kui-color-background-danger-strongest));
+      border-color: var(--kui-button-color-border-danger-active, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-danger-active, var(--kui-color-text-inverse, $kui-color-text-inverse));
     }
 
     &:disabled, &[disabled] {
-      background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled);
+      background-color: var(--kui-button-color-background-danger-disabled, var(--kui-color-background-disabled, $kui-color-background-disabled));
+      border-color: var(--kui-button-color-border-danger-disabled, var(--kui-color-border-transparent, $kui-color-border-transparent));
+      color: var(--kui-button-color-text-danger-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled));
     }
   }
 
@@ -284,7 +307,8 @@ export default {
   &:where(.none) {
     all: unset;
     align-items: center;
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    // .none uses the medium border-radius (same default as normal buttons)
+    border-radius: var(--kui-button-border-radius-medium, var(--kui-border-radius-30, $kui-border-radius-30));
     box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
@@ -307,19 +331,21 @@ export default {
   /* Sizes */
 
   &.large {
-    font-size: var(--kui-font-size-40, $kui-font-size-40);
+    border-radius: var(--kui-button-border-radius-large, var(--kui-border-radius-30, $kui-border-radius-30));
+    border-width: var(--kui-button-border-width-large, var(--kui-border-width-20, $kui-border-width-20));
+    font-size: var(--kui-button-font-size-large, var(--kui-font-size-40, $kui-font-size-40));
     gap: var(--kui-space-40, $kui-space-40);
-    line-height: var(--kui-line-height-40, $kui-line-height-40);
-    padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
+    line-height: var(--kui-button-line-height-large, var(--kui-line-height-40, $kui-line-height-40));
+    padding: var(--kui-button-padding-y-large, var(--kui-space-30, $kui-space-30)) var(--kui-button-padding-x-large, var(--kui-space-50, $kui-space-50));
 
     &.icon-button {
-      padding: var(--kui-space-30, $kui-space-30);
+      padding: var(--kui-button-padding-y-large, var(--kui-space-30, $kui-space-30));
     }
 
     // enforce icon size exported by @kong/icons because it's defined by the design system
     :deep(#{$kongponentsKongIconSelector}) {
-      height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
-      width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
+      height: var(--kui-button-icon-size-large, var(--kui-icon-size-50, $kui-icon-size-50)) !important;
+      width: var(--kui-button-icon-size-large, var(--kui-icon-size-50, $kui-icon-size-50)) !important;
     }
   }
 
@@ -328,21 +354,21 @@ export default {
   }
 
   &.small {
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-    border-width: var(--kui-border-width-10, $kui-border-width-10);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
+    border-radius: var(--kui-button-border-radius-small, var(--kui-border-radius-20, $kui-border-radius-20));
+    border-width: var(--kui-button-border-width-small, var(--kui-border-width-10, $kui-border-width-10));
+    font-size: var(--kui-button-font-size-small, var(--kui-font-size-20, $kui-font-size-20));
     gap: var(--kui-space-20, $kui-space-20);
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
-    padding: var(--kui-space-10, $kui-space-10) var(--kui-space-30, $kui-space-30);
+    line-height: var(--kui-button-line-height-small, var(--kui-line-height-20, $kui-line-height-20));
+    padding: var(--kui-button-padding-y-small, var(--kui-space-10, $kui-space-10)) var(--kui-button-padding-x-small, var(--kui-space-30, $kui-space-30));
 
     &.icon-button {
-      padding: var(--kui-space-10, $kui-space-10);
+      padding: var(--kui-button-padding-y-small, var(--kui-space-10, $kui-space-10));
     }
 
     // enforce icon size exported by @kong/icons because it's defined by the design system
     :deep(#{$kongponentsKongIconSelector}) {
-      height: var(--kui-icon-size-30, $kui-icon-size-30) !important;
-      width: var(--kui-icon-size-30, $kui-icon-size-30) !important;
+      height: var(--kui-button-icon-size-small, var(--kui-icon-size-30, $kui-icon-size-30)) !important;
+      width: var(--kui-button-icon-size-small, var(--kui-icon-size-30, $kui-icon-size-30)) !important;
     }
   }
 }

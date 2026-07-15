@@ -4,7 +4,7 @@
 # Defaulting to the settings for the `main` branch
 [build]
   base = "/"
-  command = "pnpm docs:build"
+  command = "pnpm build:ci"
   publish = "/docs/.vitepress/dist"
   environment = { NODE_VERSION = "20.14.0" }
 

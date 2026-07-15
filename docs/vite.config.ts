@@ -18,6 +18,9 @@ export default defineConfig({
       'v-calendar': path.resolve(__dirname, '../node_modules/v-calendar/dist/es/index.js'),
       // We must alias `@kong/design-tokens` imports to specifically utilize the esm build
       '@kong/design-tokens/tokens/scss/variables': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/scss/variables.scss'),
+      // Subpath exports must be aliased before the catch-all (Vite resolves in insertion order)
+      '@kong/design-tokens/tokens/themeable-tokens': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/themeable-tokens/index.mjs'),
+      '@kong/design-tokens/themes': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/themes/index.mjs'),
       '@kong/design-tokens': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/js/'),
       // We must alias `date-fns-tz` here for the docs build to specifically utilize the esm build
       'date-fns-tz': path.resolve(__dirname, '../node_modules/date-fns-tz/esm'),

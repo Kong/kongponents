@@ -137,14 +137,14 @@ const getEmptyStateIcon = computed((): EmptyStateIcon => {
 
 const getIconColor = computed((): string => {
   if (iconBackground) {
-    return KUI_COLOR_TEXT_DECORATIVE_AQUA
+    return `var(--kui-color-text-decorative-aqua, ${KUI_COLOR_TEXT_DECORATIVE_AQUA})`
   }
 
   switch (iconVariant) {
     case EmptyStateIconVariants.Error:
-      return KUI_COLOR_TEXT_WARNING
+      return `var(--kui-color-text-warning, ${KUI_COLOR_TEXT_WARNING})`
     default:
-      return KUI_COLOR_TEXT_NEUTRAL
+      return `var(--kui-color-text-neutral, ${KUI_COLOR_TEXT_NEUTRAL})`
   }
 })
 
@@ -172,11 +172,11 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
 
 .k-empty-state {
   align-items: center;
-  background-color: var(--kui-color-background, $kui-color-background);
+  background-color: var(--kui-empty-state-color-background, var(--kui-color-background, $kui-color-background));
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-family: var(--kui-empty-state-font-family, var(--kui-font-family-text, $kui-font-family-text));
   gap: var(--kui-space-90, $kui-space-90);
   padding: var(--kui-space-90, $kui-space-90);
   width: 100%;
@@ -194,22 +194,22 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
     width: 100%;
 
     .empty-state-icon {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      color: var(--kui-empty-state-icon-color, var(--kui-color-text-neutral, $kui-color-text-neutral));
 
       :deep(#{$kongponentsKongIconSelector}) {
-        height: var(--kui-icon-size-60, $kui-icon-size-60) !important;
-        width: var(--kui-icon-size-60, $kui-icon-size-60) !important;
+        height: var(--kui-empty-state-icon-size, var(--kui-icon-size-60, $kui-icon-size-60)) !important;
+        width: var(--kui-empty-state-icon-size, var(--kui-icon-size-60, $kui-icon-size-60)) !important;
       }
 
       &.has-background {
-        background-color: var(--kui-color-background-decorative-aqua-weakest, $kui-color-background-decorative-aqua-weakest);
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua);
-        padding: var(--kui-space-40, $kui-space-40);
+        background-color: var(--kui-empty-state-icon-color-background, var(--kui-color-background-decorative-aqua-weakest, $kui-color-background-decorative-aqua-weakest));
+        border-radius: var(--kui-empty-state-icon-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+        color: var(--kui-empty-state-icon-color-text-background, var(--kui-color-text-decorative-aqua, $kui-color-text-decorative-aqua));
+        padding: var(--kui-empty-state-icon-padding, var(--kui-space-40, $kui-space-40));
 
         :deep(#{$kongponentsKongIconSelector}) {
-          height: var(--kui-icon-size-50, $kui-icon-size-50) !important;
-          width: var(--kui-icon-size-50, $kui-icon-size-50) !important;
+          height: var(--kui-empty-state-icon-size-background, var(--kui-icon-size-50, $kui-icon-size-50)) !important;
+          width: var(--kui-empty-state-icon-size-background, var(--kui-icon-size-50, $kui-icon-size-50)) !important;
         }
       }
     }
@@ -221,21 +221,21 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
     }
 
     .empty-state-title {
-      color: var(--kui-color-text, $kui-color-text);
-      font-size: var(--kui-font-size-50, $kui-font-size-50);
-      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-      line-height: var(--kui-line-height-40, $kui-line-height-40);
+      color: var(--kui-empty-state-title-color-text, var(--kui-color-text, $kui-color-text));
+      font-size: var(--kui-empty-state-title-font-size, var(--kui-font-size-50, $kui-font-size-50));
+      font-weight: var(--kui-empty-state-title-font-weight, var(--kui-font-weight-bold, $kui-font-weight-bold));
+      line-height: var(--kui-empty-state-title-line-height, var(--kui-line-height-40, $kui-line-height-40));
       max-width: 570px; // limit width so the text stays readable if title is too long
     }
 
     .empty-state-message {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      color: var(--kui-empty-state-message-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
       display: flex;
       flex-direction: column;
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+      font-size: var(--kui-empty-state-message-font-size, var(--kui-font-size-30, $kui-font-size-30));
+      font-weight: var(--kui-empty-state-message-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
       gap: var(--kui-space-70, $kui-space-70);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      line-height: var(--kui-empty-state-message-line-height, var(--kui-line-height-30, $kui-line-height-30));
       max-width: $kEmptyStateMaxWidth; // limit width so the message stays readable if title is too long
 
       p {
@@ -301,16 +301,18 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
   }
 
   .empty-state-footer-container {
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    border-top-color: var(--kui-empty-state-footer-color-border, var(--kui-color-border, $kui-color-border));
+    border-top-style: solid;
+    border-top-width: var(--kui-empty-state-footer-border-width, var(--kui-border-width-10, $kui-border-width-10));
+    color: var(--kui-empty-state-footer-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
     display: flex;
     flex-direction: column;
-    font-size: var(--kui-font-size-30, $kui-font-size-30);
-    font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
+    font-size: var(--kui-empty-state-footer-font-size, var(--kui-font-size-30, $kui-font-size-30));
+    font-weight: var(--kui-empty-state-footer-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
     gap: var(--kui-space-40, $kui-space-40);
-    line-height: var(--kui-line-height-30, $kui-line-height-30);
+    line-height: var(--kui-empty-state-footer-line-height, var(--kui-line-height-30, $kui-line-height-30));
     max-width: $kEmptyStateMaxWidth; // limit width so the message stays readable if title is too long
-    padding-top: var(--kui-space-90, $kui-space-90);
+    padding-top: var(--kui-empty-state-footer-padding-top, var(--kui-space-90, $kui-space-90));
     width: 100%;
   }
 }

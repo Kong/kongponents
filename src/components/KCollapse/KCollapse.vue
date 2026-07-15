@@ -133,7 +133,7 @@ watch(modelComputed, (newVal, oldVal) => {
 <style lang="scss" scoped>
 .k-collapse {
   box-sizing: border-box;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
+  font-family: var(--kui-collapse-font-family, var(--kui-font-family-text, $kui-font-family-text));
   width: 100%;
 
   .collapse-heading {
@@ -142,13 +142,13 @@ watch(modelComputed, (newVal, oldVal) => {
 
     .collapse-title {
       align-items: center;
-      color: var(--kui-color-text, $kui-color-text);
+      color: var(--kui-collapse-title-color-text, var(--kui-color-text, $kui-color-text));
       display: flex;
-      font-size: var(--kui-font-size-40, $kui-font-size-40);
-      font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
+      font-size: var(--kui-collapse-title-font-size, var(--kui-font-size-40, $kui-font-size-40));
+      font-weight: var(--kui-collapse-title-font-weight, var(--kui-font-weight-bold, $kui-font-weight-bold));
       gap: var(--kui-space-50, $kui-space-50);
       letter-spacing: var(--kui-letter-spacing-minus-30, $kui-letter-spacing-minus-30);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      line-height: var(--kui-collapse-title-line-height, var(--kui-line-height-30, $kui-line-height-30));
       margin: var(--kui-space-0, $kui-space-0);
       margin-bottom: var(--kui-space-40, $kui-space-40);
     }
@@ -160,26 +160,26 @@ watch(modelComputed, (newVal, oldVal) => {
         @include defaultButtonReset;
 
         align-items: center;
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-        color: var(--kui-color-text-primary, $kui-color-text-primary);
+        border-radius: var(--kui-collapse-trigger-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+        color: var(--kui-collapse-trigger-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
         display: flex;
-        font-size: var(--kui-font-size-30, $kui-font-size-30);
-        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+        font-size: var(--kui-collapse-trigger-font-size, var(--kui-font-size-30, $kui-font-size-30));
+        font-weight: var(--kui-collapse-trigger-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
         gap: var(--kui-space-20, $kui-space-20);
-        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        line-height: var(--kui-collapse-trigger-line-height, var(--kui-line-height-30, $kui-line-height-30));
         outline: none;
         padding: var(--kui-space-10, $kui-space-10);
 
         &:hover:not(:focus):not(:active) {
-          color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+          color: var(--kui-collapse-trigger-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
         }
 
         &:focus-visible {
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          box-shadow: var(--kui-collapse-trigger-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
         }
 
         &:active {
-          color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+          color: var(--kui-collapse-trigger-color-text-active, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
         }
 
         .collapse-trigger-icon {

@@ -15,7 +15,7 @@
         <component
           :is="getToastIcon(toaster.appearance)"
           class="toaster-icon"
-          :color="`var(--kui-color-text, ${KUI_COLOR_TEXT})`"
+          :color="`var(--kui-toaster-icon-color, var(--kui-color-background-inverse, ${KUI_COLOR_BACKGROUND_INVERSE}))`"
           decorative
         />
       </div>
@@ -52,7 +52,7 @@
 <script lang="ts" setup>
 import type { ToasterAppearance, ToasterProps, ToasterEmits } from '@/types'
 import { InfoIcon, CheckCircleIcon, WarningIcon, ClearIcon, KongIcon, CloseIcon } from '@kong/icons'
-import { KUI_COLOR_TEXT, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_50 } from '@kong/design-tokens'
+import { KUI_COLOR_BACKGROUND_INVERSE, KUI_COLOR_TEXT_NEUTRAL_WEAK, KUI_ICON_SIZE_50 } from '@kong/design-tokens'
 
 type ToastIcon = typeof InfoIcon | typeof CheckCircleIcon | typeof WarningIcon | typeof ClearIcon | typeof KongIcon
 
@@ -123,19 +123,19 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
   .toaster {
     align-items: flex-start;
     align-items: center;
-    background-color: var(--kui-color-background-inverse, $kui-color-background-inverse);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    box-shadow: var(--kui-shadow, $kui-shadow);
+    background-color: var(--kui-toaster-color-background, var(--kui-color-background-inverse, $kui-color-background-inverse));
+    border-radius: var(--kui-toaster-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+    box-shadow: var(--kui-toaster-shadow, var(--kui-shadow, $kui-shadow));
     box-sizing: border-box;
-    color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+    color: var(--kui-toaster-color-text, var(--kui-color-text-inverse, $kui-color-text-inverse));
     display: flex;
     gap: var(--kui-space-50, $kui-space-50);
-    padding: var(--kui-space-50, $kui-space-50);
+    padding: var(--kui-toaster-padding, var(--kui-space-50, $kui-space-50));
     width: 100%;
 
     .toaster-icon-container {
       align-items: center;
-      background-color: var(--kui-color-background-info-weak, $kui-color-background-info-weak); // info appearance as default in case of invalid appearance
+      background-color: var(--kui-toaster-icon-color-background, var(--kui-color-background-info-weak, $kui-color-background-info-weak)); // info appearance as default in case of invalid appearance
       border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
       display: flex;
       height: 32px;
@@ -152,17 +152,17 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
       overflow-wrap: break-word;
 
       .toaster-title {
-        font-family: var(--kui-font-family-text, $kui-font-family-text);
-        font-size: var(--kui-font-size-50, $kui-font-size-50);
-        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-        line-height: var(--kui-line-height-40, $kui-line-height-40);
+        font-family: var(--kui-toaster-font-family, var(--kui-font-family-text, $kui-font-family-text));
+        font-size: var(--kui-toaster-title-font-size, var(--kui-font-size-50, $kui-font-size-50));
+        font-weight: var(--kui-toaster-title-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
+        line-height: var(--kui-toaster-title-line-height, var(--kui-line-height-40, $kui-line-height-40));
       }
 
       .toaster-message {
-        font-family: var(--kui-font-family-text, $kui-font-family-text);
-        font-size: var(--kui-font-size-30, $kui-font-size-30);
-        font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-        line-height: var(--kui-line-height-30, $kui-line-height-30);
+        font-family: var(--kui-toaster-font-family, var(--kui-font-family-text, $kui-font-family-text));
+        font-size: var(--kui-toaster-font-size, var(--kui-font-size-30, $kui-font-size-30));
+        font-weight: var(--kui-toaster-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+        line-height: var(--kui-toaster-line-height, var(--kui-line-height-30, $kui-line-height-30));
         margin: var(--kui-space-0, $kui-space-0);
       }
     }
@@ -170,18 +170,18 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
     .toaster-close-icon {
       @include defaultButtonReset;
 
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      border-radius: var(--kui-toaster-close-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
       margin-left: var(--kui-space-auto, $kui-space-auto);
       outline: none;
 
       &:hover, &:focus {
         :deep(#{$kongponentsKongIconSelector}) {
-          color: var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker) !important;
+          color: var(--kui-toaster-close-color-text-hover, var(--kui-color-text-neutral-weaker, $kui-color-text-neutral-weaker)) !important;
         }
       }
 
       &:focus-visible {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-toaster-close-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
     }
 
@@ -189,31 +189,31 @@ const getToastIcon = (appearance?: ToasterAppearance): ToastIcon => {
 
     &.info {
       .toaster-icon-container {
-        background-color: var(--kui-color-background-info-weak, $kui-color-background-info-weak);
+        background-color: var(--kui-toaster-icon-color-background-info, var(--kui-color-background-info-weak, $kui-color-background-info-weak));
       }
     }
 
     &.success {
       .toaster-icon-container {
-        background-color: var(--kui-color-background-success-weak, $kui-color-background-success-weak);
+        background-color: var(--kui-toaster-icon-color-background-success, var(--kui-color-background-success-weak, $kui-color-background-success-weak));
       }
     }
 
     &.warning {
       .toaster-icon-container {
-        background-color: var(--kui-color-background-warning-weak, $kui-color-background-warning-weak);
+        background-color: var(--kui-toaster-icon-color-background-warning, var(--kui-color-background-warning-weak, $kui-color-background-warning-weak));
       }
     }
 
     &.danger {
       .toaster-icon-container {
-        background-color: var(--kui-color-background-danger-weak, $kui-color-background-danger-weak);
+        background-color: var(--kui-toaster-icon-color-background-danger, var(--kui-color-background-danger-weak, $kui-color-background-danger-weak));
       }
     }
 
     &.system {
       .toaster-icon-container {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-toaster-icon-color-background-system, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
       }
     }
   }

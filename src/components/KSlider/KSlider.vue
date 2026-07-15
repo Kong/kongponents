@@ -267,9 +267,9 @@ watch(() => marks, (newMarks) => {
 /* Component mixins */
 
 @mixin sliderRangeTrack {
-  background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+  background-color: var(--kui-slider-track-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
   border: none;
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  border-radius: var(--kui-slider-track-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
   cursor: pointer;
   height: 4px;
   width: 100%;
@@ -279,20 +279,22 @@ watch(() => marks, (newMarks) => {
   -webkit-appearance: none;
   background-color: var(--kui-color-background-transparent, $kui-color-background-transparent); // make the default thumb transparent so it doesn't interfere with the custom thumb
   border: none;
-  border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+  border-radius: var(--kui-slider-thumb-border-radius, var(--kui-border-radius-circle, $kui-border-radius-circle));
   cursor: pointer;
-  height: var(--kui-icon-size-30, $kui-icon-size-30);
+  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+  height: var(--kui-slider-thumb-size, var(--kui-icon-size-30, $kui-icon-size-30));
   margin-top: calc(var(--kui-space-30, $kui-space-30) * -1);
   position: relative; // Ensure that the thumb is above the lower track
-  width: var(--kui-icon-size-30, $kui-icon-size-30);
+  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+  width: var(--kui-slider-thumb-size, var(--kui-icon-size-30, $kui-icon-size-30));
 }
 
 @mixin markContent {
-  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-30, $kui-font-size-30);
-  font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-  line-height: var(--kui-line-height-20, $kui-line-height-20);
+  color: var(--kui-slider-mark-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
+  font-family: var(--kui-slider-mark-font-family, var(--kui-font-family-text, $kui-font-family-text));
+  font-size: var(--kui-slider-mark-font-size, var(--kui-font-size-30, $kui-font-size-30));
+  font-weight: var(--kui-slider-mark-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+  line-height: var(--kui-slider-mark-line-height, var(--kui-line-height-20, $kui-line-height-20));
 }
 
 /* Component styles */
@@ -315,15 +317,15 @@ watch(() => marks, (newMarks) => {
 
     &:focus-visible {
       &::-webkit-slider-thumb {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-slider-thumb-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       &::-moz-range-thumb {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-slider-thumb-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       &::-ms-thumb {
-        box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+        box-shadow: var(--kui-slider-thumb-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
     }
 
@@ -345,17 +347,17 @@ watch(() => marks, (newMarks) => {
 
       /* Thumb disabled styles */
       &::-webkit-slider-thumb {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-slider-thumb-color-background-disabled, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
         cursor: not-allowed;
       }
 
       &::-moz-range-thumb {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-slider-thumb-color-background-disabled, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
         cursor: not-allowed;
       }
 
       &::-ms-thumb {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-slider-thumb-color-background-disabled, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
         cursor: not-allowed;
       }
     }
@@ -392,13 +394,13 @@ watch(() => marks, (newMarks) => {
     /* Edge specific styles */
 
     &::-ms-fill-lower {
-      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      background-color: var(--kui-slider-fill-color-background, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
+      border-radius: var(--kui-slider-track-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
     }
 
     &::-ms-fill-upper {
-      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-      border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+      background-color: var(--kui-slider-track-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+      border-radius: var(--kui-slider-track-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
     }
   }
 
@@ -431,27 +433,27 @@ watch(() => marks, (newMarks) => {
     .lower-range-track {
       @include sliderRangeTrack;
 
-      background-color: var(--kui-color-background-primary-weak, $kui-color-background-primary-weak);
+      background-color: var(--kui-slider-fill-color-background, var(--kui-color-background-primary-weak, $kui-color-background-primary-weak));
       margin-top: 15px; // Align with the track
       pointer-events: none;
       position: absolute;
 
       &.is-disabled {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-slider-fill-color-background-disabled, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
       }
     }
 
     .thumb {
       @include sliderThumb;
 
-      background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+      background-color: var(--kui-slider-thumb-color-background, var(--kui-color-background-primary, $kui-color-background-primary));
       margin-top: 9px; // Align with the track
       pointer-events: none;
       position: absolute;
       z-index: 1; // Ensure the thumb is above the input
 
       &.is-disabled {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-slider-thumb-color-background-disabled, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
       }
     }
 

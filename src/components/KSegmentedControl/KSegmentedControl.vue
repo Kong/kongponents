@@ -108,23 +108,23 @@ $kSegmentedControlSmallHeight: 32px;
 
   .segmented-control-button {
     align-items: center;
-    background-color: var(--kui-color-background, $kui-color-background);
-    border-color: var(--kui-color-border-primary, $kui-color-border-primary);
+    background-color: var(--kui-segmented-control-color-background, var(--kui-color-background, $kui-color-background));
+    border-color: var(--kui-segmented-control-color-border, var(--kui-color-border-primary, $kui-color-border-primary));
     border-style: solid;
-    border-width: var(--kui-border-width-20, $kui-border-width-20);
-    color: var(--kui-color-text-primary, $kui-color-text-primary);
+    border-width: var(--kui-segmented-control-border-width, var(--kui-border-width-20, $kui-border-width-20));
+    color: var(--kui-segmented-control-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
     cursor: pointer;
     display: flex;
-    font-family: var(--kui-font-family-text, $kui-font-family-text);
-    font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    font-family: var(--kui-segmented-control-font-family, var(--kui-font-family-text, $kui-font-family-text));
+    font-size: var(--kui-segmented-control-font-size, var(--kui-font-size-20, $kui-font-size-20));
+    font-weight: var(--kui-segmented-control-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
     gap: var(--kui-space-30, $kui-space-30);
     height: $kSegmentedControlSmallHeight;
     justify-content: center;
-    line-height: var(--kui-line-height-20, $kui-line-height-20);
+    line-height: var(--kui-segmented-control-line-height, var(--kui-line-height-20, $kui-line-height-20));
     outline: none;
-    padding-left: var(--kui-space-50, $kui-space-50);
-    padding-right: var(--kui-space-50, $kui-space-50);
+    padding-left: var(--kui-segmented-control-padding-x, var(--kui-space-50, $kui-space-50));
+    padding-right: var(--kui-segmented-control-padding-x, var(--kui-space-50, $kui-space-50));
     transition: border-color $kongponentsTransitionDurTimingFunc, color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
     white-space: nowrap;
     width: 100%;
@@ -137,61 +137,62 @@ $kSegmentedControlSmallHeight: 32px;
     }
 
     &:first-child {
-      border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      border-top-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-bottom-left-radius: var(--kui-segmented-control-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+      border-top-left-radius: var(--kui-segmented-control-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     }
 
     &:last-child {
-      border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-      border-top-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+      border-bottom-right-radius: var(--kui-segmented-control-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+      border-top-right-radius: var(--kui-segmented-control-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     }
 
     &.large {
       height: $kongponentsInputElementHeight;
-      padding-left: var(--kui-space-60, $kui-space-60);
-      padding-right: var(--kui-space-60, $kui-space-60);
+      padding-left: var(--kui-segmented-control-padding-x-large, var(--kui-space-60, $kui-space-60));
+      padding-right: var(--kui-segmented-control-padding-x-large, var(--kui-space-60, $kui-space-60));
     }
 
     &:hover:not([disabled]) {
-      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
+      color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       z-index: 2;
     }
 
     &:focus:not([disabled]) {
-      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      // Coordinates with :hover/:focus-visible via the shared -hover token
+      border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger));
+      color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
       z-index: 3;
     }
 
     &:active:not([disabled]) {
-      border-color: var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest);
-      color: var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest);
+      border-color: var(--kui-segmented-control-color-border-active, var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest));
+      color: var(--kui-segmented-control-color-text-active, var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest));
       z-index: 3;
     }
 
     &:focus-visible:not([disabled]) {
-      border-color: var(--kui-color-border-primary-strong, $kui-color-border-primary-strong);
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
-      color: var(--kui-color-text-primary-strong, $kui-color-text-primary-strong);
+      border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
+      box-shadow: var(--kui-segmented-control-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
+      color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       z-index: 3;
     }
 
     &[disabled] {
-      border-color: var(--kui-color-border-disabled, $kui-color-border-disabled) !important;
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+      border-color: var(--kui-segmented-control-color-border-disabled, var(--kui-color-border-disabled, $kui-color-border-disabled)) !important;
+      color: var(--kui-segmented-control-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
       cursor: not-allowed;
       z-index: 0;
 
       &.selected {
-        background-color: var(--kui-color-background-disabled, $kui-color-background-disabled);
+        background-color: var(--kui-segmented-control-color-background-disabled-selected, var(--kui-color-background-disabled, $kui-color-background-disabled));
       }
     }
 
     &.selected {
-      background-color: var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest);
-      border-color: var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger);
-      color: var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger);
+      background-color: var(--kui-segmented-control-color-background-selected, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+      border-color: var(--kui-segmented-control-color-border-selected, var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger));
+      color: var(--kui-segmented-control-color-text-selected, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
       z-index: 2;
     }
 

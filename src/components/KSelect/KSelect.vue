@@ -956,8 +956,8 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
   }
 
   &.popover .popover-container {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-input-color-border, var(--kui-color-border, $kui-color-border));
+    border-radius: var(--kui-input-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
 
     &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
