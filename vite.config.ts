@@ -63,7 +63,7 @@ export default defineConfig({
           }
         },
         formats: buildFormats,
-        cssFileName: 'style.css',
+        cssFileName: 'style',
       },
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
