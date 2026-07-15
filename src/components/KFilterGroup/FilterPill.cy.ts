@@ -145,6 +145,67 @@ describe('KFilterGroup - FilterPill', () => {
     cy.get('@clear').should('have.callCount', 1)
   })
 
+  describe('value control attributes passthrough', () => {
+    it('input: uses "Value" as the default label/placeholder', () => {
+      render({ filter: { label: 'Foo' }, initOpen: true })
+      cy.getTestId(INPUT_ID).should('have.attr', 'placeholder', 'Enter a value')
+      cy.getTestId(INPUT_ID).parents('.k-input').find('.k-label').should('contain.text', 'Value')
+    })
+
+    it('input: inputAttributes overrides the default label', () => {
+      render({
+        filter: { label: 'Foo', inputAttributes: { label: 'Custom label' } },
+        initOpen: true,
+      })
+      cy.getTestId(INPUT_ID).parents('.k-input').find('.k-label').should('contain.text', 'Custom label')
+    })
+
+    it('select: uses "Value" as the default label/placeholder', () => {
+      render({
+        filter: { label: 'Foo', options: [{ label: 'Bar', value: 'bar' }] },
+        initOpen: true,
+      })
+      cy.getTestId('select-label').should('contain.text', 'Value')
+      cy.getTestId(SELECT_ID).should('have.attr', 'placeholder', 'Select a value')
+    })
+
+    it('select: selectAttributes overrides the default label/placeholder', () => {
+      render({
+        filter: {
+          label: 'Foo',
+          options: [{ label: 'Bar', value: 'bar' }],
+          selectAttributes: { label: 'Custom label', placeholder: 'Pick one' },
+        },
+        initOpen: true,
+      })
+      cy.getTestId('select-label').should('contain.text', 'Custom label')
+      cy.getTestId(SELECT_ID).should('have.attr', 'placeholder', 'Pick one')
+    })
+
+    it('multiselect: uses "Value" as the default label/placeholder', () => {
+      render({
+        filter: { label: 'Foo', multiple: true, options: [{ label: 'Bar', value: 'bar' }] },
+        initOpen: true,
+      })
+      cy.getTestId('multiselect-label').should('contain.text', 'Value')
+      cy.getTestId(MULTISELECT_ID).should('contain.text', 'Select values')
+    })
+
+    it('multiselect: multiselectAttributes overrides the default label/placeholder', () => {
+      render({
+        filter: {
+          label: 'Foo',
+          multiple: true,
+          options: [{ label: 'Bar', value: 'bar' }],
+          multiselectAttributes: { label: 'Custom label', placeholder: 'Pick some' },
+        },
+        initOpen: true,
+      })
+      cy.getTestId('multiselect-label').should('contain.text', 'Custom label')
+      cy.getTestId(MULTISELECT_ID).should('contain.text', 'Pick some')
+    })
+  })
+
   describe('popover content interactions', () => {
     it('emits @close when cancel button is clicked', () => {
       cy.get('@close').should('have.callCount', 0)

@@ -144,6 +144,10 @@ export interface Filter {
   pinned?: boolean
   placement?: PopPlacement
   maxWidth?: number | string
+  readonly?: boolean
+  selectAttributes?: SelectFilterAttributes
+  multiselectAttributes?: MultiselectFilterAttributes
+  inputAttributes?: InputFilterAttributes
 }
 ```
 
@@ -189,6 +193,109 @@ If `true` the filter will only be rendered as a pill if it has a value and will 
 ### filter.maxWidth
 
 The max width of the filter's popover, defaults to `400px`. See [popover maxWidth](../components/popover#maxwidth)
+
+### filter.selectAttributes
+
+> [!IMPORTANT]
+> RFC — proposed API, feedback welcome before this ships. See the [pull request](#) for context and discussion.
+
+Passthrough props for the built-in [KSelect](../components/select) value control, used when the filter renders a [select filter](#select-filter) (`options` is set, `multiple` is `false`/unset). Only `label`, `placeholder`, `labelAttributes`, `kpopAttributes`, `dropdownMaxHeight`, `enableFiltering`, `clearable`, `help`, `error`, and `loading` may be overridden — see [KSelect's props](../components/select#props) for details. Anything not specified falls back to the filter's built-in default (`label: 'Value'`, `placeholder: 'Select a value'`).
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="selectAttributesSelection"
+    :filters="selectAttributesFilters"
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    status: {
+      label: 'Status',
+      options: [
+        { value: 'todo', label: 'Todo' },
+        { value: 'inprogress', label: 'In Progress' },
+        { value: 'done', label: 'Done' },
+      ],
+      pinned: true,
+      selectAttributes: {
+        label: 'Status is',
+        placeholder: 'Choose a status',
+      },
+    },
+  }"
+/>
+```
+
+### filter.multiselectAttributes
+
+> [!IMPORTANT]
+> RFC — proposed API, feedback welcome before this ships. See the [pull request](#) for context and discussion.
+
+Passthrough props for the built-in [KMultiselect](../components/multiselect) value control, used when the filter renders a [multiselect filter](#multiselect-filter) (`options` is set, `multiple` is `true`). Only `label`, `placeholder`, `searchPlaceholder`, `labelAttributes`, `kpopAttributes`, `dropdownMaxHeight`, `selectedRowCount`, `collapsedContext`, `autosuggest`, `help`, `error`, and `loading` may be overridden — see [KMultiselect's props](../components/multiselect#props) for details. Anything not specified falls back to the filter's built-in default (`label: 'Value'`, `placeholder: 'Select values'`).
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="multiselectAttributesSelection"
+    :filters="multiselectAttributesFilters"
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    tag: {
+      label: 'Tag',
+      operators: ['contains'],
+      multiple: true,
+      options: [
+        { value: 'foo', label: 'Foo' },
+        { value: 'bar', label: 'Bar' },
+        { value: 'baz', label: 'Baz' },
+      ],
+      pinned: true,
+      multiselectAttributes: {
+        label: 'Tags include',
+        placeholder: 'Choose tags',
+      },
+    },
+  }"
+/>
+```
+
+### filter.inputAttributes
+
+> [!IMPORTANT]
+> RFC — proposed API, feedback welcome before this ships. See the [pull request](#) for context and discussion.
+
+Passthrough props for the built-in [KInput](../components/input) value control, used when the filter renders a [text filter](#text-filter) (`options` is not set). Only `label`, `labelAttributes`, `help`, `error`, `errorMessage`, `characterLimit`, `type`, and `showPasswordMaskToggle` may be overridden — see [KInput's props](../components/input#props) for details. Anything not specified falls back to the filter's built-in default (`label: 'Value'`, `placeholder: 'Enter a value'`).
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="inputAttributesSelection"
+    :filters="inputAttributesFilters"
+  />
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    name: {
+      label: 'Name',
+      pinned: true,
+      inputAttributes: {
+        label: 'Name contains',
+      },
+    },
+  }"
+/>
+```
+
+> Note: these three props only affect the built-in select/multiselect/input value controls. If you need to change anything else about the popover's content — including the operator control — use the [filter content slot](#filter-content) instead.
 
 ### selectorLabel
 
@@ -664,6 +771,41 @@ const multiselectFilters: FilterGroupFilters = {
 const textSelection = ref<FilterGroupSelection>({})
 const textFilters: FilterGroupFilters = {
   status: { ...deepClone(inputFilter), pinned: true },
+}
+
+const selectAttributesSelection = ref<FilterGroupSelection>({})
+const selectAttributesFilters: FilterGroupFilters = {
+  status: {
+    ...deepClone(selectFilter),
+    pinned: true,
+    selectAttributes: {
+      label: 'Status is',
+      placeholder: 'Choose a status',
+    },
+  },
+}
+
+const multiselectAttributesSelection = ref<FilterGroupSelection>({})
+const multiselectAttributesFilters: FilterGroupFilters = {
+  tag: {
+    ...deepClone(multiselectFilter),
+    pinned: true,
+    multiselectAttributes: {
+      label: 'Tags include',
+      placeholder: 'Choose tags',
+    },
+  },
+}
+
+const inputAttributesSelection = ref<FilterGroupSelection>({})
+const inputAttributesFilters: FilterGroupFilters = {
+  name: {
+    ...deepClone(inputFilter),
+    pinned: true,
+    inputAttributes: {
+      label: 'Name contains',
+    },
+  },
 }
 
 const operatorSelection = ref<FilterGroupSelection>({})

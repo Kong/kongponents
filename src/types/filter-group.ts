@@ -1,4 +1,7 @@
 import type { PopPlacement } from './popover'
+import type { SelectProps } from './select'
+import type { MultiselectProps } from './multi-select'
+import type { InputProps } from './input'
 
 /**
  * The filter's operator:
@@ -20,6 +23,57 @@ export interface FilterOption {
   /** value for the item to be displayed in the (multi)select dropdown. */
   value: string
 }
+
+/**
+ * Passthrough props for the built-in `KSelect` value control rendered for
+ * single-select filters (`options` set, `multiple` unset/false).
+ */
+export type SelectFilterAttributes = Pick<SelectProps<any>,
+  | 'label'
+  | 'placeholder'
+  | 'labelAttributes'
+  | 'kpopAttributes'
+  | 'dropdownMaxHeight'
+  | 'enableFiltering'
+  | 'clearable'
+  | 'help'
+  | 'error'
+  | 'loading'
+>
+
+/**
+ * Passthrough props for the built-in `KMultiselect` value control rendered for
+ * multi-select filters (`options` set, `multiple: true`).
+ */
+export type MultiselectFilterAttributes = Pick<MultiselectProps<any>,
+  | 'label'
+  | 'placeholder'
+  | 'searchPlaceholder'
+  | 'labelAttributes'
+  | 'kpopAttributes'
+  | 'dropdownMaxHeight'
+  | 'selectedRowCount'
+  | 'collapsedContext'
+  | 'autosuggest'
+  | 'help'
+  | 'error'
+  | 'loading'
+>
+
+/**
+ * Passthrough props for the built-in `KInput` value control rendered for text
+ * filters (no `options`).
+ */
+export type InputFilterAttributes = Pick<InputProps,
+  | 'label'
+  | 'labelAttributes'
+  | 'help'
+  | 'error'
+  | 'errorMessage'
+  | 'characterLimit'
+  | 'type'
+  | 'showPasswordMaskToggle'
+>
 
 export interface Filter {
   /**
@@ -73,6 +127,27 @@ export interface Filter {
    * @default false
    */
   readonly?: boolean
+
+  /**
+   * Passthrough props for the built-in `KSelect` value control. Only applies
+   * to single-select filters (`options` set, `multiple` unset/false).
+   * @default undefined
+   */
+  selectAttributes?: SelectFilterAttributes
+
+  /**
+   * Passthrough props for the built-in `KMultiselect` value control. Only
+   * applies to multi-select filters (`options` set, `multiple: true`).
+   * @default undefined
+   */
+  multiselectAttributes?: MultiselectFilterAttributes
+
+  /**
+   * Passthrough props for the built-in `KInput` value control. Only applies
+   * to text filters (no `options`).
+   * @default undefined
+   */
+  inputAttributes?: InputFilterAttributes
 }
 
 export interface FilterSelection {

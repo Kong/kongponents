@@ -53,6 +53,14 @@
   readonlyWithoutValue: {
     label: 'Readonly without a value does not appear in the list',
     readonly: true,
+  },
+  customSelectAttributes: {
+    label: 'Select with custom value label/placeholder',
+    options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
+    selectAttributes: {
+      label: 'Custom label',
+      placeholder: 'Pick one',
+    },
   }
 })`"
         language="javascript"
@@ -251,6 +259,14 @@ const filters: FilterGroupFilters = {
   readonlyWithoutValue: {
     label: 'Readonly without a value does not appear in the list',
     readonly: true,
+  },
+  customSelectAttributes: {
+    label: 'Select with custom value label/placeholder',
+    options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
+    selectAttributes: {
+      label: 'Custom label',
+      placeholder: 'Pick one',
+    },
   },
 }
 

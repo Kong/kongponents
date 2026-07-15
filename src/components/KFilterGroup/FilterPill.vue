@@ -56,6 +56,7 @@
                 :items="filter.options"
                 label="Value"
                 placeholder="Select a value"
+                v-bind="filter.selectAttributes"
               />
               <KMultiselect
                 v-else-if="filterType === 'multiselect'"
@@ -64,6 +65,7 @@
                 :items="filter.options"
                 label="Value"
                 placeholder="Select values"
+                v-bind="filter.multiselectAttributes"
               />
               <KInput
                 v-else
@@ -72,6 +74,7 @@
                 data-testid="filter-pill-input"
                 label="Value"
                 placeholder="Enter a value"
+                v-bind="filter.inputAttributes"
               />
             </div>
           </div>
