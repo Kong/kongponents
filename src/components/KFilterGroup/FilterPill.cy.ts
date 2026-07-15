@@ -1,5 +1,6 @@
+import { h } from 'vue'
 import FilterPill from '@/components/KFilterGroup/FilterPill.vue'
-import type { Filter, FilterSelection } from '@/types'
+import type { Filter, FilterPillSlotProps, FilterSelection } from '@/types'
 
 describe('KFilterGroup - FilterPill', () => {
   const PILL_ID = 'filter-pill'
@@ -17,10 +18,14 @@ describe('KFilterGroup - FilterPill', () => {
     filter,
     initOpen,
     selection = undefined,
+    custom = false,
+    slots = undefined,
   }: {
     filter: Filter
     initOpen?: boolean
     selection?: FilterSelection
+    custom?: boolean
+    slots?: Record<string, (props: FilterPillSlotProps) => any>
   }) => {
     const onApply = cy.spy().as('apply')
     const onClose = cy.spy().as('close')
@@ -32,11 +37,13 @@ describe('KFilterGroup - FilterPill', () => {
         filter,
         initOpen,
         selection,
+        custom,
         onApply,
         onClose,
         onOpen,
         onClear,
       },
+      slots,
     }).as('filterPill')
   }
 
@@ -212,6 +219,78 @@ describe('KFilterGroup - FilterPill', () => {
         operator: 'eq',
         text: 'Baz, Bar',
         value: ['baz', 'bar'],
+      })
+    })
+
+    describe('custom filter slot props', () => {
+      const CUSTOM_OPTIONS = [{ label: 'Bar', value: 'bar' }, { label: 'Baz', value: 'baz' }]
+
+      it('passes filter/selection state through to the slot', () => {
+        render({
+          custom: true,
+          filter: { label: 'Foo', multiple: true, operators: ['eq', 'neq'], options: CUSTOM_OPTIONS },
+          selection: { operator: 'neq', value: 'a', text: 'Ayy' },
+          slots: {
+            default: (props: FilterPillSlotProps) => h('div', {}, [
+              h('span', { 'data-testid': 'custom-options' }, JSON.stringify(props.options)),
+              h('span', { 'data-testid': 'custom-multiple' }, String(props.multiple)),
+              h('span', { 'data-testid': 'custom-operators' }, JSON.stringify(props.operators)),
+              h('span', { 'data-testid': 'custom-value' }, JSON.stringify(props.value)),
+              h('span', { 'data-testid': 'custom-operator' }, props.operator),
+            ]),
+          },
+        })
+        cy.getTestId(PILL_ID).click()
+        cy.getTestId('custom-options').should('have.text', JSON.stringify(CUSTOM_OPTIONS))
+        cy.getTestId('custom-multiple').should('have.text', 'true')
+        cy.getTestId('custom-operators').should('have.text', JSON.stringify(['eq', 'neq']))
+        cy.getTestId('custom-value').should('have.text', JSON.stringify('a'))
+        cy.getTestId('custom-operator').should('have.text', 'neq')
+      })
+
+      it('emits @apply built from setValue/setOperator', () => {
+        cy.get('@apply').should('have.callCount', 0)
+        render({
+          custom: true,
+          filter: { label: 'Foo', operators: ['eq', 'neq'], options: CUSTOM_OPTIONS },
+          slots: {
+            default: (props: FilterPillSlotProps) => h('div', {}, [
+              h('button', {
+                'data-testid': 'custom-set-value',
+                onClick: () => props.setValue('baz', 'Baz'),
+              }, 'set value'),
+              h('button', {
+                'data-testid': 'custom-set-operator',
+                onClick: () => props.setOperator('neq'),
+              }, 'set operator'),
+            ]),
+          },
+        })
+        cy.getTestId(PILL_ID).click()
+        cy.getTestId('custom-set-value').click()
+        cy.getTestId('custom-set-operator').click()
+        cy.getTestId(APPLY_ID).click()
+        cy.get('@apply').should('have.callCount', 1)
+        cy.get('@apply').should('have.been.calledWith', {
+          operator: 'neq',
+          text: 'Baz',
+          value: 'baz',
+        })
+      })
+
+      it('still emits @apply with undefined if setValue is never called', () => {
+        cy.get('@apply').should('have.callCount', 0)
+        render({
+          custom: true,
+          filter: { label: 'Foo' },
+          slots: {
+            default: () => h('div', { 'data-testid': 'bare-custom-slot' }, 'no destructured props used'),
+          },
+        })
+        cy.getTestId(PILL_ID).click()
+        cy.getTestId(APPLY_ID).click()
+        cy.get('@apply').should('have.callCount', 1)
+        cy.get('@apply').should('have.been.calledWith', undefined)
       })
     })
   })

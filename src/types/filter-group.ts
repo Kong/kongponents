@@ -137,13 +137,34 @@ export interface FilterPillProps {
 }
 
 /**
+ * Scoped slot props passed into a custom filter's `#default` (FilterPill) /
+ * `#filter-<key>` (KFilterGroup) slot content.
+ */
+export interface FilterPillSlotProps {
+  /** The current pending value, initialized from the applied selection's value when the popover opens. */
+  value?: string | string[]
+  /** Passthrough of the filter's `options`. */
+  options?: FilterOption[]
+  /** Passthrough of the filter's `multiple`. */
+  multiple?: boolean
+  /** The operators available for this filter. */
+  operators: FilterOperator[]
+  /** The currently pending operator. */
+  operator?: FilterOperator
+  /** Update the pending operator. */
+  setOperator: (op: FilterOperator) => void
+  /** Update the pending value and its display text. */
+  setValue: (value: string | string[], text: string) => void
+}
+
+/**
  * @internal
  */
 export type FilterPillSlots = {
   /**
    * the filter's popover content.
    */
-  default?(): any
+  default?(props: FilterPillSlotProps): any
 }
 
 export interface FilterGroupProps {
@@ -225,7 +246,7 @@ export type FilterGroupSlots = {
   /**
    * Each filter's popover content.
    */
-  [K in FilterSlotName]?: () => any
+  [K in FilterSlotName]?: (props: FilterPillSlotProps) => any
 } & {
   /**
    * Each filter's dropdown item content.

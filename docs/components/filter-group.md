@@ -254,7 +254,9 @@ If `true`, gives the user an input which allows them to search through existing 
 
 ### Filter Content
 
-Custom content can be slotted into each filter. The corresponding filter key from the [`filters` prop](#filters) should be used to target the appropriate `filter-*` slot. When custom content is provided, KFilterGroup is no longer able to determine the user's selection for that filter, therefore the `selection.*` for that filter must be managed by the host app.
+Custom content can be slotted into each filter. The corresponding filter key from the [`filters` prop](#filters) should be used to target the appropriate `filter-*` slot.
+
+Manage the selection yourself using the [`apply`](#apply)/[`clear`](#clear)/[`open`](#open) events, or use the slot's [scoped props](#slot-props) instead.
 
 <ClientOnly>
   <KFilterGroup
@@ -334,6 +336,74 @@ const onOpen = (key: string) => {
   }
 }
 </script>
+```
+
+#### Slot Props
+
+The `filter-*` slot receives the following scoped props:
+
+```ts
+interface FilterPillSlotProps {
+  value?: string | string[] // the current pending value, initialized from the applied selection's value when the popover opens
+  options?: FilterOption[] // passthrough of the filter's `options`
+  multiple?: boolean // passthrough of the filter's `multiple`
+  operators: FilterOperator[] // the operators available for this filter
+  operator?: FilterOperator // the currently pending operator
+  setOperator: (op: FilterOperator) => void // update the pending operator
+  setValue: (value: string | string[], text: string) => void // update the pending value and its display text
+}
+```
+
+Below, two `KRadio` buttons are used to build a boolean "Status" filter:
+
+<ClientOnly>
+  <KFilterGroup
+    v-model="statusSelection"
+    :filters="statusSlotFilters"
+  >
+    <template #filter-status="{ value, setValue }">
+      <KRadio
+        label="Enabled"
+        :model-value="value"
+        selected-value="true"
+        @update:model-value="setValue('true', 'Enabled')"
+      />
+      <br />
+      <KRadio
+        label="Disabled"
+        :model-value="value"
+        selected-value="false"
+        @update:model-value="setValue('false', 'Disabled')"
+      />
+    </template>
+  </KFilterGroup>
+</ClientOnly>
+
+```html
+<KFilterGroup
+  v-model="selection"
+  :filters="{
+    status: {
+      label: 'Status',
+      pinned: true,
+    },
+  }"
+>
+  <template #filter-status="{ value, setValue }">
+    <KRadio
+      label="Enabled"
+      :model-value="value"
+      selected-value="true"
+      @update:model-value="setValue('true', 'Enabled')"
+    />
+    <KRadio
+      label="Disabled"
+      :model-value="value"
+      selected-value="false"
+      @update:model-value="setValue('false', 'Disabled')"
+    />
+  </template>
+</KFilterGroup>
 ```
 
 ### Filter Item
@@ -759,6 +829,11 @@ const customNodesFilters: FilterGroupFilters = {
   customNodes: { operators: ['eq'], label: 'Minimum nodes', pinned: true },
 }
 const customNodes = ref(0)
+
+const statusSelection = ref<FilterGroupSelection>({})
+const statusSlotFilters: FilterGroupFilters = {
+  status: { label: 'Status', pinned: true },
+}
 
 const customItemsSelection = ref<FilterGroupSelection>({})
 const customItemsFilters: FilterGroupFilters = {
