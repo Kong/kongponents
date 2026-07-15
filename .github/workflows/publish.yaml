@@ -16,6 +16,7 @@ on:
       - main
       - alpha
       - beta
+      - feat/themable-kongponents-with-component-tokens
 
 permissions:
   id-token: write

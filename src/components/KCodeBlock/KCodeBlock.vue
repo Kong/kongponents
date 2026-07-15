@@ -696,6 +696,20 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
   background-color: var(--kui-code-block-color-background, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
   border-radius: var(--kui-code-block-border-radius, var(--kui-border-radius-40, $kui-border-radius-40));
 
+  /* Firefox: thumb color then track color. */
+  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/token-var-usage -- shorthand requires two token pairs */
+  scrollbar-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak)
+    var(--kui-color-background-transparent, $kui-color-background-transparent);
+
+  // WebKit-based browsers
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--kui-color-background-transparent, $kui-color-background-transparent);
+  }
+
   .code-block-actions {
     border-bottom-color: var(--kui-code-block-actions-color-border, var(--kui-color-border, $kui-color-border));
     border-bottom-style: solid;
