@@ -74,7 +74,6 @@
           language="json"
           max-height="500"
           searchable
-          theme="dark"
           @code-block-render="highlight"
         />
       </SandboxSectionComponent>
@@ -194,30 +193,6 @@
           :show-line-numbers="false"
         />
       </SandboxSectionComponent>
-      <SandboxSectionComponent
-        class="limited-width"
-        title="theme"
-      >
-        <KCodeBlock
-          id="theme-prop"
-          :code="code"
-          initial-reg-exp-mode
-          language="json"
-          max-height="200"
-          processing
-          query="compilerOptions"
-          searchable
-          theme="dark"
-        />
-        <KCodeBlock
-          id="single-line-dark-prop"
-          :code="singleLineCode"
-          language="plaintext"
-          single-line
-          theme="dark"
-        />
-      </SandboxSectionComponent>
-
       <!-- Slots -->
       <SandboxTitleComponent
         is-subtitle
