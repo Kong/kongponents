@@ -34,6 +34,6 @@ export * from './components'
 export * from './global-components'
 export * from './types'
 
-// Theming API
+// Theming API exports
 export * from './theme'
 export { useTheme, createThemeController, KONGPONENTS_THEME_INJECTION_KEY } from './composables/useTheme'
