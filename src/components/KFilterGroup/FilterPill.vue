@@ -254,6 +254,7 @@ const setCustomValue = (value: string | string[], text: string) => {
  */
 const filterPillSlotProps = computed((): FilterPillSlotProps => ({
   value: userCustomValue.value,
+  text: userCustomText.value,
   options: filter.options,
   multiple: filter.multiple,
   operators: operators.value,

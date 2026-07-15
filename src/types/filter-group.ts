@@ -143,6 +143,8 @@ export interface FilterPillProps {
 export interface FilterPillSlotProps {
   /** The current pending value, initialized from the applied selection's value when the popover opens. */
   value?: string | string[]
+  /** The current pending display text, initialized from the applied selection's text when the popover opens. */
+  text?: string
   /** Passthrough of the filter's `options`. */
   options?: FilterOption[]
   /** Passthrough of the filter's `multiple`. */

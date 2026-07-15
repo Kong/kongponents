@@ -236,6 +236,7 @@ describe('KFilterGroup - FilterPill', () => {
               h('span', { 'data-testid': 'custom-multiple' }, String(props.multiple)),
               h('span', { 'data-testid': 'custom-operators' }, JSON.stringify(props.operators)),
               h('span', { 'data-testid': 'custom-value' }, JSON.stringify(props.value)),
+              h('span', { 'data-testid': 'custom-text' }, props.text),
               h('span', { 'data-testid': 'custom-operator' }, props.operator),
             ]),
           },
@@ -245,6 +246,7 @@ describe('KFilterGroup - FilterPill', () => {
         cy.getTestId('custom-multiple').should('have.text', 'true')
         cy.getTestId('custom-operators').should('have.text', JSON.stringify(['eq', 'neq']))
         cy.getTestId('custom-value').should('have.text', JSON.stringify('a'))
+        cy.getTestId('custom-text').should('have.text', 'Ayy')
         cy.getTestId('custom-operator').should('have.text', 'neq')
       })
 
