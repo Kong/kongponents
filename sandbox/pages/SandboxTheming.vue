@@ -218,15 +218,6 @@ function isThemeDark(theme: KongponentsTheme | undefined): boolean {
 const scopedTheme = computed<KongponentsTheme>(() => {
   const activeIsDark = isThemeDark(SANDBOX_THEME_OPTIONS[activeTheme.value])
 
-  const brandCandidates = (['Brand A', 'Brand B'] as const)
-    .filter(label => label !== activeTheme.value)
-    .map(label => SANDBOX_THEME_OPTIONS[label])
-    .filter((t): t is KongponentsTheme => t !== undefined)
-
-  const contrastBrand = brandCandidates.find(t => isThemeDark(t) !== activeIsDark)
-  if (contrastBrand) return contrastBrand
-  if (brandCandidates[0]) return brandCandidates[0]
-
   const semanticCandidates = (Object.entries(SANDBOX_THEME_OPTIONS) as Array<[string, KongponentsTheme]>)
     .filter(([label, theme]) => theme !== undefined && label !== activeTheme.value)
     .map(([, theme]) => theme)
