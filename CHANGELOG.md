@@ -1,3 +1,11 @@
+## [9.61.1](https://github.com/Kong/kongponents/compare/v9.61.0...v9.61.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* style export filename ([#3289](https://github.com/Kong/kongponents/issues/3289)) ([48921bb](https://github.com/Kong/kongponents/commit/48921bbe5b7a2ce139cb9281a5e0f94bf484c4d1))
+* trigger release ([b9ff6a4](https://github.com/Kong/kongponents/commit/b9ff6a470d351d6a04a045ef61de7c909ec745ac))
+
 # [9.61.0](https://github.com/Kong/kongponents/compare/v9.60.10...v9.61.0) (2026-07-15)
 
 
