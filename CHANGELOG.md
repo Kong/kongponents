@@ -1,3 +1,10 @@
+# [9.61.0](https://github.com/Kong/kongponents/compare/v9.60.10...v9.61.0) (2026-07-15)
+
+
+### Features
+
+* themable kongponents with component tokens ([#3235](https://github.com/Kong/kongponents/issues/3235)) ([8237e1e](https://github.com/Kong/kongponents/commit/8237e1ee930abadfcaf5045abd2e60b8915178ba))
+
 ## [9.60.10](https://github.com/Kong/kongponents/compare/v9.60.9...v9.60.10) (2026-07-10)
 
 
