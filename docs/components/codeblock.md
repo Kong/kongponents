@@ -318,31 +318,6 @@ You might need to turn this off for sites that already constantly use the fragme
 />
 ```
 
-### theme
-
-Sets the display theme of the component. Accepted values are:
-
-- `light` (default)
-- `dark`
-
-<KCodeBlock
-  id="code-block-dark-theme"
-  :code="code"
-  language="json"
-  theme="dark"
-  searchable
-/>
-
-```html
-<KCodeBlock
-  id="code-block-dark-theme"
-  :code="code"
-  language="json"
-  theme="dark"
-  searchable
-/>
-```
-
 ## Slots
 
 ### secondary-actions
@@ -354,10 +329,6 @@ Allows adding elements after the location of the copy button. See example in [KC
 KCodeBlockIconButton is a helper component for adding KCodeBlock-style icon buttons. It works just like a regular button with a few props expanding it's functionality.
 
 ### Props
-
-#### theme
-
-Pass the value matching the [`theme` prop](#theme) value passed to KCodeBlock component so that the button style matches the theme. **Note:** it's also a good idea to combine this prop with appropriate accessibility attributes such as `aria-pressed`.
 
 #### active
 
@@ -419,7 +390,6 @@ interface CodeBlockEventData {
   codeElement: HTMLElement
   code: string
   language: string
-  theme: 'light' | 'dark'
   query: string
   matchingLineNumbers: number[]
 }
@@ -559,7 +529,6 @@ Below is an integration example for [Shiki](http://shiki.style/), a beautiful an
     id="code-block"
     :code="code"
     language="json"
-    theme="dark"
     @code-block-render="highlight"
   />
 </template>
@@ -590,10 +559,10 @@ const code = `{
   ]
 }`
 
-async function highlight({ codeElement, language, theme, code }) {
+async function highlight({ codeElement, language, code }) {
   codeElement.innerHTML = await codeToHtml(code, {
     lang: language,
-    theme: theme === 'dark' ? 'vitesse-dark' : 'vitesse-light',
+    theme: 'vitesse-light',
     // `inline` allows to generate <span> and <br> elements without wrapper.
     // Foreground and background colors are not applied for easier embedding. 
     structure: 'inline'

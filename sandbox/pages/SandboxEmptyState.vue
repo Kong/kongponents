@@ -256,7 +256,6 @@
               code="{example code here}"
               language="plaintext"
               single-line
-              theme="dark"
             />
           </template>
         </KEmptyState>

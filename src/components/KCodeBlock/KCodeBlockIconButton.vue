@@ -8,7 +8,7 @@
     <KButton
       appearance="tertiary"
       class="code-block-action-button"
-      :class="[`theme-${theme}`, { 'code-block-action-button-active': active }]"
+      :class="{ 'code-block-action-button-active': active }"
       v-bind="attrs"
       icon
       @click="onClick"
@@ -30,7 +30,6 @@ defineOptions({
 })
 
 const {
-  theme = 'light',
   active = true,
   copyTooltip = '',
 } = defineProps<CodeBlockIconButtonProps>()
@@ -59,56 +58,26 @@ watch(copyTooltipText, () => {
 // expand upon original tertiary button styles changing some colors and states
 .code-block-action-button {
   &:not(:disabled) {
-    &.theme-light {
-      // not active
-      &:not(.code-block-action-button-active) {
-        color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
+    // not active
+    &:not(.code-block-action-button-active) {
+      color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong);
 
-        &:hover:not(:disabled):not(:focus),
-        &:focus:is(:hover),
-        &:focus-visible,
-        &:active {
-          background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-          color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
-        }
-      }
-
-      // active
-      &.code-block-action-button-active {
-        &:hover:not(:disabled):not(:focus),
-        &:focus:is(:hover),
-        &:focus-visible,
-        &:active {
-          background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
-        }
+      &:hover:not(:disabled):not(:focus),
+      &:focus:is(:hover),
+      &:focus-visible,
+      &:active {
+        background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
       }
     }
 
-    &.theme-dark {
-      // not active
-      &:not(.code-block-action-button-active) {
-        color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-
-        &:hover:not(:disabled):not(:focus),
-        &:focus:is(:hover),
-        &:focus-visible,
-        &:active {
-          background-color: var(--kui-color-background-primary-strong, $kui-color-background-primary-strong);
-          color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-        }
-      }
-
-      // active
-      &.code-block-action-button-active {
-        color: var(--kui-color-text-primary-weak, $kui-color-text-primary-weak);
-
-        &:hover:not(:disabled):not(:focus),
-        &:focus:is(:hover),
-        &:focus-visible,
-        &:active {
-          background-color: var(--kui-color-background-primary, $kui-color-background-primary);
-          color: var(--kui-color-text-inverse, $kui-color-text-inverse);
-        }
+    // active
+    &.code-block-action-button-active {
+      &:hover:not(:disabled):not(:focus),
+      &:focus:is(:hover),
+      &:focus-visible,
+      &:active {
+        background-color: var(--kui-color-background-primary-weaker, $kui-color-background-primary-weaker);
       }
     }
   }
