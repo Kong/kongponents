@@ -303,11 +303,11 @@ const features: EmptyStateFeature[] = [
     justify-content: space-between;
 
     h2 {
-      color: $kui-color-text;
-      font-size: $kui-font-size-50;
-      font-weight: $kui-font-weight-semibold;
-      line-height: $kui-line-height-50;
-      margin: $kui-space-0;
+      color: var(--kui-color-text, $kui-color-text);
+      font-size: var(--kui-font-size-50, $kui-font-size-50);
+      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      line-height: var(--kui-line-height-50, $kui-line-height-50);
+      margin: var(--kui-space-0, $kui-space-0);
     }
   }
 }
