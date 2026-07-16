@@ -93,8 +93,8 @@ importers:
         specifier: ^2.3.26
         version: 2.4.14(vue@3.5.38(typescript@5.9.3))
       '@kong/design-tokens':
-        specifier: 3.0.2-pr.690.cb1af82.0
-        version: 3.0.2-pr.690.cb1af82.0
+        specifier: 3.0.2
+        version: 3.0.2
       '@kong/eslint-config-kong-ui':
         specifier: 1.7.1
         version: 1.7.1(@typescript-eslint/parser@8.64.0(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)
@@ -1136,8 +1136,8 @@ packages:
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@3.0.2-pr.690.cb1af82.0':
-    resolution: {integrity: sha512-5wZjYUpRTVdlelZZ2uMDDf/N8+NmSTr7+26782b9q7b56m5ztrCN6xZviKclGH5rJ4aYTqk4TebM3mu5trB1ag==}
+  '@kong/design-tokens@3.0.2':
+    resolution: {integrity: sha512-WHg9MfnvqHOIrQCwuwWWv9LHml5FRaZxXN5tN81mk/Yk8017a5duZzwnoZsMCCUkLfgp71Lj+vP5/JH37oVBdg==}
     engines: {node: '>=20.19.5', pnpm: '>=10.28.2'}
 
   '@kong/eslint-config-kong-ui@1.7.1':
@@ -8246,7 +8246,7 @@ snapshots:
       '@kong/icons': 1.55.1(vue@3.5.38(typescript@5.9.3))
       vue: 3.5.38(typescript@5.9.3)
 
-  '@kong/design-tokens@3.0.2-pr.690.cb1af82.0': {}
+  '@kong/design-tokens@3.0.2': {}
 
   '@kong/eslint-config-kong-ui@1.7.1(@typescript-eslint/parser@8.64.0(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)':
     dependencies:
