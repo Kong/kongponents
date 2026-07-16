@@ -1,3 +1,10 @@
+## [9.61.3](https://github.com/Kong/kongponents/compare/v9.61.2...v9.61.3) (2026-07-16)
+
+
+### Bug Fixes
+
+* **types:** add new component type ([#3294](https://github.com/Kong/kongponents/issues/3294)) ([cd1e699](https://github.com/Kong/kongponents/commit/cd1e699224f37ceab9442dc3c14323a3ad4353d7))
+
 ## [9.61.2](https://github.com/Kong/kongponents/compare/v9.61.1...v9.61.2) (2026-07-16)
 
 
