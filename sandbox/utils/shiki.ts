@@ -11,7 +11,6 @@ const createHighlighter = createdBundledHighlighter({
   },
   themes: {
     'catppuccin-latte': () => import('shiki/themes/catppuccin-latte.mjs'),
-    'material-theme-palenight': () => import('shiki/themes/material-theme-palenight.mjs'),
   },
   engine: () => createJavaScriptRegexEngine(),
 })
