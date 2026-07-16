@@ -26,7 +26,7 @@
           ref="popper"
           hide-close-icon
           :offset="`var(--kui-space-40, ${KUI_SPACE_40})`"
-          v-bind="boundKPopAttributes"
+          v-bind="createKPopAttributes()"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
         >
@@ -543,22 +543,21 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const createKPopAttributes = computed((): PopoverAttributes => {
+const hasDropdownFooterTextSlot = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'])
+
+const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${hasDropdownFooterTextSlot() ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
   }
-})
+}
 
 // Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => normalizeSize(dropdownMaxHeight))
-
-// TypeScript complains if I bind the original object
-const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const widthValue = computed(() => {
   const w = width ? width : '300'

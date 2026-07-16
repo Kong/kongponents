@@ -23,7 +23,7 @@
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         ref="popperElement"
-        v-bind="boundKPopAttributes"
+        v-bind="createKPopAttributes()"
         close-on-popover-click
         hide-close-icon
         :offset="`var(--kui-space-40, ${KUI_SPACE_40})`"
@@ -269,12 +269,13 @@ const isRequired = computed((): boolean => attrs.required !== undefined && Strin
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
 
-const defaultKPopAttributes: PopoverAttributes = {
-  popoverClasses: `k-select-popover select-popover ${dropdownFooterText || slots['dropdown-footer-text'] ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+const defaultKPopAttributes: Omit<PopoverAttributes, 'popoverClasses'> = {
   popoverTimeout: 0,
   placement: 'bottom-start',
   hideCaret: true,
 }
+
+const hasDropdownFooterTextSlot = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'])
 
 const inputKey = ref<number>(0)
 const inputRef = useTemplateRef('inputElement')
@@ -354,22 +355,19 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const createKPopAttributes = computed(() => {
+const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''}`,
+    popoverClasses: `k-select-popover select-popover ${hasDropdownFooterTextSlot() ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
     width: String(actualElementWidth.value),
     maxWidth: String(actualElementWidth.value),
     disabled: isDisabled.value || isReadonly.value,
   }
-})
+}
 
 // Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => normalizeSize(dropdownMaxHeight))
-
-// TypeScript complains if I bind the original object
-const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const placeholderText = computed((): string => placeholder || attrs.placeholder as string || 'Select...')
 
