@@ -13,7 +13,7 @@
       {{ strippedLabel }}
 
       <template
-        v-if="hasLabelTooltip"
+        v-if="hasLabelTooltip()"
         #tooltip
       >
         <slot name="label-tooltip" />
@@ -47,7 +47,7 @@
             autocomplete="off"
             autocorrect="off"
             class="select-input"
-            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value), 'input-has-focus': inputFocused || isToggled.value }"
+            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem() && (!enableFiltering || !isToggled.value), 'input-has-focus': inputFocused || isToggled.value }"
             data-testid="select-input"
             :disabled="isDisabled"
             :error="error"
@@ -99,7 +99,7 @@
           </KInput>
           <Transition name="kongponents-fade-transition">
             <div
-              v-if="hasCustomSelectedItem && (!enableFiltering || !isToggled.value)"
+              v-if="hasCustomSelectedItem() && (!enableFiltering || !isToggled.value)"
               class="custom-selected-item-wrapper"
               :class="{ 'clearable': clearable, 'readonly': isReadonly }"
             >
@@ -264,7 +264,7 @@ const isDropdownOpen = ref<boolean>(false)
 
 const resizeObserver = ref<ResizeObserverHelper>()
 
-const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.info || slots['label-tooltip'])
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
@@ -375,8 +375,8 @@ const placeholderText = computed((): string => placeholder || attrs.placeholder 
 
 const isClearVisible = computed((): boolean => !isDisabled.value && (clearable && !!selectedItem.value))
 
-const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
-  (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template']))))
+const hasCustomSelectedItem = (): boolean => !!(selectedItem.value &&
+  (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template'])))
 
 // Helper to check if entry is a group (has 'items' property)
 // Works for both SelectGroup and NormalizedGroup since they share the same structure

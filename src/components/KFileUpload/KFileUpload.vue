@@ -17,7 +17,7 @@
       {{ strippedLabel }}
 
       <template
-        v-if="hasLabelTooltip"
+        v-if="hasLabelTooltip()"
         #tooltip
       >
         <slot name="label-tooltip" />
@@ -187,7 +187,7 @@ const modifiedAttrs = computed(() => {
 })
 
 const fileInput = useTemplateRef('input')
-const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.info || slots['label-tooltip'])
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 const isRequired = computed((): boolean => attrs?.required !== undefined && String(attrs?.required) !== 'false')
 const defaultPlaceholder = computed((): string => {

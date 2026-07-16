@@ -111,4 +111,28 @@ describe('KLabel', () => {
     cy.get('#label-text').click()
     cy.get('input[type="checkbox"]').should('be.checked')
   })
+
+  it('renders a tooltip slot that is added after mount', () => {
+    cy.mount({
+      components: { KLabel },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KLabel>
+          Full Name
+          <template
+            v-if="ready"
+            #tooltip
+          >
+            Tooltip content
+          </template>
+        </KLabel>
+      `,
+    })
+
+    cy.get('.k-label .label-tooltip').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.k-label .label-tooltip').should('exist')
+  })
 })

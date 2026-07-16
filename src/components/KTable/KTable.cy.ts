@@ -221,6 +221,40 @@ describe('KTable', () => {
       cy.get('.k-table .table-toolbar button').should('contain.text', 'Toolbar button')
     })
 
+    it('renders a toolbar slot that is added after mount', () => {
+      cy.mount({
+        components: { KTable },
+        data: () => ({
+          headers: options.headers,
+          ready: false,
+        }),
+        methods: {
+          fetcher() {
+            return { data: options.data }
+          },
+        },
+        template: `
+          <KTable
+            :fetcher="fetcher"
+            :headers="headers"
+            disable-pagination
+          >
+            <template
+              v-if="ready"
+              #toolbar
+            >
+              <div data-testid="toolbar-content">Toolbar</div>
+            </template>
+          </KTable>
+        `,
+      })
+
+      cy.getTestId('table-toolbar').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+      cy.getTestId('table-toolbar').should('exist')
+      cy.getTestId('toolbar-content').should('exist')
+    })
+
     it('has hover class when passed', () => {
       cy.mount(KTable, {
         props: {

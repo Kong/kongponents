@@ -14,7 +14,7 @@
       {{ strippedLabel }}
 
       <template
-        v-if="hasLabelTooltip"
+        v-if="hasLabelTooltip()"
         #tooltip
       >
         <slot name="label-tooltip" />
@@ -417,7 +417,7 @@ const multiselectItemsRef = useTemplateRef('kMultiselectItems')
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
-const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip'])
 
 const getBadgeAppearance = (item?: Item): BadgeAppearance => {
   if (isDisabled.value || isReadonly.value || item?.disabled) {

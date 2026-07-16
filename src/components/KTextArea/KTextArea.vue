@@ -11,7 +11,7 @@
     >
       {{ strippedLabel }}
       <template
-        v-if="hasLabelTooltip"
+        v-if="hasLabelTooltip()"
         #tooltip
       >
         <slot name="label-tooltip" />
@@ -64,7 +64,7 @@
         class="help-text"
       >
         <slot
-          v-if="showHelp"
+          v-if="showHelp()"
           name="help"
         >
           {{ helpText }}
@@ -135,7 +135,7 @@ const currValue = ref('') // We need this so that we don't lose the updated valu
 
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 
-const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip'])
 
 const ariaInvalid = computed((): boolean | undefined => error || hasError || charLimitExceeded.value ? true : undefined)
 
@@ -186,7 +186,7 @@ const inputHandler = (e: any): void => {
   currValue.value = val
 }
 
-const showHelp = computed((): boolean => !charLimitExceeded.value && !!(help || slots.help))
+const showHelp = (): boolean => !charLimitExceeded.value && !!(help || slots.help)
 
 const helpText = computed((): string => {
   const limit = typeof characterLimit === 'number' ? characterLimit : DEFAULT_CHARACTER_LIMIT

@@ -1,7 +1,7 @@
 <template>
   <div class="k-table">
     <div
-      v-if="hasToolbarSlot"
+      v-if="hasToolbarSlot()"
       class="table-toolbar"
       data-testid="table-toolbar"
     >
@@ -561,7 +561,7 @@ const offsets: Ref<any[]> = ref([])
 const hasNextPage = ref(true)
 const isClickable = ref(false)
 const hasInitialized = ref(false)
-const hasToolbarSlot = computed((): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value)
+const hasToolbarSlot = (): boolean => !!slots.toolbar || hasColumnVisibilityMenu.value
 const tableWrapperStyles = computed((): Record<string, string> => ({
   maxHeight: normalizeSize(props.maxHeight),
 }))
