@@ -1,3 +1,10 @@
+## [9.61.2](https://github.com/Kong/kongponents/compare/v9.61.1...v9.61.2) (2026-07-16)
+
+
+### Bug Fixes
+
+* kselect hover color and theme tokens ([#3293](https://github.com/Kong/kongponents/issues/3293)) ([c74d49b](https://github.com/Kong/kongponents/commit/c74d49bab9e518ab4c0e06c42ffada12cf2fecb1))
+
 ## [9.61.1](https://github.com/Kong/kongponents/compare/v9.61.0...v9.61.1) (2026-07-15)
 
 
