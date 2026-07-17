@@ -1,3 +1,10 @@
+## [9.61.5](https://github.com/Kong/kongponents/compare/v9.61.4...v9.61.5) (2026-07-17)
+
+
+### Bug Fixes
+
+* classic night text inverse color ([#3295](https://github.com/Kong/kongponents/issues/3295)) ([51ea9ae](https://github.com/Kong/kongponents/commit/51ea9ae408396dc258fabeab5a97113aab045c8c))
+
 ## [9.61.4](https://github.com/Kong/kongponents/compare/v9.61.3...v9.61.4) (2026-07-17)
 
 
