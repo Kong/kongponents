@@ -13,7 +13,7 @@
       {{ strippedLabel }}
 
       <template
-        v-if="hasLabelTooltip"
+        v-if="hasLabelTooltip()"
         #tooltip
       >
         <slot name="label-tooltip" />
@@ -23,7 +23,7 @@
     <KToggle v-slot="{ toggle, isToggled }">
       <KPop
         ref="popperElement"
-        v-bind="boundKPopAttributes"
+        v-bind="createKPopAttributes()"
         close-on-popover-click
         hide-close-icon
         :offset="`var(--kui-space-40, ${KUI_SPACE_40})`"
@@ -47,7 +47,7 @@
             autocomplete="off"
             autocorrect="off"
             class="select-input"
-            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem && (!enableFiltering || !isToggled.value), 'input-has-focus': inputFocused || isToggled.value }"
+            :class="{ 'filtering-disabled': !enableFiltering, 'hide-model-value': hasCustomSelectedItem() && (!enableFiltering || !isToggled.value), 'input-has-focus': inputFocused || isToggled.value }"
             data-testid="select-input"
             :disabled="isDisabled"
             :error="error"
@@ -99,7 +99,7 @@
           </KInput>
           <Transition name="kongponents-fade-transition">
             <div
-              v-if="hasCustomSelectedItem && (!enableFiltering || !isToggled.value)"
+              v-if="hasCustomSelectedItem() && (!enableFiltering || !isToggled.value)"
               class="custom-selected-item-wrapper"
               :class="{ 'clearable': clearable, 'readonly': isReadonly }"
             >
@@ -264,17 +264,18 @@ const isDropdownOpen = ref<boolean>(false)
 
 const resizeObserver = ref<ResizeObserverHelper>()
 
-const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.info || slots['label-tooltip'])
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const isDisabled = computed((): boolean => attrs.disabled !== undefined && String(attrs.disabled) !== 'false')
 const isReadonly = computed((): boolean => attrs.readonly !== undefined && String(attrs.readonly) !== 'false')
 
-const defaultKPopAttributes: PopoverAttributes = {
-  popoverClasses: `k-select-popover select-popover ${dropdownFooterText || slots['dropdown-footer-text'] ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''}`,
+const defaultKPopAttributes: Omit<PopoverAttributes, 'popoverClasses'> = {
   popoverTimeout: 0,
   placement: 'bottom-start',
   hideCaret: true,
 }
+
+const hasDropdownFooterTextSlot = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'])
 
 const inputKey = ref<number>(0)
 const inputRef = useTemplateRef('inputElement')
@@ -354,29 +355,26 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const createKPopAttributes = computed(() => {
+const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''}`,
+    popoverClasses: `k-select-popover select-popover ${hasDropdownFooterTextSlot() ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
     width: String(actualElementWidth.value),
     maxWidth: String(actualElementWidth.value),
     disabled: isDisabled.value || isReadonly.value,
   }
-})
+}
 
 // Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => normalizeSize(dropdownMaxHeight))
-
-// TypeScript complains if I bind the original object
-const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const placeholderText = computed((): string => placeholder || attrs.placeholder as string || 'Select...')
 
 const isClearVisible = computed((): boolean => !isDisabled.value && (clearable && !!selectedItem.value))
 
-const hasCustomSelectedItem = computed((): boolean => !!(selectedItem.value &&
-  (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template']))))
+const hasCustomSelectedItem = (): boolean => !!(selectedItem.value &&
+  (slots['selected-item-template'] || (reuseItemTemplate && slots['item-template'])))
 
 // Helper to check if entry is a group (has 'items' property)
 // Works for both SelectGroup and NormalizedGroup since they share the same structure

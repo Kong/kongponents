@@ -498,6 +498,57 @@ describe('KSelect', () => {
     cy.getTestId('selected-item-slot-content').should('be.visible').should('contain.text', selectedItemContent)
   })
 
+  it('renders a selected-item-template slot that is added after mount', () => {
+    const selectedItemContent = 'I am slotted!'
+
+    cy.mount({
+      components: { KSelect },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KSelect :items="[{ label: 'Label 1', value: 'val1', selected: true }]">
+          <template
+            v-if="ready"
+            #selected-item-template
+          >
+            <span data-testid="selected-item-slot-content">${selectedItemContent}</span>
+          </template>
+        </KSelect>
+      `,
+    })
+
+    cy.getTestId('selected-item-slot-content').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.getTestId('selected-item-slot-content').should('be.visible').should('contain.text', selectedItemContent)
+  })
+
+  it('renders a label-tooltip slot that is added after mount', () => {
+    cy.mount({
+      components: { KSelect },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KSelect
+          label="A label"
+          :items="[]"
+        >
+          <template
+            v-if="ready"
+            #label-tooltip
+          >
+            Tooltip content
+          </template>
+        </KSelect>
+      `,
+    })
+
+    cy.get('.k-label .tooltip-trigger-icon').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
+  })
+
   it('displays placeholder correctly when selected item slot is present', () => {
     const selectedItemContent = 'I am slotted!'
     const placeholderText = 'Placeholder text'

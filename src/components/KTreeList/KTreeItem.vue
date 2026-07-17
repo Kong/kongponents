@@ -47,7 +47,7 @@
       @click.prevent="handleClick"
     >
       <div
-        v-if="hasIcon"
+        v-if="hasIcon()"
         class="tree-item-icon"
         data-testid="tree-item-icon"
       >
@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { KUI_ICON_SIZE_40 } from '@kong/design-tokens'
 import { ServiceDocumentIcon, ChevronRightIcon } from '@kong/icons'
 import type { TreeListItemEmits, TreeListItemProps, TreeListItemSlots } from '@/types'
@@ -91,7 +91,7 @@ const emit = defineEmits<TreeListItemEmits>()
 
 const slots = defineSlots<TreeListItemSlots>()
 
-const hasIcon = computed((): boolean => !hideIcons || !!slots['item-icon'])
+const hasIcon = (): boolean => !hideIcons || !!slots['item-icon']
 
 const handleClick = (event: any) => {
   if (event.target) {

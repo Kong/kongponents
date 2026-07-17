@@ -122,6 +122,32 @@ describe('KMultiselect', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
   })
 
+  it('renders a label-tooltip slot that is added after mount', () => {
+    cy.mount({
+      components: { KMultiselect },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KMultiselect
+          label="A Label"
+          :items="[{ label: 'Label 1', value: 'label1' }]"
+        >
+          <template
+            v-if="ready"
+            #label-tooltip
+          >
+            Tooltip content
+          </template>
+        </KMultiselect>
+      `,
+    })
+
+    cy.get('.k-label .tooltip-trigger-icon').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
+  })
+
   it('reacts to text change and select', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
