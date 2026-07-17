@@ -1,3 +1,10 @@
+## [9.61.4](https://github.com/Kong/kongponents/compare/v9.61.3...v9.61.4) (2026-07-17)
+
+
+### Bug Fixes
+
+* re-evaluate cached slot-presence checks on every render ([#3290](https://github.com/Kong/kongponents/issues/3290)) ([0bab8df](https://github.com/Kong/kongponents/commit/0bab8dfa24d64868d0f4a8f79e85892e79a35b90))
+
 ## [9.61.3](https://github.com/Kong/kongponents/compare/v9.61.2...v9.61.3) (2026-07-16)
 
 
