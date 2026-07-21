@@ -164,4 +164,60 @@ describe('KRadio', () => {
 
     cy.get('.label-tooltip').should('be.visible')
   })
+
+  it('renders a description slot that is added after mount', () => {
+    cy.mount({
+      components: { KRadio },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KRadio
+          :model-value="false"
+          :selected-value="true"
+          label="Some label"
+        >
+          <template
+            v-if="ready"
+            #description
+          >
+            <span data-testid="radio-description">Description content</span>
+          </template>
+        </KRadio>
+      `,
+    })
+
+    cy.get('.radio-description').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.radio-description').should('exist')
+    cy.getTestId('radio-description').should('be.visible')
+  })
+
+  it('renders a tooltip slot that is added after mount when card prop is true', () => {
+    cy.mount({
+      components: { KRadio },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KRadio
+          card
+          :model-value="false"
+          :selected-value="true"
+          label="Some label"
+        >
+          <template
+            v-if="ready"
+            #tooltip
+          >
+            <span data-testid="radio-tooltip">Tooltip content</span>
+          </template>
+        </KRadio>
+      `,
+    })
+
+    cy.get('.label-tooltip').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.label-tooltip').should('exist')
+  })
 })

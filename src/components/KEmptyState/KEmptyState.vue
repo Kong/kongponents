@@ -6,7 +6,7 @@
     <div class="empty-state-content">
       <div
         :aria-hidden="$slots.image ? undefined : 'true'"
-        :class="iconContainerClass"
+        :class="iconContainerClass()"
       >
         <slot name="image">
           <slot name="icon">
@@ -148,7 +148,7 @@ const getIconColor = computed((): string => {
   }
 })
 
-const iconContainerClass = computed((): string => {
+const iconContainerClass = (): string => {
   if (slots.image) {
     return 'empty-state-image'
   }
@@ -159,7 +159,7 @@ const iconContainerClass = computed((): string => {
   }
 
   return defaultIconClass
-})
+}
 </script>
 
 <style lang="scss" scoped>

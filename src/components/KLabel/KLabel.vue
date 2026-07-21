@@ -7,7 +7,7 @@
     <slot />
 
     <KTooltip
-      v-if="hasTooltip"
+      v-if="hasTooltip()"
       v-bind="tooltipAttributes"
       class="label-tooltip"
       :tooltip-id="tooltipId"
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, computed, useId, useTemplateRef } from 'vue'
+import { watch, useId, useTemplateRef } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { LabelProps, LabelSlots } from '@/types'
 import { InfoIcon } from '@kong/icons'
@@ -48,7 +48,7 @@ watch(() => help, (value: string): void => {
 
 const slots = defineSlots<LabelSlots>()
 
-const hasTooltip = computed((): boolean => !!(help || info || slots.tooltip))
+const hasTooltip = (): boolean => !!(help || info || slots.tooltip)
 
 const tooltipId = useId()
 

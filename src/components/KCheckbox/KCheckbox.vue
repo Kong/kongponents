@@ -1,11 +1,11 @@
 <template>
   <div
     class="k-checkbox"
-    :class="[$attrs.class, kCheckboxClasses]"
+    :class="[$attrs.class, kCheckboxClasses()]"
   >
     <div
       class="checkbox-input-wrapper"
-      :class="{ 'has-label': hasLabel }"
+      :class="{ 'has-label': hasLabel() }"
     >
       <input
         :id="inputId"
@@ -35,7 +35,7 @@
 
     <div class="checkbox-label-wrapper">
       <KLabel
-        v-if="hasLabel"
+        v-if="hasLabel()"
         v-bind="labelAttributes"
         class="checkbox-label"
         :for="inputId"
@@ -43,14 +43,14 @@
         <slot>{{ label }}</slot>
 
         <template
-          v-if="hasTooltip"
+          v-if="hasTooltip()"
           #tooltip
         >
           <slot name="tooltip" />
         </template>
       </KLabel>
       <div
-        v-if="showDescription"
+        v-if="showDescription()"
         class="checkbox-description"
       >
         <slot name="description">
@@ -88,11 +88,11 @@ const attrs = useAttrs()
 
 const defaultId = useId()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
-const hasLabel = computed((): boolean => !!(label || slots.default))
+const hasLabel = (): boolean => !!(label || slots.default)
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 
-const showDescription = computed((): boolean => hasLabel.value && (!!description || !!slots.description))
-const hasTooltip = computed((): boolean => !!slots.tooltip)
+const showDescription = (): boolean => hasLabel() && (!!description || !!slots.description)
+const hasTooltip = (): boolean => !!slots.tooltip
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }
@@ -119,13 +119,13 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const kCheckboxClasses = computed((): Record<string, boolean> => {
+const kCheckboxClasses = (): Record<string, boolean> => {
   return {
     disabled: isDisabled.value,
-    'has-description': showDescription.value,
+    'has-description': showDescription(),
     'input-error': error,
   }
-})
+}
 
 const isIndeterminate = computed((): boolean => {
   return modifiedAttrs.value.indeterminate !== undefined && String(modifiedAttrs.value.indeterminate) !== 'false'

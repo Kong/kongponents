@@ -81,6 +81,29 @@ describe('KInput', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
   })
 
+  it('renders a label-tooltip slot that is added after mount', () => {
+    cy.mount({
+      components: { KInput },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KInput label="A label">
+          <template
+            v-if="ready"
+            #label-tooltip
+          >
+            Tooltip content
+          </template>
+        </KInput>
+      `,
+    })
+
+    cy.get('.k-label .tooltip-trigger-icon').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
+  })
+
   it('handles `required` attribute correctly', () => {
     cy.mount(KInput, {
       props: {
@@ -128,6 +151,31 @@ describe('KInput', () => {
       },
     })
 
+    cy.get('.k-input .help-text').should('contain.text', helpText)
+  })
+
+  it('renders a help slot that is added after mount', () => {
+    const helpText = 'This is help text'
+
+    cy.mount({
+      components: { KInput },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KInput>
+          <template
+            v-if="ready"
+            #help
+          >
+            ${helpText}
+          </template>
+        </KInput>
+      `,
+    })
+
+    cy.get('.k-input .help-text').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
     cy.get('.k-input .help-text').should('contain.text', helpText)
   })
 

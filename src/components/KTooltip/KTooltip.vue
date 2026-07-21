@@ -1,6 +1,6 @@
 <template>
   <KPop
-    v-if="showTooltip"
+    v-if="showTooltip()"
     hide-caret
     hide-close-icon
     :max-width="maxWidth"
@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue'
+import { useId } from 'vue'
 import KPop from '@/components/KPop/KPop.vue'
 import { KUI_SPACE_20 } from '@kong/design-tokens'
 import type { TooltipProps, TooltipSlots } from '@/types'
@@ -58,7 +58,7 @@ const {
 
 const slots = defineSlots<TooltipSlots>()
 
-const showTooltip = computed((): boolean => !disabled && (!!text || !!label || !!slots.content))
+const showTooltip = (): boolean => !disabled && (!!text || !!label || !!slots.content)
 
 const randomTooltipId = useId()
 </script>

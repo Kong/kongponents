@@ -118,6 +118,30 @@ describe('KCollapse', () => {
     cy.getTestId('collapse-hidden-content').should('contain.text', collapseContent)
   })
 
+  it('renders a visible-content slot that is added after mount', () => {
+    cy.mount({
+      components: { KCollapse },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KCollapse>
+          <template
+            v-if="ready"
+            #visible-content
+          >
+            <span data-testid="visible-content">Always visible content</span>
+          </template>
+        </KCollapse>
+      `,
+    })
+
+    cy.getTestId('collapse-visible-content').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.getTestId('collapse-visible-content').should('exist')
+    cy.getTestId('visible-content').should('be.visible')
+  })
+
   it('renders title slot when using slots', () => {
     const title = 'Awesome title'
     const triggerLabel = 'Awesome label'

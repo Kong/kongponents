@@ -73,6 +73,54 @@ describe('KTextArea', () => {
     cy.get('.k-textarea .help-text').should('contain.text', helpText)
   })
 
+  it('renders a help slot that is added after mount', () => {
+    const helpText = 'This is help text'
+
+    cy.mount({
+      components: { KTextArea },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KTextArea>
+          <template
+            v-if="ready"
+            #help
+          >
+            ${helpText}
+          </template>
+        </KTextArea>
+      `,
+    })
+
+    cy.get('.k-textarea .help-text').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.k-textarea .help-text').should('contain.text', helpText)
+  })
+
+  it('renders a label-tooltip slot that is added after mount', () => {
+    cy.mount({
+      components: { KTextArea },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KTextArea label="A label">
+          <template
+            v-if="ready"
+            #label-tooltip
+          >
+            Tooltip content
+          </template>
+        </KTextArea>
+      `,
+    })
+
+    cy.get('.k-label .tooltip-trigger-icon').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
+  })
+
   it('handles `required` attribute correctly', () => {
     cy.mount(KTextArea, {
       props: {

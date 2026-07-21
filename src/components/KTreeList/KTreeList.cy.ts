@@ -157,6 +157,36 @@ describe('KTreeList', () => {
     cy.get(`[data-testid="tree-item-${itemId}"] [data-testid="tree-item-label"]`).should('contain.text', 'Hello ' + itemName)
   })
 
+  it('renders an item-icon slot that is added after mount when hideIcons is true', () => {
+    const itemName = 'Name 1'
+    const itemId = 'name-id1'
+
+    cy.mount({
+      components: { KTreeList },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KTreeList
+          hide-icons
+          :items="[{ name: '${itemName}', id: '${itemId}' }]"
+        >
+          <template
+            v-if="ready"
+            #item-icon
+          >
+            <span data-testid="slotted-icon">🐰</span>
+          </template>
+        </KTreeList>
+      `,
+    })
+
+    cy.get(`[data-testid="tree-item-${itemId}"] [data-testid="tree-item-icon"]`).should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get(`[data-testid="tree-item-${itemId}"] [data-testid="tree-item-icon"]`).should('exist')
+    cy.getTestId('slotted-icon').should('be.visible')
+  })
+
   it('handles group prop correctly when not provided', () => {
     const names = ['Name 1', 'Name 2']
     const ids = ['name-id1', 'name-id2']

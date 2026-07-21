@@ -27,7 +27,7 @@
         >
           <slot name="content">
             <div
-              v-if="showHeader"
+              v-if="showHeader()"
               class="modal-header"
             >
               <div
@@ -54,7 +54,7 @@
             </div>
             <div
               class="modal-content"
-              :class="{ 'no-header': !showHeader }"
+              :class="{ 'no-header': !showHeader() }"
             >
               <slot name="default" />
             </div>
@@ -153,9 +153,9 @@ const sanitizedAttrs = computed(() => {
   return attributes
 })
 
-const showHeader = computed((): boolean => {
+const showHeader = (): boolean => {
   return !!title || !!slots.title || !hideCloseIcon
-})
+}
 
 const handleKeydown = (event: KeyboardEvent): void => {
   // close on escape key press

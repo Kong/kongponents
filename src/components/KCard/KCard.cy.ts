@@ -45,4 +45,28 @@ describe('KCard', () => {
     cy.get('.k-card').find('.card-content').get('[data-testid="card-content"]').should('be.visible')
     cy.get('.k-card').find('.card-footer').get('[data-testid="card-footer"]').should('be.visible')
   })
+
+  it('renders a header slot that is added after mount', () => {
+    cy.mount({
+      components: { KCard },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KCard>
+          <template
+            v-if="ready"
+            #actions
+          >
+            <span data-testid="card-actions">Card actions</span>
+          </template>
+        </KCard>
+      `,
+    })
+
+    cy.get('.k-card').find('.card-header').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.k-card').find('.card-header').should('exist')
+    cy.getTestId('card-actions').should('be.visible')
+  })
 })

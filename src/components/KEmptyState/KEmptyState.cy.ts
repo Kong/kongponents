@@ -143,6 +143,32 @@ describe('KEmptyState', () => {
     cy.get('.empty-state-image').findTestId(imageTestId).should('contain.text', imageSlotContent)
   })
 
+  it('switches from the default icon to the image container class when the image slot is added after mount', () => {
+    cy.mount({
+      components: { KEmptyState },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KEmptyState>
+          <template
+            v-if="ready"
+            #image
+          >
+            <div data-testid="slotted-image">image content</div>
+          </template>
+        </KEmptyState>
+      `,
+    })
+
+    cy.get('.empty-state-icon').should('exist')
+    cy.get('.empty-state-image').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.empty-state-icon').should('not.exist')
+    cy.get('.empty-state-image').should('exist')
+    cy.getTestId('slotted-image').should('be.visible')
+  })
+
   it('renders cards for each feature when features prop is provided', () => {
     const features = [
       { title: 'Feature 1', description: 'Description 1' },
