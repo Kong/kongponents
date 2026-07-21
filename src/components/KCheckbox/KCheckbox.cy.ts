@@ -109,4 +109,31 @@ describe('KCheckbox', () => {
     cy.get('.k-label .label-tooltip').click()
     cy.get('input').should('not.be.checked')
   })
+
+  it('renders a description slot that is added after mount', () => {
+    cy.mount({
+      components: { KCheckbox },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KCheckbox
+          :model-value="false"
+          label="Some label"
+        >
+          <template
+            v-if="ready"
+            #description
+          >
+            <span data-testid="checkbox-description">Description content</span>
+          </template>
+        </KCheckbox>
+      `,
+    })
+
+    cy.get('.checkbox-description').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.checkbox-description').should('exist')
+    cy.getTestId('checkbox-description').should('be.visible')
+  })
 })

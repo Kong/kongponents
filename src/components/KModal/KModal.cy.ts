@@ -398,4 +398,31 @@ describe('KModal', () => {
       })
     })
   })
+
+  it('renders the header when a title slot is added after mount', () => {
+    cy.mount({
+      components: { KModal },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KModal
+          hide-close-icon
+          visible
+        >
+          <template
+            v-if="ready"
+            #title
+          >
+            Slotted title
+          </template>
+        </KModal>
+      `,
+    })
+
+    cy.get('.modal-header').should('not.exist')
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.get('.modal-header').should('exist')
+    cy.get('.modal-title').should('contain.text', 'Slotted title')
+  })
 })

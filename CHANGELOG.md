@@ -1,3 +1,31 @@
+## [9.61.5](https://github.com/Kong/kongponents/compare/v9.61.4...v9.61.5) (2026-07-17)
+
+
+### Bug Fixes
+
+* classic night text inverse color ([#3295](https://github.com/Kong/kongponents/issues/3295)) ([51ea9ae](https://github.com/Kong/kongponents/commit/51ea9ae408396dc258fabeab5a97113aab045c8c))
+
+## [9.61.4](https://github.com/Kong/kongponents/compare/v9.61.3...v9.61.4) (2026-07-17)
+
+
+### Bug Fixes
+
+* re-evaluate cached slot-presence checks on every render ([#3290](https://github.com/Kong/kongponents/issues/3290)) ([0bab8df](https://github.com/Kong/kongponents/commit/0bab8dfa24d64868d0f4a8f79e85892e79a35b90))
+
+## [9.61.3](https://github.com/Kong/kongponents/compare/v9.61.2...v9.61.3) (2026-07-16)
+
+
+### Bug Fixes
+
+* **types:** add new component type ([#3294](https://github.com/Kong/kongponents/issues/3294)) ([cd1e699](https://github.com/Kong/kongponents/commit/cd1e699224f37ceab9442dc3c14323a3ad4353d7))
+
+## [9.61.2](https://github.com/Kong/kongponents/compare/v9.61.1...v9.61.2) (2026-07-16)
+
+
+### Bug Fixes
+
+* kselect hover color and theme tokens ([#3293](https://github.com/Kong/kongponents/issues/3293)) ([c74d49b](https://github.com/Kong/kongponents/commit/c74d49bab9e518ab4c0e06c42ffada12cf2fecb1))
+
 ## [9.61.1](https://github.com/Kong/kongponents/compare/v9.61.0...v9.61.1) (2026-07-15)
 
 

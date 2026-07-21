@@ -41,6 +41,7 @@ declare module 'vue' {
     KTable: typeof components.KTable
     KTabs: typeof components.KTabs
     KTextArea: typeof components.KTextArea
+    KThemeProvider: typeof components.KThemeProvider
     KToaster: typeof components.KToaster
     KToggle: typeof components.KToggle
     KTooltip: typeof components.KTooltip

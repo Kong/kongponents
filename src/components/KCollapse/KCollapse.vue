@@ -50,7 +50,7 @@
       </div>
     </div>
     <div
-      v-if="hasVisibleContent"
+      v-if="hasVisibleContent()"
       class="collapse-visible-content"
       data-testid="collapse-visible-content"
     >
@@ -93,7 +93,7 @@ const modelValueChanged = ref<boolean>(false)
 
 
 const trailingTrigger = computed((): boolean => triggerAlignment === 'trailing')
-const hasVisibleContent = computed((): boolean => !!slots['visible-content'])
+const hasVisibleContent = (): boolean => !!slots['visible-content']
 
 // we need this so we can create a watcher for programmatic changes to the modelValue
 const modelComputed = computed({

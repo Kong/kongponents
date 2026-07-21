@@ -85,4 +85,32 @@ describe('KTooltip', () => {
 
     cy.get('.k-tooltip.popover').should('have.css', 'z-index', '92929')
   })
+
+  it('renders a content slot that is added after mount', () => {
+    cy.mount({
+      components: { KTooltip },
+      data: () => ({
+        ready: false,
+      }),
+      template: `
+        <KTooltip trigger="click">
+          <button data-testid="my-button">Button text</button>
+          <template
+            v-if="ready"
+            #content
+          >
+            <span data-testid="tooltip-content">Tooltip content</span>
+          </template>
+        </KTooltip>
+      `,
+    })
+
+    cy.getTestId('my-button').should('be.visible').click()
+    cy.get('.k-tooltip').should('not.exist')
+
+    cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+    cy.getTestId('my-button').click()
+    cy.get('.k-tooltip').should('be.visible')
+    cy.getTestId('tooltip-content').should('be.visible')
+  })
 })

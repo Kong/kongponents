@@ -1,7 +1,7 @@
 <template>
   <div class="k-card">
     <div
-      v-if="showCardHeader"
+      v-if="showCardHeader()"
       class="card-header"
     >
       <component
@@ -36,7 +36,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { CardProps, CardSlots } from '@/types'
 
 const {
@@ -46,9 +45,9 @@ const {
 
 const slots = defineSlots<CardSlots>()
 
-const showCardHeader = computed((): boolean => {
+const showCardHeader = (): boolean => {
   return !!(slots.title || title || slots.actions)
-})
+}
 </script>
 
 <style lang="scss" scoped>
