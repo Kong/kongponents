@@ -1,5 +1,6 @@
 import { h } from 'vue'
 import FilterPill from '@/components/KFilterGroup/FilterPill.vue'
+import KButton from '@/components/KButton/KButton.vue'
 import type { Filter, FilterPillSlotProps, FilterSelection } from '@/types'
 
 describe('KFilterGroup - FilterPill', () => {
@@ -278,6 +279,46 @@ describe('KFilterGroup - FilterPill', () => {
           text: 'Baz',
           value: 'baz',
         })
+      })
+
+      it('disables/enables apply via setApplyState', () => {
+        // KButton is registered explicitly here (unlike the shared `render` helper
+        // above) so its `disabled` prop reflects as a real native `disabled`
+        // attribute, making it reliable to assert on.
+        const onApply = cy.spy().as('apply')
+        cy.mount(FilterPill as any, {
+          props: {
+            filter: { label: 'Foo' },
+            custom: true,
+            onApply,
+          },
+          global: {
+            components: { KButton },
+          },
+          slots: {
+            default: (props: FilterPillSlotProps) => h('div', {}, [
+              h('button', {
+                'data-testid': 'custom-disable',
+                onClick: () => props.setApplyState(true),
+              }, 'disable'),
+              h('button', {
+                'data-testid': 'custom-enable',
+                onClick: () => props.setApplyState(false),
+              }, 'enable'),
+            ]),
+          },
+        })
+
+        cy.getTestId(PILL_ID).click()
+        cy.getTestId(APPLY_ID).should('not.be.disabled')
+
+        cy.getTestId('custom-disable').click()
+        cy.getTestId(APPLY_ID).should('be.disabled')
+
+        cy.getTestId('custom-enable').click()
+        cy.getTestId(APPLY_ID).should('not.be.disabled')
+        cy.getTestId(APPLY_ID).click()
+        cy.get('@apply').should('have.callCount', 1)
       })
 
       it('still emits @apply with undefined if setValue is never called', () => {

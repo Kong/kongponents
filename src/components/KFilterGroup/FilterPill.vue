@@ -177,6 +177,12 @@ const userCustomValue = ref<string | string[]>()
 const userCustomText = ref<string>()
 
 /**
+ * Tracks whether a custom filter's slot content has marked the pending value
+ * as invalid, disabling the footer's Apply button.
+ */
+const userCustomApplyDisabled = ref<boolean>(false)
+
+/**
  * Used to programmatically apply focus to the text field
  */
 const inputFieldRef = useTemplateRef('inputField')
@@ -201,10 +207,8 @@ const filterType = computed((): 'custom' | 'input' | 'select' | 'multiselect' =>
 })
 
 /**
- * Whether the apply button is disabled or not. If the filter is a custom filter
- * we can't reliably detect whether it should be disabled (slot content may not
- * use `setValue` at all and manage its own state instead), so in that case it
- * defaults to false.
+ * Whether the apply button is disabled or not. For a custom filter, this
+ * defaults to enabled and can be overridden by slot content via `setApplyState`.
  */
 const applyDisabled = computed((): boolean => {
   switch (filterType.value) {
@@ -215,6 +219,7 @@ const applyDisabled = computed((): boolean => {
     case 'multiselect':
       return !userMultiselect.value || userMultiselect.value.length === 0
     case 'custom':
+      return userCustomApplyDisabled.value
     default:
       return false
   }
@@ -248,6 +253,15 @@ const setCustomValue = (value: string | string[], text: string) => {
 }
 
 /**
+ * Marks whether the pending custom filter value is valid, controlling whether
+ * the footer's Apply button is enabled. Exposed to custom filter slot content
+ * via `filterPillSlotProps`.
+ */
+const setApplyState = (disabled: boolean) => {
+  userCustomApplyDisabled.value = disabled
+}
+
+/**
  * The props passed into the `#default` slot so custom filter content can read
  * the filter's options/operators and update the pending value/operator, which
  * then flow through the existing Apply/Cancel footer like any other filter type.
@@ -261,6 +275,7 @@ const filterPillSlotProps = computed((): FilterPillSlotProps => ({
   operator: userOperator.value,
   setOperator,
   setValue: setCustomValue,
+  setApplyState,
 }))
 
 /**
@@ -412,6 +427,9 @@ const resetUserSelection = () => {
   // reset the custom pending value/text to the selection's, if it exists
   userCustomValue.value = selection?.value
   userCustomText.value = selection?.text
+
+  // reset the custom apply-disabled state; slot content re-derives this itself
+  userCustomApplyDisabled.value = false
 }
 
 /**
