@@ -157,8 +157,8 @@ export interface FilterPillSlotProps {
   setOperator: (op: FilterOperator) => void
   /** Update the pending value and its display text. */
   setValue: (value: string | string[], text: string) => void
-  /** Mark the pending value as valid/invalid, controlling whether the footer's Apply button is enabled. */
-  setApplyState: (disabled: boolean) => void
+  /** Update whether the footer's Apply button is enabled. */
+  setApplyState: (enabled: boolean) => void
 }
 
 /**

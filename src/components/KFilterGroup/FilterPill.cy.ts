@@ -299,11 +299,11 @@ describe('KFilterGroup - FilterPill', () => {
             default: (props: FilterPillSlotProps) => h('div', {}, [
               h('button', {
                 'data-testid': 'custom-disable',
-                onClick: () => props.setApplyState(true),
+                onClick: () => props.setApplyState(false),
               }, 'disable'),
               h('button', {
                 'data-testid': 'custom-enable',
-                onClick: () => props.setApplyState(false),
+                onClick: () => props.setApplyState(true),
               }, 'enable'),
             ]),
           },

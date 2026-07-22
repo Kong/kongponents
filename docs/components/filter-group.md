@@ -352,7 +352,7 @@ interface FilterPillSlotProps {
   operator?: FilterOperator // the currently pending operator
   setOperator: (op: FilterOperator) => void // update the pending operator
   setValue: (value: string | string[], text: string) => void // update the pending value and its display text
-  setApplyState: (disabled: boolean) => void // mark the pending value as valid/invalid, controlling whether Apply is enabled
+  setApplyState: (enabled: boolean) => void // control whether Apply is enabled
 }
 ```
 

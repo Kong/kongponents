@@ -177,10 +177,9 @@ const userCustomValue = ref<string | string[]>()
 const userCustomText = ref<string>()
 
 /**
- * Tracks whether a custom filter's slot content has marked the pending value
- * as invalid, disabling the footer's Apply button.
+ * Tracks whether the footer's Apply button in a custom filter's slot is enabled.
  */
-const userCustomApplyDisabled = ref<boolean>(false)
+const userCustomApplyEnabled = ref<boolean>(true)
 
 /**
  * Used to programmatically apply focus to the text field
@@ -219,7 +218,7 @@ const applyDisabled = computed((): boolean => {
     case 'multiselect':
       return !userMultiselect.value || userMultiselect.value.length === 0
     case 'custom':
-      return userCustomApplyDisabled.value
+      return !userCustomApplyEnabled.value
     default:
       return false
   }
@@ -257,8 +256,8 @@ const setCustomValue = (value: string | string[], text: string) => {
  * the footer's Apply button is enabled. Exposed to custom filter slot content
  * via `filterPillSlotProps`.
  */
-const setApplyState = (disabled: boolean) => {
-  userCustomApplyDisabled.value = disabled
+const setApplyState = (enabled: boolean) => {
+  userCustomApplyEnabled.value = enabled
 }
 
 /**
@@ -429,7 +428,7 @@ const resetUserSelection = () => {
   userCustomText.value = selection?.text
 
   // reset the custom apply-disabled state; slot content re-derives this itself
-  userCustomApplyDisabled.value = false
+  userCustomApplyEnabled.value = true
 }
 
 /**
