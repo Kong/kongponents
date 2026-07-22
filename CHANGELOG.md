@@ -1,3 +1,10 @@
+## [9.61.6](https://github.com/Kong/kongponents/compare/v9.61.5...v9.61.6) (2026-07-22)
+
+
+### Bug Fixes
+
+* pin transitive dependency overrides to patch audit vulnerabilities ([#3301](https://github.com/Kong/kongponents/issues/3301)) ([e69e894](https://github.com/Kong/kongponents/commit/e69e89492a6c9784e2b4e145c5f886faac96d1b7)), closes [#3288](https://github.com/Kong/kongponents/issues/3288) [hi#severity](https://github.com/hi/issues/severity)
+
 ## [9.61.5](https://github.com/Kong/kongponents/compare/v9.61.4...v9.61.5) (2026-07-17)
 
 
