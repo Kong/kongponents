@@ -14,7 +14,7 @@
       {{ strippedLabel }}
 
       <template
-        v-if="hasLabelTooltip"
+        v-if="hasLabelTooltip()"
         #tooltip
       >
         <slot name="label-tooltip" />
@@ -26,7 +26,7 @@
           ref="popper"
           hide-close-icon
           :offset="`var(--kui-space-40, ${KUI_SPACE_40})`"
-          v-bind="boundKPopAttributes"
+          v-bind="createKPopAttributes()"
           @close="() => handleToggle(false, isToggled, toggle)"
           @open="() => handleToggle(true, isToggled, toggle)"
         >
@@ -417,7 +417,7 @@ const multiselectItemsRef = useTemplateRef('kMultiselectItems')
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
-const hasLabelTooltip = computed((): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip']))
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip'])
 
 const getBadgeAppearance = (item?: Item): BadgeAppearance => {
   if (isDisabled.value || isReadonly.value || item?.disabled) {
@@ -543,22 +543,21 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const createKPopAttributes = computed((): PopoverAttributes => {
+const hasDropdownFooterTextSlot = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'])
+
+const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${dropdownFooterText || slots['dropdown-footer-text'] ? 'has-dropdown-footer' : ''}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${hasDropdownFooterTextSlot() ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
   }
-})
+}
 
 // Calculate the `.popover-content` max-height
 const popoverContentMaxHeight = computed((): string => normalizeSize(dropdownMaxHeight))
-
-// TypeScript complains if I bind the original object
-const boundKPopAttributes = computed(() => ({ ...createKPopAttributes.value }))
 
 const widthValue = computed(() => {
   const w = width ? width : '300'
@@ -1288,7 +1287,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
     // stylelint-disable-next-line no-duplicate-selectors
     & {
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral); // override mixin with placeholder text color
+      color: var(--kui-input-color-text-placeholder, var(--kui-color-text-neutral, $kui-color-text-neutral)); // override mixin with placeholder text color
       font-size: var(--kui-font-size-30, $kui-font-size-30); // override mixin with placeholder font size
       padding-bottom: $kMultiselectInputPaddingY;
       padding-left: $kMultiselectInputPaddingX;
@@ -1343,7 +1342,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   }
 
   .multiselect-icons-container {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    color: var(--kui-input-color-text-placeholder, var(--kui-color-text-neutral, $kui-color-text-neutral));
     margin-right: $kMultiselectInputPaddingX;
     margin-top: 10px;
     position: absolute;
@@ -1355,7 +1354,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       @include defaultButtonReset;
 
       &:hover, &:focus {
-        color: var(--kui-color-text, $kui-color-text) !important;
+        color: var(--kui-input-color-text, var(--kui-color-text, $kui-color-text)) !important;
       }
     }
   }
@@ -1420,11 +1419,13 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
   .dropdown-footer {
     align-items: center;
-    background-color: var(--kui-color-background, $kui-color-background);
+    background-color: var(--kui-multiselect-footer-color-background, var(--kui-color-background, $kui-color-background));
     border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-    border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    border-top-color: var(--kui-multiselect-footer-color-border, var(--kui-color-border, $kui-color-border));
+    border-top-style: solid;
+    border-top-width: var(--kui-multiselect-footer-border-width, var(--kui-border-width-10, $kui-border-width-10));
+    color: var(--kui-multiselect-footer-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
     display: flex;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     gap: var(--kui-space-30, $kui-space-30);
@@ -1482,16 +1483,18 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 // as before supporting teleportation ensures backward compatibility and avoids style conflicts.
 .k-multiselect-popover {
   .multiselect-input-wrapper {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+    background-color: var(--kui-multiselect-search-color-background, var(--kui-color-background, $kui-color-background));
+    border-bottom-color: var(--kui-multiselect-search-color-border, var(--kui-color-border, $kui-color-border));
+    border-bottom-style: solid;
+    border-bottom-width: var(--kui-multiselect-search-border-width, var(--kui-border-width-10, $kui-border-width-10));
     padding: var(--kui-space-40, $kui-space-40);
     position: sticky;
     top: 0;
   }
 
   &.multiselect-popover .popover-container {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
+    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-input-color-border, var(--kui-color-border, $kui-color-border));
+    border-radius: var(--kui-input-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
 
     &.has-dropdown-footer {

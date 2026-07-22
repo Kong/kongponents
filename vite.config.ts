@@ -63,6 +63,7 @@ export default defineConfig({
           }
         },
         formats: buildFormats,
+        cssFileName: 'kongponents',
       },
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,

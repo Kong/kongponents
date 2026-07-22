@@ -1,11 +1,11 @@
 <template>
   <div
     class="k-checkbox"
-    :class="[$attrs.class, kCheckboxClasses]"
+    :class="[$attrs.class, kCheckboxClasses()]"
   >
     <div
       class="checkbox-input-wrapper"
-      :class="{ 'has-label': hasLabel }"
+      :class="{ 'has-label': hasLabel() }"
     >
       <input
         :id="inputId"
@@ -35,7 +35,7 @@
 
     <div class="checkbox-label-wrapper">
       <KLabel
-        v-if="hasLabel"
+        v-if="hasLabel()"
         v-bind="labelAttributes"
         class="checkbox-label"
         :for="inputId"
@@ -43,14 +43,14 @@
         <slot>{{ label }}</slot>
 
         <template
-          v-if="hasTooltip"
+          v-if="hasTooltip()"
           #tooltip
         >
           <slot name="tooltip" />
         </template>
       </KLabel>
       <div
-        v-if="showDescription"
+        v-if="showDescription()"
         class="checkbox-description"
       >
         <slot name="description">
@@ -88,11 +88,11 @@ const attrs = useAttrs()
 
 const defaultId = useId()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
-const hasLabel = computed((): boolean => !!(label || slots.default))
+const hasLabel = (): boolean => !!(label || slots.default)
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
 
-const showDescription = computed((): boolean => hasLabel.value && (!!description || !!slots.description))
-const hasTooltip = computed((): boolean => !!slots.tooltip)
+const showDescription = (): boolean => hasLabel() && (!!description || !!slots.description)
+const hasTooltip = (): boolean => !!slots.tooltip
 
 const modifiedAttrs = computed(() => {
   const $attrs = { ...attrs }
@@ -119,13 +119,13 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const kCheckboxClasses = computed((): Record<string, boolean> => {
+const kCheckboxClasses = (): Record<string, boolean> => {
   return {
     disabled: isDisabled.value,
-    'has-description': showDescription.value,
+    'has-description': showDescription(),
     'input-error': error,
   }
-})
+}
 
 const isIndeterminate = computed((): boolean => {
   return modifiedAttrs.value.indeterminate !== undefined && String(modifiedAttrs.value.indeterminate) !== 'false'
@@ -178,14 +178,21 @@ const handleChange = (event: Event): void => {
     @include radioCheckboxDefaults;
 
     // Since the mixin is used in both KRadio and KCheckbox it doesn't have rules for some component-specific properties so we need to set them here
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    background-color: var(--kui-checkbox-color-background, var(--kui-color-background, $kui-color-background));
+    border-radius: var(--kui-checkbox-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
+    box-shadow: var(--kui-checkbox-shadow-border, var(--kui-shadow-border, $kui-shadow-border));
 
     &:hover {
       @include radioCheckboxHover;
+
+      box-shadow: var(--kui-checkbox-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak));
     }
 
     &:focus-visible {
       @include radioCheckboxFocus;
+
+      box-shadow: var(--kui-checkbox-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak)),
+        var(--kui-checkbox-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
     }
 
     &:active:not(:disabled) {
@@ -195,8 +202,13 @@ const handleChange = (event: Event): void => {
     &:checked, &:indeterminate {
       @include radioCheckboxChecked;
 
+      background-color: var(--kui-checkbox-color-background-checked, var(--kui-color-background-primary, $kui-color-background-primary));
+      box-shadow: var(--kui-checkbox-shadow-border-checked, var(--kui-shadow-border-primary, $kui-shadow-border-primary));
+
       &:focus-visible {
         @include radioCheckboxCheckedFocus;
+
+        box-shadow: var(--kui-checkbox-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       &:active {
@@ -240,7 +252,18 @@ const handleChange = (event: Event): void => {
   /* Check and indeterminate icon styles */
   .checkbox-input:checked + .checkbox-icon,
   .checkbox-input:indeterminate + .checkbox-icon {
-    @include kCheckboxIcon;
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      @include kCheckboxIcon;
+    }
+
+    // fixing mixed-decls deprecation: https://sass-lang.com/d/mixed-decls
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+      color: var(--kui-checkbox-color-icon, var(--kui-color-text-inverse, $kui-color-text-inverse)) !important;
+    }
   }
 
   &.disabled {

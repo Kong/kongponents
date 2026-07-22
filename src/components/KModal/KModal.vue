@@ -27,7 +27,7 @@
         >
           <slot name="content">
             <div
-              v-if="showHeader"
+              v-if="showHeader()"
               class="modal-header"
             >
               <div
@@ -54,7 +54,7 @@
             </div>
             <div
               class="modal-content"
-              :class="{ 'no-header': !showHeader }"
+              :class="{ 'no-header': !showHeader() }"
             >
               <slot name="default" />
             </div>
@@ -153,9 +153,9 @@ const sanitizedAttrs = computed(() => {
   return attributes
 })
 
-const showHeader = computed((): boolean => {
+const showHeader = (): boolean => {
   return !!title || !!slots.title || !hideCloseIcon
-})
+}
 
 const handleKeydown = (event: KeyboardEvent): void => {
   // close on escape key press
@@ -294,21 +294,21 @@ onUnmounted(() => {
   }
 
   .modal-container {
-    background-color: var(--kui-color-background, $kui-color-background);
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    border-radius: var(--kui-border-radius-40, $kui-border-radius-40);
-    box-shadow: var(--kui-shadow, $kui-shadow);
+    background-color: var(--kui-modal-color-background, var(--kui-color-background, $kui-color-background));
+    border: var(--kui-modal-border-width, var(--kui-border-width-10, $kui-border-width-10)) solid var(--kui-modal-color-border, var(--kui-color-border, $kui-color-border));
+    border-radius: var(--kui-modal-border-radius, var(--kui-border-radius-40, $kui-border-radius-40));
+    box-shadow: var(--kui-modal-shadow, var(--kui-shadow, $kui-shadow));
     max-width: v-bind('maxWidthValue');
     width: 100%;
 
     &.custom-content {
-      color: var(--kui-color-text, $kui-color-text);
+      color: var(--kui-modal-color-text, var(--kui-color-text, $kui-color-text));
       display: flex;
       flex-direction: column;
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      font-family: var(--kui-modal-font-family, var(--kui-font-family-text, $kui-font-family-text));
+      font-size: var(--kui-modal-font-size, var(--kui-font-size-30, $kui-font-size-30));
+      font-weight: var(--kui-modal-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+      line-height: var(--kui-modal-line-height, var(--kui-line-height-30, $kui-line-height-30));
       max-height: v-bind('maxHeightValue');
       overflow-y: auto;
     }
@@ -317,14 +317,14 @@ onUnmounted(() => {
       border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
       justify-content: space-between;
-      padding: var(--kui-space-70, $kui-space-70) var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-modal-header-padding, var(--kui-space-70, $kui-space-70) var(--kui-space-80, $kui-space-80));
 
       .modal-title {
         flex: 1;
-        font-family: var(--kui-font-family-text, $kui-font-family-text);
-        font-size: var(--kui-font-size-60, $kui-font-size-60);
-        font-weight: var(--kui-font-weight-bold, $kui-font-weight-bold);
-        line-height: var(--kui-line-height-50, $kui-line-height-50);
+        font-family: var(--kui-modal-title-font-family, var(--kui-font-family-text, $kui-font-family-text));
+        font-size: var(--kui-modal-title-font-size, var(--kui-font-size-60, $kui-font-size-60));
+        font-weight: var(--kui-modal-title-font-weight, var(--kui-font-weight-bold, $kui-font-weight-bold));
+        line-height: var(--kui-modal-title-line-height, var(--kui-line-height-50, $kui-line-height-50));
         max-width: 100%;
         user-select: none;
       }
@@ -336,48 +336,48 @@ onUnmounted(() => {
       .close-icon {
         @include defaultButtonReset;
 
-        border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+        border-radius: var(--kui-modal-close-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
         margin-left: auto;
         outline: none;
 
         &:hover, &:focus {
-          color: var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong) !important;
+          color: var(--kui-modal-close-color-text-hover, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong)) !important;
         }
 
         &:focus-visible {
-          box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+          box-shadow: var(--kui-modal-close-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
         }
       }
     }
 
     .modal-content {
-      background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      background-color: var(--kui-modal-content-color-background, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest));
       box-sizing: border-box;
-      color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+      color: var(--kui-modal-content-color-text, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
       display: flex;
       flex-direction: column;
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
-      font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-regular, $kui-font-weight-regular);
-      line-height: var(--kui-line-height-30, $kui-line-height-30);
+      font-family: var(--kui-modal-content-font-family, var(--kui-font-family-text, $kui-font-family-text));
+      font-size: var(--kui-modal-content-font-size, var(--kui-font-size-30, $kui-font-size-30));
+      font-weight: var(--kui-modal-content-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+      line-height: var(--kui-modal-content-line-height, var(--kui-line-height-30, $kui-line-height-30));
       max-height: min(v-bind('maxHeightValue'), calc(100vh - 200px));
       overflow-y: auto;
-      padding: var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-modal-content-padding, var(--kui-space-80, $kui-space-80));
 
       :deep(p) {
         margin: var(--kui-space-0, $kui-space-0);
       }
 
       &.no-header {
-        border-top-left-radius: var(--kui-border-radius-40, $kui-border-radius-40);
-        border-top-right-radius: var(--kui-border-radius-40, $kui-border-radius-40);
+        border-top-left-radius: var(--kui-modal-border-radius, var(--kui-border-radius-40, $kui-border-radius-40));
+        border-top-right-radius: var(--kui-modal-border-radius, var(--kui-border-radius-40, $kui-border-radius-40));
       }
     }
 
     .modal-footer {
       border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
       display: flex;
-      padding: var(--kui-space-60, $kui-space-60) var(--kui-space-80, $kui-space-80);
+      padding: var(--kui-modal-footer-padding, var(--kui-space-60, $kui-space-60) var(--kui-space-80, $kui-space-80));
 
       .footer-actions {
         display: flex;

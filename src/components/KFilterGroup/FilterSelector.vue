@@ -154,7 +154,7 @@ const onTrigger = async () => {
 }
 
 .no-items {
-  color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+  color: var(--kui-filter-group-selector-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
   font-size: var(--kui-font-size-30, $kui-font-size-30);
   padding: var(--kui-space-40, $kui-space-40) var(--kui-space-40, $kui-space-40) var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
 }

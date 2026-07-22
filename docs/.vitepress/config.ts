@@ -90,6 +90,7 @@ export default defineConfig({
             { text: 'Table View', link: '/components/table-view' },
             { text: 'Tabs', link: '/components/tabs' },
             { text: 'Textarea', link: '/components/textarea' },
+            { text: 'Theme Provider', link: '/components/theme-provider' },
             { text: 'Toaster', link: '/components/toaster' },
             { text: 'Tooltip', link: '/components/tooltip' },
             { text: 'Tree List', link: '/components/tree-list' },

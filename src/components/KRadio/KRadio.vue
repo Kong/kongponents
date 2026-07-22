@@ -3,7 +3,7 @@
     class="k-radio"
     :class="[
       $attrs.class ? $attrs.class : '',
-      kRadioClasses,
+      kRadioClasses(),
     ]"
   >
     <input
@@ -22,7 +22,7 @@
     <div
       v-if="!card && (label || $slots.default)"
       class="radio-label-wrapper"
-      :class="{ 'has-description': showDescription }"
+      :class="{ 'has-description': showDescription() }"
     >
       <KLabel
         v-bind="labelAttributes"
@@ -32,7 +32,7 @@
         <slot>{{ label }}</slot>
 
         <template
-          v-if="hasTooltip"
+          v-if="hasTooltip()"
           #tooltip
         >
           <slot name="tooltip" />
@@ -40,7 +40,7 @@
       </KLabel>
 
       <div
-        v-if="showDescription"
+        v-if="showDescription()"
         class="radio-description"
       >
         <slot name="description">
@@ -52,7 +52,7 @@
     <label
       v-else-if="label || $slots.default"
       class="radio-card-wrapper radio-label-wrapper"
-      :class="{ 'has-label': label, 'has-description': showCardDescription, 'show-radio': cardRadioVisible }"
+      :class="{ 'has-label': label, 'has-description': showCardDescription(), 'show-radio': cardRadioVisible }"
       :data-testid="cardLabelTestId"
       :for="inputId"
       :tabindex="isDisabled || isChecked ? -1 : 0"
@@ -66,7 +66,7 @@
         <slot />
       </span>
       <span
-        v-if="label || showCardDescription"
+        v-if="label || showCardDescription()"
         class="card-label-container"
       >
         <span
@@ -90,7 +90,7 @@
           </KTooltip>
         </span>
         <span
-          v-if="showCardDescription"
+          v-if="showCardDescription()"
           class="radio-description"
         >
           <slot name="description">
@@ -148,12 +148,12 @@ const attrs = useAttrs()
 const defaultId = useId()
 const inputId = computed((): string => attrs.id ? String(attrs.id) : defaultId)
 const isDisabled = computed((): boolean => attrs?.disabled !== undefined && String(attrs?.disabled) !== 'false')
-const hasLabel = computed((): boolean => !!(label || slots.default))
+const hasLabel = (): boolean => !!(label || slots.default)
 // for regular radio we only show description if there is a label or default slot
-const showDescription = computed((): boolean => hasLabel.value && (!!description || !!slots.description))
+const showDescription = (): boolean => hasLabel() && (!!description || !!slots.description)
 // for card radio we only show description if there is a label
-const showCardDescription = computed((): boolean => !!label && (!!description || !!slots.description))
-const hasTooltip = computed((): boolean => !!slots.tooltip)
+const showCardDescription = (): boolean => !!label && (!!description || !!slots.description)
+const hasTooltip = (): boolean => !!slots.tooltip
 const isChecked = computed((): boolean => selectedValue === modelValue)
 
 const handleClick = (): void => {
@@ -170,18 +170,18 @@ const modifiedAttrs = computed((): Record<string, any> => {
   return $attrs
 })
 
-const kRadioClasses = computed((): Record<string, boolean> => {
+const kRadioClasses = (): Record<string, boolean> => {
   return {
     disabled: isDisabled.value,
     'radio-card': card || type === 'card',
     'input-error': error,
     checked: isChecked.value,
-    'has-description': showDescription.value,
+    'has-description': showDescription(),
     'card-horizontal': card && cardOrientation === 'horizontal',
     // Add vertical class for `vertical` or an invalid prop value
     'card-vertical': card && cardOrientation !== 'horizontal',
   }
-})
+}
 
 const cardLabelTestId = computed(() => {
   return card && attrs['data-testid'] ? `${attrs['data-testid']}-label` : undefined
@@ -221,16 +221,23 @@ $kRadioDotSize: 6px;
     @include radioCheckboxDefaults;
 
     // Since the mixin is used in both KRadio and KCheckbox it doesn't have rules for some component-specific properties so we need to set them here
+    background-color: var(--kui-radio-color-background, var(--kui-color-background, $kui-color-background));
     border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+    box-shadow: var(--kui-radio-shadow-border, var(--kui-shadow-border, $kui-shadow-border));
     margin-top: 3px; // align with label
     position: relative;
 
     &:hover {
       @include radioCheckboxHover;
+
+      box-shadow: var(--kui-radio-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak));
     }
 
     &:focus-visible {
       @include radioCheckboxFocus;
+
+      box-shadow: var(--kui-radio-shadow-border-hover, var(--kui-shadow-border-primary-weak, $kui-shadow-border-primary-weak)),
+        var(--kui-radio-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
     }
 
     &:active:not(:disabled) {
@@ -244,12 +251,17 @@ $kRadioDotSize: 6px;
     &:checked {
       @include radioCheckboxChecked;
 
+      background-color: var(--kui-radio-color-background-checked, var(--kui-color-background-primary, $kui-color-background-primary));
+      box-shadow: var(--kui-radio-shadow-border-checked, var(--kui-shadow-border-primary, $kui-shadow-border-primary));
+
       &::before {
         @include kRadioInputDot;
       }
 
       &:focus-visible {
         @include radioCheckboxCheckedFocus;
+
+        box-shadow: var(--kui-radio-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       }
 
       &:active {

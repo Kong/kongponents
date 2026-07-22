@@ -30,6 +30,32 @@ describe('KFileUpload', () => {
       cy.get('.k-label .tooltip-trigger-icon').should('be.visible')
     })
 
+    it('renders a label-tooltip slot that is added after mount', () => {
+      cy.mount({
+        components: { KFileUpload },
+        data: () => ({
+          ready: false,
+        }),
+        template: `
+          <KFileUpload
+            :accept="['.md']"
+            label="A label"
+          >
+            <template
+              v-if="ready"
+              #label-tooltip
+            >
+              Tooltip content
+            </template>
+          </KFileUpload>
+        `,
+      })
+
+      cy.get('.k-label .tooltip-trigger-icon').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
+      cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
+    })
+
     it('should emit correct event when a file is selected, removed', () => {
       const name = 'file-upload-input'
       cy.mount(KFileUpload, {

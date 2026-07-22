@@ -19,15 +19,15 @@ const {
   animation: kSkeletonGradient 4s ease infinite;
   background: linear-gradient(
     -70deg,
-    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 0%,
-    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 40%,
-    var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest) 50%,
-    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 60%,
-    var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker) 100%
+    var(--kui-skeleton-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) 0%,
+    var(--kui-skeleton-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) 40%,
+    var(--kui-skeleton-color-background-shimmer, var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest)) 50%,
+    var(--kui-skeleton-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) 60%,
+    var(--kui-skeleton-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)) 100%
   )
     repeat;
   background-size: 400% 100%;
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  border-radius: var(--kui-skeleton-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
   display: inline-flex;
   margin-right: var(--kui-space-20, $kui-space-20);
   transition: 1s;

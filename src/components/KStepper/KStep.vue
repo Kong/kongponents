@@ -83,20 +83,21 @@ $kStepDividerSpacing: var(--kui-space-60, $kui-space-60);
     gap: var(--kui-space-40, $kui-space-40);
     margin: auto;
     position: relative;
+    z-index: 0;
 
     .step-circle {
       align-items: center;
-      background-color: var(--kui-color-background, $kui-color-background);
-      border-radius: var(--kui-border-radius-circle, $kui-border-radius-circle);
+      background-color: var(--kui-stepper-color-background, var(--kui-color-background, $kui-color-background));
+      border-radius: var(--kui-stepper-border-radius, var(--kui-border-radius-circle, $kui-border-radius-circle));
       display: flex;
       height: $kStepCircleSize;
       justify-content: center;
       width: $kStepCircleSize;
 
       .step-number {
-        color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+        color: var(--kui-stepper-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
         font-size: var(--kui-font-size-20, $kui-font-size-20);
-        font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+        font-weight: var(--kui-stepper-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
         line-height: var(--kui-line-height-20, $kui-line-height-20);
       }
     }
@@ -104,19 +105,19 @@ $kStepDividerSpacing: var(--kui-space-60, $kui-space-60);
     .step-label {
       @include truncate;
 
-      background-color: var(--kui-color-background, $kui-color-background);
-      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+      background-color: var(--kui-stepper-color-background, var(--kui-color-background, $kui-color-background));
+      color: var(--kui-stepper-color-text-label, var(--kui-color-text-neutral, $kui-color-text-neutral));
       display: none;
-      font-family: var(--kui-font-family-text, $kui-font-family-text);
+      font-family: var(--kui-stepper-font-family, var(--kui-font-family-text, $kui-font-family-text));
       font-size: var(--kui-font-size-30, $kui-font-size-30);
-      font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+      font-weight: var(--kui-stepper-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
       line-height: var(--kui-line-height-30, $kui-line-height-30);
       padding-right: var(--kui-space-50, $kui-space-50);
     }
 
     // divider styles
     &::after {
-      background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+      background-color: var(--kui-stepper-connector-color-background, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
       content: "";
       height: 2px;
       left: calc($kStepCircleSize + $kStepDividerSpacing); // The circle size plus the divider spacing
@@ -137,41 +138,43 @@ $kStepDividerSpacing: var(--kui-space-60, $kui-space-60);
 
     &.completed {
       .step-circle {
-        background-color: var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak);
+        background-color: var(--kui-stepper-color-background-completed, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
       }
 
       .step-label {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+        color: var(--kui-stepper-color-text-label-selected, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
       }
 
       &::after {
-        background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+        background-color: var(--kui-stepper-connector-color-background-completed, var(--kui-color-background-primary, $kui-color-background-primary));
       }
     }
 
     &.active {
       .step-circle {
-        background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+        background-color: var(--kui-stepper-color-background-selected, var(--kui-color-background-primary, $kui-color-background-primary));
 
         .step-number {
-          color: var(--kui-color-text-inverse, $kui-color-text-inverse);
+          color: var(--kui-stepper-color-text-selected, var(--kui-color-text-inverse, $kui-color-text-inverse));
         }
       }
 
       .step-label {
-        color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+        color: var(--kui-stepper-color-text-label-selected, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
       }
     }
 
     &.default {
       .step-circle {
-        border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+        border-color: var(--kui-stepper-color-border, var(--kui-color-border, $kui-color-border));
+        border-style: solid;
+        border-width: var(--kui-stepper-border-width, var(--kui-border-width-10, $kui-border-width-10));
       }
     }
 
     &.error {
       .step-circle {
-        background-color: var(--kui-color-background-danger, $kui-color-background-danger);
+        background-color: var(--kui-stepper-color-background-error, var(--kui-color-background-danger, $kui-color-background-danger));
       }
     }
 

@@ -49,6 +49,9 @@ jobs:
             ./README.md
             ./LICENSE
 
+      - name: Run Vitest unit tests
+        run: pnpm test:unit
+
       - name: Run Cypress component tests
         uses: cypress-io/github-action@948d67d3074f1bbb6379c8bdbb04e95d2f8e593f # v7.4.0
         with:

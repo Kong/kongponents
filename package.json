@@ -1,6 +1,6 @@
 {
   "name": "@kong/kongponents",
-  "version": "9.60.10",
+  "version": "9.61.5",
   "description": "Kong Component library",
   "type": "module",
   "repository": {
@@ -36,6 +36,7 @@
     "build:kongponents:umd": "BUILD_UMD=true vite build",
     "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json' && pnpm build:kongponents:umd && pnpm build:nuxt",
     "build:nuxt": "tsc -p ./tsconfig.build.nuxt.json --outDir dist/nuxt",
+    "build:theme-contract": "tsx ./scripts/generate-theme-contract.mjs",
     "build:visualize": "cross-env-shell BUILD_VISUALIZER=true vite build -m production",
     "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
     "build:ci": "pnpm build:kongponents && pnpm build:docs",
@@ -57,6 +58,8 @@
     "test": "cross-env DISABLE_VUE_DEVTOOLS=true cypress run --component -b chrome",
     "test:open": "cross-env DISABLE_VUE_DEVTOOLS=true cypress open --component -b chrome",
     "test:spec": "cross-env DISABLE_VUE_DEVTOOLS=true cypress run --component -b chrome --spec",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
@@ -87,9 +90,9 @@
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@evilmartians/lefthook": "^2.1.9",
     "@kong-ui-public/sandbox-layout": "^2.3.26",
-    "@kong/design-tokens": "2.0.0",
+    "@kong/design-tokens": "3.0.3",
     "@kong/eslint-config-kong-ui": "1.7.1",
-    "@kong/stylelint-plugin-design-tokens": "1.0.1",
+    "@kong/stylelint-plugin-design-tokens": "2.0.0",
     "@nuxt/kit": "^4.4.7",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -112,6 +115,7 @@
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.39.4",
     "inquirer": "^9.3.6",
+    "jsdom": "^29.1.1",
     "nanospinner": "^1.2.2",
     "node-emoji": "^2.2.0",
     "nuxt": "^4.4.7",
@@ -135,6 +139,7 @@
     "vite": "^6.4.3",
     "vite-plugin-vue-devtools": "^7.7.9",
     "vitepress": "^1.6.4",
+    "vitest": "^4.1.8",
     "vue": "3.5.38",
     "vue-router": "^5.1.0",
     "vue-tsc": "^3.3.5"

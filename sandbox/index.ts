@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import '../src/styles/styles.scss'
 import Kongponents from '../src'
+import { applyTheme } from '../src/theme'
+import { SANDBOX_THEME_OPTIONS, SANDBOX_THEME_STORAGE_KEY } from './utils/sandboxThemes'
 // Sandbox layout
 import { SandboxLayout } from '@kong-ui-public/sandbox-layout'
 import type { SandboxNavigationItem } from '@kong-ui-public/sandbox-layout'
@@ -15,6 +17,7 @@ app.component('SandboxLayout', SandboxLayout)
 
 // Define the sandbox layout links here to inject
 const sandboxAppLinks: SandboxNavigationItem[] = ([
+  { name: 'Theming', to: { name: 'theming' } },
   { name: 'KAlert', to: { name: 'alert' } },
   { name: 'KBadge', to: { name: 'badge' } },
   { name: 'KButton', to: { name: 'button' } },
@@ -59,5 +62,11 @@ app.use(router)
 
 // Globally register components so they do not have to be imported
 app.use(Kongponents)
+
+// Restore the persisted theme before mounting to avoid a flash on any page.
+const savedThemeLabel = localStorage.getItem(SANDBOX_THEME_STORAGE_KEY)
+if (savedThemeLabel && savedThemeLabel in SANDBOX_THEME_OPTIONS) {
+  applyTheme(SANDBOX_THEME_OPTIONS[savedThemeLabel])
+}
 
 app.mount('#app')

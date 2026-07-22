@@ -126,7 +126,7 @@ $kBadgeMethodWidth: 85px;
   }
 
   :deep([role="button"]) {
-    border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+    border-radius: var(--kui-badge-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
     outline: none;
 
     &:not([disabled]) {
@@ -134,19 +134,19 @@ $kBadgeMethodWidth: 85px;
     }
 
     &:focus-visible {
-      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+      box-shadow: var(--kui-badge-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
     }
 
     // adopts info appearance hover styles by default (in case of invalid appearance)
 
     &[disabled] {
-      color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+      color: var(--kui-badge-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
       pointer-events: none;
     }
   }
 
   &.small {
-    padding: var(--kui-space-10, $kui-space-10);
+    padding: var(--kui-badge-padding-small, var(--kui-space-10, $kui-space-10));
 
     :deep(#{$kongponentsKongIconSelector}) {
       height: var(--kui-icon-size-20, $kui-icon-size-20) !important;
@@ -157,6 +157,7 @@ $kBadgeMethodWidth: 85px;
   &.method {
     .badge-content {
       justify-content: center;
+      // Not utilizing `!important` here because the `min-width` is only applied to method badges
       min-width: $kBadgeMethodWidth;
       text-align: center;
       text-transform: uppercase;
@@ -170,15 +171,27 @@ $kBadgeMethodWidth: 85px;
   }
 
   &.success {
-    @include badgeAppearance(var(--kui-color-background-success-weakest, $kui-color-background-success-weakest), var(--kui-color-text-success, $kui-color-text-success), var(--kui-color-text-success-strong, $kui-color-text-success-strong));
+    @include badgeAppearance(
+      var(--kui-badge-color-background-success, var(--kui-color-background-success-weakest, $kui-color-background-success-weakest)),
+      var(--kui-badge-color-text-success, var(--kui-color-text-success, $kui-color-text-success)),
+      var(--kui-badge-color-text-success-hover, var(--kui-color-text-success-strong, $kui-color-text-success-strong))
+    );
   }
 
   &.warning {
-    @include badgeAppearance(var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest), var(--kui-color-text-warning, $kui-color-text-warning), var(--kui-color-text-warning-strong, $kui-color-text-warning-strong));
+    @include badgeAppearance(
+      var(--kui-badge-color-background-warning, var(--kui-color-background-warning-weakest, $kui-color-background-warning-weakest)),
+      var(--kui-badge-color-text-warning, var(--kui-color-text-warning, $kui-color-text-warning)),
+      var(--kui-badge-color-text-warning-hover, var(--kui-color-text-warning-strong, $kui-color-text-warning-strong))
+    );
   }
 
   &.danger {
-    @include badgeAppearance(var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest), var(--kui-color-text-danger, $kui-color-text-danger), var(--kui-color-text-danger-strong, $kui-color-text-danger-strong));
+    @include badgeAppearance(
+      var(--kui-badge-color-background-danger, var(--kui-color-background-danger-weakest, $kui-color-background-danger-weakest)),
+      var(--kui-badge-color-text-danger, var(--kui-color-text-danger, $kui-color-text-danger)),
+      var(--kui-badge-color-text-danger-hover, var(--kui-color-text-danger-strong, $kui-color-text-danger-strong))
+    );
   }
 
   &.decorative {
@@ -186,7 +199,11 @@ $kBadgeMethodWidth: 85px;
   }
 
   &.neutral {
-    @include badgeAppearance(var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker), var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong), var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
+    @include badgeAppearance(
+      var(--kui-badge-color-background-neutral, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker)),
+      var(--kui-badge-color-text-neutral, var(--kui-color-text-neutral-strong, $kui-color-text-neutral-strong)),
+      var(--kui-badge-color-text-neutral-hover, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger))
+    );
   }
 
   // status codes

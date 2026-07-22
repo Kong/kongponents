@@ -101,7 +101,7 @@ watch(() => modelValue, (newTabHash) => {
 
 <style lang="scss" scoped>
 @mixin kTabsFocus {
-  box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+  box-shadow: var(--kui-tabs-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
   outline: none;
 }
 
@@ -121,7 +121,7 @@ watch(() => modelValue, (newTabHash) => {
         align-items: center;
         cursor: pointer;
         display: inline-flex;
-        font-family: var(--kui-font-family-text, $kui-font-family-text);
+        font-family: var(--kui-tabs-font-family, var(--kui-font-family-text, $kui-font-family-text));
         gap: var(--kui-space-40, $kui-space-40);
         text-decoration: none;
         transition: color $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc, box-shadow $kongponentsTransitionDurTimingFunc;
@@ -132,7 +132,7 @@ watch(() => modelValue, (newTabHash) => {
         }
 
         &.disabled {
-          color: var(--kui-color-text-disabled, $kui-color-text-disabled) !important;
+          color: var(--kui-tabs-color-text-disabled, var(--kui-color-text-disabled, $kui-color-text-disabled)) !important;
           cursor: not-allowed;
         }
 
@@ -149,10 +149,10 @@ watch(() => modelValue, (newTabHash) => {
       &.active {
         .tab-link,
         .tab-link.tab-link {
-          color: var(--kui-color-text, $kui-color-text);
+          color: var(--kui-tabs-color-text-selected, var(--kui-color-text, $kui-color-text));
 
           a, :deep(a) {
-            color: var(--kui-color-text, $kui-color-text);
+            color: var(--kui-tabs-color-text-selected, var(--kui-color-text, $kui-color-text));
           }
         }
       }
@@ -161,7 +161,9 @@ watch(() => modelValue, (newTabHash) => {
 
   &.default {
     ul {
-      border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
+      border-bottom-color: var(--kui-tabs-color-border, var(--kui-color-border, $kui-color-border));
+      border-bottom-style: solid;
+      border-bottom-width: var(--kui-tabs-border-width, var(--kui-border-width-10, $kui-border-width-10));
       margin-bottom: var(--kui-space-70, $kui-space-70);
       overflow-x: auto;
       overflow-y: hidden;
@@ -171,48 +173,48 @@ watch(() => modelValue, (newTabHash) => {
       .tab-item {
         border-bottom-color: var(--kui-color-border-transparent, $kui-color-border-transparent);
         border-bottom-style: solid;
-        border-bottom-width: var(--kui-border-width-20, $kui-border-width-20);
+        border-bottom-width: var(--kui-tabs-border-width-selected, var(--kui-border-width-20, $kui-border-width-20));
         padding-bottom: var(--kui-space-40, $kui-space-40);
         transition: border-bottom-color $kongponentsTransitionDurTimingFunc;
 
         .tab-link {
           @include defaultButtonReset;
 
-          border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-          font-size: var(--kui-font-size-30, $kui-font-size-30);
-          font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-          line-height: var(--kui-line-height-40, $kui-line-height-40);
-          padding: var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50);
+          border-radius: var(--kui-tabs-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+          color: var(--kui-tabs-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
+          font-size: var(--kui-tabs-font-size, var(--kui-font-size-30, $kui-font-size-30));
+          font-weight: var(--kui-tabs-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
+          line-height: var(--kui-tabs-line-height, var(--kui-line-height-40, $kui-line-height-40));
+          padding: var(--kui-tabs-padding, var(--kui-space-30, $kui-space-30) var(--kui-space-50, $kui-space-50));
 
           &:hover:not(.disabled) {
-            background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
+            background-color: var(--kui-tabs-color-background-hover, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
           }
 
           &:focus-visible {
             @include kTabsFocus;
 
-            background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-            border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-            color: var(--kui-color-text, $kui-color-text);
+            background-color: var(--kui-tabs-color-background-hover, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+            border-radius: var(--kui-tabs-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+            color: var(--kui-tabs-color-text-hover, var(--kui-color-text, $kui-color-text));
           }
 
           :slotted(a),
           :deep(a) {
-            color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+            color: var(--kui-tabs-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
 
             &:focus-visible {
               @include kTabsFocus;
 
-              background-color: var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker);
-              border-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-              color: var(--kui-color-text, $kui-color-text);
+              background-color: var(--kui-tabs-color-background-hover, var(--kui-color-background-neutral-weaker, $kui-color-background-neutral-weaker));
+              border-radius: var(--kui-tabs-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+              color: var(--kui-tabs-color-text-hover, var(--kui-color-text, $kui-color-text));
             }
           }
         }
 
         &.active {
-          border-bottom-color: var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple);
+          border-bottom-color: var(--kui-tabs-color-border-selected, var(--kui-color-border-decorative-purple, $kui-color-border-decorative-purple));
         }
       }
     }
@@ -227,20 +229,20 @@ watch(() => modelValue, (newTabHash) => {
 
       .tab-item {
         .tab-link {
-          border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
-          color: var(--kui-color-text-neutral, $kui-color-text-neutral);
-          font-size: var(--kui-font-size-20, $kui-font-size-20);
-          font-weight: var(--kui-font-weight-medium, $kui-font-weight-medium);
-          line-height: var(--kui-line-height-30, $kui-line-height-30);
+          border-radius: var(--kui-tabs-border-radius-minimal, var(--kui-border-radius-20, $kui-border-radius-20));
+          color: var(--kui-tabs-color-text, var(--kui-color-text-neutral, $kui-color-text-neutral));
+          font-size: var(--kui-tabs-font-size-minimal, var(--kui-font-size-20, $kui-font-size-20));
+          font-weight: var(--kui-tabs-font-weight-minimal, var(--kui-font-weight-medium, $kui-font-weight-medium));
+          line-height: var(--kui-tabs-line-height-minimal, var(--kui-line-height-30, $kui-line-height-30));
           transition: color $kongponentsTransitionDurTimingFunc, font-weight $kongponentsTransitionDurTimingFunc;
 
           &:hover:not(.disabled) {
-            color: var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger);
+            color: var(--kui-tabs-color-text-minimal-hover, var(--kui-color-text-neutral-stronger, $kui-color-text-neutral-stronger));
           }
         }
 
         &.active .tab-link:hover:not(.disabled) {
-          color: var(--kui-color-text, $kui-color-text);
+          color: var(--kui-tabs-color-text-selected, var(--kui-color-text, $kui-color-text));
         }
       }
     }

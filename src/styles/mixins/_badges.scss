@@ -4,27 +4,34 @@
 /* Badges mixins */
 
 @mixin badgeWrapper {
-  border-radius: var(--kui-border-radius-20, $kui-border-radius-20);
+  border-radius: var(--kui-badge-border-radius, var(--kui-border-radius-20, $kui-border-radius-20));
   display: inline-flex;
-  font-family: var(--kui-font-family-text, $kui-font-family-text);
-  font-size: var(--kui-font-size-20, $kui-font-size-20);
-  font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
-  line-height: var(--kui-line-height-20, $kui-line-height-20);
-  padding: var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40);
+  font-family: var(--kui-badge-font-family, var(--kui-font-family-text, $kui-font-family-text));
+  font-size: var(--kui-badge-font-size, var(--kui-font-size-20, $kui-font-size-20));
+  font-weight: var(--kui-badge-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
+  line-height: var(--kui-badge-line-height, var(--kui-line-height-20, $kui-line-height-20));
+  padding: var(--kui-badge-padding-y, var(--kui-space-20, $kui-space-20))
+    var(--kui-badge-padding-x, var(--kui-space-40, $kui-space-40));
   width: fit-content;
 }
 
 @mixin badgeContent {
   align-items: center;
   display: inline-flex;
-  gap: var(--kui-space-40, $kui-space-40);
+  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+  gap: var(--kui-badge-icon-gap, var(--kui-space-40, $kui-space-40));
 }
 
-// uses info badge appearance colors as default
+// Accepts component-token expressions as params so each appearance class can pass its
+// own --kui-badge-color-* tokens with the correct semantic fallback.
+// Default params are the info appearance component tokens (↳ info semantic tokens).
 @mixin badgeAppearance(
-  $bgColor: var(--kui-color-background-info-weakest, $kui-color-background-info-weakest),
-  $textColor: var(--kui-color-text-info, $kui-color-text-info),
-  $hoverColor: var(--kui-color-text-info-strong, $kui-color-text-info-strong)
+  $bgColor: var(
+    --kui-badge-color-background-info,
+    var(--kui-color-background-info-weakest, $kui-color-background-info-weakest)
+  ),
+  $textColor: var(--kui-badge-color-text-info, var(--kui-color-text-info, $kui-color-text-info)),
+  $hoverColor: var(--kui-badge-color-text-info-hover, var(--kui-color-text-info-strong, $kui-color-text-info-strong))
 ) {
   background-color: $bgColor;
   color: $textColor;
@@ -49,8 +56,14 @@
 
 @mixin decorativeBadgeAppearance {
   @include badgeAppearance(
-    var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest),
-    var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple),
-    var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong)
+    var(
+      --kui-badge-color-background-decorative,
+      var(--kui-color-background-decorative-purple-weakest, $kui-color-background-decorative-purple-weakest)
+    ),
+    var(--kui-badge-color-text-decorative, var(--kui-color-text-decorative-purple, $kui-color-text-decorative-purple)),
+    var(
+      --kui-badge-color-text-decorative-hover,
+      var(--kui-color-text-decorative-purple-strong, $kui-color-text-decorative-purple-strong)
+    )
   );
 }

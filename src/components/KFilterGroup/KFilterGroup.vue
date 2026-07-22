@@ -235,9 +235,9 @@ watch(selection, (newSelection) => {
   gap: var(--kui-space-40, $kui-space-40);
 
   .label {
-    color: var(--kui-color-text-neutral, $kui-color-text-neutral);
+    color: var(--kui-label-color-text, var(--kui-color-text, $kui-color-text));
     font-size: var(--kui-font-size-20, $kui-font-size-20);
-    font-weight: var(--kui-font-weight-semibold, $kui-font-weight-semibold);
+    font-weight: var(--kui-label-font-weight, var(--kui-font-weight-semibold, $kui-font-weight-semibold));
   }
 }
 </style>
