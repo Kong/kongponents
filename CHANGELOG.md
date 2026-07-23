@@ -1,3 +1,10 @@
+## [9.61.7](https://github.com/Kong/kongponents/compare/v9.61.6...v9.61.7) (2026-07-23)
+
+
+### Bug Fixes
+
+* **ktableview:** slotted link default styles ([#3302](https://github.com/Kong/kongponents/issues/3302)) ([6581457](https://github.com/Kong/kongponents/commit/658145779a1198a8311afaff8e44050481d2102c))
+
 ## [9.61.6](https://github.com/Kong/kongponents/compare/v9.61.5...v9.61.6) (2026-07-22)
 
 
