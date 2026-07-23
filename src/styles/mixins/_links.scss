@@ -5,6 +5,7 @@
   font-size: inherit;
   outline: none;
   text-decoration: var(--kui-link-text-decoration, none);
+  transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
 
   &:hover {
     color: var(--kui-link-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
