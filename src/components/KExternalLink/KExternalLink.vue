@@ -39,29 +39,12 @@ const isHrefValid = computed((): boolean => !!isValidUrl(href))
 
 <style lang="scss" scoped>
 .k-external-link {
+  @include link;
+
   align-items: center;
-  color: var(--kui-link-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
   display: inline-flex;
-  font-size: inherit;
   font-weight: var(--kui-link-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
   gap: var(--kui-space-20, $kui-space-20);
   list-style: inherit;
-  outline: none;
-  text-decoration: var(--kui-link-text-decoration, none);
-
-  &:hover {
-    color: var(--kui-link-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
-    text-decoration: var(--kui-link-text-decoration-hover, none);
-  }
-
-  &:focus-visible {
-    box-shadow: var(--kui-link-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
-    color: var(--kui-link-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
-    text-decoration: var(--kui-link-text-decoration-hover, none);
-  }
-
-  &:active {
-    color: var(--kui-link-color-text-active, var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest));
-  }
 }
 </style>
