@@ -1,4 +1,5 @@
 @use "@kong/design-tokens/tokens/scss/variables" as *;
+@use "vars" as *;
 
 @mixin link {
   color: var(--kui-link-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
