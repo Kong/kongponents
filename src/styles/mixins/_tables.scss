@@ -1,5 +1,6 @@
 @use "@kong/design-tokens/tokens/scss/variables" as *;
 @use "@/styles/vars" as *;
+@use "@/styles/mixins/links" as *;
 @use "@/styles/mixins/common" as *;
 
 @mixin table {
@@ -229,6 +230,10 @@
               font-weight: var(--kui-table-cell-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
               line-height: var(--kui-table-cell-line-height, var(--kui-line-height-30, $kui-line-height-30));
               white-space: nowrap;
+
+              :deep(a) {
+                @include link;
+              }
 
               &.resize-hover {
                 // creates a 2px "border" on the right - can't use the border because it will "jump"

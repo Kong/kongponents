@@ -135,7 +135,7 @@
           <template #username="{ rowValue }">
             <KExternalLink
               class="username-link"
-              href="https://kongponents.konghq.com/components/alert.html"
+              href="https://kongponents.konghq.com/components/table-data.html"
             >
               @{{ rowValue }}
             </KExternalLink>
@@ -578,7 +578,7 @@ const getRowOneTwoLink = (row: Record<string, any>): RowLink => {
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .username-link {

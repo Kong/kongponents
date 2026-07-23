@@ -106,7 +106,7 @@
           <template #username="{ rowValue }">
             <KExternalLink
               class="username-link"
-              href="https://kongponents.konghq.com/components/alert.html"
+              href="https://kongponents.konghq.com/components/table-view.html"
             >
               @{{ rowValue }}
             </KExternalLink>
@@ -129,7 +129,7 @@
           <template #username="{ rowValue }">
             <KExternalLink
               class="username-link"
-              href="https://kongponents.konghq.com/components/alert.html"
+              href="https://kongponents.konghq.com/components/table-view.html"
             >
               @{{ rowValue }}
             </KExternalLink>
@@ -183,6 +183,14 @@
           </template>
           <template #tooltip-email>
             Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
+          </template>
+          <template #username="{ rowValue }">
+            <a
+              href="https://kongponents.konghq.com/components/table-view.html"
+              target="_blank"
+            >
+              @{{ rowValue }}
+            </a>
           </template>
           <template #email="{ rowValue }">
             <KCopy :text="rowValue" />
@@ -683,7 +691,7 @@ onBeforeMount(() => {
   .horizontal-container {
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .username-link {

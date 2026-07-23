@@ -1,0 +1,25 @@
+@use "@kong/design-tokens/tokens/scss/variables" as *;
+
+@mixin link {
+  color: var(--kui-link-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
+  font-size: inherit;
+  font-weight: var(--kui-link-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
+  list-style: inherit;
+  outline: none;
+  text-decoration: var(--kui-link-text-decoration, none);
+
+  &:hover {
+    color: var(--kui-link-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+    text-decoration: var(--kui-link-text-decoration-hover, none);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--kui-link-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
+    color: var(--kui-link-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
+    text-decoration: var(--kui-link-text-decoration-hover, none);
+  }
+
+  &:active {
+    color: var(--kui-link-color-text-active, var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest));
+  }
+}
