@@ -184,6 +184,11 @@
           <template #tooltip-email>
             Id: <code>8576925e-d7e0-4ecd-8f14-15db1765e69a</code>
           </template>
+          <template #name="{ rowValue }">
+            <KExternalLink href="https://kongponents.konghq.com/components/table-view.html">
+              {{ rowValue }}
+            </KExternalLink>
+          </template>
           <template #username="{ rowValue }">
             <a
               href="https://kongponents.konghq.com/components/table-view.html"

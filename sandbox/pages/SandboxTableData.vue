@@ -113,7 +113,7 @@
           <template #username="{ rowValue }">
             <KExternalLink
               class="username-link"
-              href="https://kongponents.konghq.com/components/alert.html"
+              href="https://kongponents.konghq.com/components/table-data.html"
             >
               @{{ rowValue }}
             </KExternalLink>
