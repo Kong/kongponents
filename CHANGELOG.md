@@ -1,3 +1,10 @@
+## [9.61.8](https://github.com/Kong/kongponents/compare/v9.61.7...v9.61.8) (2026-07-23)
+
+
+### Bug Fixes
+
+* **kexternallink:** add transition ([#3303](https://github.com/Kong/kongponents/issues/3303)) ([eff7a00](https://github.com/Kong/kongponents/commit/eff7a00a1b9b8522f00db997df742f6a24949f0c))
+
 ## [9.61.7](https://github.com/Kong/kongponents/compare/v9.61.6...v9.61.7) (2026-07-23)
 
 
