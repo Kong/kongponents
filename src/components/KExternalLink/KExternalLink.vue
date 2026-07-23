@@ -43,6 +43,8 @@ const isHrefValid = computed((): boolean => !!isValidUrl(href))
 
   align-items: center;
   display: inline-flex;
+  font-weight: var(--kui-link-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
   gap: var(--kui-space-20, $kui-space-20);
+  list-style: inherit;
 }
 </style>
