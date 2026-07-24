@@ -134,7 +134,7 @@
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.6.1",
     "stylelint-order": "^7.0.1",
-    "tsc-alias": "^1.8.17",
+    "tsc-alias": "^1.9.0",
     "typescript": "^5.9.3",
     "vite": "^6.4.3",
     "vite-plugin-vue-devtools": "^7.7.9",
@@ -195,7 +195,7 @@
   },
   "packageManager": "pnpm@10.33.4",
   "volta": {
-    "node": "24.14.1",
+    "node": "24.18.0",
     "pnpm": "10.33.4"
   },
   "config": {
