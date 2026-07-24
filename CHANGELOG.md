@@ -1,3 +1,10 @@
+# [9.62.0](https://github.com/Kong/kongponents/compare/v9.61.8...v9.62.0) (2026-07-24)
+
+
+### Features
+
+* **kfiltergroup:** expose scoped slot props for custom filter content ([#3288](https://github.com/Kong/kongponents/issues/3288)) ([7d00281](https://github.com/Kong/kongponents/commit/7d002816210608d18e779ec9294d4b9b5d25278c))
+
 ## [9.61.8](https://github.com/Kong/kongponents/compare/v9.61.7...v9.61.8) (2026-07-23)
 
 
