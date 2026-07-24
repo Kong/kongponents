@@ -153,6 +153,15 @@
             placeholder="Super duper custom"
           />
         </template>
+        <template #filter-customSelect="{ value, options, setValue }">
+          <KSelect
+            :items="options"
+            label="This is in the #filter-customSelect slot"
+            :model-value="Array.isArray(value) ? undefined : value"
+            placeholder="Select a value"
+            @update:model-value="(val) => setValue(val as string, options?.find((o) => o.value === val)?.label ?? String(val))"
+          />
+        </template>
       </KFilterGroup>
     </SandboxSectionComponent>
 
@@ -278,6 +287,10 @@ const operatorOverrideSelection = ref<FilterGroupSelection>({})
 const customFilters: FilterGroupFilters = {
   custom: {
     label: 'Custom slotted filter',
+  },
+  customSelect: {
+    label: 'Custom select filter',
+    options: [{ value: 'a', label: 'Ayy' }, { value: 'b', label: 'Bee' }, { value: 'c', label: 'See' }],
   },
 }
 const customSelection = ref<FilterGroupSelection>({})
