@@ -106,11 +106,11 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="dropdownFooterTextPosition"
+        title="dropdownFooterPosition"
       >
         <KMultiselect
+          dropdown-footer-position="static"
           dropdown-footer-text="You've reached the bottom."
-          dropdown-footer-text-position="static"
           :items="multiselectItems"
         />
       </SandboxSectionComponent>
@@ -139,7 +139,7 @@
         >
           <template
             v-if="showNewItemValidationError"
-            #dropdown-footer-text
+            #dropdown-footer
           >
             <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
           </template>
@@ -236,14 +236,21 @@
         </KMultiselect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="dropdownFooterText"
+        title="dropdown-footer"
       >
         <KMultiselect
           dropdown-footer-text="Keep scrolling to reach the bottom."
           :items="multiselectItems"
         >
-          <template #dropdown-footer-text>
-            I am slotted.
+          <template #dropdown-footer>
+            <KButton
+              appearance="tertiary"
+              size="small"
+              @click="onDropdownFooterAction"
+            >
+              <AddIcon />
+              Interactive footer action
+            </KButton>
           </template>
         </KMultiselect>
       </SandboxSectionComponent>
@@ -318,7 +325,7 @@ import { computed, ref, inject } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { MultiselectEntry, MultiselectItem } from '@/types'
-import { KongIcon, DisabledIcon } from '@kong/icons'
+import { KongIcon, DisabledIcon, AddIcon } from '@kong/icons'
 
 const multiselectItems: MultiselectEntry[] = [
   {
@@ -402,6 +409,10 @@ const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 }
 
+const onDropdownFooterAction = (): void => {
+  window.alert('Interactive dropdown footer action clicked!')
+}
+
 // Example using old group property approach
 const multiselectItemsWithGroupProperty: MultiselectItem[] = [
   {
@@ -448,7 +459,7 @@ const multiselectItemsWithGroupProperty: MultiselectItem[] = [
   .custom-item {
     display: flex;
     flex-direction: row;
-    gap: $kui-space-30;
+    gap: var(--kui-space-30, $kui-space-30);
 
     &-title-container {
       flex: 1;
@@ -459,20 +470,20 @@ const multiselectItemsWithGroupProperty: MultiselectItem[] = [
     }
 
     &-description {
-      color: $kui-color-text-neutral;
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       display: block;
-      font-size: $kui-font-size-20;
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
     }
   }
 
   .select-multiselect-row {
     display: flex;
     flex-direction: row;
-    gap: $kui-space-30;
+    gap: var(--kui-space-30, $kui-space-30);
   }
 
   .item-creation-validation-error-message {
-    color: $kui-color-text-danger;
+    color: var(--kui-color-text-danger, $kui-color-text-danger);
   }
 }
 </style>

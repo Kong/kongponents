@@ -85,7 +85,12 @@ export interface SelectFilterFunctionParams<T extends string | number> {
   items: Array<SelectItem<T>>
 }
 
-export type SelectDropdownFooterTextPosition = 'sticky' | 'static'
+export type SelectDropdownFooterPosition = 'sticky' | 'static'
+
+/**
+ * @deprecated Use `SelectDropdownFooterPosition` instead.
+ */
+export type SelectDropdownFooterTextPosition = SelectDropdownFooterPosition
 
 export interface SelectProps<T extends string | number, U extends boolean = false> {
   /**
@@ -179,11 +184,21 @@ export interface SelectProps<T extends string | number, U extends boolean = fals
   dropdownFooterText?: string
 
   /**
+   * @deprecated Use `dropdownFooterPosition` instead.
+   *
    * Dropdown footer text position.
    * Accepted values: 'sticky' and 'static'.
    * @default 'sticky'
    */
   dropdownFooterTextPosition?: SelectDropdownFooterTextPosition
+
+  /**
+   * Dropdown footer position.
+   * Accepted values: 'sticky' and 'static'.
+   * Takes precedence over the deprecated `dropdownFooterTextPosition` prop.
+   * @default 'sticky'
+   */
+  dropdownFooterPosition?: SelectDropdownFooterPosition
 
   /**
    * If true and item-template is passed, will display item-template content inside selected-slot-template.
@@ -265,9 +280,17 @@ export interface SelectSlots<T extends string | number> {
   'selected-item-template'?: NoInfer<(props: { item: SelectItem<T> }) => any>
 
   /**
+   * @deprecated Use the `dropdown-footer` slot instead, which also supports interactive content.
+   *
    * A slot alternative for the `dropdownFooterText` prop.
    */
   'dropdown-footer-text'?(): any
+
+  /**
+   * A slot for custom dropdown footer content. Supports interactive content.
+   * Takes precedence over the `dropdownFooterText` prop and the deprecated `dropdown-footer-text` slot.
+   */
+  'dropdown-footer'?(): any
 
   /**
    * Content to be displayed when `loading` prop is true.

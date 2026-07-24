@@ -605,6 +605,114 @@ describe('KMultiselect', () => {
     cy.get('.dropdown-footer').should('be.visible').should('contain.text', dropdownFooterText)
   })
 
+  it('renders interactive content in the dropdown-footer slot', () => {
+    const labels = ['Label 1', 'Label 2', 'Label 3']
+    const vals = ['label1', 'label2', 'label3']
+    const buttonText = 'Footer action'
+
+    cy.mount(KMultiselect, {
+      props: {
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }, {
+          label: labels[2],
+          value: vals[2],
+        }],
+      },
+      slots: {
+        'dropdown-footer': `<button data-testid="footer-button">${buttonText}</button>`,
+      },
+    })
+
+    cy.get('.multiselect-trigger').trigger('click')
+
+    cy.get('.dropdown-footer')
+      .should('be.visible')
+      .should('have.css', 'pointer-events', 'auto')
+    // the interactive content should be clickable
+    cy.getTestId('footer-button').should('be.visible').click()
+  })
+
+  it('dropdown-footer slot takes precedence over dropdownFooterText prop and dropdown-footer-text slot', () => {
+    const labels = ['Label 1', 'Label 2', 'Label 3']
+    const vals = ['label1', 'label2', 'label3']
+
+    cy.mount(KMultiselect, {
+      props: {
+        items: [{
+          label: labels[0],
+          value: vals[0],
+        }, {
+          label: labels[1],
+          value: vals[1],
+        }, {
+          label: labels[2],
+          value: vals[2],
+        }],
+        dropdownFooterText: 'Footer text prop',
+      },
+      slots: {
+        'dropdown-footer-text': 'Deprecated footer slot',
+        'dropdown-footer': 'New footer slot',
+      },
+    })
+
+    cy.get('.multiselect-trigger').trigger('click')
+
+    cy.get('.dropdown-footer')
+      .should('be.visible')
+      .should('contain.text', 'New footer slot')
+      .should('not.contain.text', 'Deprecated footer slot')
+      .should('not.contain.text', 'Footer text prop')
+  })
+
+  it('positions the dropdown footer via the dropdownFooterPosition prop', () => {
+    cy.mount(KMultiselect, {
+      props: {
+        items: [{ label: 'Label 1', value: 'val1' }],
+        dropdownFooterText: 'Dropdown footer text',
+        dropdownFooterPosition: 'static',
+      },
+    })
+
+    cy.get('.multiselect-trigger').trigger('click')
+
+    cy.get('.dropdown-footer').should('be.visible').should('have.class', 'dropdown-footer-static')
+  })
+
+  it('supports the deprecated dropdownFooterTextPosition prop, with dropdownFooterPosition taking precedence', () => {
+    cy.mount(KMultiselect, {
+      props: {
+        items: [{ label: 'Label 1', value: 'val1' }],
+        dropdownFooterText: 'Dropdown footer text',
+        dropdownFooterTextPosition: 'static',
+      },
+    })
+
+    cy.get('.multiselect-trigger').trigger('click')
+
+    // deprecated prop still works
+    cy.get('.dropdown-footer').should('be.visible').should('have.class', 'dropdown-footer-static')
+
+    // new prop takes precedence over the deprecated one
+    cy.mount(KMultiselect, {
+      props: {
+        items: [{ label: 'Label 1', value: 'val1' }],
+        dropdownFooterText: 'Dropdown footer text',
+        dropdownFooterTextPosition: 'static',
+        dropdownFooterPosition: 'sticky',
+      },
+    })
+
+    cy.get('.multiselect-trigger').trigger('click')
+
+    cy.get('.dropdown-footer').should('be.visible').should('have.class', 'dropdown-footer-sticky')
+  })
+
   it('renders group titles and groups items in correct order', () => {
     const group1Title = 'Group 1'
     const group2Title = 'Group 2'

@@ -156,10 +156,17 @@
                 :item="{ label: 'No results', value: 'no_results', disabled: true }"
               />
               <div
-                v-if="(dropdownFooterText || $slots['dropdown-footer-text']) && dropdownFooterTextPosition === 'static'"
+                v-if="hasDropdownFooter && resolvedDropdownFooterPosition === 'static'"
                 class="dropdown-footer dropdown-footer-static"
               >
-                <slot name="dropdown-footer-text">
+                <slot
+                  v-if="$slots['dropdown-footer']"
+                  name="dropdown-footer"
+                />
+                <slot
+                  v-else
+                  name="dropdown-footer-text"
+                >
                   {{ dropdownFooterText }}
                 </slot>
               </div>
@@ -173,10 +180,17 @@
             </div>
           </div>
           <div
-            v-if="(dropdownFooterText || $slots['dropdown-footer-text']) && dropdownFooterTextPosition === 'sticky'"
+            v-if="hasDropdownFooter && resolvedDropdownFooterPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
           >
-            <slot name="dropdown-footer-text">
+            <slot
+              v-if="$slots['dropdown-footer']"
+              name="dropdown-footer"
+            />
+            <slot
+              v-else
+              name="dropdown-footer-text"
+            >
               {{ dropdownFooterText }}
             </slot>
           </div>
@@ -211,6 +225,7 @@ import type {
   SelectProps,
   SelectEmits,
   SelectSlots,
+  SelectDropdownFooterPosition,
   PopoverAttributes,
 } from '@/types'
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
@@ -244,7 +259,8 @@ const {
   loading,
   clearable,
   dropdownFooterText = '',
-  dropdownFooterTextPosition = 'sticky',
+  dropdownFooterTextPosition,
+  dropdownFooterPosition,
   reuseItemTemplate,
   enableItemCreation,
   itemCreationValidator = () => true,
@@ -275,7 +291,10 @@ const defaultKPopAttributes: Omit<PopoverAttributes, 'popoverClasses'> = {
   hideCaret: true,
 }
 
-const hasDropdownFooterTextSlot = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'])
+const hasDropdownFooter = computed((): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer']))
+
+// `dropdownFooterPosition` takes precedence over the deprecated `dropdownFooterTextPosition` prop
+const resolvedDropdownFooterPosition = computed((): SelectDropdownFooterPosition => dropdownFooterPosition ?? dropdownFooterTextPosition ?? 'sticky')
 
 const inputKey = ref<number>(0)
 const inputRef = useTemplateRef('inputElement')
@@ -359,7 +378,7 @@ const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `k-select-popover select-popover ${hasDropdownFooterTextSlot() ? `has-${dropdownFooterTextPosition}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
+    popoverClasses: `k-select-popover select-popover ${hasDropdownFooter.value ? `has-${resolvedDropdownFooterPosition.value}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
     width: String(actualElementWidth.value),
     maxWidth: String(actualElementWidth.value),
     disabled: isDisabled.value || isReadonly.value,
@@ -920,7 +939,6 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     gap: var(--kui-space-30, $kui-space-30);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding: var(--kui-space-50, $kui-space-50);
-    pointer-events: none;
     position: sticky;
 
     &-static {
@@ -953,13 +971,17 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     overflow-y: auto;
   }
 
-  &.popover .popover-container {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-input-color-border, var(--kui-color-border, $kui-color-border));
-    border-radius: var(--kui-input-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+  &.popover {
+    .popover-container {
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-input-color-border, var(--kui-color-border, $kui-color-border));
+      border-radius: var(--kui-input-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+      padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+    }
 
     &.has-sticky-dropdown-footer, &.has-static-dropdown-footer {
-      padding-bottom: var(--kui-space-0, $kui-space-0);
+      .popover-container {
+        padding-bottom: var(--kui-space-0, $kui-space-0);
+      }
     }
   }
 }
