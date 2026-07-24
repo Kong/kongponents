@@ -200,6 +200,29 @@ Slot for passing alert message content. When provided, takes precedence over the
 </KAlert>
 ```
 
+<KAlert class="divided-group">
+  <div class="space-between">
+    <strong>With KButton</strong>
+    <div class="button-group">
+      <KButton to="/components/button">To KButton</KButton>
+      <KButton to="/components/button" disabled>disabled Link KButton</KButton>
+    </div>   
+  </div>
+</KAlert>
+
+```html
+<KAlert class="divided-group">
+  <div class="space-between">
+    <strong>With KButton</strong>
+
+    <div class="button-group">
+      <KButton to="/components/button">To KButton</KButton>
+      <KButton to="/components/button" disabled>disabled Link KButton</KButton>
+    </div>   
+  </div>
+</KAlert>
+```
+
 ### icon
 
 Slot for providing a custom icon to the left of the alert message.
@@ -272,5 +295,16 @@ const showAlert = ref<boolean>(true)
   display: flex;
   flex-direction: column;
   gap: $kui-space-50;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .button-group {
+    display: flex;
+    gap: $kui-space-20;
+  }
 }
 </style>
