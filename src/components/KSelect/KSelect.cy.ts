@@ -418,6 +418,9 @@ describe('KSelect', () => {
   it('dropdown-footer slot takes precedence over dropdownFooterText prop and dropdown-footer-text slot', () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['label1', 'label2', 'label3']
+    const footerTextProp = 'Footer text prop'
+    const deprecatedFooterSlot = 'Deprecated footer slot'
+    const newFooterSlot = 'New footer slot'
 
     cy.mount(KSelect, {
       props: {
@@ -431,11 +434,11 @@ describe('KSelect', () => {
           label: labels[2],
           value: vals[2],
         }],
-        dropdownFooterText: 'Footer text prop',
+        dropdownFooterText: footerTextProp,
       },
       slots: {
-        'dropdown-footer-text': 'Deprecated footer slot',
-        'dropdown-footer': 'New footer slot',
+        'dropdown-footer-text': deprecatedFooterSlot,
+        'dropdown-footer': newFooterSlot,
       },
     })
 
@@ -443,30 +446,37 @@ describe('KSelect', () => {
 
     cy.get('.dropdown-footer')
       .should('be.visible')
-      .should('contain.text', 'New footer slot')
-      .should('not.contain.text', 'Deprecated footer slot')
-      .should('not.contain.text', 'Footer text prop')
+      .should('contain.text', newFooterSlot)
+      .should('not.contain.text', deprecatedFooterSlot)
+      .should('not.contain.text', footerTextProp)
   })
 
   it('positions the dropdown footer via the dropdownFooterPosition prop', () => {
+    const dropdownFooterText = 'Dropdown footer text'
+    const staticFooterClass = 'dropdown-footer-static'
+
     cy.mount(KSelect, {
       props: {
         items: [{ label: 'Label 1', value: 'val1' }],
-        dropdownFooterText: 'Dropdown footer text',
+        dropdownFooterText,
         dropdownFooterPosition: 'static',
       },
     })
 
     cy.getTestId('select-input').trigger('click')
 
-    cy.get('.dropdown-footer').should('be.visible').should('have.class', 'dropdown-footer-static')
+    cy.get('.dropdown-footer').should('be.visible').should('have.class', staticFooterClass)
   })
 
   it('supports the deprecated dropdownFooterTextPosition prop, with dropdownFooterPosition taking precedence', () => {
+    const dropdownFooterText = 'Dropdown footer text'
+    const staticFooterClass = 'dropdown-footer-static'
+    const stickyFooterClass = 'dropdown-footer-sticky'
+
     cy.mount(KSelect, {
       props: {
         items: [{ label: 'Label 1', value: 'val1' }],
-        dropdownFooterText: 'Dropdown footer text',
+        dropdownFooterText,
         dropdownFooterTextPosition: 'static',
       },
     })
@@ -474,13 +484,13 @@ describe('KSelect', () => {
     cy.getTestId('select-input').trigger('click')
 
     // deprecated prop still works
-    cy.get('.dropdown-footer').should('be.visible').should('have.class', 'dropdown-footer-static')
+    cy.get('.dropdown-footer').should('be.visible').should('have.class', staticFooterClass)
 
     // new prop takes precedence over the deprecated one
     cy.mount(KSelect, {
       props: {
         items: [{ label: 'Label 1', value: 'val1' }],
-        dropdownFooterText: 'Dropdown footer text',
+        dropdownFooterText,
         dropdownFooterTextPosition: 'static',
         dropdownFooterPosition: 'sticky',
       },
@@ -488,7 +498,7 @@ describe('KSelect', () => {
 
     cy.getTestId('select-input').trigger('click')
 
-    cy.get('.dropdown-footer').should('be.visible').should('have.class', 'dropdown-footer-sticky')
+    cy.get('.dropdown-footer').should('be.visible').should('have.class', stickyFooterClass)
   })
 
   it('renders group titles and groups items in correct order (backwards compatible)', () => {
