@@ -2,6 +2,10 @@ auditConfig:
   ignoreGhsas:
     - GHSA-p9ff-h696-f583
     - GHSA-v2wj-q39q-566r
+    # brace-expansion DoS. Only fixed in 5.0.8, which is ESM-only and cannot be
+    # required by minimatch@3.1.5 (CJS, `var expand = require('brace-expansion')`).
+    # Only reaches us via dev-only deps (commitizen, nuxt docs build); not shipped.
+    - GHSA-mh99-v99m-4gvg
 
 # Require a package to be published at least 12 days (17280 minutes) before it can be installed
 # minimumReleaseAge: 17280
