@@ -222,7 +222,7 @@
               </div>
             </div>
             <div
-              v-if="hasDropdownFooter"
+              v-if="hasDropdownFooter()"
               class="dropdown-footer"
               :class="`dropdown-footer-${resolvedDropdownFooterPosition}`"
               data-testid="dropdown-footer"
@@ -552,7 +552,9 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const hasDropdownFooter = computed((): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer']))
+// Do not cache slot presence checks in a computed - `computed()` does not track raw property
+// access on the `slots` object, so slots added by a parent after mount would never be detected.
+const hasDropdownFooter = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer'])
 
 // `dropdownFooterPosition` takes precedence over the deprecated `dropdownFooterTextPosition` prop
 const resolvedDropdownFooterPosition = computed((): DropdownFooterPosition => dropdownFooterPosition ?? dropdownFooterTextPosition ?? 'sticky')
@@ -561,7 +563,7 @@ const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${hasDropdownFooter.value ? 'has-dropdown-footer' : ''}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${hasDropdownFooter() ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),

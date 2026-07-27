@@ -156,7 +156,7 @@
                 :item="{ label: 'No results', value: 'no_results', disabled: true }"
               />
               <div
-                v-if="hasDropdownFooter && resolvedDropdownFooterPosition === 'static'"
+                v-if="hasDropdownFooter() && resolvedDropdownFooterPosition === 'static'"
                 class="dropdown-footer dropdown-footer-static"
               >
                 <slot
@@ -180,7 +180,7 @@
             </div>
           </div>
           <div
-            v-if="hasDropdownFooter && resolvedDropdownFooterPosition === 'sticky'"
+            v-if="hasDropdownFooter() && resolvedDropdownFooterPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
           >
             <slot
@@ -291,7 +291,9 @@ const defaultKPopAttributes: Omit<PopoverAttributes, 'popoverClasses'> = {
   hideCaret: true,
 }
 
-const hasDropdownFooter = computed((): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer']))
+// Do not cache slot presence checks in a computed - `computed()` does not track raw property
+// access on the `slots` object, so slots added by a parent after mount would never be detected.
+const hasDropdownFooter = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer'])
 
 // `dropdownFooterPosition` takes precedence over the deprecated `dropdownFooterTextPosition` prop
 const resolvedDropdownFooterPosition = computed((): SelectDropdownFooterPosition => dropdownFooterPosition ?? dropdownFooterTextPosition ?? 'sticky')
@@ -378,7 +380,7 @@ const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `k-select-popover select-popover ${hasDropdownFooter.value ? `has-${resolvedDropdownFooterPosition.value}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
+    popoverClasses: `k-select-popover select-popover ${hasDropdownFooter() ? `has-${resolvedDropdownFooterPosition.value}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
     width: String(actualElementWidth.value),
     maxWidth: String(actualElementWidth.value),
     disabled: isDisabled.value || isReadonly.value,
