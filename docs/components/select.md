@@ -245,7 +245,23 @@ Text to be displayed at the bottom of the dropdown container. Can also be [slott
 <KSelect dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
 ```
 
+### dropdownFooterPosition
+
+Defaults to `sticky`, but also accepts `static` value should you want the dropdown footer to be displayed at the bottom of dropdown container after all items.
+
+<ClientOnly>
+  <KSelect dropdown-footer-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
+</ClientOnly>
+
+```html
+<KSelect dropdown-footer-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
+```
+
 ### dropdownFooterTextPosition
+
+::: warning DEPRECATED
+This prop is deprecated. Use the [`dropdownFooterPosition` prop](#dropdownfooterposition) instead.
+:::
 
 Defaults to `sticky`, but also accepts `static` value should you want text passed through `dropdownFooterText` prop to be displayed at the bottom of dropdown container after all items.
 
@@ -421,7 +437,7 @@ When the function passed through `itemCreationValidator` returns `false`, the "A
 >
   <template
     v-if="showNewItemValidationError"
-    #dropdown-footer-text
+    #dropdown-footer
   >
     <span class="item-creation-validation-error-message">
       New item should be at least 3 characters long.
@@ -440,7 +456,7 @@ When the function passed through `itemCreationValidator` returns `false`, the "A
   >
     <template
       v-if="showNewItemValidationError"
-      #dropdown-footer-text
+      #dropdown-footer
     >
       <span class="item-creation-validation-error-message">
         New item should be at least 3 characters long.
@@ -690,7 +706,39 @@ Use this slot to provide custom content to the selected item. The slot exposes `
 </KSelect>
 ```
 
+### dropdown-footer
+
+Use this slot to render custom content at the bottom of the dropdown container. Unlike the [`dropdownFooterText` prop](#dropdownfootertext), this slot supports interactive content (for example, buttons or links).
+
+This slot takes precedence over the `dropdownFooterText` prop and the deprecated [`dropdown-footer-text` slot](#dropdown-footer-text) when provided.
+
+<ClientOnly>
+  <KSelect :items="selectItems">
+    <template #dropdown-footer>
+      <KButton appearance="tertiary" size="small">
+        <KongIcon />
+        Interactive footer action
+      </KButton>
+    </template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect :items="selectItems">
+  <template #dropdown-footer>
+    <KButton appearance="tertiary" size="small">
+      <KongIcon />
+      Interactive footer action
+    </KButton>
+  </template>
+</KSelect>
+```
+
 ### dropdown-footer-text
+
+::: warning DEPRECATED
+This slot is deprecated. Use the [`dropdown-footer` slot](#dropdown-footer) instead, which also supports interactive content.
+:::
 
 A slot alternative for [`dropdownFooterText` prop](#dropdownfootertext).
 
@@ -701,7 +749,7 @@ A slot alternative for [`dropdownFooterText` prop](#dropdownfootertext).
       Dropdown footer content.
     </template>
   </KSelect>
-</CLientOnly>
+</ClientOnly>
 
 ```html
 <KSelect :items="selectItems">

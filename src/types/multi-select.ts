@@ -33,7 +33,12 @@ export interface MultiselectFilterFunctionParams<T extends string = string> {
   query: string
 }
 
-export type DropdownFooterTextPosition = 'sticky' | 'static'
+export type DropdownFooterPosition = 'sticky' | 'static'
+
+/**
+ * @deprecated Use `DropdownFooterPosition` instead.
+ */
+export type DropdownFooterTextPosition = DropdownFooterPosition
 
 /**
  * @internal
@@ -192,11 +197,21 @@ export interface MultiselectProps<T extends string, U extends boolean = false> {
   dropdownFooterText?: string
 
   /**
+   * @deprecated Use `dropdownFooterPosition` instead.
+   *
    * The position of the dropdown footer text.
    * Accepted values: 'sticky' and 'static'.
    * @default 'sticky'
    */
   dropdownFooterTextPosition?: DropdownFooterTextPosition
+
+  /**
+   * The position of the dropdown footer.
+   * Accepted values: 'sticky' and 'static'.
+   * Takes precedence over the deprecated `dropdownFooterTextPosition` prop.
+   * @default 'sticky'
+   */
+  dropdownFooterPosition?: DropdownFooterPosition
 
   /**
    * Validator function for item creation.
@@ -232,9 +247,17 @@ export interface MultiselectSlots<T extends string = string> {
   empty?: () => any
 
   /**
+   * @deprecated Use the `dropdown-footer` slot instead, which also supports interactive content.
+   *
    * Slot for dropdown footer in multiselect.
    */
   'dropdown-footer-text'?: () => any
+
+  /**
+   * A slot for custom dropdown footer content. Supports interactive content.
+   * Takes precedence over the `dropdownFooterText` prop and the deprecated `dropdown-footer-text` slot.
+   */
+  'dropdown-footer'?: () => any
 
   /**
    * Slot for icon in the selected item badge.

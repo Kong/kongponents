@@ -115,11 +115,11 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="dropdownFooterTextPosition"
+        title="dropdownFooterPosition"
       >
         <KSelect
+          dropdown-footer-position="static"
           dropdown-footer-text="You've reached the bottom."
-          dropdown-footer-text-position="static"
           :items="selectItems"
         />
       </SandboxSectionComponent>
@@ -166,7 +166,7 @@
         >
           <template
             v-if="showNewItemValidationError"
-            #dropdown-footer-text
+            #dropdown-footer
           >
             <span class="item-creation-validation-error-message">New item should be at least 3 characters long.</span>
           </template>
@@ -276,14 +276,21 @@
         </KSelect>
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="dropdownFooterText"
+        title="dropdown-footer"
       >
         <KSelect
           dropdown-footer-text="Keep scrolling to reach the bottom."
           :items="selectItems"
         >
-          <template #dropdown-footer-text>
-            I am slotted.
+          <template #dropdown-footer>
+            <KButton
+              appearance="tertiary"
+              size="small"
+              @click="onDropdownFooterAction"
+            >
+              <AddIcon />
+              Interactive footer action
+            </KButton>
           </template>
         </KSelect>
       </SandboxSectionComponent>
@@ -337,7 +344,7 @@
 import { inject, onMounted, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
-import { KongIcon } from '@kong/icons'
+import { KongIcon, AddIcon } from '@kong/icons'
 import type { SelectEntry, SelectItem } from '@/types'
 
 const selectItems: SelectEntry[] = [
@@ -481,6 +488,10 @@ const onItemCreationQueryChange = (query: string): void => {
   showNewItemValidationError.value = query ? !itemCreationValidator(query) : false
 }
 
+const onDropdownFooterAction = (): void => {
+  window.alert('Interactive dropdown footer action clicked!')
+}
+
 // Example using old group property approach
 const selectItemsWithGroupProperty: SelectItem[] = [
   {
@@ -530,7 +541,7 @@ onMounted(() => {
     align-items: flex-end;
     display: flex;
     flex-wrap: wrap;
-    gap: $kui-space-50;
+    gap: var(--kui-space-50, $kui-space-50);
   }
 
   .long-item-title {
@@ -543,7 +554,7 @@ onMounted(() => {
   .custom-item {
     display: flex;
     flex-direction: row;
-    gap: $kui-space-30;
+    gap: var(--kui-space-30, $kui-space-30);
 
     &-title-container {
       flex: 1;
@@ -554,9 +565,9 @@ onMounted(() => {
     }
 
     &-description {
-      color: $kui-color-text-neutral;
+      color: var(--kui-color-text-neutral, $kui-color-text-neutral);
       display: block;
-      font-size: $kui-font-size-20;
+      font-size: var(--kui-font-size-20, $kui-font-size-20);
     }
   }
 
@@ -567,12 +578,12 @@ onMounted(() => {
 
     .title {
       display: flex;
-      gap: $kui-space-30;
+      gap: var(--kui-space-30, $kui-space-30);
     }
   }
 
   .item-creation-validation-error-message {
-    color: $kui-color-text-danger;
+    color: var(--kui-color-text-danger, $kui-color-text-danger);
   }
 }
 </style>

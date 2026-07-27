@@ -222,12 +222,19 @@
               </div>
             </div>
             <div
-              v-if="dropdownFooterText || $slots['dropdown-footer-text']"
+              v-if="hasDropdownFooter()"
               class="dropdown-footer"
-              :class="`dropdown-footer-${dropdownFooterTextPosition}`"
+              :class="`dropdown-footer-${resolvedDropdownFooterPosition}`"
               data-testid="dropdown-footer"
             >
-              <slot name="dropdown-footer-text">
+              <slot
+                v-if="$slots['dropdown-footer']"
+                name="dropdown-footer"
+              />
+              <slot
+                v-else
+                name="dropdown-footer-text"
+              >
                 {{ dropdownFooterText }}
               </slot>
             </div>
@@ -309,6 +316,7 @@ import type {
   MultiselectProps,
   MultiselectEmits,
   MultiselectSlots,
+  DropdownFooterPosition,
   PopoverAttributes,
 } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
@@ -399,7 +407,8 @@ const {
   enableItemCreation,
   loading,
   dropdownFooterText = '',
-  dropdownFooterTextPosition = 'sticky',
+  dropdownFooterTextPosition,
+  dropdownFooterPosition,
   itemCreationValidator = () => true,
 } = defineProps<MultiselectProps<T, U>>()
 
@@ -543,13 +552,18 @@ const modifiedAttrs = computed(() => {
   return $attrs
 })
 
-const hasDropdownFooterTextSlot = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'])
+// Do not cache slot presence checks in a computed - `computed()` does not track raw property
+// access on the `slots` object, so slots added by a parent after mount would never be detected.
+const hasDropdownFooter = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer'])
+
+// `dropdownFooterPosition` takes precedence over the deprecated `dropdownFooterTextPosition` prop
+const resolvedDropdownFooterPosition = computed((): DropdownFooterPosition => dropdownFooterPosition ?? dropdownFooterTextPosition ?? 'sticky')
 
 const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${hasDropdownFooterTextSlot() ? 'has-dropdown-footer' : ''}`,
+    popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses ?? ''} ${hasDropdownFooter() ? 'has-dropdown-footer' : ''}`,
     width: numericWidth.value + 'px',
     maxWidth: numericWidth.value + 'px',
     disabled: (attrs.disabled !== undefined && String(attrs.disabled) !== 'false') || (attrs.readonly !== undefined && String(attrs.readonly) !== 'false'),
@@ -1431,7 +1445,6 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     gap: var(--kui-space-30, $kui-space-30);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding: var(--kui-space-50, $kui-space-50);
-    pointer-events: none;
   }
 
   .help-text {
@@ -1492,32 +1505,36 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     top: 0;
   }
 
-  &.multiselect-popover .popover-container {
-    border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-input-color-border, var(--kui-color-border, $kui-color-border));
-    border-radius: var(--kui-input-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
-    padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
+  &.multiselect-popover {
+    .popover-container {
+      border: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-input-color-border, var(--kui-color-border, $kui-color-border));
+      border-radius: var(--kui-input-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+      padding: var(--kui-space-20, $kui-space-20) var(--kui-space-0, $kui-space-0);
 
-    &.has-dropdown-footer {
-      padding-bottom: var(--kui-space-0, $kui-space-0);
-    }
+      .popover-content {
+        @include kMultiselectPopoverMaxHeight;
 
-    .popover-content {
-      @include kMultiselectPopoverMaxHeight;
+        // when dropdown footer text position is sticky
+        &:has(.dropdown-footer.dropdown-footer-sticky) {
+          max-height: none;
 
-      // when dropdown footer text position is sticky
-      &:has(.dropdown-footer.dropdown-footer-sticky) {
-        max-height: none;
+          .multiselect-list {
+            @include kMultiselectPopoverMaxHeight;
+          }
+        }
 
-        .multiselect-list {
-          @include kMultiselectPopoverMaxHeight;
+        // Firefox workaround
+        // since :has() selector isn't supported in Firefox be default
+        .multiselect-list ~ .dropdown-footer-sticky {
+          bottom: 0;
+          position: sticky;
         }
       }
+    }
 
-      // Firefox workaround
-      // since :has() selector isn't supported in Firefox be default
-      .multiselect-list ~ .dropdown-footer-sticky {
-        bottom: 0;
-        position: sticky;
+    &.has-dropdown-footer {
+      .popover-container {
+        padding-bottom: var(--kui-space-0, $kui-space-0);
       }
     }
   }

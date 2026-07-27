@@ -247,7 +247,7 @@ When the function passed through `itemCreationValidator` returns `false`, the "A
 >
   <template
     v-if="showNewItemValidationError"
-    #dropdown-footer-text
+    #dropdown-footer
   >
     <span class="item-creation-validation-error-message">
       New item should be at least 3 characters long.
@@ -266,7 +266,7 @@ When the function passed through `itemCreationValidator` returns `false`, the "A
   >
     <template
       v-if="showNewItemValidationError"
-      #dropdown-footer-text
+      #dropdown-footer
     >
       <span class="item-creation-validation-error-message">
         New item should be at least 3 characters long.
@@ -399,7 +399,27 @@ Adds informational text to the bottom of the dropdown options which remains visi
 <KMultiselect dropdown-footer-text="Sticky dropdown footer text" :items="items" />
 ```
 
+### dropdownFooterPosition
+
+By default, the dropdown footer will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled.
+
+If you want to override the behaviour and have the footer at the end of the dropdown list, use the value `static`. This ensures the footer is visible only when the user scrolls to view the bottom of the list.
+
+Accepted values: `sticky` (default) and `static`.
+
+<ClientOnly>
+  <KMultiselect dropdown-footer-position="static" dropdown-footer-text="Static dropdown footer text" :items="deepClone(defaultItemsLongList)" />
+</ClientOnly>
+
+```html
+<KMultiselect dropdown-footer-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" />
+```
+
 ### dropdownFooterTextPosition
+
+::: warning DEPRECATED
+This prop is deprecated. Use the [`dropdownFooterPosition` prop](#dropdownfooterposition) instead.
+:::
 
 By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled.
 
@@ -811,7 +831,37 @@ Slot for passing a custom icon to be displayed in front of item label in selecte
 
 You can use the `empty` slot to customize the look of the dropdown list when there is no options. See [autosuggest](#autosuggest) for an example of this slot.
 
+### dropdown-footer
+
+Use this slot to render custom content at the bottom of the dropdown container. Unlike the [`dropdownFooterText` prop](#dropdownfootertext), this slot supports interactive content (for example, buttons or links).
+
+This slot takes precedence over the `dropdownFooterText` prop and the deprecated [`dropdown-footer-text` slot](#dropdown-footer-text) when provided.
+
+<ClientOnly>
+  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
+    <template #dropdown-footer>
+      <KButton appearance="tertiary" size="small">
+        Interactive footer action
+      </KButton>
+    </template>
+  </KMultiselect>
+</ClientOnly>
+
+```html
+<KMultiselect :items="items">
+  <template #dropdown-footer>
+    <KButton appearance="tertiary" size="small">
+      Interactive footer action
+    </KButton>
+  </template>
+</KMultiselect>
+```
+
 ### dropdown-footer-text
+
+::: warning DEPRECATED
+This slot is deprecated. Use the [`dropdown-footer` slot](#dropdown-footer) instead, which also supports interactive content.
+:::
 
 Slot the content of the dropdown footer text. This slot will override the `dropdownFooterText` prop if provided.
 
