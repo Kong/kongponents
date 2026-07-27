@@ -8,6 +8,7 @@ overrides:
   '@babel/core@<=7.29.0': '>=7.29.7'
   axios@>=1.0.0 <1.12.0: '>=1.18.0'
   brace-expansion@<1.1.16: '>=1.1.16 <2.0.0'
+  brace-expansion@<=5.0.7: '>=5.0.8'
   brace-expansion@>=2.0.0 <2.1.2: '>=2.1.2 <3.0.0'
   brace-expansion@>=3.0.0 <5.0.7: '>=5.0.7'
   devalue@<=5.6.3: '>=5.8.1'
@@ -1884,8 +1885,8 @@ packages:
     resolution: {integrity: sha512-5EdhGZtnu3V88ces7s53hhfK5KSASnJZv8Lulpc04cWO3REESroJXg73DFsOmgbU2BhwV0E20bu2IDZb3VKW4Q==}
     engines: {node: '>=14.0.0'}
 
-  '@rollup/wasm-node@4.62.2':
-    resolution: {integrity: sha512-LseVv64SSO6S7eyc+LFGUnH36NMMFbtKN28vTUHFinRVzFKH4cVQ/BB22JfXM9Ei5l7x46AIQp+n2QzzJ9kxHg==}
+  '@rollup/wasm-node@4.62.3':
+    resolution: {integrity: sha512-sEOQWamme1YgXeVcE1JkB1k44RwtPWcpYpGUW1Lso7bOj+Ay9lN2Pak/CcfNeC4xqIPNhYSabQNaWYkJJR7m8Q==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -2724,15 +2725,12 @@ packages:
     resolution: {integrity: sha512-F3PH5k5juxom4xktynS7MoFY+NUWH5LC4CnH11YB8NPew+HLpmBLCybSAEyb2F+4pRXhuhWqFesoQd6DAyc2hw==}
     engines: {node: '>=18'}
 
-  brace-expansion@1.1.16:
-    resolution: {integrity: sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==}
-
   brace-expansion@2.1.2:
     resolution: {integrity: sha512-w5JZcKgdhDOgOwm8H+KgbosopHMuGcl6qbulwjtz3SM7I7P3yW1eAjzMPLrIE+NQ9vjgANKHWeMHnrT0OXW1oA==}
 
-  brace-expansion@5.0.7:
-    resolution: {integrity: sha512-7oFy703dxfY3/NLxC1fh2SUCQ0H9rmAY+5EpDVfXjUTTs+HEwR2nYaqLv+GWcTsumwxPfiz6CzCNkwXwBUwqCA==}
-    engines: {node: 18 || 20 || >=22}
+  brace-expansion@5.0.8:
+    resolution: {integrity: sha512-JZyDyq3D4AUifKTPOB7DELf6XsB3WdPuNxCtob1vFXPsSXhdAiHBWJ/tJ8HAc9aH84BK+5JFZLNkJKx3G9kzQg==}
+    engines: {node: 20 || >=22}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -3011,9 +3009,6 @@ packages:
   compress-commons@6.0.2:
     resolution: {integrity: sha512-6FqVXeETqWPoGcfzrXb37E50NP0LXT8kAMu5ooZayhWWdgEY4lBEEcbQNXtkuKQsGduxiIcI4gOTsxTmuq/bSg==}
     engines: {node: '>= 14'}
-
-  concat-map@0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
@@ -8954,7 +8949,7 @@ snapshots:
 
   '@rollup/plugin-alias@6.0.0':
     dependencies:
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
 
   '@rollup/plugin-commonjs@29.0.2':
     dependencies:
@@ -8965,19 +8960,19 @@ snapshots:
       is-reference: 1.2.1
       magic-string: 0.30.21
       picomatch: 4.0.4
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
 
   '@rollup/plugin-inject@5.0.5':
     dependencies:
       '@rollup/pluginutils': 5.3.0
       estree-walker: 2.0.2
       magic-string: 0.30.21
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
 
   '@rollup/plugin-json@6.1.0':
     dependencies:
       '@rollup/pluginutils': 5.3.0
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
 
   '@rollup/plugin-node-resolve@16.0.3':
     dependencies:
@@ -8986,17 +8981,17 @@ snapshots:
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.12
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
 
   '@rollup/plugin-replace@6.0.3':
     dependencies:
       '@rollup/pluginutils': 5.3.0
       magic-string: 0.30.21
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
 
   '@rollup/plugin-terser@1.0.0':
     dependencies:
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
       serialize-javascript: 7.0.5
       smob: 1.6.2
       terser: 5.47.1
@@ -9006,9 +9001,9 @@ snapshots:
       '@types/estree': 1.0.9
       estree-walker: 2.0.2
       picomatch: 4.0.4
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
 
-  '@rollup/wasm-node@4.62.2':
+  '@rollup/wasm-node@4.62.3':
     dependencies:
       '@types/estree': 1.0.9
     optionalDependencies:
@@ -10054,16 +10049,11 @@ snapshots:
       widest-line: 5.0.0
       wrap-ansi: 9.0.2
 
-  brace-expansion@1.1.16:
-    dependencies:
-      balanced-match: 1.0.2
-      concat-map: 0.0.1
-
   brace-expansion@2.1.2:
     dependencies:
       balanced-match: 1.0.2
 
-  brace-expansion@5.0.7:
+  brace-expansion@5.0.8:
     dependencies:
       balanced-match: 4.0.4
 
@@ -10359,8 +10349,6 @@ snapshots:
       is-stream: 2.0.1
       normalize-path: 3.0.0
       readable-stream: 4.7.0
-
-  concat-map@0.0.1: {}
 
   confbox@0.1.8: {}
 
@@ -12284,11 +12272,11 @@ snapshots:
 
   minimatch@10.2.5:
     dependencies:
-      brace-expansion: 5.0.7
+      brace-expansion: 5.0.8
 
   minimatch@3.1.5:
     dependencies:
-      brace-expansion: 1.1.16
+      brace-expansion: 5.0.8
 
   minimatch@5.1.9:
     dependencies:
@@ -12409,7 +12397,7 @@ snapshots:
       pkg-types: 2.3.1
       pretty-bytes: 7.1.0
       radix3: 1.1.2
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
       rollup-plugin-visualizer: 7.0.1
       scule: 1.3.0
       semver: 7.8.4
@@ -13471,7 +13459,7 @@ snapshots:
     dependencies:
       open: 8.4.2
       picomatch: 4.0.4
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
       source-map: 0.7.6
       yargs: 17.7.2
 
@@ -13479,7 +13467,7 @@ snapshots:
     dependencies:
       open: 11.0.0
       picomatch: 4.0.4
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
       source-map: 0.7.6
       yargs: 18.0.0
 
@@ -14587,7 +14575,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
       postcss: 8.5.23
-      rollup: '@rollup/wasm-node@4.62.2'
+      rollup: '@rollup/wasm-node@4.62.3'
       tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 24.13.2
