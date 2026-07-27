@@ -1,3 +1,10 @@
+## [9.62.1](https://github.com/Kong/kongponents/compare/v9.62.0...v9.62.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** new dropdown footer slot [KHCP-21063] ([#3304](https://github.com/Kong/kongponents/issues/3304)) ([42b54c1](https://github.com/Kong/kongponents/commit/42b54c187cd873d0587b87b2d6094ea135e440a5))
+
 # [9.62.0](https://github.com/Kong/kongponents/compare/v9.61.8...v9.62.0) (2026-07-24)
 
 
