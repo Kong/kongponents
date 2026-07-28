@@ -3,7 +3,10 @@
     :links="inject('app-links', [])"
     title="KCodeBlock"
   >
-    <div class="kcodeblock-sandbox">
+    <div
+      class="kcodeblock-sandbox"
+      :class="{ 'theme-night': isNightTheme }"
+    >
       <!-- Props -->
       <SandboxTitleComponent
         is-subtitle
@@ -224,6 +227,12 @@ import type { CodeBlockEventData } from '@/types'
 import { codeToHtml } from '../utils/shiki'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
+import { useSandboxTheme } from '../composables/useSandboxTheme'
+
+const { activeThemeLabel } = useSandboxTheme()
+
+// Classic Night + Electric Lime Night are the two "night" themes.
+const isNightTheme = computed(() => activeThemeLabel.value.includes('Night'))
 
 const origLines = [2, 3, 4]
 const newLines = [6, 7, 8]
@@ -235,7 +244,18 @@ const highlightedToggle = ref(true)
 const codeModified = ref(false)
 
 const highlight = async ({ codeElement, language, code }: CodeBlockEventData) => {
-  codeElement.innerHTML = await codeToHtml(code, { lang: language, theme: 'catppuccin-latte', structure: 'inline' })
+  codeElement.innerHTML = await codeToHtml(code, {
+    lang: language,
+    // Dual themes so Shiki emits `--shiki-light*`/`--shiki-dark*` CSS vars per token.
+    // The default (light) colors are written inline; the `.theme-night` CSS below
+    // swaps in the `--shiki-dark*` vars for the night themes.
+    themes: {
+      light: 'catppuccin-latte',
+      dark: 'material-theme-darker',
+    },
+    defaultColor: 'light',
+    structure: 'inline',
+  })
 }
 
 const code = computed((): string => `{
@@ -310,5 +330,15 @@ watch(code, async () => {
 <style lang="scss" scoped>
 .limited-width {
   max-width: 90%;
+}
+
+// Only apply Shiki's dark palette in the "night" themes (Classic Night / Electric Lime Night).
+.theme-night {
+  :deep(.k-code-block code span) {
+    /* stylelint-disable-next-line custom-property-pattern */
+    background-color: var(--shiki-dark-bg) !important;
+    /* stylelint-disable-next-line custom-property-pattern */
+    color: var(--shiki-dark) !important;
+  }
 }
 </style>
