@@ -3,12 +3,9 @@ export interface CodeBlockEventData {
   codeElement: HTMLElement
   code: string
   language: string
-  theme: Theme
   query: string
   matchingLineNumbers: number[]
 }
-
-export type Theme = 'light' | 'dark'
 
 export type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToNextMatch' | 'jumpToPreviousMatch' | 'copyCode'
 
@@ -16,7 +13,6 @@ export type CommandKeywords = 'toggleFilterMode' | 'toggleRegExpMode' | 'jumpToN
  * @internal
  */
 export interface CodeBlockIconButtonProps {
-  theme?: Theme
   active?: boolean
   /**
    * Only pass tooltip text if it's the copy button
@@ -100,12 +96,6 @@ export interface CodeBlockProps {
    * @default false
    */
   showLineNumberLinks?: boolean
-
-  /**
-   * Controls the color scheme of the component.
-   * @default 'light'
-   */
-  theme?: Theme
 
   /**
    * Displays the code on a single line.

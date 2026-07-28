@@ -358,7 +358,6 @@ describe('KCodeBlock', () => {
       id: 'code-block',
       language: 'json',
       code,
-      theme: 'dark',
       onCodeBlockRender,
     }
 
@@ -371,7 +370,6 @@ describe('KCodeBlock', () => {
         expect(eventData).to.include({
           code: props.code,
           language: props.language,
-          theme: props.theme,
           query: '',
         })
         expect(eventData).to.have.property('preElement').that.is.instanceOf(HTMLElement)
