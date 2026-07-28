@@ -1,3 +1,10 @@
+# [9.63.0](https://github.com/Kong/kongponents/compare/v9.62.1...v9.63.0) (2026-07-28)
+
+
+### Features
+
+* **kcodeblock:** remove theme prop [KHCP-21211]  ([#3292](https://github.com/Kong/kongponents/issues/3292)) ([ce7fba1](https://github.com/Kong/kongponents/commit/ce7fba1a94bc28e297739af4c8711cb7a5aa299e))
+
 ## [9.62.1](https://github.com/Kong/kongponents/compare/v9.62.0...v9.62.1) (2026-07-27)
 
 
