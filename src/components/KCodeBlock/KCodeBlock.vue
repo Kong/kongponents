@@ -57,7 +57,7 @@
             <ProgressIcon
               v-if="isProcessing"
               class="code-block-processing-icon"
-              :color="getIconColor"
+              :color="`var(--kui-color-text-neutral-strong, ${KUI_COLOR_TEXT_NEUTRAL_STRONG})`"
               data-testid="code-block-processing-icon"
               :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
               title="Loading"
@@ -648,8 +648,6 @@ async function handleCopyCode(event: Event): Promise<void> {
     }, 1500)
   }
 }
-
-const getIconColor = computed(() => `var(--kui-color-text-neutral-strong, ${KUI_COLOR_TEXT_NEUTRAL_STRONG})`)
 
 type VirtualizerProps = InstanceType<typeof Virtualizer>['$props']
 
