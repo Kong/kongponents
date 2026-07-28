@@ -31,7 +31,10 @@
         class="filter-content"
         data-testid="filter-pill-content"
       >
-        <slot name="default">
+        <slot
+          name="default"
+          v-bind="filterPillSlotProps"
+        >
           <div class="default-layout">
             <div
               v-if="operators.length > 1"
@@ -103,7 +106,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, useAttrs, useTemplateRef } from 'vue'
-import type { FilterOperator, FilterPillProps, FilterPillSlots, FilterSelection, SelectItem } from '@/types'
+import type { FilterOperator, FilterPillProps, FilterPillSlotProps, FilterPillSlots, FilterSelection, SelectItem } from '@/types'
 import { KUI_SPACE_30 } from '@kong/design-tokens'
 
 import KPop from '@/components/KPop/KPop.vue'
@@ -164,6 +167,21 @@ const userSelect = ref<string | undefined>()
 const userMultiselect = ref<string[]>()
 
 /**
+ * Tracks the value set by a custom filter's slot content (if this is a custom filter)
+ */
+const userCustomValue = ref<string | string[]>()
+
+/**
+ * Tracks the display text set by a custom filter's slot content (if this is a custom filter)
+ */
+const userCustomText = ref<string>()
+
+/**
+ * Tracks whether the footer's Apply button in a custom filter's slot is enabled.
+ */
+const userCustomApplyEnabled = ref<boolean>(true)
+
+/**
  * Used to programmatically apply focus to the text field
  */
 const inputFieldRef = useTemplateRef('inputField')
@@ -188,9 +206,8 @@ const filterType = computed((): 'custom' | 'input' | 'select' | 'multiselect' =>
 })
 
 /**
- * Whether the apply button is disabled or not. If the filter is a custom filter
- * we can't detect whether it should be disabled, so in that case it defaults to
- * false.
+ * Whether the apply button is disabled or not. For a custom filter, this
+ * defaults to enabled and can be overridden by slot content via `setApplyState`.
  */
 const applyDisabled = computed((): boolean => {
   switch (filterType.value) {
@@ -201,6 +218,7 @@ const applyDisabled = computed((): boolean => {
     case 'multiselect':
       return !userMultiselect.value || userMultiselect.value.length === 0
     case 'custom':
+      return !userCustomApplyEnabled.value
     default:
       return false
   }
@@ -215,6 +233,49 @@ const operators = computed((): FilterOperator[] => {
     ? filter.operators
     : ['eq']
 })
+
+/**
+ * Updates the pending operator. Exposed to custom filter slot content via
+ * `filterPillSlotProps`.
+ */
+const setOperator = (op: FilterOperator) => {
+  userOperator.value = op
+}
+
+/**
+ * Updates the pending value and its display text for a custom filter. Exposed
+ * to custom filter slot content via `filterPillSlotProps`.
+ */
+const setCustomValue = (value: string | string[], text: string) => {
+  userCustomValue.value = value
+  userCustomText.value = text
+}
+
+/**
+ * Marks whether the pending custom filter value is valid, controlling whether
+ * the footer's Apply button is enabled. Exposed to custom filter slot content
+ * via `filterPillSlotProps`.
+ */
+const setApplyState = (enabled: boolean) => {
+  userCustomApplyEnabled.value = enabled
+}
+
+/**
+ * The props passed into the `#default` slot so custom filter content can read
+ * the filter's options/operators and update the pending value/operator, which
+ * then flow through the existing Apply/Cancel footer like any other filter type.
+ */
+const filterPillSlotProps = computed((): FilterPillSlotProps => ({
+  value: userCustomValue.value,
+  text: userCustomText.value,
+  options: filter.options,
+  multiple: filter.multiple,
+  operators: operators.value,
+  operator: userOperator.value,
+  setOperator,
+  setValue: setCustomValue,
+  setApplyState,
+}))
 
 /**
  * We manually select the size of the operator dropdown based on the presence of
@@ -256,6 +317,10 @@ const userSelection = computed((): FilterSelection | undefined => {
         ?.filter((option) => option !== undefined)
         ?.map(({ label }) => label)
         ?.join(', ')
+      break
+    case 'custom':
+      value = userCustomValue.value
+      text = userCustomText.value
       break
   }
 
@@ -357,6 +422,13 @@ const resetUserSelection = () => {
       return (selection.value).includes(`${value}`)
     }
   }).map(({ value }) => value)
+
+  // reset the custom pending value/text to the selection's, if it exists
+  userCustomValue.value = selection?.value
+  userCustomText.value = selection?.text
+
+  // reset the custom apply-disabled state; slot content re-derives this itself
+  userCustomApplyEnabled.value = true
 }
 
 /**
@@ -411,14 +483,7 @@ const onPopClose = () => {
  * Handle the 'Apply' button's click event.
  */
 const onApply = () => {
-  if (filterType.value === 'custom') {
-    // always emit `undefined` when the filter is custom because the host app
-    // must handle the selection when they've created a custom filter.
-    emit('apply', undefined)
-  } else {
-    emit('apply', userSelection.value)
-  }
-
+  emit('apply', userSelection.value)
   closeFilter()
 }
 

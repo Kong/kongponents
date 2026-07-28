@@ -22,8 +22,11 @@
         @close="onFilterClose(key)"
         @open="onFilterOpen(key)"
       >
-        <template #default>
-          <slot :name="getFilterSlotName(key)" />
+        <template #default="filterPillSlotProps">
+          <slot
+            :name="getFilterSlotName(key)"
+            v-bind="filterPillSlotProps"
+          />
         </template>
       </FilterPill>
     </div>

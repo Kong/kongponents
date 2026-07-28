@@ -1,3 +1,38 @@
+## [9.62.1](https://github.com/Kong/kongponents/compare/v9.62.0...v9.62.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** new dropdown footer slot [KHCP-21063] ([#3304](https://github.com/Kong/kongponents/issues/3304)) ([42b54c1](https://github.com/Kong/kongponents/commit/42b54c187cd873d0587b87b2d6094ea135e440a5))
+
+# [9.62.0](https://github.com/Kong/kongponents/compare/v9.61.8...v9.62.0) (2026-07-24)
+
+
+### Features
+
+* **kfiltergroup:** expose scoped slot props for custom filter content ([#3288](https://github.com/Kong/kongponents/issues/3288)) ([7d00281](https://github.com/Kong/kongponents/commit/7d002816210608d18e779ec9294d4b9b5d25278c))
+
+## [9.61.8](https://github.com/Kong/kongponents/compare/v9.61.7...v9.61.8) (2026-07-23)
+
+
+### Bug Fixes
+
+* **kexternallink:** add transition ([#3303](https://github.com/Kong/kongponents/issues/3303)) ([eff7a00](https://github.com/Kong/kongponents/commit/eff7a00a1b9b8522f00db997df742f6a24949f0c))
+
+## [9.61.7](https://github.com/Kong/kongponents/compare/v9.61.6...v9.61.7) (2026-07-23)
+
+
+### Bug Fixes
+
+* **ktableview:** slotted link default styles ([#3302](https://github.com/Kong/kongponents/issues/3302)) ([6581457](https://github.com/Kong/kongponents/commit/658145779a1198a8311afaff8e44050481d2102c))
+
+## [9.61.6](https://github.com/Kong/kongponents/compare/v9.61.5...v9.61.6) (2026-07-22)
+
+
+### Bug Fixes
+
+* pin transitive dependency overrides to patch audit vulnerabilities ([#3301](https://github.com/Kong/kongponents/issues/3301)) ([e69e894](https://github.com/Kong/kongponents/commit/e69e89492a6c9784e2b4e145c5f886faac96d1b7)), closes [#3288](https://github.com/Kong/kongponents/issues/3288) [hi#severity](https://github.com/hi/issues/severity)
+
 ## [9.61.5](https://github.com/Kong/kongponents/compare/v9.61.4...v9.61.5) (2026-07-17)
 
 

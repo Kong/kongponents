@@ -1,5 +1,6 @@
+import { h } from 'vue'
 import KFilterGroup from '@/components/KFilterGroup/KFilterGroup.vue'
-import type { Filter, FilterGroupFilters, FilterGroupSelection, FilterSelection } from '@/types'
+import type { Filter, FilterGroupFilters, FilterGroupSelection, FilterPillSlotProps, FilterSelection } from '@/types'
 
 describe('KFilterGroup', () => {
   const FILTER_LABEL_ID = 'filter-group-label'
@@ -159,6 +160,34 @@ describe('KFilterGroup', () => {
     })
     cy.getTestId(FILTER_SELECTOR_ID).click()
     cy.get('[data-testid="dropdown-item-trigger"] .slot-test').should('exist')
+  })
+
+  it('forwards custom filter slot props', () => {
+    cy.get('@apply').should('have.callCount', 0)
+    const CUSTOM_OPTIONS = [{ label: 'Bar', value: 'bar' }, { label: 'Baz', value: 'baz' }]
+    render({
+      filters: {
+        custom: { label: 'Custom', options: CUSTOM_OPTIONS, pinned: true },
+      },
+      slots: {
+        'filter-custom': (props: FilterPillSlotProps) => h('button', {
+          'data-testid': 'custom-set-value',
+          onClick: () => props.setValue('baz', 'Baz'),
+        }, 'set value'),
+      },
+    })
+    cy.get(getFilterSelector('custom')).click()
+    cy.getTestId('custom-set-value').click()
+    cy.get(getPopoverSelector('custom')).findTestId(APPLY_ID).click()
+    cy.get('@apply').should('have.callCount', 1)
+    cy.get('@apply').should('have.been.calledWith', 'custom', {
+      custom: {
+        operator: 'eq',
+        text: 'Baz',
+        value: 'baz',
+      },
+    })
+    cy.get(getFilterSelector('custom')).should('contain.text', 'Baz')
   })
 
   it('emits @open', () => {
