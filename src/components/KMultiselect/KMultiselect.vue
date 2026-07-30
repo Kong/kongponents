@@ -1101,8 +1101,11 @@ watch(value, (newVal, oldVal) => {
 
     const previouslySelectedItems = new Set<string>(oldVal)
     const currentlySelectedItems = new Set<string>(newVal)
+    const internallySelectedItems = new Set(currentSelectedValues)
 
-    const selectedAndPresentItems = unfilteredItems.value.filter((item: Item) => currentlySelectedItems.has(item.value))
+    const selectedAndPresentItems = unfilteredItems.value.filter((item: Item) =>
+      currentlySelectedItems.has(item.value) && !internallySelectedItems.has(item.value),
+    )
     const deselectedItems = selectedItems.value.filter((item: Item) => !currentlySelectedItems.has(item.value) && previouslySelectedItems.has(item.value))
 
     if (deselectedItems.length) {

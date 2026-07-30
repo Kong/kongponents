@@ -84,7 +84,7 @@ Each click adds an option and places its badge at the same position in `modelVal
 <template>
   <KMultiselect
     v-model="selectedFields"
-    :items="fields"
+    :items="orderedFields"
   />
   <KButton @click="insertOrderedItem">
     Insert Item
@@ -96,23 +96,23 @@ Each click adds an option and places its badge at the same position in `modelVal
 import type { MultiselectItem } from '@kong/kongponents'
 import { ref } from 'vue'
 
-const fields = ref<MultiselectItem[]>([
+const orderedFields = ref<MultiselectItem[]>([
   { label: 'Name', value: 'name' },
   { label: 'Environment', value: 'env' },
   { label: 'Team', value: 'team' },
   { label: 'Region', value: 'region' },
 ])
-const selectedFields = ref(fields.value.map(item => item.value))
+const selectedFields = ref(orderedFields.value.map(item => item.value))
 let itemCount = 0
 
 const insertOrderedItem = (): void => {
   itemCount++
   const item = { label: `Item ${itemCount}`, value: `item${itemCount}` }
 
-  fields.value = [
-    ...fields.value.slice(0, 1),
+  orderedFields.value = [
+    ...orderedFields.value.slice(0, 1),
     item,
-    ...fields.value.slice(1),
+    ...orderedFields.value.slice(1),
   ]
   selectedFields.value = [
     ...selectedFields.value.slice(0, 1),
