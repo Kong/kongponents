@@ -722,6 +722,18 @@ const stageSelections = () => {
   }, 0)
 }
 
+const reorderSelectedItems = (orderedValues: Value[]) => {
+  const selectedItemsByValue = new Map(selectedItems.value.map(item => [item.value, item]))
+
+  selectedItems.value = orderedValues
+    .map(itemValue => selectedItemsByValue.get(itemValue))
+    .filter((item): item is Item => item !== undefined)
+  visibleSelectedItemsStaging.value = [...selectedItems.value]
+  invisibleSelectedItemsStaging.value = []
+  invisibleSelectedItemsStagingSet.clear()
+  stageSelections()
+}
+
 // handles programmatic selections
 const handleMultipleItemsSelect = (items: Item[]) => {
   items.forEach(itemToSelect => {
@@ -1076,6 +1088,12 @@ watch(filteredNormalizedItems, () => {
 // watch for programmatic changes to model
 watch(value, (newVal, oldVal) => {
   if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+    const currentSelectedValues = selectedItems.value.map(item => item.value)
+
+    if (JSON.stringify(currentSelectedValues) === JSON.stringify(newVal)) {
+      return
+    }
+
     if (!newVal.length) {
       clearSelection()
       return
@@ -1094,7 +1112,13 @@ watch(value, (newVal, oldVal) => {
     if (selectedAndPresentItems.length) {
       handleMultipleItemsSelect(selectedAndPresentItems)
     }
+
+    reorderSelectedItems(newVal)
   }
+}, {
+  // When items and modelValue change together, let the items watcher add new options
+  // before ordering the selected badges.
+  flush: 'post',
 })
 
 watch(() => items, (newValue, oldValue) => {
