@@ -191,7 +191,10 @@ $kInputSwitchLargeCircleSize: 10px;
     position: relative;
     transition: background-color $kongponentsTransitionDurTimingFunc;
 
-    &:hover:not(.disabled) {
+    // Hover and focus-visible share the same `-hover` styles; the focus ring
+    // (`-shadow-focus`) below is what additionally distinguishes focus-visible.
+    &:hover:not(.disabled),
+    &:focus-visible:not(.disabled) {
       background-color: var(--kui-input-switch-color-background-hover, var(--kui-color-background-neutral-weak, $kui-color-background-neutral-weak));
 
       &::after {
@@ -248,7 +251,8 @@ $kInputSwitchLargeCircleSize: 10px;
     &.checked {
       background-color: var(--kui-input-switch-color-background-selected, var(--kui-color-background-primary, $kui-color-background-primary));
 
-      &:hover:not(.disabled) {
+      &:hover:not(.disabled),
+      &:focus-visible:not(.disabled) {
         background-color: var(--kui-input-switch-color-background-selected-hover, var(--kui-color-background-primary-strong, $kui-color-background-primary-strong));
       }
 
