@@ -6,8 +6,8 @@ export const DOCS_THEME_OPTIONS: Record<string, KongponentsTheme | undefined> = 
   'Classic Day': classicDay,
   'Classic Night': classicNight,
   'Electric Lime Day': defineKongponentsTheme(electricLimeDay),
-  'Electric Lime Night': defineKongponentsTheme(electricLimeNight),
   'Electric Lime Day High Contrast': defineKongponentsTheme(electricLimeDayHighContrast),
+  'Electric Lime Night': defineKongponentsTheme(electricLimeNight),
   'Electric Lime Night High Contrast': defineKongponentsTheme(electricLimeNightHighContrast),
 }
 
