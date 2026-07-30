@@ -1,3 +1,10 @@
+# [9.64.0](https://github.com/Kong/kongponents/compare/v9.63.0...v9.64.0) (2026-07-30)
+
+
+### Features
+
+* component token fixes and additions ([#3313](https://github.com/Kong/kongponents/issues/3313)) ([844f64f](https://github.com/Kong/kongponents/commit/844f64f97c2d04a459c304799717d9e39761c6a1))
+
 # [9.63.0](https://github.com/Kong/kongponents/compare/v9.62.1...v9.63.0) (2026-07-28)
 
 
