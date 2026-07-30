@@ -544,7 +544,10 @@ $kRadioDotSize: 6px;
         box-shadow: var(--kui-shadow-border-disabled, $kui-shadow-border-disabled);
         cursor: not-allowed;
 
-        .radio-label, .card-content-wrapper {
+        .radio-label,
+        .card-content-wrapper,
+        .radio-description,
+        .radio-description p {
           color: var(--kui-color-text-disabled, $kui-color-text-disabled);
         }
       }
