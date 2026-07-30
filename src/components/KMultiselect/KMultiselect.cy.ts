@@ -889,6 +889,96 @@ describe('KMultiselect', () => {
     })
   })
 
+  it('orders selected badges by programmatic modelValue changes', () => {
+    const initialItems = [
+      { label: 'Name', value: 'name' },
+      { label: 'Environment', value: 'env' },
+      { label: 'Team', value: 'team' },
+      { label: 'Region', value: 'region' },
+    ]
+    const initialModelValue = initialItems.map(item => item.value)
+    const updatedItems = [
+      initialItems[0],
+      { label: 'Control plane', value: 'control_plane' },
+      ...initialItems.slice(1),
+    ]
+    const updatedModelValue = updatedItems.map(item => item.value)
+    const badgeLabels = () => cy.getTestId('selection-badges-container')
+      .find('.multiselect-selection-badge-label')
+    const assertBadgeOrder = (expectedLabels: string[]) => {
+      badgeLabels().should($labels => {
+        expect([...$labels].map(label => label.textContent?.trim())).to.deep.equal(expectedLabels)
+      })
+    }
+
+    cy.mount(KMultiselect, {
+      props: {
+        items: initialItems,
+        modelValue: initialModelValue,
+        selectedRowCount: 5,
+      },
+    })
+
+    assertBadgeOrder(['Name', 'Environment', 'Team', 'Region'])
+
+    cy.then(() => Cypress.vueWrapper.setProps({
+      items: updatedItems,
+      modelValue: updatedModelValue,
+    }))
+
+    assertBadgeOrder(['Name', 'Control plane', 'Environment', 'Team', 'Region'])
+
+    cy.then(() => Cypress.vueWrapper.setProps({
+      modelValue: ['region', 'name', 'env', 'team', 'control_plane'],
+    }))
+
+    assertBadgeOrder(['Region', 'Name', 'Environment', 'Team', 'Control plane'])
+  })
+
+  it('keeps the open dropdown order stable while selecting and removing items', () => {
+    const items = [
+      { label: 'Name', value: 'name' },
+      { label: 'Environment', value: 'env' },
+      { label: 'Team', value: 'team' },
+      { label: 'Region', value: 'region' },
+    ]
+    const optionLabels = () => cy.get('.multiselect-items-container')
+      .find('.multiselect-item-label')
+    const assertOptionOrder = () => {
+      optionLabels().should($labels => {
+        expect([...$labels].map(label => label.textContent?.trim())).to.deep.equal([
+          'Name',
+          'Environment',
+          'Team',
+          'Region',
+        ])
+      })
+    }
+
+    cy.mount({
+      components: { KMultiselect },
+      data: () => ({
+        items,
+        selectedItems: [],
+      }),
+      template: '<KMultiselect v-model="selectedItems" :items="items" />',
+    })
+
+    cy.getTestId('multiselect-trigger').click()
+    cy.get('.multiselect-popover').should('be.visible')
+    assertOptionOrder()
+
+    cy.getTestId('multiselect-item-env').click()
+    cy.getTestId('multiselect-item-team').click()
+    cy.get('.multiselect-popover').should('be.visible')
+    assertOptionOrder()
+
+    cy.getTestId('multiselect-item-env').click()
+    cy.getTestId('multiselect-item-team').click()
+    cy.get('.multiselect-popover').should('be.visible')
+    assertOptionOrder()
+  })
+
   it('should not cause form submission when enter key is pressed while filtering', () => {
     const onSubmit = cy.spy().as('onSubmit')
 

@@ -21,6 +21,8 @@ KMultiselect - A select component that allows for choosing multiple items and cr
 
 KMultiselect works as regular inputs do using `v-model` for data binding:
 
+When the parent updates `modelValue`, selected badges follow the order of values in the updated model.
+
 <ClientOnly>
   <KLabel>Value:</KLabel> <pre class="json">{{ JSON.stringify(myVal) }}</pre>
   <KMultiselect v-model="myVal" :items="deepClone(defaultItems)" />
@@ -52,6 +54,71 @@ const items: MultiselectItem[] = [
 
 const clearIt = () => {
   myVal.value = []
+}
+</script>
+```
+
+#### Programmatic selection order
+
+Each click adds an option and places its badge at the same position in `modelValue`.
+
+<ClientOnly>
+  <div class="programmatic-selection-example">
+    <KMultiselect
+      v-model="selectedFields"
+      :items="orderedFields"
+    />
+    <div class="programmatic-selection-actions">
+      <KButton @click="insertOrderedItem">
+        Insert Item
+      </KButton>
+    </div>
+    <div>
+      <KLabel>Current modelValue:</KLabel>
+      <pre class="json">{{ JSON.stringify(selectedFields, null, 2) }}</pre>
+    </div>
+  </div>
+</ClientOnly>
+
+```vue
+<template>
+  <KMultiselect
+    v-model="selectedFields"
+    :items="orderedFields"
+  />
+  <KButton @click="insertOrderedItem">
+    Insert Item
+  </KButton>
+  <pre>{{ selectedFields }}</pre>
+</template>
+
+<script setup lang="ts">
+import type { MultiselectItem } from '@kong/kongponents'
+import { ref } from 'vue'
+
+const orderedFields = ref<MultiselectItem[]>([
+  { label: 'Name', value: 'name' },
+  { label: 'Environment', value: 'env' },
+  { label: 'Team', value: 'team' },
+  { label: 'Region', value: 'region' },
+])
+const selectedFields = ref(orderedFields.value.map(item => item.value))
+let itemCount = 0
+
+const insertOrderedItem = (): void => {
+  itemCount++
+  const item = { label: `Item ${itemCount}`, value: `item${itemCount}` }
+
+  orderedFields.value = [
+    ...orderedFields.value.slice(0, 1),
+    item,
+    ...orderedFields.value.slice(1),
+  ]
+  selectedFields.value = [
+    ...selectedFields.value.slice(0, 1),
+    item.value,
+    ...selectedFields.value.slice(1),
+  ]
 }
 </script>
 ```
@@ -1022,6 +1089,14 @@ export default defineComponent({
       mySelections: ['cats', 'bunnies'],
       addedItems: [],
       myVal: ['cats', 'dogs', 'bunnies'],
+      orderedFields: [
+        { label: 'Name', value: 'name' },
+        { label: 'Environment', value: 'env' },
+        { label: 'Team', value: 'team' },
+        { label: 'Region', value: 'region' },
+      ],
+      selectedFields: ['name', 'env', 'team', 'region'],
+      orderedItemCount: 0,
       myAutoVal: [],
       myDebounceAutoVal: [],
       defaultItems: [{
@@ -1229,6 +1304,24 @@ export default defineComponent({
     clearIt () {
       this.myVal = []
     },
+    insertOrderedItem () {
+      this.orderedItemCount++
+      const item = {
+        label: `Item ${this.orderedItemCount}`,
+        value: `item${this.orderedItemCount}`
+      }
+
+      this.orderedFields = [
+        ...this.orderedFields.slice(0, 1),
+        item,
+        ...this.orderedFields.slice(1),
+      ]
+      this.selectedFields = [
+        ...this.selectedFields.slice(0, 1),
+        item.value,
+        ...this.selectedFields.slice(1),
+      ]
+    },
     customFilter ({items, query}) {
       return items.filter(item => item.label.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()))
     },
@@ -1364,6 +1457,17 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: $kui-space-50;
+}
+
+.programmatic-selection-example {
+  display: flex;
+  flex-direction: column;
+  gap: $kui-space-40;
+}
+
+.programmatic-selection-actions {
+  display: flex;
+  gap: $kui-space-30;
 }
 
 .item-creation-validation-error-message {

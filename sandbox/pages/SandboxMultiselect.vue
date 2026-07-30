@@ -300,6 +300,34 @@
           Deselect Item
         </KButton>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="programmatic selection order">
+        <div class="ordered-model-example">
+          <div class="ordered-model-controls">
+            <KMultiselect
+              v-model="orderedSelection"
+              :items="orderedItems"
+            />
+            <div class="ordered-model-actions">
+              <KButton
+                size="small"
+                @click="randomizeOrderedSelection"
+              >
+                Randomize selection order
+              </KButton>
+              <KButton
+                size="small"
+                @click="insertOrderedItem"
+              >
+                Insert Item
+              </KButton>
+            </div>
+          </div>
+          <div>
+            <strong>Current modelValue</strong>
+            <pre>{{ orderedSelectionJson }}</pre>
+          </div>
+        </div>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="Respecting siblings on resize">
         <div class="select-multiselect-row">
           <KSelect
@@ -402,6 +430,46 @@ const example1DeselectItem = () => {
 
 const example1ModelJson = computed(() => JSON.stringify(example1Selected.value, undefined, 2))
 
+const orderedItems = ref<MultiselectItem[]>([
+  { label: 'Name', value: 'name' },
+  { label: 'Environment', value: 'env' },
+  { label: 'Team', value: 'team' },
+  { label: 'Region', value: 'region' },
+])
+const orderedSelection = ref(orderedItems.value.map(item => item.value))
+const orderedSelectionJson = computed(() => JSON.stringify(orderedSelection.value, undefined, 2))
+let orderedItemCount = 0
+
+const randomizeOrderedSelection = (): void => {
+  const randomizedSelection = [...orderedSelection.value].sort(() => Math.random() - 0.5)
+
+  if (JSON.stringify(randomizedSelection) === JSON.stringify(orderedSelection.value)) {
+    const firstValue = randomizedSelection.shift()
+
+    if (firstValue) {
+      randomizedSelection.push(firstValue)
+    }
+  }
+
+  orderedSelection.value = randomizedSelection
+}
+
+const insertOrderedItem = (): void => {
+  orderedItemCount++
+  const item = { label: `Item ${orderedItemCount}`, value: `item${orderedItemCount}` }
+
+  orderedItems.value = [
+    ...orderedItems.value.slice(0, 1),
+    item,
+    ...orderedItems.value.slice(1),
+  ]
+  orderedSelection.value = [
+    ...orderedSelection.value.slice(0, 1),
+    item.value,
+    ...orderedSelection.value.slice(1),
+  ]
+}
+
 const showNewItemValidationError = ref<boolean>(false)
 const itemCreationValidator = (value: string) => value.length >= 3
 
@@ -479,6 +547,25 @@ const multiselectItemsWithGroupProperty: MultiselectItem[] = [
   .select-multiselect-row {
     display: flex;
     flex-direction: row;
+    gap: var(--kui-space-30, $kui-space-30);
+  }
+
+  .ordered-model-example {
+    align-items: flex-start;
+    display: grid;
+    gap: var(--kui-space-50, $kui-space-50);
+    grid-template-columns: minmax(0, 1fr) minmax(180px, auto);
+  }
+
+  .ordered-model-controls {
+    display: grid;
+    gap: var(--kui-space-40, $kui-space-40);
+  }
+
+  .ordered-model-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--kui-space-30, $kui-space-30);
   }
 
