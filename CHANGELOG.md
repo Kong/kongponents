@@ -1,3 +1,10 @@
+## [9.64.2](https://github.com/Kong/kongponents/compare/v9.64.1...v9.64.2) (2026-07-30)
+
+
+### Bug Fixes
+
+* sandbox high contrast ([#3315](https://github.com/Kong/kongponents/issues/3315)) ([02775e7](https://github.com/Kong/kongponents/commit/02775e73d343b5af854a33426ac66bac4ffe8c8f))
+
 ## [9.64.1](https://github.com/Kong/kongponents/compare/v9.64.0...v9.64.1) (2026-07-30)
 
 
