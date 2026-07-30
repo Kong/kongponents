@@ -1,3 +1,10 @@
+## [9.64.1](https://github.com/Kong/kongponents/compare/v9.64.0...v9.64.1) (2026-07-30)
+
+
+### Bug Fixes
+
+* **kmultiselect:** reflect modelValue order in selectedItem badges ([#3314](https://github.com/Kong/kongponents/issues/3314)) ([7fe2aa1](https://github.com/Kong/kongponents/commit/7fe2aa19b941f97e6f990ea4332341d468ca88d6))
+
 # [9.64.0](https://github.com/Kong/kongponents/compare/v9.63.0...v9.64.0) (2026-07-30)
 
 
