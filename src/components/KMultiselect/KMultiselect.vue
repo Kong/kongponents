@@ -5,13 +5,15 @@
     :style="widthStyle"
   >
     <KLabel
-      v-if="label"
+      v-if="label || $slots.label"
       v-bind="labelAttributes"
       :data-testid="labelAttributes['data-testid'] ? labelAttributes['data-testid'] : 'multiselect-label'"
       :for="multiselectWrapperId"
       :required="isRequired"
     >
-      {{ strippedLabel }}
+      <slot name="label">
+        {{ strippedLabel }}
+      </slot>
 
       <template
         v-if="hasLabelTooltip()"

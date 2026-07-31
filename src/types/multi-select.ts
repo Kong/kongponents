@@ -232,6 +232,11 @@ export interface MultiselectEmits<T extends string = string> {
 
 export interface MultiselectSlots<T extends string = string> {
   /**
+   * Slot for custom label content. Takes precedence over the `label` prop if both are provided.
+   */
+  label?: () => any
+
+  /**
    * Slot for customizing multiselect label's tooltip.
    */
   'label-tooltip'?: () => any

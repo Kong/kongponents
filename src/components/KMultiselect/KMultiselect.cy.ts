@@ -148,6 +148,32 @@ describe('KMultiselect', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
   })
 
+  it('renders label slot content, overriding label prop', () => {
+    cy.mount(KMultiselect, {
+      props: {
+        label: 'Prop label',
+        items: [],
+      },
+      slots: {
+        label: () => h('span', {}, 'Slotted label'),
+      },
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+    cy.get('.k-label').should('not.contain.text', 'Prop label')
+  })
+
+  it('renders label slot without label prop', () => {
+    cy.mount(KMultiselect, {
+      props: { items: [] },
+      slots: {
+        label: () => h('span', {}, 'Slotted label'),
+      },
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+  })
+
   it('reacts to text change and select', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']

@@ -4,11 +4,13 @@
     data-testid="k-slider"
   >
     <KLabel
-      v-if="label"
+      v-if="label || $slots.label"
       v-bind="labelAttributes"
       :for="`${inputId}-input`"
     >
-      {{ label }}
+      <slot name="label">
+        {{ label }}
+      </slot>
     </KLabel>
 
     <div class="slider-container">
@@ -95,7 +97,7 @@
 
 <script setup lang="ts">
 import { computed, useId, useTemplateRef, watch } from 'vue'
-import type { SliderProps, SliderEmits } from '@/types'
+import type { SliderProps, SliderEmits, SliderSlots } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KPop from '@/components/KPop/KPop.vue'
 
@@ -117,6 +119,7 @@ const {
 } = defineProps<SliderProps>()
 
 const emit = defineEmits<SliderEmits>()
+defineSlots<SliderSlots>()
 
 const inputId = useId()
 

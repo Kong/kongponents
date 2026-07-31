@@ -85,6 +85,11 @@ export interface InputEmits {
 
 export interface InputSlots {
   /**
+   * Slot for custom label content. Takes precedence over the `label` prop if both are provided.
+   */
+  label?(): any
+
+  /**
    * Inserting icons before the input field.
    */
   before?(): any

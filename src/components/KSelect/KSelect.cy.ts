@@ -667,6 +667,32 @@ describe('KSelect', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
   })
 
+  it('renders label slot content, overriding label prop', () => {
+    cy.mount(KSelect, {
+      props: {
+        label: 'Prop label',
+        items: [],
+      },
+      slots: {
+        label: () => h('span', {}, 'Slotted label'),
+      },
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+    cy.get('.k-label').should('not.contain.text', 'Prop label')
+  })
+
+  it('renders label slot without label prop', () => {
+    cy.mount(KSelect, {
+      props: { items: [] },
+      slots: {
+        label: () => h('span', {}, 'Slotted label'),
+      },
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+  })
+
   it('displays placeholder correctly when selected item slot is present', () => {
     const selectedItemContent = 'I am slotted!'
     const placeholderText = 'Placeholder text'

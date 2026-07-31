@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import KFileUpload from '@/components/KFileUpload/KFileUpload.vue'
 
 describe('KFileUpload', () => {
@@ -54,6 +55,32 @@ describe('KFileUpload', () => {
       cy.get('.k-label .tooltip-trigger-icon').should('not.exist')
       cy.then(() => Cypress.vueWrapper.setData({ ready: true }))
       cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
+    })
+
+    it('renders label slot content, overriding label prop', () => {
+      cy.mount(KFileUpload, {
+        props: {
+          label: 'Prop label',
+          accept: ['.md'],
+        },
+        slots: {
+          label: () => h('span', {}, 'Slotted label'),
+        },
+      })
+
+      cy.get('.k-label').should('contain.text', 'Slotted label')
+      cy.get('.k-label').should('not.contain.text', 'Prop label')
+    })
+
+    it('renders label slot without label prop', () => {
+      cy.mount(KFileUpload, {
+        props: { accept: ['.md'] },
+        slots: {
+          label: () => h('span', {}, 'Slotted label'),
+        },
+      })
+
+      cy.get('.k-label').should('contain.text', 'Slotted label')
     })
 
     it('should emit correct event when a file is selected, removed', () => {

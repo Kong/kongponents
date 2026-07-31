@@ -212,6 +212,26 @@ Boolean to control whether or not the input should be disabled.
 
 Use the `labelAttributes` prop to configure the KLabel's [props](/components/label) when using the `label` prop.
 
+## Slots
+
+### label
+
+Provide slotted content for the slider label. This slot takes precedence over the `label` prop if both are provided.
+
+<KSlider :model-value="5">
+  <template #label>
+    Slotted label
+  </template>
+</KSlider>
+
+```html
+<KSlider v-model="value">
+  <template #label>
+    Slotted label
+  </template>
+</KSlider>
+```
+
 ## Events
 
 ### update:modelValue

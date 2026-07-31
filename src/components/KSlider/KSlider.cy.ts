@@ -30,6 +30,33 @@ describe('KSlider', () => {
     cy.get('datalist option').last().should('have.attr', 'value', '20')
   })
 
+  it('renders label slot content, overriding label prop', () => {
+    cy.mount({
+      components: { KSlider },
+      template: `
+        <KSlider label="Prop label" :model-value="5">
+          <template #label>Slotted label</template>
+        </KSlider>
+      `,
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+    cy.get('.k-label').should('not.contain.text', 'Prop label')
+  })
+
+  it('renders label slot without label prop', () => {
+    cy.mount({
+      components: { KSlider },
+      template: `
+        <KSlider :model-value="5">
+          <template #label>Slotted label</template>
+        </KSlider>
+      `,
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+  })
+
   it('renders marks correctly when showMarks is true', () => {
     mount(KSlider, {
       props: {

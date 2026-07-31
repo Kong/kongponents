@@ -4,12 +4,14 @@
     :class="[attrs.class, { 'input-error': charLimitExceeded || error || hasError }]"
   >
     <KLabel
-      v-if="label"
+      v-if="label || $slots.label"
       :for="inputId"
       v-bind="labelAttributes"
       :required="isRequired"
     >
-      {{ strippedLabel }}
+      <slot name="label">
+        {{ strippedLabel }}
+      </slot>
 
       <template
         v-if="hasLabelTooltip()"

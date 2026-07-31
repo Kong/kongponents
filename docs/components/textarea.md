@@ -148,6 +148,24 @@ KTextArea works with `v-model` for two-way data binding:
 
 ## Slots
 
+### label
+
+Provide slotted content for the textarea label. This slot takes precedence over the `label` prop if both are provided.
+
+<KTextArea>
+  <template #label>
+    Slotted label
+  </template>
+</KTextArea>
+
+```html
+<KTextArea>
+  <template #label>
+    Slotted label
+  </template>
+</KTextArea>
+```
+
 ### label-tooltip
 
 Slot for tooltip content if textarea has a label and label has tooltip (note: this slot overrides `info` content specified in `labelAttributes`)

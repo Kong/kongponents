@@ -628,6 +628,26 @@ Use the `readonly` attribute to indicate the element is not editable.
 
 ## Slots
 
+### label
+
+Provide slotted content for the select label. This slot takes precedence over the `label` prop if both are provided.
+
+<ClientOnly>
+  <KSelect :items="[]">
+    <template #label>
+      Slotted label
+    </template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect :items="items">
+  <template #label>
+    Slotted label
+  </template>
+</KSelect>
+```
+
 ### item-template
 
 Use this slot to pass custom content to the items. The slot exposes `item` slot prop.

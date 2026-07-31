@@ -74,4 +74,11 @@ export interface SliderEmits {
   'update:modelValue': [modelValue: number]
 }
 
+export interface SliderSlots {
+  /**
+   * Slot for custom label content. Takes precedence over the `label` prop if both are provided.
+   */
+  label?(): any
+}
+
 

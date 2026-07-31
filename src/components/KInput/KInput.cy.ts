@@ -104,6 +104,30 @@ describe('KInput', () => {
     cy.get('.k-label .tooltip-trigger-icon').should('exist').and('be.visible')
   })
 
+  it('renders label slot content, overriding label prop', () => {
+    cy.mount(KInput, {
+      props: {
+        label: 'Prop label',
+      },
+      slots: {
+        label: () => h('span', {}, 'Slotted label'),
+      },
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+    cy.get('.k-label').should('not.contain.text', 'Prop label')
+  })
+
+  it('renders label slot without label prop', () => {
+    cy.mount(KInput, {
+      slots: {
+        label: () => h('span', {}, 'Slotted label'),
+      },
+    })
+
+    cy.get('.k-label').should('contain.text', 'Slotted label')
+  })
+
   it('handles `required` attribute correctly', () => {
     cy.mount(KInput, {
       props: {
