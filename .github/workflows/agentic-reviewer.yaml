@@ -34,7 +34,15 @@ jobs:
             kongponents
             Ksai
 
-      - uses: Kong/ksai/.github/actions/ai-reviewer-federated@main
+      - name: Checkout ksai action
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          repository: Kong/ksai
+          token: ${{ steps.app-token-kong.outputs.token }}
+          path: ./.github/actions/ksai
+
+      - name: Run agentic reviewer
+        uses: ./.github/actions/ksai/.github/actions/ai-reviewer-federated
         with:
           trigger_phrase: "/muthur"
           authorization_github_token: ${{ steps.app-token-kong.outputs.token }}
