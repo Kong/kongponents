@@ -31,7 +31,7 @@ jobs:
           private-key: ${{ secrets.CORE_UI_GH_APP_READ_PRIVATE_KEY }}
           owner: Kong
           repositories: |
-            spec-renderer
+            kongponents
             Ksai
 
       - uses: Kong/ksai/.github/actions/ai-reviewer-federated@main
