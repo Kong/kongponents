@@ -1,0 +1,46 @@
+name: Agentic Reviewer
+
+concurrency:
+  group: agentic-review-${{ github.actor_id }}-${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}
+  # Don't cancel on comments from the same author
+  cancel-in-progress: false
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  muthur:
+    if: >-
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/muthur')
+    name: Muthur review bot trigger
+    runs-on: 'ubuntu-latest-kong'
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      pull-requests: write # the action posts the review comment
+      issues: write # the action reacts 👀 to the triggering comment
+      id-token: write # mint the GitHub OIDC token for federation
+    steps:
+      - name: Generate Kong token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token-kong
+        with:
+          client-id: ${{ vars.CORE_UI_GH_APP_READ_ID }}
+          private-key: ${{ secrets.CORE_UI_GH_APP_READ_PRIVATE_KEY }}
+          owner: Kong
+          repositories: |
+            spec-renderer
+            Ksai
+
+      - uses: Kong/ksai/.github/actions/ai-reviewer-federated@main
+        with:
+          trigger_phrase: "/muthur"
+          authorization_github_token: ${{ steps.app-token-kong.outputs.token }}
+          source_org_github_token: ${{ github.token }}
+          federation_rule_id: "fdrl_01RvfewqW6RFXw2eypxzYS3F"
+          organization_id: "4ce7a6d3-9549-4842-bd51-1def5eba611b"
+          service_account_id: "svac_01KGjtHsfZgAXZ44NdoFM6Lo"
+          workspace_id: "wrkspc_01G7dX83HGYMZDwLuJNPnA5T"
+          kong_org_github_token: ${{ steps.app-token-kong.outputs.token }}
