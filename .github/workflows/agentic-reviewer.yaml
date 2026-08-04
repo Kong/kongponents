@@ -39,8 +39,8 @@ jobs:
           trigger_phrase: "/muthur"
           authorization_github_token: ${{ steps.app-token-kong.outputs.token }}
           source_org_github_token: ${{ github.token }}
-          federation_rule_id: "fdrl_01RvfewqW6RFXw2eypxzYS3F"
+          federation_rule_id: "fdrl_017KkGckRruHKFHMvUTCRX71"
           organization_id: "4ce7a6d3-9549-4842-bd51-1def5eba611b"
-          service_account_id: "svac_01KGjtHsfZgAXZ44NdoFM6Lo"
+          service_account_id: "svac_017FwQ6cXJkPyg8zEwCFjc18"
           workspace_id: "wrkspc_01G7dX83HGYMZDwLuJNPnA5T"
           kong_org_github_token: ${{ steps.app-token-kong.outputs.token }}
