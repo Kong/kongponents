@@ -15,7 +15,7 @@ jobs:
       github.event.issue.pull_request &&
       contains(github.event.comment.body, '/muthur')
     name: Muthur review bot trigger
-    runs-on: 'ubuntu-latest-kong'
+    runs-on: ubuntu-latest
     timeout-minutes: 25
     permissions:
       contents: read
