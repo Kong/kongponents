@@ -1,3 +1,11 @@
+## [9.64.3](https://github.com/Kong/kongponents/compare/v9.64.2...v9.64.3) (2026-08-06)
+
+
+### Bug Fixes
+
+* **deps:** bump @kong/design-tokens ([#3327](https://github.com/Kong/kongponents/issues/3327)) ([c2d6998](https://github.com/Kong/kongponents/commit/c2d699825ffc41619c28bd47190941e4fac72fa0))
+* theme order ([#3316](https://github.com/Kong/kongponents/issues/3316)) ([e052d02](https://github.com/Kong/kongponents/commit/e052d02e395c0fd7e2dee0f18736529db337db22))
+
 ## [9.64.2](https://github.com/Kong/kongponents/compare/v9.64.1...v9.64.2) (2026-07-30)
 
 
