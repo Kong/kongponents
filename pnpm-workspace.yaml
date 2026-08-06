@@ -47,7 +47,7 @@ overrides:
   tmp: '>=0.2.7'
   undici@>=7.0.0 <7.28.0: '>=7.28.0 <8.0.0'
   vite: '>=6.4.3'
-  ws@>=8.0.0 <8.21.0: '>=8.21.0'
+  ws@>=8.0.0 <8.21.0: '>=8.21.1'
 
 # When set to no-downgrade, pnpm will fail if a package's trust level has decreased compared to previous releases
 trustPolicy: no-downgrade
