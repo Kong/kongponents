@@ -1,3 +1,10 @@
+## [9.64.5](https://github.com/Kong/kongponents/compare/v9.64.4...v9.64.5) (2026-08-07)
+
+
+### Bug Fixes
+
+* **ktreelist:** tree item font-family ([#3340](https://github.com/Kong/kongponents/issues/3340)) ([38157b9](https://github.com/Kong/kongponents/commit/38157b9a26457cb37b8e4df75e8a6dcaab805632))
+
 ## [9.64.4](https://github.com/Kong/kongponents/compare/v9.64.3...v9.64.4) (2026-08-07)
 
 
