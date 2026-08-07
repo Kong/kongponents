@@ -1,3 +1,10 @@
+## [9.64.4](https://github.com/Kong/kongponents/compare/v9.64.3...v9.64.4) (2026-08-07)
+
+
+### Bug Fixes
+
+* **deps:** bump nanoid, ws pnpm override ([#3336](https://github.com/Kong/kongponents/issues/3336)) ([8924a1b](https://github.com/Kong/kongponents/commit/8924a1bdaae508cdd4e509d4adbe7462f2c837e3))
+
 ## [9.64.3](https://github.com/Kong/kongponents/compare/v9.64.2...v9.64.3) (2026-08-06)
 
 
