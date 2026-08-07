@@ -1,6 +1,10 @@
 import { defineNuxtModule, createResolver, addComponent, useLogger, addImportsDir } from '@nuxt/kit'
 import { components, themeToCssVars } from '@kong/kongponents'
 import type { KongponentsTheme } from '@kong/kongponents'
+// Imported from 'nuxt/schema' rather than '@nuxt/schema' so the annotation below
+// resolves through a direct dependency. '@nuxt/schema' is only reachable via pnpm's
+// store path, which TypeScript cannot name portably (TS2742).
+import type { NuxtModule } from 'nuxt/schema'
 
 type ComponentKeys = keyof typeof components
 type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager' | 'KTable' | 'KModalFullscreen' | 'KDropdownMenu'>
@@ -40,7 +44,7 @@ export interface ModuleOptions {
 // Components that should always be excluded from auto-registration
 const ALWAYS_EXCLUDE_COMPONENTS = ['ToastManager', 'KTable', 'KModalFullscreen', 'KDropdownMenu']
 
-export default defineNuxtModule<ModuleOptions>({
+const kongponentsModule: NuxtModule<ModuleOptions, ModuleOptions, false> = defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@kong/kongponents',
     configKey: 'kongponents',
@@ -127,3 +131,5 @@ export default defineNuxtModule<ModuleOptions>({
     logger.success('Kongponents module has been registered 🚀')
   },
 })
+
+export default kongponentsModule
