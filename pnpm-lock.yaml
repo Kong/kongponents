@@ -44,9 +44,6 @@ importers:
       '@kong/icons':
         specifier: ^1.62.1
         version: 1.62.1(vue@3.5.40(typescript@5.9.3))
-      '@kong/kongponents':
-        specifier: 'link:'
-        version: 'link:'
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8

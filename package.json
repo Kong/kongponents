@@ -65,7 +65,6 @@
   "dependencies": {
     "@floating-ui/vue": "^1.1.11",
     "@kong/icons": "^1.62.1",
-    "@kong/kongponents": "link:",
     "@popperjs/core": "^2.11.8",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.1",
