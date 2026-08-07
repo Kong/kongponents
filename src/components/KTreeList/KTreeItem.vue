@@ -140,6 +140,7 @@ defineExpose({ setExpandedValue, id: item.id })
   border-width: var(--kui-tree-list-border-width, var(--kui-border-width-10, $kui-border-width-10));
   color: var(--kui-tree-list-color-text, var(--kui-color-text, $kui-color-text));
   display: flex;
+  font-family: var(--kui-font-family-text, $kui-font-family-text);
   font-size: var(--kui-font-size-30, $kui-font-size-30);
   font-weight: var(--kui-tree-list-font-weight, var(--kui-font-weight-regular, $kui-font-weight-regular));
   gap: var(--kui-space-20, $kui-space-20);
