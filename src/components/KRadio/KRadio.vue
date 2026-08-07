@@ -347,6 +347,7 @@ $kRadioDotSize: 6px;
       box-shadow: var(--kui-shadow-border, $kui-shadow-border);
       cursor: pointer;
       height: 100%;
+      margin-bottom: 0;
       outline: none;
       padding: var(--kui-space-70, $kui-space-70);
       transition: box-shadow $kongponentsTransitionDurTimingFunc, background-color $kongponentsTransitionDurTimingFunc;
