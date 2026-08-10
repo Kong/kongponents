@@ -702,6 +702,7 @@ const stageSelections = () => {
       const height = elem.clientHeight
 
       // If there are hidden items and we have space, try to show them
+      // IMPORTANT: Maintain order by taking from the front of invisible array
       if (height <= selectionsMaxHeight.value && invisibleSelectedItemsStaging.value.length > 0) {
         const itemToShow = invisibleSelectedItemsStaging.value.shift()
         if (itemToShow) {
@@ -712,7 +713,7 @@ const stageSelections = () => {
         return
       }
 
-      // If height exceeds max, hide items
+      // If height exceeds max, hide items from the end to maintain order
       if (height > selectionsMaxHeight.value) {
         // populate as much items as possible by checking the offsetTop
         const overflowedElements = Array.from(elem.querySelectorAll('.multiselect-selection-badge'))
@@ -740,6 +741,8 @@ const reorderSelectedItems = (orderedValues: Value[]) => {
   selectedItems.value = orderedValues
     .map(itemValue => selectedItemsByValue.get(itemValue))
     .filter((item): item is Item => item !== undefined)
+  
+  // Reset staging arrays to maintain order
   visibleSelectedItemsStaging.value = [...selectedItems.value]
   invisibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStagingSet.clear()
@@ -1288,6 +1291,12 @@ const setNumericWidth = async (): Promise<void> => {
   numericWidth.value = 300
   await nextTick()
   numericWidth.value = multiselectElementRef.value?.clientWidth || 300
+  
+  // Reset staging arrays to maintain correct order when resizing
+  visibleSelectedItemsStaging.value = [...selectedItems.value]
+  invisibleSelectedItemsStaging.value = []
+  invisibleSelectedItemsStagingSet.clear()
+  
   stageSelections()
 }
 

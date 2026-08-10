@@ -509,6 +509,79 @@ describe('KMultiselect', () => {
       })
   })
 
+  it('preserves badge order when resizing', () => {
+    // Suppress ResizeObserver errors
+    cy.on('uncaught:exception', (err) => {
+      if (err.message.includes('ResizeObserver loop')) {
+        return false
+      }
+      return true
+    })
+
+    const allItems = Array.from(new Array(10)).map((_, i) => ({
+      label: `Item ${i}`,
+      value: `${i}`,
+    }))
+
+    const selected = Array.from(new Array(10)).map((_, i) => `${i}`)
+
+    cy.mount(KMultiselect, {
+      props: {
+        selectedRowCount: 1,
+        modelValue: selected,
+        items: allItems,
+        width: '600', // Start wide so all items are visible
+      },
+    })
+
+    // Get the complete original order when all items are visible
+    cy.getTestId('selection-badges-container')
+      .find('.multiselect-selection-badge-label')
+      .then(($badges) => {
+        const completeOrder = Array.from($badges).map(el => el.textContent?.trim())
+        
+        // Shrink width to hide some items
+        Cypress.vueWrapper.setProps({ width: '250' })
+
+        cy.wait(200).then(() => {
+          // Verify some items are hidden
+          cy.getTestId('hidden-selection-count').should('be.visible')
+
+          // Get visible badge order after shrinking
+          cy.getTestId('selection-badges-container')
+            .find('.multiselect-selection-badge-label')
+            .then(($shrunkenBadges) => {
+              const shrunkenOrder = Array.from($shrunkenBadges).map(el => el.textContent?.trim())
+
+              // Verify the visible items are the FIRST N items from completeOrder
+              shrunkenOrder.forEach((label, index) => {
+                expect(label).to.equal(completeOrder[index])
+              })
+
+              // Expand width to show more items
+              Cypress.vueWrapper.setProps({ width: '400' })
+
+              cy.wait(200).then(() => {
+                // Get visible badge order after expanding
+                cy.getTestId('selection-badges-container')
+                  .find('.multiselect-selection-badge-label')
+                  .then(($expandedBadges) => {
+                    const expandedOrder = Array.from($expandedBadges).map(el => el.textContent?.trim())
+
+                    // Verify items maintain their original order (should be first N items from completeOrder)
+                    expandedOrder.forEach((label, index) => {
+                      expect(label).to.equal(completeOrder[index])
+                    })
+                    
+                    // Verify we have more items visible than when shrunk
+                    expect(expandedOrder.length).to.be.greaterThan(shrunkenOrder.length)
+                  })
+              })
+            })
+        })
+      })
+  })
+
   it('displays placeholder and searchPlaceholder props correctly', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
