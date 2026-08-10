@@ -297,7 +297,7 @@
 
 <script setup lang="ts" generic="T extends string, U extends boolean = false">
 import type { Ref } from 'vue'
-import { ref, computed, watch, nextTick, onMounted, useAttrs, useId, useTemplateRef, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, useAttrs, useId, useTemplateRef } from 'vue'
 import useUtilities from '@/composables/useUtilities'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import KInput from '@/components/KInput/KInput.vue'
@@ -321,9 +321,8 @@ import type {
 } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40, KUI_SPACE_40 } from '@kong/design-tokens'
-import { ResizeObserverHelper } from '@/utilities/resizeObserverHelper'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
-import { useEventListener } from '@vueuse/core'
+import { useResizeObserver } from '@vueuse/core'
 import { getUniqueStringId } from '@/utilities'
 import { normalizeSize } from '@/utilities/css'
 
@@ -701,6 +700,19 @@ const stageSelections = () => {
 
     if (elem) {
       const height = elem.clientHeight
+
+      // If there are hidden items and we have space, try to show them
+      if (height <= selectionsMaxHeight.value && invisibleSelectedItemsStaging.value.length > 0) {
+        const itemToShow = invisibleSelectedItemsStaging.value.shift()
+        if (itemToShow) {
+          visibleSelectedItemsStaging.value.push(itemToShow)
+          invisibleSelectedItemsStagingSet.delete(itemToShow.value)
+        }
+        stagingKey.value++
+        return
+      }
+
+      // If height exceeds max, hide items
       if (height > selectionsMaxHeight.value) {
         // populate as much items as possible by checking the offsetTop
         const overflowedElements = Array.from(elem.querySelectorAll('.multiselect-selection-badge'))
@@ -1279,19 +1291,13 @@ const setNumericWidth = async (): Promise<void> => {
   stageSelections()
 }
 
-const resizeObserver = ref<ResizeObserverHelper>()
-
 onMounted(() => {
-  useEventListener('resize', setNumericWidth) // automatically removes listener on unmount so no need to clean up
-  resizeObserver.value = ResizeObserverHelper.create(setNumericWidth)
-
-  resizeObserver.value.observe(multiselectElementRef.value as HTMLDivElement)
+  setNumericWidth()
 })
 
-onBeforeUnmount(() => {
-  if (resizeObserver.value && multiselectElementRef.value) {
-    resizeObserver.value.unobserve(multiselectElementRef.value)
-  }
+// Observe resize changes on the multiselect element
+useResizeObserver(multiselectElementRef, () => {
+  setNumericWidth()
 })
 </script>
 
