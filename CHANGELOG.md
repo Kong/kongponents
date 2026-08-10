@@ -1,3 +1,10 @@
+## [9.64.6](https://github.com/Kong/kongponents/compare/v9.64.5...v9.64.6) (2026-08-10)
+
+
+### Bug Fixes
+
+* **kmultiselect:** reactive selected item width ([#3347](https://github.com/Kong/kongponents/issues/3347)) ([b6877c1](https://github.com/Kong/kongponents/commit/b6877c1fa075c72e0c55c15631878591a3a2301b))
+
 ## [9.64.5](https://github.com/Kong/kongponents/compare/v9.64.4...v9.64.5) (2026-08-07)
 
 
