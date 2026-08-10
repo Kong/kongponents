@@ -539,7 +539,7 @@ describe('KMultiselect', () => {
       .find('.multiselect-selection-badge-label')
       .then(($badges) => {
         const completeOrder = Array.from($badges).map(el => el.textContent?.trim())
-        
+
         // Shrink width to hide some items
         Cypress.vueWrapper.setProps({ width: '250' })
 
@@ -572,7 +572,7 @@ describe('KMultiselect', () => {
                     expandedOrder.forEach((label, index) => {
                       expect(label).to.equal(completeOrder[index])
                     })
-                    
+
                     // Verify we have more items visible than when shrunk
                     expect(expandedOrder.length).to.be.greaterThan(shrunkenOrder.length)
                   })

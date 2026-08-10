@@ -741,7 +741,7 @@ const reorderSelectedItems = (orderedValues: Value[]) => {
   selectedItems.value = orderedValues
     .map(itemValue => selectedItemsByValue.get(itemValue))
     .filter((item): item is Item => item !== undefined)
-  
+
   // Reset staging arrays to maintain order
   visibleSelectedItemsStaging.value = [...selectedItems.value]
   invisibleSelectedItemsStaging.value = []
@@ -1291,12 +1291,12 @@ const setNumericWidth = async (): Promise<void> => {
   numericWidth.value = 300
   await nextTick()
   numericWidth.value = multiselectElementRef.value?.clientWidth || 300
-  
+
   // Reset staging arrays to maintain correct order when resizing
   visibleSelectedItemsStaging.value = [...selectedItems.value]
   invisibleSelectedItemsStaging.value = []
   invisibleSelectedItemsStagingSet.clear()
-  
+
   stageSelections()
 }
 
