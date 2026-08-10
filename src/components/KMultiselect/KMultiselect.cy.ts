@@ -439,6 +439,76 @@ describe('KMultiselect', () => {
       })
   })
 
+  it('reacts to width changes by showing/hiding badges', () => {
+    // Suppress ResizeObserver errors that can occur during rapid width changes
+    cy.on('uncaught:exception', (err) => {
+      if (err.message.includes('ResizeObserver loop')) {
+        return false
+      }
+      return true
+    })
+
+    const allItems = Array.from(new Array(15)).map((_, i) => ({
+      label: `Item ${i}`,
+      value: `${i}`,
+    }))
+
+    const selected = Array.from(new Array(10)).map((_, i) => `${i}`)
+
+    cy.mount(KMultiselect, {
+      props: {
+        selectedRowCount: 1,
+        modelValue: selected,
+        items: allItems.slice(0, 10),
+        width: '300',
+      },
+    })
+
+    // At narrow width, should have hidden items
+    cy.getTestId('hidden-selection-count')
+      .should('be.visible')
+      .should('contain.text', '+')
+      .invoke('text')
+      .then((initialHiddenText) => {
+        const initialHiddenCount = parseInt(initialHiddenText.replace('+', ''))
+
+        // Increase width - more badges should be visible
+        Cypress.vueWrapper.setProps({ width: '600' })
+
+        cy.wait(200).then(() => {
+          // Either hidden count decreased or badge is no longer shown (all visible)
+          cy.get('.k-multiselect').then(($el) => {
+            if ($el.find('[data-testid="hidden-selection-count"]').length > 0) {
+              cy.getTestId('hidden-selection-count')
+                .invoke('text')
+                .then((newHiddenText) => {
+                  const newHiddenCount = parseInt(newHiddenText.replace('+', ''))
+                  expect(newHiddenCount).to.be.lessThan(initialHiddenCount)
+                })
+            } else {
+              // All items are visible now, which is good
+              expect(true).to.be.true
+            }
+          })
+        })
+
+        // Decrease width again - more badges should be hidden
+        cy.then(() => {
+          Cypress.vueWrapper.setProps({ width: '250' })
+        })
+
+        cy.wait(200).then(() => {
+          cy.getTestId('hidden-selection-count')
+            .should('be.visible')
+            .invoke('text')
+            .then((finalHiddenText) => {
+              const finalHiddenCount = parseInt(finalHiddenText.replace('+', ''))
+              expect(finalHiddenCount).to.be.greaterThan(0)
+            })
+        })
+      })
+  })
+
   it('displays placeholder and searchPlaceholder props correctly', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
