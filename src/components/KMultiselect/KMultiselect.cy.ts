@@ -475,37 +475,28 @@ describe('KMultiselect', () => {
         // Increase width - more badges should be visible
         Cypress.vueWrapper.setProps({ width: '600' })
 
-        cy.wait(200).then(() => {
-          // Either hidden count decreased or badge is no longer shown (all visible)
-          cy.get('.k-multiselect').then(($el) => {
-            if ($el.find('[data-testid="hidden-selection-count"]').length > 0) {
-              cy.getTestId('hidden-selection-count')
-                .invoke('text')
-                .then((newHiddenText) => {
-                  const newHiddenCount = parseInt(newHiddenText.replace('+', ''))
-                  expect(newHiddenCount).to.be.lessThan(initialHiddenCount)
-                })
-            } else {
-              // All items are visible now, which is good
-              expect(true).to.be.true
-            }
-          })
+        // Wait for the DOM to update by checking that the element state changes or disappears
+        cy.get('.k-multiselect').should(($el) => {
+          const hiddenCountBadge = $el.find('[data-testid="hidden-selection-count"]')
+
+          if (hiddenCountBadge.length > 0) {
+            // If badge still exists, the count should have decreased
+            const newHiddenCount = parseInt(hiddenCountBadge.text().replace('+', ''))
+            expect(newHiddenCount).to.be.lessThan(initialHiddenCount)
+          }
+          // Otherwise all items are visible (badge removed), which is also valid
         })
 
         // Decrease width again - more badges should be hidden
-        cy.then(() => {
-          Cypress.vueWrapper.setProps({ width: '250' })
-        })
+        Cypress.vueWrapper.setProps({ width: '250' })
 
-        cy.wait(200).then(() => {
-          cy.getTestId('hidden-selection-count')
-            .should('be.visible')
-            .invoke('text')
-            .then((finalHiddenText) => {
-              const finalHiddenCount = parseInt(finalHiddenText.replace('+', ''))
-              expect(finalHiddenCount).to.be.greaterThan(0)
-            })
-        })
+        cy.getTestId('hidden-selection-count')
+          .should('be.visible')
+          .invoke('text')
+          .should((finalHiddenText) => {
+            const finalHiddenCount = parseInt(finalHiddenText.replace('+', ''))
+            expect(finalHiddenCount).to.be.greaterThan(0)
+          })
       })
   })
 
@@ -543,42 +534,39 @@ describe('KMultiselect', () => {
         // Shrink width to hide some items
         Cypress.vueWrapper.setProps({ width: '250' })
 
-        cy.wait(200).then(() => {
-          // Verify some items are hidden
-          cy.getTestId('hidden-selection-count').should('be.visible')
+        // Verify some items are hidden
+        cy.getTestId('hidden-selection-count').should('be.visible')
 
-          // Get visible badge order after shrinking
-          cy.getTestId('selection-badges-container')
-            .find('.multiselect-selection-badge-label')
-            .then(($shrunkenBadges) => {
-              const shrunkenOrder = Array.from($shrunkenBadges).map(el => el.textContent?.trim())
+        // Get visible badge order after shrinking
+        cy.getTestId('selection-badges-container')
+          .find('.multiselect-selection-badge-label')
+          .then(($shrunkenBadges) => {
+            const shrunkenOrder = Array.from($shrunkenBadges).map(el => el.textContent?.trim())
 
-              // Verify the visible items are the FIRST N items from completeOrder
-              shrunkenOrder.forEach((label, index) => {
-                expect(label).to.equal(completeOrder[index])
-              })
-
-              // Expand width to show more items
-              Cypress.vueWrapper.setProps({ width: '400' })
-
-              cy.wait(200).then(() => {
-                // Get visible badge order after expanding
-                cy.getTestId('selection-badges-container')
-                  .find('.multiselect-selection-badge-label')
-                  .then(($expandedBadges) => {
-                    const expandedOrder = Array.from($expandedBadges).map(el => el.textContent?.trim())
-
-                    // Verify items maintain their original order (should be first N items from completeOrder)
-                    expandedOrder.forEach((label, index) => {
-                      expect(label).to.equal(completeOrder[index])
-                    })
-
-                    // Verify we have more items visible than when shrunk
-                    expect(expandedOrder.length).to.be.greaterThan(shrunkenOrder.length)
-                  })
-              })
+            // Verify the visible items are the FIRST N items from completeOrder
+            shrunkenOrder.forEach((label, index) => {
+              expect(label).to.equal(completeOrder[index])
             })
-        })
+
+            // Expand width to show more items
+            Cypress.vueWrapper.setProps({ width: '400' })
+
+            // Get visible badge order after expanding
+            cy.getTestId('selection-badges-container')
+              .find('.multiselect-selection-badge-label')
+              .should('have.length.greaterThan', shrunkenOrder.length)
+              .then(($expandedBadges) => {
+                const expandedOrder = Array.from($expandedBadges).map(el => el.textContent?.trim())
+
+                // Verify items maintain their original order (should be first N items from completeOrder)
+                expandedOrder.forEach((label, index) => {
+                  expect(label).to.equal(completeOrder[index])
+                })
+
+                // Verify we have more items visible than when shrunk
+                expect(expandedOrder.length).to.be.greaterThan(shrunkenOrder.length)
+              })
+          })
       })
   })
 
