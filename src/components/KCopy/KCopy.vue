@@ -187,13 +187,25 @@ onBeforeUnmount(() => {
   display: flex;
   font-variant-ligatures: no-contextual;
   max-width: 100%; /** necessary for truncation */
+  // grid and flex items default to min-width: auto, which pins this to its content width
+  min-width: 0;
 
   .copy-element {
     align-items: center;
+    box-sizing: border-box; // the badge appearance adds padding that max-width must cover
     display: inline-flex;
+    max-width: 100%; // the badge appearance sizes this box to its content
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    // `truncationLimit: 'auto'` truncates only when .copy-text measures an overflow, so
+    // everything down to it has to be able to shrink
+    .copy-tooltip-wrapper,
+    .copy-text {
+      min-width: 0;
+    }
 
     .copy-text {
       @include truncate;
