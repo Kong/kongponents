@@ -1,3 +1,10 @@
+## [9.64.7](https://github.com/Kong/kongponents/compare/v9.64.6...v9.64.7) (2026-08-11)
+
+
+### Bug Fixes
+
+* **kradio:** reset card label margin ([#3323](https://github.com/Kong/kongponents/issues/3323)) ([17902ed](https://github.com/Kong/kongponents/commit/17902ed130b336ca21b3ba9495f6cf5d977358ec))
+
 ## [9.64.6](https://github.com/Kong/kongponents/compare/v9.64.5...v9.64.6) (2026-08-10)
 
 
