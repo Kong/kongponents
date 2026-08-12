@@ -1,0 +1,40 @@
+// Tests are excluded from `tsconfig.build.json` so their declarations never reach
+// `dist/types`, which means they'd otherwise go untypechecked. This config exists to
+// typecheck them, mirroring how `cypress/tsconfig.json` covers the `*.cy.ts` specs.
+// Run it via `pnpm typecheck:tests`.
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "declarationDir": null,
+    // Deliberately no "node": Node's `setTimeout` returns `Timeout` rather than `number`,
+    // which contradicts the DOM typings the components are written against.
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "@/*": [
+        "../src/*"
+      ],
+      "@mocks/*": [
+        "../mocks/*"
+      ],
+      "@test/*": [
+        "./*"
+      ]
+    }
+  },
+  // Only the tests themselves. Components are typechecked by `pnpm typecheck` against
+  // `tsconfig.build.json`; vue-tsc still follows imports from here, so a test that
+  // misuses a component's props is caught.
+  "include": [
+    "../test/**/*.ts",
+    "../test/**/*.d.ts",
+    "../src/**/*.spec.ts"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../dist"
+  ]
+}

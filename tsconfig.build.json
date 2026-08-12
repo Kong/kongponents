@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
+  // Tests are excluded from the published build. Without the `*.spec.ts` and `test/**`
+  // entries below, `vue-tsc --emitDeclarationOnly` emits declarations for test files
+  // into `dist/types/` and ships them to consumers.
   "exclude": [
     "src/**/*.cy.ts",
+    "src/**/*.spec.ts",
+    "test",
     "src/App.vue",
     "src/main.ts",
     "sandbox",

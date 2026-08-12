@@ -9,6 +9,10 @@ bundle-analyzer
 cypress/screenshots
 cypress/videos
 
+# Screenshots Vitest Browser Mode captures for failing component tests
+**/.vitest-attachments/
+**/__screenshots__
+
 .temp
 .cache
 .idea

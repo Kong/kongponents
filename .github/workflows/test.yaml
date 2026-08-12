@@ -35,6 +35,11 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      # Test files are excluded from `tsconfig.build.json` so their declarations don't
+      # ship in `dist/types`, so they need their own typecheck pass.
+      - name: Typecheck tests
+        run: pnpm typecheck:tests
+
       - name: Build components and docs
         run: pnpm build:ci
 
@@ -51,6 +56,25 @@ jobs:
 
       - name: Run Vitest unit tests
         run: pnpm test:unit
+
+      # Vitest Browser Mode drives a real Chromium via Playwright. The browser binary is
+      # cached alongside node_modules by the setup action, so this is a no-op on a cache
+      # hit; `--with-deps` installs the system libraries the runner image lacks.
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run Vitest component tests
+        run: pnpm test:component
+
+      - name: Upload Vitest screenshots (on failure)
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: failure()
+        with:
+          name: vitest-screenshots
+          path: |
+            src/**/__screenshots__/**
+            **/.vitest-attachments/**
+          if-no-files-found: ignore
 
       - name: Run Cypress component tests
         uses: cypress-io/github-action@fa4a118725a8f001170d49631ea89e5d66fee626 # v7.4.1
