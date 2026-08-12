@@ -111,6 +111,8 @@ watch(() => modelValue, (newTabHash) => {
     gap: var(--kui-space-40, $kui-space-40);
     list-style: none;
     margin-top: var(--kui-space-0, $kui-space-0);
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: var(--kui-space-0, $kui-space-0);
 
     .tab-item {
