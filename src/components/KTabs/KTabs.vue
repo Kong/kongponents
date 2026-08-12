@@ -114,6 +114,7 @@ watch(() => modelValue, (newTabHash) => {
     overflow-x: auto;
     overflow-y: hidden;
     padding: var(--kui-space-0, $kui-space-0);
+    scrollbar-width: thin;
 
     .tab-item {
       position: relative;
@@ -167,8 +168,6 @@ watch(() => modelValue, (newTabHash) => {
       border-bottom-style: solid;
       border-bottom-width: var(--kui-tabs-border-width, var(--kui-border-width-10, $kui-border-width-10));
       margin-bottom: var(--kui-space-70, $kui-space-70);
-      overflow-x: auto;
-      overflow-y: hidden;
       padding: var(--kui-space-0, $kui-space-0) var(--kui-space-70, $kui-space-70);
       padding-top: var(--kui-space-20, $kui-space-20);
 
