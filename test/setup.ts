@@ -10,8 +10,7 @@ import type { Locator } from 'vitest/browser'
 /**
  * Vitest's `page` exposes only semantic selectors — there is no `page.locator('.foo')`.
  * Kongponents is a component library, though: class names like `.k-badge` are published
- * API that consumers style against, which is why the Cypress suite uses CSS selectors
- * ~1,100 times.
+ * API that consumers style against.
  *
  * `locators.extend` is the sanctioned escape hatch. Returning a selector string (rather
  * than wrapping an element via `page.elementLocator`) yields a real lazy locator, so it
