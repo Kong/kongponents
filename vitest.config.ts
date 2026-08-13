@@ -53,7 +53,10 @@ export default defineConfig({
         test: {
           name: 'unit',
           environment: 'jsdom',
-          include: ['src/{composables,utilities,theme}/**/*.spec.ts'],
+          include: [
+            'src/{composables,utilities,theme}/**/*.spec.ts',
+            'src/components/KThemeProvider/KThemeProvider.spec.ts',
+          ],
         },
       },
       {
@@ -61,6 +64,7 @@ export default defineConfig({
         test: {
           name: 'browser',
           include: ['src/components/**/*.spec.ts'],
+          exclude: ['src/components/KThemeProvider/KThemeProvider.spec.ts'],
           /**
            * `vitest-browser-vue` unmounts rendered components between tests. Without it,
            * mounted trees accumulate in the page and locators match stale nodes.

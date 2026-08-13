@@ -52,10 +52,16 @@ jobs:
       - name: Run Vitest unit tests
         run: pnpm test:unit
 
-      # The setup action caches the browser binaries alongside node_modules, so this is a
-      # no-op on a cache hit; `--with-deps` installs libraries the runner image lacks.
+      - name: Cache Playwright browsers
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      # Downloads the browser binaries and installs the system libraries the runner
+      # image lacks. `--with-deps` runs apt-get on every job; only the binaries cache.
       - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium firefox webkit
+        run: pnpm test:browser:install
 
       - name: Run Vitest browser tests
         run: pnpm test:browser

@@ -4,6 +4,7 @@ import { page } from 'vitest/browser'
 import { createMemoryHistory, createRouter } from 'vue-router/dist/vue-router.prod.cjs'
 import type { Locator } from 'vitest/browser'
 import type { Router, RouteRecordRaw } from 'vue-router'
+import { h } from 'vue'
 
 /**
  * Browser Mode counterparts of the Cypress custom commands in `cypress/support/index.ts`,
@@ -37,8 +38,8 @@ const testRoutes: RouteRecordRaw[] = [
     path: '/',
     name: 'home',
     alias: '/:pathMatch(.*)*',
-    meta: { title: 'Kongponents Sandbox' },
-    component: () => import('../sandbox/pages/HomePage.vue'),
+    meta: { title: 'Kongponents Tests' },
+    component: { render: () => h('div') },
   },
 ]
 
