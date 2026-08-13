@@ -58,8 +58,6 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      # Downloads the browser binaries and installs the system libraries the runner
-      # image lacks. `--with-deps` runs apt-get on every job; only the binaries cache.
       - name: Install Playwright browsers
         run: pnpm test:browser:install
 
