@@ -52,10 +52,10 @@ jobs:
       - name: Run Vitest unit tests
         run: pnpm test:unit
 
-      # The setup action caches the browser binary alongside node_modules, so this is a
+      # The setup action caches the browser binaries alongside node_modules, so this is a
       # no-op on a cache hit; `--with-deps` installs libraries the runner image lacks.
-      - name: Install Playwright Chromium
-        run: pnpm exec playwright install --with-deps chromium
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium firefox webkit
 
       - name: Run Vitest browser tests
         run: pnpm test:browser

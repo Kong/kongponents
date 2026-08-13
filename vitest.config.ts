@@ -7,7 +7,8 @@ import path from 'path'
  * Two test projects share this root config:
  *
  * - `unit`    — jsdom, for pure logic: composables, utilities, theme helpers.
- * - `browser` — Browser Mode (Chromium via Playwright), for component tests.
+ * - `browser` — Browser Mode (Chromium, Firefox and WebKit via Playwright), for
+ *               component tests.
  *
  * The browser project exists because layout, computed styles, focus behaviour and
  * popper/floating-ui positioning are part of a component library's contract and can only be
@@ -71,7 +72,17 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: playwright(),
-            instances: [{ browser: 'chromium' }],
+            /**
+             * Every spec runs in each browser, so engine differences in layout, computed
+             * styles and font metrics surface here rather than in a consumer's app.
+             * `webkit` is Playwright's WebKit build, not Safari itself — close enough for
+             * engine-level differences, but not a substitute for real Safari testing.
+             */
+            instances: [
+              { browser: 'chromium' },
+              { browser: 'firefox' },
+              { browser: 'webkit' },
+            ],
             /**
              * Same viewport the Cypress component runner used, so width-dependent tests
              * behave the same before and after conversion.
