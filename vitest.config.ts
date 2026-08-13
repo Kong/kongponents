@@ -10,11 +10,6 @@ import path from 'path'
  * - `browser` — Browser Mode (Chromium, Firefox and WebKit via Playwright), for
  *               component tests.
  *
- * The browser project exists because layout, computed styles, focus behaviour and
- * popper/floating-ui positioning are part of a component library's contract and can only be
- * observed truthfully in a real browser. It also lets you run the suite headed and watch a
- * component as it's tested.
- *
  * The suffix decides which project claims a file: `*.browser.spec.ts` runs in the browser,
  * every other `*.spec.ts` runs in jsdom. Directory doesn't matter, so a component can have
  * both kinds of test side by side.
@@ -85,10 +80,6 @@ export default defineConfig({
               { browser: 'firefox' },
               { browser: 'webkit' },
             ],
-            /**
-             * Same viewport the Cypress component runner used, so width-dependent tests
-             * behave the same before and after conversion.
-             */
             viewport: { width: 1366, height: 768 },
           },
         },

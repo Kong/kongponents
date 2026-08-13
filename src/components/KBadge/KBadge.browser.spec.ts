@@ -5,12 +5,6 @@ import { BadgeAppearances, BadgeSizes } from '@/types'
 import type { BadgeAppearance, BadgeSize } from '@/types'
 import { render } from 'vitest-browser-vue'
 
-/**
- * Converted from KBadge.cy.ts. Assertions target the same class names the Cypress spec
- * used: those classes are public API consumers style against, so they're the stable
- * selector here rather than an added data-testid.
- */
-
 const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   it(`renders KBadge with the ${variant} appearance`, async () => {
     render(KBadge, {
