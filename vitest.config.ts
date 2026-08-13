@@ -6,16 +6,16 @@ import path from 'path'
 /**
  * Two test projects share this root config:
  *
- * - `unit`      — jsdom, for pure logic: composables, utilities, theme helpers.
- * - `component` — Browser Mode (Chromium via Playwright), for component tests.
+ * - `unit`    — jsdom, for pure logic: composables, utilities, theme helpers.
+ * - `browser` — Browser Mode (Chromium via Playwright), for component tests.
  *
- * Component tests run in a real browser because layout, computed styles, focus behaviour
- * and popper/floating-ui positioning are part of a component library's contract and can
- * only be observed truthfully there. It also lets you run the suite headed and watch a
+ * The browser project exists because layout, computed styles, focus behaviour and
+ * popper/floating-ui positioning are part of a component library's contract and can only be
+ * observed truthfully in a real browser. It also lets you run the suite headed and watch a
  * component as it's tested.
  *
  * The split is by directory rather than filename so both projects can use the conventional
- * `*.spec.ts` suffix: anything under `src/components/` is a component test.
+ * `*.spec.ts` suffix: anything under `src/components/` runs in the browser.
  */
 export default defineConfig({
   plugins: [vue()],
@@ -58,7 +58,7 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          name: 'component',
+          name: 'browser',
           include: ['src/components/**/*.spec.ts'],
           /**
            * `vitest-browser-vue` unmounts rendered components between tests. Without it,
