@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 import { playwright } from '@vitest/browser-playwright'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
@@ -15,8 +15,9 @@ import path from 'path'
  * observed truthfully in a real browser. It also lets you run the suite headed and watch a
  * component as it's tested.
  *
- * The split is by directory rather than filename so both projects can use the conventional
- * `*.spec.ts` suffix: anything under `src/components/` runs in the browser.
+ * The suffix decides which project claims a file: `*.browser.spec.ts` runs in the browser,
+ * every other `*.spec.ts` runs in jsdom. Directory doesn't matter, so a component can have
+ * both kinds of test side by side.
  */
 export default defineConfig({
   plugins: [vue()],
@@ -53,18 +54,15 @@ export default defineConfig({
         test: {
           name: 'unit',
           environment: 'jsdom',
-          include: [
-            'src/{composables,utilities,theme}/**/*.spec.ts',
-            'src/components/KThemeProvider/KThemeProvider.spec.ts',
-          ],
+          include: ['src/**/*.spec.ts'],
+          exclude: [...configDefaults.exclude, 'src/**/*.browser.spec.ts'],
         },
       },
       {
         extends: true,
         test: {
           name: 'browser',
-          include: ['src/components/**/*.spec.ts'],
-          exclude: ['src/components/KThemeProvider/KThemeProvider.spec.ts'],
+          include: ['src/**/*.browser.spec.ts'],
           /**
            * `vitest-browser-vue` unmounts rendered components between tests. Without it,
            * mounted trees accumulate in the page and locators match stale nodes.
