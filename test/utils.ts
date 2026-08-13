@@ -24,14 +24,17 @@ import { h } from 'vue'
  * let `expect.element()` do the waiting rather than adding manual timeouts.
  */
 
-type RenderArgs = Parameters<typeof render>
-type RenderResult = ReturnType<typeof render>
-
 /**
- * `vitest-browser-vue` render options (i.e. `@vue/test-utils` mount options) plus the
- * `router` escape hatch our Cypress `mount` command supported.
+ * `render` is generic over the component, so its options are instantiated per component and
+ * props are typechecked. Keep these aliases parameterised by `T` — `Parameters<typeof
+ * render>` without it collapses the generics to their defaults and silently widens every
+ * prop to `any`.
  */
-type RenderComponentOptions = NonNullable<RenderArgs[1]> & { router?: Router }
+type RenderOptions<T> = NonNullable<Parameters<typeof render<T>>[1]>
+type RenderResult<T> = ReturnType<typeof render<T>>
+
+/** Render options plus the `router` escape hatch our Cypress `mount` command supported. */
+type RenderComponentOptions<T> = RenderOptions<T> & { router?: Router }
 
 const testRoutes: RouteRecordRaw[] = [
   {
@@ -44,7 +47,7 @@ const testRoutes: RouteRecordRaw[] = [
 ]
 
 /** Push a plugin onto `global.plugins` without mutating the caller's options object. */
-const withPlugin = (options: RenderComponentOptions, plugin: Router): RenderArgs[1] => {
+const withPlugin = <T>(options: RenderOptions<T>, plugin: Router): RenderOptions<T> => {
   const global = { ...options.global }
 
   global.plugins = [...(global.plugins ?? []), plugin]
@@ -55,14 +58,11 @@ const withPlugin = (options: RenderComponentOptions, plugin: Router): RenderArgs
 /**
  * Render a component for testing. Mirrors `cy.mount`: options pass straight through, and
  * a `router` option is installed as a plugin.
- *
- * Props are not type-inferred, matching the Cypress baseline. If a test needs inference,
- * call `render` from `vitest-browser-vue` directly.
  */
-export const renderComponent = (
-  component: RenderArgs[0],
-  options: RenderComponentOptions = {},
-): RenderResult => {
+export const renderComponent = <T>(
+  component: T,
+  options: RenderComponentOptions<T> = {} as RenderComponentOptions<T>,
+): RenderResult<T> => {
   const { router, ...renderOptions } = options
 
   return render(component, router ? withPlugin(renderOptions, router) : renderOptions)
@@ -73,16 +73,16 @@ export const renderComponent = (
  * Use for components that read from or navigate the router (e.g. anchor links), where the
  * dev build's uncaught-error behaviour would obscure the assertion.
  */
-export const renderWithProdRouter = (
-  component: RenderArgs[0],
-  options: RenderComponentOptions = {},
-): RenderResult => {
+export const renderWithProdRouter = <T>(
+  component: T,
+  options: RenderComponentOptions<T> = {} as RenderComponentOptions<T>,
+): RenderResult<T> => {
   const router = options.router ?? createRouter({
     routes: testRoutes,
     history: createMemoryHistory(),
   })
 
-  return renderComponent(component, { ...options, router })
+  return renderComponent<T>(component, { ...options, router })
 }
 
 /** Locate an element by its `data-testid` attribute. Counterpart of `cy.getTestId`. */
