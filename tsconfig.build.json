@@ -1,8 +1,14 @@
 {
   "extends": "./tsconfig.json",
-  // Tests are excluded from the published build. Without the `*.spec.ts` and `test/**`
-  // entries below, `vue-tsc --emitDeclarationOnly` emits declarations for test files
-  // into `dist/types/` and ships them to consumers.
+  /**
+   * Declaration emit only — `pnpm typecheck` uses the root config.
+   *
+   * `--emitDeclarationOnly` emits a `.d.ts` for every file in the program, so the test
+   * entries below matter even though no bundled code imports a test. `test` especially:
+   * it lives outside `src`, so including it moves the inferred root to the repo root and
+   * declarations land in `dist/types/src/` instead of `dist/types/`, breaking the `types`
+   * entry point.
+   */
   "exclude": [
     "src/**/*.cy.ts",
     "src/**/*.spec.ts",

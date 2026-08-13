@@ -35,11 +35,6 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      # Test files are excluded from `tsconfig.build.json` so their declarations don't
-      # ship in `dist/types`, so they need their own typecheck pass.
-      - name: Typecheck tests
-        run: pnpm typecheck:tests
-
       - name: Build components and docs
         run: pnpm build:ci
 
@@ -57,9 +52,8 @@ jobs:
       - name: Run Vitest unit tests
         run: pnpm test:unit
 
-      # Vitest Browser Mode drives a real Chromium via Playwright. The browser binary is
-      # cached alongside node_modules by the setup action, so this is a no-op on a cache
-      # hit; `--with-deps` installs the system libraries the runner image lacks.
+      # The setup action caches the browser binary alongside node_modules, so this is a
+      # no-op on a cache hit; `--with-deps` installs libraries the runner image lacks.
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
 

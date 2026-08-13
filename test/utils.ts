@@ -6,9 +6,8 @@ import type { Locator } from 'vitest/browser'
 import type { Router, RouteRecordRaw } from 'vue-router'
 
 /**
- * These helpers are the Vitest Browser Mode counterparts of the Cypress custom commands
- * in `cypress/support/index.ts`. They exist so converting a `*.cy.ts` spec stays a
- * mechanical translation rather than a redesign:
+ * Browser Mode counterparts of the Cypress custom commands in `cypress/support/index.ts`,
+ * so converting a `*.cy.ts` spec stays a mechanical translation:
  *
  *   cy.mount(C, opts)              -> renderComponent(C, opts)
  *   cy.mountWithProdRouter(C, o)   -> renderWithProdRouter(C, o)
@@ -16,22 +15,20 @@ import type { Router, RouteRecordRaw } from 'vue-router'
  *   cy.get('.selector')            -> page.getByCSS('.selector')
  *   cy.get('x').findTestId('foo')  -> findTestId(page.getByCSS('x'), 'foo')
  *
- * `getByCSS` is registered in `test/setup.ts` via `locators.extend`; Vitest's `page`
- * has no built-in CSS selector.
+ * `getByCSS` is registered in `test/setup.ts`; Vitest's `page` has no CSS selector.
  *
- * One behavioural difference is worth internalising before converting anything:
- * Cypress commands were retried and could resolve to several elements, which is why
- * specs lean on `.eq(n)`. Vitest locators are lazy and strict — they throw if they
- * match more than one element. Reach for `.nth(n)` or `.all()` instead of `.eq(n)`,
- * and let `expect.element()` do the waiting rather than adding manual timeouts.
+ * One behavioural difference to know before converting: Cypress commands retried and
+ * could resolve to several elements, hence `.eq(n)`. Vitest locators are lazy and strict
+ * — they throw on more than one match. Use `.nth(n)` or `.all()` instead of `.eq(n)`, and
+ * let `expect.element()` do the waiting rather than adding manual timeouts.
  */
 
 type RenderArgs = Parameters<typeof render>
 type RenderResult = ReturnType<typeof render>
 
 /**
- * Render options accepted by `vitest-browser-vue` (these are `@vue/test-utils` mount
- * options) plus the `router` escape hatch our Cypress `mount` command supported.
+ * `vitest-browser-vue` render options (i.e. `@vue/test-utils` mount options) plus the
+ * `router` escape hatch our Cypress `mount` command supported.
  */
 type RenderComponentOptions = NonNullable<RenderArgs[1]> & { router?: Router }
 
@@ -55,11 +52,11 @@ const withPlugin = (options: RenderComponentOptions, plugin: Router): RenderArgs
 }
 
 /**
- * Render a component for testing. Mirrors the custom `cy.mount` command: options are
- * passed straight through, and a `router` option is installed as a plugin when given.
+ * Render a component for testing. Mirrors `cy.mount`: options pass straight through, and
+ * a `router` option is installed as a plugin.
  *
- * Props are not type-inferred here, matching the Cypress baseline. If a test needs
- * inference, call `render` from `vitest-browser-vue` directly.
+ * Props are not type-inferred, matching the Cypress baseline. If a test needs inference,
+ * call `render` from `vitest-browser-vue` directly.
  */
 export const renderComponent = (
   component: RenderArgs[0],
@@ -72,8 +69,8 @@ export const renderComponent = (
 
 /**
  * Render a component with a production-build router mounted against the sandbox routes.
- * Use this for components that read from or navigate the router (e.g. anchor links),
- * where the dev build's uncaught-error behaviour would obscure the assertion.
+ * Use for components that read from or navigate the router (e.g. anchor links), where the
+ * dev build's uncaught-error behaviour would obscure the assertion.
  */
 export const renderWithProdRouter = (
   component: RenderArgs[0],
@@ -87,14 +84,9 @@ export const renderWithProdRouter = (
   return renderComponent(component, { ...options, router })
 }
 
-/**
- * Locate an element by its `data-testid` attribute. Counterpart of `cy.getTestId`.
- */
+/** Locate an element by its `data-testid` attribute. Counterpart of `cy.getTestId`. */
 export const getTestId = (dataTestId: string): Locator => page.getByTestId(dataTestId)
 
-/**
- * Locate an element by `data-testid` within another locator. Counterpart of
- * `cy.findTestId`, which was chained off an existing subject.
- */
+/** Locate an element by `data-testid` within another locator. Counterpart of `cy.findTestId`. */
 export const findTestId = (subject: Locator, dataTestId: string): Locator =>
   subject.getByTestId(dataTestId)

@@ -5,9 +5,11 @@ import { BadgeAppearances, BadgeSizes } from '@/types'
 import { getTestId, renderComponent } from '@test/utils'
 import type { BadgeAppearance, BadgeSize } from '@/types'
 
-// Converted from KBadge.cy.ts. Assertions target the same class names the Cypress spec
-// used: for a component library those classes are part of the public API that consumers
-// style against, so they're the stable selector here rather than an added data-testid.
+/**
+ * Converted from KBadge.cy.ts. Assertions target the same class names the Cypress spec
+ * used: those classes are public API consumers style against, so they're the stable
+ * selector here rather than an added data-testid.
+ */
 
 const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   it(`renders KBadge with the ${variant} appearance`, async () => {
@@ -99,8 +101,10 @@ describe('KBadge', () => {
       },
     })
 
-    // `toHaveStyle` is typed against `CSSStyleDeclaration`, so properties are camelCase
-    // here rather than the kebab-case Cypress used in `should('have.css', 'max-width')`.
+    /**
+     * `toHaveStyle` is typed against `CSSStyleDeclaration`, so properties are camelCase
+     * rather than the kebab-case Cypress used in `should('have.css', 'max-width')`.
+     */
     await expect.element(page.getByCSS('.badge-content')).toHaveStyle({ maxWidth })
   })
 
