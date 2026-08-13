@@ -1,3 +1,10 @@
+## [9.64.8](https://github.com/Kong/kongponents/compare/v9.64.7...v9.64.8) (2026-08-13)
+
+
+### Bug Fixes
+
+* **ktabs:** minimal appearance horizontal overflow ([#3351](https://github.com/Kong/kongponents/issues/3351)) ([bdf08b2](https://github.com/Kong/kongponents/commit/bdf08b2a9cf211124f1c3721d31c47251ba28578))
+
 ## [9.64.7](https://github.com/Kong/kongponents/compare/v9.64.6...v9.64.7) (2026-08-11)
 
 
