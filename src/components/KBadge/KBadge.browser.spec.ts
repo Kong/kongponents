@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest'
 import { page } from 'vitest/browser'
 import KBadge from '@/components/KBadge/KBadge.vue'
 import { BadgeAppearances, BadgeSizes } from '@/types'
-import { getTestId, renderComponent } from '@test/utils'
 import type { BadgeAppearance, BadgeSize } from '@/types'
+import { render } from 'vitest-browser-vue'
 
 /**
  * Converted from KBadge.cy.ts. Assertions target the same class names the Cypress spec
@@ -13,7 +13,7 @@ import type { BadgeAppearance, BadgeSize } from '@/types'
 
 const rendersCorrectAppearance = (variant: BadgeAppearance) => {
   it(`renders KBadge with the ${variant} appearance`, async () => {
-    renderComponent(KBadge, {
+    render(KBadge, {
       props: {
         appearance: variant,
       },
@@ -28,7 +28,7 @@ const rendersCorrectAppearance = (variant: BadgeAppearance) => {
 
 const rendersCorrectSize = (size: BadgeSize) => {
   it(`sets ${size} class when size passed`, async () => {
-    renderComponent(KBadge, {
+    render(KBadge, {
       props: {
         size,
       },
@@ -49,7 +49,7 @@ describe('KBadge', () => {
   Object.values(BadgeSizes).map(s => rendersCorrectSize(s))
 
   it('defaults to info `appearance`', async () => {
-    renderComponent(KBadge, {
+    render(KBadge, {
       slots: {
         default: () => 'Hello!',
       },
@@ -61,7 +61,7 @@ describe('KBadge', () => {
   it('displays `tooltip` at all times', async () => {
     const tooltipText = 'Hello! Long badge with truncated text here'
 
-    renderComponent(KBadge, {
+    render(KBadge, {
       props: {
         tooltip: tooltipText,
       },
@@ -76,7 +76,7 @@ describe('KBadge', () => {
   it('when `truncationText` is true, only displays `tooltip` if truncated', async () => {
     const tooltipText = 'Hello!'
 
-    renderComponent(KBadge, {
+    render(KBadge, {
       props: {
         tooltip: tooltipText,
         truncationTooltip: true,
@@ -92,7 +92,7 @@ describe('KBadge', () => {
   it('it should apply `maxWidth` prop when provided', async () => {
     const maxWidth = '10px'
 
-    renderComponent(KBadge, {
+    render(KBadge, {
       props: {
         maxWidth,
       },
@@ -109,12 +109,12 @@ describe('KBadge', () => {
   })
 
   it('renders the icon slot', async () => {
-    renderComponent(KBadge, {
+    render(KBadge, {
       slots: {
         icon: '<span data-testid="icon">Icon</span>',
       },
     })
 
-    await expect.element(getTestId('icon')).toBeVisible()
+    await expect.element(page.getByTestId('icon')).toBeVisible()
   })
 })

@@ -14,22 +14,6 @@
       "cypress",
       "node",
       "./support"
-    ],
-    "paths": {
-      "@/*": [
-        "../src/*"
-      ],
-      "@mocks/*": [
-        "../mocks/*"
-      ]
-    }
-  },
-  "include": [
-    "./**/*.ts",
-    "../src/**/*.cy.ts"
-  ],
-  "exclude": [
-    "../node_modules",
-    "../dist"
-  ]
+    ]
+  }
 }
