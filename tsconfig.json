@@ -16,10 +16,6 @@
     "outDir": "dist",
     "declaration": true,
     "declarationDir": "dist/types",
-    /**
-     * Deliberately no "node": Node's `setTimeout` returns `Timeout` rather than `number`,
-     * contradicting the DOM typings the components are written against.
-     */
     "types": [
       "vite/client"
     ],
@@ -32,11 +28,6 @@
       ]
     },
   },
-  /**
-   * Covers the components and the Vitest tests, so `pnpm typecheck` catches a test that
-   * misuses a component's props. Cypress specs have their own config (`cypress/tsconfig.json`)
-   * because they need the Cypress and Node globals.
-   */
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
