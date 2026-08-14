@@ -59,7 +59,10 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install Playwright browsers
-        run: pnpm test:browser:install
+        run: |
+          echo "::group::Install Playwright browsers"
+          pnpm test:browser:install
+          echo "::endgroup::"
 
       - name: Run Vitest browser tests
         run: pnpm test:browser
