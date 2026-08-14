@@ -9,6 +9,9 @@ bundle-analyzer
 cypress/screenshots
 cypress/videos
 
+**/.vitest-attachments/
+**/__screenshots__
+
 .temp
 .cache
 .idea

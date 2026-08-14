@@ -18,21 +18,24 @@
     "declarationDir": "dist/types",
     "types": [
       "vite/client",
-      "cypress",
-      "./cypress/support"
     ],
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@test/*": [
+        "./test/*"
       ]
     },
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "test/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
+    "src/**/*.cy.ts",
   ]
 }

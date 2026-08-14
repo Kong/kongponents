@@ -1,22 +1,89 @@
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser-playwright'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
-// Unit-test config (Vitest). Component/browser tests live in `*.cy.ts` (Cypress);
-// pure logic and composable/SFC unit tests live in `*.spec.ts` and run here.
+/**
+ * Two test projects share this root config:
+ *
+ * - `unit`    — jsdom, for pure logic: composables, utilities, theme helpers.
+ * - `browser` — Browser Mode (Chromium, Firefox and WebKit via Playwright), for
+ *               component tests.
+ *
+ * The suffix decides which project claims a file: `*.browser.spec.ts` runs in the browser,
+ * every other `*.spec.ts` runs in jsdom. Directory doesn't matter, so a component can have
+ * both kinds of test side by side.
+ */
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src/'),
       '@mocks': path.resolve(__dirname, './mocks/'),
+      '@test': path.resolve(__dirname, './test/'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern',
+        /**
+         * Mirrors `vite.config.ts`. Component SFCs use mixins and variables from
+         * `@/styles/globals` without importing them, so their `<style lang="scss">` blocks
+         * won't compile without this injection.
+         */
+        additionalData: `
+          @use "@/styles/globals" as *;
+        `,
+      },
     },
   },
   test: {
-    environment: 'jsdom',
-    include: ['src/**/*.spec.ts'],
     clearMocks: true,
     restoreMocks: true,
     reporters: ['tree', ...[process.env.GITHUB_ACTIONS ? 'github-actions' : ''].filter(Boolean)],
+    projects: [
+      {
+        // `extends: true` inherits the plugins, aliases and CSS options above.
+        extends: true,
+        test: {
+          name: 'unit',
+          environment: 'jsdom',
+          include: ['src/**/*.spec.ts'],
+          exclude: [...configDefaults.exclude, 'src/**/*.browser.spec.ts'],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'browser',
+          include: ['src/**/*.browser.spec.ts'],
+          /**
+           * `vitest-browser-vue` unmounts rendered components between tests. Without it,
+           * mounted trees accumulate in the page and locators match stale nodes.
+           */
+          setupFiles: ['vitest-browser-vue', './test/setup.ts'],
+          // Matches the Cypress `retries.runMode: 1` we're replacing.
+          retry: process.env.CI ? 1 : 0,
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            /**
+             * Every spec runs in each browser, so engine differences in layout, computed
+             * styles and font metrics surface here rather than in a consumer's app.
+             * `webkit` is Playwright's WebKit build, not Safari itself — close enough for
+             * engine-level differences, but not a substitute for real Safari testing.
+             */
+            instances: [
+              { browser: 'chromium' },
+              { browser: 'firefox' },
+              { browser: 'webkit' },
+            ],
+            viewport: { width: 1366, height: 768 },
+          },
+        },
+      },
+    ],
   },
 })

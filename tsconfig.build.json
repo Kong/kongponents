@@ -2,6 +2,8 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "src/**/*.cy.ts",
+    "src/**/*.spec.ts",
+    "test",
     "src/App.vue",
     "src/main.ts",
     "sandbox",
