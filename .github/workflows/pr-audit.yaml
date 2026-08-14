@@ -9,15 +9,10 @@ on:
       - reopened
       - labeled
       - unlabeled
-
-  pull_request_review:
-    types:
-      - submitted
       - edited
-      - dismissed
 
 concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}-${{ github.event_name }}
+  group: ${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -42,6 +37,6 @@ jobs:
 
       - name: PR Audit
         if: github.actor != 'renovate[bot]'
-        uses: Kong/public-shared-actions/pr-previews/audit@8d98bc15a5143332a36f206e6699296e6cc2adac
+        uses: Kong/public-shared-actions/pr-previews/audit@cbbbf31a69c4f38d1803ededb69acb2a86836f85
         with:
           renovate-pr-author: renovate[bot]
