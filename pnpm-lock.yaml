@@ -77,6 +77,9 @@ importers:
       virtua:
         specifier: ^0.49.0
         version: 0.49.1(vue@3.5.40(typescript@5.9.3))
+      vue-clamp:
+        specifier: ^1.5.1
+        version: 1.5.1(vue@3.5.40(typescript@5.9.3))
       vue-draggable-next:
         specifier: ^2.3.0
         version: 2.3.0(sortablejs@1.15.7)(vue@3.5.40(typescript@5.9.3))
@@ -6836,6 +6839,11 @@ packages:
 
   vue-bundle-renderer@2.3.1:
     resolution: {integrity: sha512-7F4LNMopUw5RgYWo4zCmVUHCc6aQRC6dCKHUYkM/n+fux4AUGdL1x6m5A515WWyFysRRN7cx3hBzVqoisfRfzw==}
+
+  vue-clamp@1.5.1:
+    resolution: {integrity: sha512-5lHcwojFWm+NmgAK319Ug9nY8D7D7Ul7I+jxIIDWcucdZCQAkc/Z/YZqV85F5HaVVrjbXaM5xfXrVjTmOsTLPg==}
+    peerDependencies:
+      vue: ^3.5.0
 
   vue-component-type-helpers@3.3.9:
     resolution: {integrity: sha512-3c/UfMe0SqyEfcGTyH7mfshHagJ9QTCbppCb0/uGpHZpFug7+If3GeGZN7I0YheKEExemx3xldQPoO7PQSOLQg==}
@@ -14596,6 +14604,10 @@ snapshots:
   vue-bundle-renderer@2.3.1:
     dependencies:
       ufo: 1.6.4
+
+  vue-clamp@1.5.1(vue@3.5.40(typescript@5.9.3)):
+    dependencies:
+      vue: 3.5.40(typescript@5.9.3)
 
   vue-component-type-helpers@3.3.9: {}
 

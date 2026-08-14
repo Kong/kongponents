@@ -78,60 +78,65 @@
             >
               {{ triggerElementText }}
             </div>
-            <div
+            <WrapClamp
               v-else
               class="selection-badges-container"
               data-testid="selection-badges-container"
+              item-key="value"
+              :items="selectedItems"
+              :max-lines="selectedRowCount"
               :style="numericWidthStyle"
             >
-              <KBadge
-                v-for="item, idx in visibleSelectedItems"
-                :key="`${multiselectKey}-${item.key ? item.key : idx}-badge-${key}`"
-                :appearance="getBadgeAppearance(item)"
-                class="multiselect-selection-badge"
-                :icon-before="false"
-                :tooltip="item.label"
-                truncation-tooltip
-                @click.stop
-              >
-                <slot
-                  :item="item"
-                  name="item-badge-icon"
-                />
-                <span class="multiselect-selection-badge-label">
-                  {{ item.label }}
-                </span>
-                <template
-                  v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
-                  #icon
-                >
-                  <button
-                    :aria-label="`Unselect ${item.label}`"
-                    class="badge-dismiss-button"
-                    data-testid="badge-dismiss-button"
-                    type="button"
-                    @click="handleItemSelect(item)"
-                  >
-                    <CloseIcon decorative />
-                  </button>
-                </template>
-              </KBadge>
-              <KTooltip
-                v-if="invisibleSelectedItems.length"
-                class="hidden-selection-count-tooltip"
-                max-width="300"
-                :text="hiddenItemsTooltip"
-              >
+              <template #item="{ item }">
                 <KBadge
-                  :appearance="getBadgeAppearance()"
-                  class="hidden-selection-count"
-                  data-testid="hidden-selection-count"
+                  :appearance="getBadgeAppearance(item)"
+                  class="multiselect-selection-badge"
+                  :icon-before="false"
+                  :tooltip="item.label"
+                  truncation-tooltip
                   @click.stop
                 >
-                  +{{ invisibleSelectedItems.length }}
+                  <slot
+                    :item="item"
+                    name="item-badge-icon"
+                  />
+                  <span class="multiselect-selection-badge-label">
+                    {{ item.label }}
+                  </span>
+                  <template
+                    v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
+                    #icon
+                  >
+                    <button
+                      :aria-label="`Unselect ${item.label}`"
+                      class="badge-dismiss-button"
+                      data-testid="badge-dismiss-button"
+                      type="button"
+                      @click="handleItemSelect(item)"
+                    >
+                      <CloseIcon decorative />
+                    </button>
+                  </template>
                 </KBadge>
-              </KTooltip>
-            </div>
+              </template>
+              <template #after="{ hiddenItems }">
+                <KTooltip
+                  v-if="hiddenItems.length"
+                  class="hidden-selection-count-tooltip"
+                  max-width="300"
+                  :text="getHiddenItemsTooltip(hiddenItems)"
+                >
+                  <KBadge
+                    :appearance="getBadgeAppearance()"
+                    class="hidden-selection-count"
+                    data-testid="hidden-selection-count"
+                    @click.stop
+                  >
+                    +{{ hiddenItems.length }}
+                  </KBadge>
+                </KTooltip>
+              </template>
+            </WrapClamp>
             <div class="multiselect-icons-container">
               <button
                 v-if="!loading && selectedItems.length && isToggled.value"
@@ -248,50 +253,6 @@
     >
       {{ help }}
     </p>
-
-    <!-- Staging area -->
-    <div
-      v-if="!collapsedContext"
-      aria-hidden="true"
-      class="staging-area"
-    >
-      <div
-        :key="stagingKey"
-        ref="multiselectSelectionsStagingElement"
-        class="selection-badges-container staging"
-        :style="numericWidthStyle"
-        tabindex="-1"
-      >
-        <KBadge
-          v-for="item, idx in visibleSelectedItemsStaging"
-          :key="`${multiselectKey}-${item.key ? item.key : idx}-badge`"
-          aria-hidden="true"
-          class="multiselect-selection-badge"
-          :icon-before="false"
-        >
-          <slot
-            :item="item"
-            name="item-badge-icon"
-          />
-          <span class="multiselect-selection-badge-label">
-            {{ item.label }}
-          </span>
-          <template
-            v-if="item.selected && !item.disabled && !isDisabled && !isReadonly"
-            #icon
-          >
-            <CloseIcon aria-hidden="true" />
-          </template>
-        </KBadge>
-        <!-- Always render this badge even if it's hidden to ensure there will be enough space to show it -->
-        <KBadge
-          aria-hidden="true"
-          class="hidden-selection-count"
-        >
-          +{{ invisibleSelectedItemsStaging.length }}
-        </KBadge>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -321,6 +282,7 @@ import type {
 } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_40, KUI_SPACE_40 } from '@kong/design-tokens'
+import { WrapClamp } from 'vue-clamp'
 import { sanitizeInput } from '@/utilities/sanitizeInput'
 import { useResizeObserver } from '@vueuse/core'
 import { getUniqueStringId } from '@/utilities'
@@ -384,7 +346,6 @@ const attrs = useAttrs()
 const slots = defineSlots<MultiselectSlots<Value>>()
 
 const { cloneDeep, stripRequiredLabel } = useUtilities()
-const SELECTED_ITEMS_SINGLE_LINE_HEIGHT = 36
 const DEFAULT_SEARCH_PLACEHOLDER = 'Filter...'
 
 const {
@@ -446,22 +407,13 @@ const defaultKPopAttributes = {
   popoverClasses: 'k-multiselect-popover multiselect-popover',
 }
 
-// keys and ids
-const key = ref(0)
-const stagingKey = ref(0)
-
 const defaultId = useId()
 const multiselectWrapperId = computed((): string => attrs.id ? String(attrs.id) : defaultId) // unique id for the KLabel `for` attribute
-const multiselectKey = useId()
 
 const multiselectElementRef = useTemplateRef('multiselectElement')
 const multiselectDropdownInputElementRef = useTemplateRef('multiselectDropdownInputElement')
-const multiselectSelectionsStagingElementRef = useTemplateRef('multiselectSelectionsStagingElement')
 
 // filter and selection
-const selectionsMaxHeight = computed((): number => {
-  return selectedRowCount * SELECTED_ITEMS_SINGLE_LINE_HEIGHT
-})
 const filterString = ref<string>('')
 // whether or not filter string matches an existing item's label
 const uniqueFilterStr = computed((): boolean => {
@@ -504,20 +456,7 @@ const sortedItems = ref([]) as Ref<NormalizedEntry[]>
 // An array of items.  May contain items that are not present in `unfilteredItems` if an item was selected, then the `items` prop was changed.
 const selectedItems = ref([]) as Ref<Item[]>
 
-// The items visible in the main part of the component.
-const visibleSelectedItemsStaging = ref([]) as Ref<Item[]>
-
-// The items in the "overflow" part of the component.
-const invisibleSelectedItemsStaging = ref([]) as Ref<Item[]>
-
-// A set of the values in the "overflow" part of the component.
-const invisibleSelectedItemsStagingSet = new Set<string>()
-
-// Used to store the results of the determination of which items are visible.
-const visibleSelectedItems = ref([]) as Ref<Item[]>
-const invisibleSelectedItems = ref<Item[]>([])
-
-const hiddenItemsTooltip = computed((): string => invisibleSelectedItems.value.map(item => item.label).join(', '))
+const getHiddenItemsTooltip = (hiddenItems: readonly Item[]): string => hiddenItems.map(item => item.label).join(', ')
 
 // state
 const initialFocusTriggered = ref<boolean>(false)
@@ -685,68 +624,12 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
   }
 }
 
-// make sure we don't grow past the max height of the selected items box
-// do the check off screen in the staging area so the UI doesn't jump
-const stageSelections = () => {
-  // set timeout required to push the calculation to the end of the update lifecycle event queue
-  setTimeout(() => {
-    const elem = multiselectSelectionsStagingElementRef.value
-
-    if (collapsedContext) {
-      // if it's collapsed don't do calculations, because we don't display badges
-      stagingKey.value++
-      return
-    }
-
-    if (elem) {
-      const height = elem.clientHeight
-
-      // If there are hidden items and we have space, try to show them
-      // IMPORTANT: Maintain order by taking from the front of invisible array
-      if (height <= selectionsMaxHeight.value && invisibleSelectedItemsStaging.value.length > 0) {
-        const itemToShow = invisibleSelectedItemsStaging.value.shift()
-        if (itemToShow) {
-          visibleSelectedItemsStaging.value.push(itemToShow)
-          invisibleSelectedItemsStagingSet.delete(itemToShow.value)
-        }
-        stagingKey.value++
-        return
-      }
-
-      // If height exceeds max, hide items from the end to maintain order
-      if (height > selectionsMaxHeight.value) {
-        // populate as much items as possible by checking the offsetTop
-        const overflowedElements = Array.from(elem.querySelectorAll('.multiselect-selection-badge'))
-          .filter(badge => (badge as HTMLElement).offsetTop >= selectionsMaxHeight.value)
-
-        // if there are overflowed items, move them to the invisibleSelectedItemsStaging array
-        const cutPoint = visibleSelectedItemsStaging.value.length - overflowedElements.length
-        const overflowedItems = visibleSelectedItemsStaging.value.splice(cutPoint, overflowedElements.length)
-
-        for (const item of overflowedItems) {
-          if (!invisibleSelectedItemsStagingSet.has(item.value)) {
-            invisibleSelectedItemsStagingSet.add(item.value)
-            invisibleSelectedItemsStaging.value.push(item)
-          }
-        }
-      }
-      stagingKey.value++
-    }
-  }, 0)
-}
-
 const reorderSelectedItems = (orderedValues: Value[]) => {
   const selectedItemsByValue = new Map(selectedItems.value.map(item => [item.value, item]))
 
   selectedItems.value = orderedValues
     .map(itemValue => selectedItemsByValue.get(itemValue))
     .filter((item): item is Item => item !== undefined)
-
-  // Reset staging arrays to maintain order
-  visibleSelectedItemsStaging.value = [...selectedItems.value]
-  invisibleSelectedItemsStaging.value = []
-  invisibleSelectedItemsStagingSet.clear()
-  stageSelections()
 }
 
 // handles programmatic selections
@@ -762,34 +645,18 @@ const handleMultipleItemsSelect = (items: Item[]) => {
     // if it isn't already in selectedItems, add it
     if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
       selectedItems.value.push(selectedItem)
-      visibleSelectedItemsStaging.value.push(selectedItem)
     }
   })
-
-  stageSelections()
 }
 
-const handleMultipleItemsDeselect = (items: Item[], restage = false) => {
+const handleMultipleItemsDeselect = (items: Item[]) => {
   const deselectedValues = new Set(items.map(anItem => anItem.value))
 
   selectedItems.value = selectedItems.value.filter(anItem => !deselectedValues.has(anItem.value))
-  visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => !deselectedValues.has(anItem.value))
-  invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => !deselectedValues.has(anItem.value))
 
   items.forEach(itemToDeselect => {
-    invisibleSelectedItemsStagingSet.delete(itemToDeselect.value)
-
     // deselect item
     itemToDeselect.selected = false
-
-    // if some items are hidden grab the first hidden one and add it into the visible array
-    if (invisibleSelectedItemsStaging.value.length) {
-      const itemToShow = invisibleSelectedItemsStaging.value.pop()
-      if (itemToShow) {
-        visibleSelectedItemsStaging.value.push(itemToShow)
-        invisibleSelectedItemsStagingSet.delete(itemToShow.value)
-      }
-    }
 
     // if it's an added item, remove it from list when it is deselected
     if (enableItemCreation && itemToDeselect.custom) {
@@ -804,10 +671,6 @@ const handleMultipleItemsDeselect = (items: Item[], restage = false) => {
       emit('item-removed', itemToDeselect)
     }
   })
-
-  if (restage) {
-    stageSelections()
-  }
 }
 
 // handle item select/deselect from dropdown
@@ -832,23 +695,8 @@ const handleItemSelect = (item: Item, isNew?: boolean) => {
   // if clicked item is already selected
   if (selectedItem.selected) {
     selectedItems.value = selectedItems.value.filter(anItem => anItem.value !== item.value)
-    // remove item from visibility arrays
-    if (visibleSelectedItemsStaging.value.filter(anItem => anItem.value === item.value).length) {
-      visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.value !== item.value)
-    } else if (invisibleSelectedItemsStagingSet.delete(item.value)) {
-      invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => anItem.value !== item.value)
-    }
     // deselect item
     selectedItem.selected = false
-
-    // if some items are hidden grab the first hidden one and add it into the visible array
-    if (invisibleSelectedItemsStaging.value.length) {
-      const itemToShow = invisibleSelectedItemsStaging.value.pop()
-      if (itemToShow) {
-        visibleSelectedItemsStaging.value.push(itemToShow)
-        invisibleSelectedItemsStagingSet.delete(itemToShow.value)
-      }
-    }
 
     // if it's an added item, remove it from list when it is deselected
     if (selectionIsAdded) {
@@ -865,7 +713,6 @@ const handleItemSelect = (item: Item, isNew?: boolean) => {
   } else { // newly selected item
     selectedItem.selected = true
     selectedItems.value.push(selectedItem)
-    visibleSelectedItemsStaging.value.push(selectedItem)
     // track it if it's a newly added item
     if (isNew) {
       selectedItem.custom = true
@@ -877,7 +724,6 @@ const handleItemSelect = (item: Item, isNew?: boolean) => {
     }
   }
 
-  stageSelections()
   const selectedVals = selectedItems.value.map(anItem => anItem.value)
 
   emit('selected', selectedItems.value)
@@ -994,16 +840,7 @@ const clearSelection = (): void => {
   })
 
   selectedItems.value = selectedItems.value.filter(anItem => anItem.disabled)
-  visibleSelectedItemsStaging.value = visibleSelectedItemsStaging.value.filter(anItem => anItem.disabled)
-  invisibleSelectedItemsStaging.value = invisibleSelectedItemsStaging.value.filter(anItem => {
-    if (!anItem.disabled) {
-      invisibleSelectedItemsStagingSet.delete(anItem.value)
-    }
-
-    return anItem.disabled
-  })
   filterString.value = ''
-  stageSelections()
   const selectedVals = selectedItems.value.map(anItem => anItem.value)
 
   emit('selected', selectedItems.value)
@@ -1049,51 +886,6 @@ const triggerInitialFocus = (): void => {
     emit('query-change', '')
   }
 }
-
-// whenever staging key is changed, we're ready to actually draw the selections
-watch(stagingKey, () => {
-  // set timeout required to push the calculation to the end of the update lifecycle event queue
-  setTimeout(() => {
-    const elem = multiselectSelectionsStagingElementRef.value
-
-    if (collapsedContext) {
-      // if collapsed, don't do all the calculations because we are not displaying badges
-      visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
-      invisibleSelectedItems.value = []
-      key.value++
-      return
-    }
-
-    if (elem) {
-      const height = elem.clientHeight
-
-      if (height > selectionsMaxHeight.value) {
-        const item = visibleSelectedItemsStaging.value.pop()
-        if (item && !invisibleSelectedItemsStagingSet.has(item.value)) {
-          invisibleSelectedItemsStaging.value.push(item)
-          invisibleSelectedItemsStagingSet.add(item.value)
-        }
-        stagingKey.value++
-      } else {
-        visibleSelectedItems.value = cloneDeep(visibleSelectedItemsStaging.value)
-        invisibleSelectedItems.value = cloneDeep(invisibleSelectedItemsStaging.value)
-        key.value++
-      }
-    }
-  }, 0)
-})
-
-// make the popper recalculate it's position whenever the selections display
-// is updated in case we've grown a line
-watch(key, async () => {
-
-  // @ts-ignore: allow checking for updatePopper
-  if (popper.value && typeof popper.value.updatePopper === 'function') {
-    await nextTick()
-    // @ts-ignore: allow calling the method
-    popper.value.updatePopper()
-  }
-})
 
 // If filtered normalized items change, re-sort them
 watch(filteredNormalizedItems, () => {
@@ -1232,10 +1024,6 @@ watch(() => items, (newValue, oldValue) => {
       if (!selectedItems.value.filter(anItem => anItem.value === selectedItem.value).length) {
         selectedItems.value.push(selectedItem)
       }
-      // if it isn't already in the selectedItems array, add it
-      if (!visibleSelectedItemsStaging.value.filter(anItem => anItem.value === selectedItem.value).length) {
-        visibleSelectedItemsStaging.value.push(selectedItem)
-      }
     }
   }
 
@@ -1270,20 +1058,6 @@ watch(() => items, (newValue, oldValue) => {
   }
 
   normalizedItems.value = normalized
-
-  stageSelections()
-
-  // Trigger an update to the popper element to cause the popover to redraw
-  // This prevents the popover from displaying "detached" from the KSelect
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  if (popper.value && typeof popper.value.updatePopper === 'function') {
-    nextTick(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      popper.value.updatePopper()
-    })
-  }
 }, { deep: true, immediate: true })
 
 const numericWidth = ref<number>(300)
@@ -1291,13 +1065,6 @@ const setNumericWidth = async (): Promise<void> => {
   numericWidth.value = 300
   await nextTick()
   numericWidth.value = multiselectElementRef.value?.clientWidth || 300
-
-  // Reset staging arrays to maintain correct order when resizing
-  visibleSelectedItemsStaging.value = [...selectedItems.value]
-  invisibleSelectedItemsStaging.value = []
-  invisibleSelectedItemsStagingSet.clear()
-
-  stageSelections()
 }
 
 onMounted(() => {
@@ -1324,17 +1091,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 .k-multiselect {
   display: flex;
   flex-direction: column;
-  position: relative; // so staging area is positioned around this node
   width: fit-content; // necessary for correct placement of popup
-
-  // off screen area for checking selections before display
-  .staging-area {
-    left: -99999px;
-    pointer-events: none;
-    position: absolute;
-    visibility: hidden;
-    z-index: -1;
-  }
 
   .expanded-selection-empty {
     @include inputText;
@@ -1354,21 +1111,14 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
   .selection-badges-container {
     box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--kui-space-40, $kui-space-40);
     margin-bottom: $kMultiselectInputPaddingY;
     margin-top: $kMultiselectInputPaddingY;
     min-height: 24px; // minimum height to prevent jumping when badges are removed or added
     padding-left: $kMultiselectInputPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
 
-    &.staging {
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      height: auto;
-      position: relative;
+    :deep(> [data-part="content"]) {
+      gap: var(--kui-space-40, $kui-space-40);
     }
 
     .multiselect-selection-badge {
