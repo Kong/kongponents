@@ -45,3 +45,4 @@ This will trigger the Commitizen interactive prompt for building your commit mes
   - There is an exception for automated pull request approvals originating from generated dependency updates that satisfy status checks and other requirements.
 - Protected branches require at least one approval from code owners.
 - All status checks must pass before a pull request may be merged.
+
