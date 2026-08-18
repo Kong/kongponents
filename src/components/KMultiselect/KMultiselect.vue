@@ -78,6 +78,12 @@
             >
               {{ triggerElementText }}
             </div>
+            <div
+              v-else-if="!isMounted"
+              class="selection-badges-container"
+              data-testid="selection-badges-container"
+              :style="numericWidthStyle"
+            />
             <WrapClamp
               v-else
               class="selection-badges-container"
@@ -1061,14 +1067,16 @@ watch(() => items, (newValue, oldValue) => {
 }, { deep: true, immediate: true })
 
 const numericWidth = ref<number>(300)
+const isMounted = ref(false)
 const setNumericWidth = async (): Promise<void> => {
   numericWidth.value = 300
   await nextTick()
   numericWidth.value = multiselectElementRef.value?.clientWidth || 300
 }
 
-onMounted(() => {
-  setNumericWidth()
+onMounted(async () => {
+  await setNumericWidth()
+  isMounted.value = true
 })
 
 // Observe resize changes on the multiselect element
