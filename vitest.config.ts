@@ -21,10 +21,13 @@ export default defineConfig({
      * `vitest-browser-vue` is only referenced from `setupFiles`, so Vite doesn't discover it
      * during its initial dependency crawl and pre-bundles it on demand instead. On a cold
      * cache (every CI run) that on-demand optimization races the browser instances starting
-     * up concurrently, and whichever one loses throws "Vitest failed to find the runner".
-     * Listing it here folds it into the eager pre-bundle, done before any instance connects.
+     * up concurrently, and whichever one loses throws "Vitest failed to find the runner" —
+     * or, for a dependency first pulled in partway through the run (e.g. `swrv`, only
+     * imported transitively via `useUtilities`), hangs a browser instance outright instead
+     * of erroring. Listing deps here folds them into the eager pre-bundle, done before any
+     * instance connects.
      */
-    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens'],
+    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv'],
   },
   resolve: {
     alias: {

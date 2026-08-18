@@ -59,10 +59,10 @@
     "test:open": "cross-env DISABLE_VUE_DEVTOOLS=true cypress open --component -b chrome",
     "test:spec": "cross-env DISABLE_VUE_DEVTOOLS=true cypress run --component -b chrome --spec",
     "test:unit": "vitest run --project unit",
-    "test:unit:watch": "vitest --project unit",
+    "test:unit:open": "vitest --project unit",
     "test:browser:install": "playwright install --with-deps chromium firefox webkit",
     "test:browser": "vitest run --project browser",
-    "test:browser:watch": "vitest --project browser --browser.headless=false",
+    "test:browser:open": "vitest --project browser --browser.headless=false",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
