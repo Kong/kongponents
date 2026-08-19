@@ -1,3 +1,10 @@
+## [9.64.9](https://github.com/Kong/kongponents/compare/v9.64.8...v9.64.9) (2026-08-19)
+
+
+### Bug Fixes
+
+* **ktextarea:** remove baseline gap below textarea wrapper ([#3359](https://github.com/Kong/kongponents/issues/3359)) ([517a6d6](https://github.com/Kong/kongponents/commit/517a6d6ba07b4a7e92da046d354f0b03d1719593))
+
 ## [9.64.8](https://github.com/Kong/kongponents/compare/v9.64.7...v9.64.8) (2026-08-13)
 
 
