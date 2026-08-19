@@ -320,6 +320,10 @@ $kTextAreaPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin,
   }
 
   .input-textarea {
+    // textarea defaults to `inline-block`, which leaves room for the line's descender below it and makes
+    // the wrapper taller than the textarea itself. Setting it to `block` removes that baseline gap.
+    display: block;
+
     @include inputDefaults {
       // A fallback max-height. Referenced GitHub’s implementation for the current value.
       // It’s highly unlikely that we would need an input box taller than the viewport—this isn’t a document editor.
