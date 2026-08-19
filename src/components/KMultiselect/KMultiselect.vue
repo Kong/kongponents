@@ -88,7 +88,7 @@
               v-else
               class="selection-badges-container"
               data-testid="selection-badges-container"
-              item-key="value"
+              item-key="key"
               :items="selectedItems"
               :max-lines="selectedRowCount"
               :style="numericWidthStyle"
@@ -1125,7 +1125,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     padding-left: $kMultiselectInputPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
 
-    :deep(> [data-part="content"]) {
+    :deep([data-part="content"]) {
       gap: var(--kui-space-40, $kui-space-40);
     }
 
