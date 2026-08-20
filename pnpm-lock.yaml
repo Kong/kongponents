@@ -104,8 +104,8 @@ importers:
         specifier: ^2.3.26
         version: 2.4.14(vue@3.5.40(typescript@5.9.3))
       '@kong/design-tokens':
-        specifier: 3.2.11-pr.717.a4c610f.0
-        version: 3.2.11-pr.717.a4c610f.0
+        specifier: 3.3.0
+        version: 3.3.0
       '@kong/eslint-config-kong-ui':
         specifier: 1.7.1
         version: 1.7.1(@typescript-eslint/parser@8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
@@ -1216,8 +1216,8 @@ packages:
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@3.2.11-pr.717.a4c610f.0':
-    resolution: {integrity: sha512-4hRsbeN4qECZnIla+wj9ChO7DhPD/30I/a+74gdlEDgsLwRIWYRkdZP/DM/lrZSsY4OajIUPtTOiZXhNYrbKbw==}
+  '@kong/design-tokens@3.3.0':
+    resolution: {integrity: sha512-eP2qnh3P0L6PJPnTdAdW37B6o4y/dFQ8PjeP/FRKItlc8e5LbX1nzTwrh+2kUAj8Ujtknk1I/U3F+o0FjslfGQ==}
     engines: {node: '>=20.19.5', pnpm: '>=10.28.2'}
 
   '@kong/eslint-config-kong-ui@1.7.1':
@@ -1580,8 +1580,8 @@ packages:
     resolution: {integrity: sha512-5EdhGZtnu3V88ces7s53hhfK5KSASnJZv8Lulpc04cWO3REESroJXg73DFsOmgbU2BhwV0E20bu2IDZb3VKW4Q==}
     engines: {node: '>=14.0.0'}
 
-  '@rollup/wasm-node@4.62.4':
-    resolution: {integrity: sha512-GJFM5d4k5dSoY/oyILsKArplGvkss1DOURyXsl6IEM/X9RV3bQwqu9GY6tYfA97ZwIejfAguHa9fo1pGOQcyDg==}
+  '@rollup/wasm-node@4.62.5':
+    resolution: {integrity: sha512-NSyG08F0m74qhvWDyFeYaZapAmieh3bEiQzCzql3N9ErlYoyt+V3xpDX8dBdKiZu1UXUpGNbBEblKaW5zcpqaw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -8283,7 +8283,7 @@ snapshots:
       '@kong/icons': 1.62.1(vue@3.5.40(typescript@5.9.3))
       vue: 3.5.40(typescript@5.9.3)
 
-  '@kong/design-tokens@3.2.11-pr.717.a4c610f.0': {}
+  '@kong/design-tokens@3.3.0': {}
 
   '@kong/eslint-config-kong-ui@1.7.1(@typescript-eslint/parser@8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)':
     dependencies:
@@ -8870,7 +8870,7 @@ snapshots:
 
   '@rollup/plugin-alias@6.0.0':
     dependencies:
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
 
   '@rollup/plugin-commonjs@29.0.2':
     dependencies:
@@ -8881,19 +8881,19 @@ snapshots:
       is-reference: 1.2.1
       magic-string: 0.30.21
       picomatch: 4.0.5
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
 
   '@rollup/plugin-inject@5.0.5':
     dependencies:
       '@rollup/pluginutils': 5.3.0
       estree-walker: 2.0.2
       magic-string: 0.30.21
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
 
   '@rollup/plugin-json@6.1.0':
     dependencies:
       '@rollup/pluginutils': 5.3.0
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
 
   '@rollup/plugin-node-resolve@16.0.3':
     dependencies:
@@ -8902,17 +8902,17 @@ snapshots:
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.12
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
 
   '@rollup/plugin-replace@6.0.3':
     dependencies:
       '@rollup/pluginutils': 5.3.0
       magic-string: 0.30.21
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
 
   '@rollup/plugin-terser@1.0.0':
     dependencies:
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
       serialize-javascript: 7.0.5
       smob: 1.6.2
       terser: 5.47.1
@@ -8922,9 +8922,9 @@ snapshots:
       '@types/estree': 1.0.9
       estree-walker: 2.0.2
       picomatch: 4.0.5
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
 
-  '@rollup/wasm-node@4.62.4':
+  '@rollup/wasm-node@4.62.5':
     dependencies:
       '@types/estree': 1.0.9
     optionalDependencies:
@@ -12479,7 +12479,7 @@ snapshots:
       pkg-types: 2.3.1
       pretty-bytes: 7.1.0
       radix3: 1.1.2
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
       rollup-plugin-visualizer: 7.0.1
       scule: 1.3.0
       semver: 7.8.5
@@ -13516,7 +13516,7 @@ snapshots:
     dependencies:
       open: 8.4.2
       picomatch: 4.0.4
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
       source-map: 0.7.6
       yargs: 17.7.2
 
@@ -13524,7 +13524,7 @@ snapshots:
     dependencies:
       open: 11.0.0
       picomatch: 4.0.5
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
       source-map: 0.7.6
       yargs: 18.1.0
 
@@ -14427,7 +14427,7 @@ snapshots:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.5
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
       webpack-virtual-modules: 0.6.2
     optionalDependencies:
       esbuild: 0.28.1
@@ -14663,7 +14663,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
       postcss: 8.5.23
-      rollup: '@rollup/wasm-node@4.62.4'
+      rollup: '@rollup/wasm-node@4.62.5'
       tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 24.13.3
