@@ -1,3 +1,10 @@
+## [9.64.10](https://github.com/Kong/kongponents/compare/v9.64.9...v9.64.10) (2026-08-20)
+
+
+### Bug Fixes
+
+* **deps:** update design tokens for colors ([#3360](https://github.com/Kong/kongponents/issues/3360)) ([5661908](https://github.com/Kong/kongponents/commit/5661908ff35e25fcd3740b3451cfc53c36ca558f))
+
 ## [9.64.9](https://github.com/Kong/kongponents/compare/v9.64.8...v9.64.9) (2026-08-19)
 
 
