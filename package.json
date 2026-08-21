@@ -86,7 +86,7 @@
     "vue-router": "4 || 5"
   },
   "devDependencies": {
-    "@babel/types": "^7.29.7",
+    "@babel/types": "^7.29.8",
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
     "@cypress/vite-dev-server": "^7.2.1",
@@ -106,7 +106,7 @@
     "@types/sortablejs": "^1.15.9",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/browser-playwright": "^4.1.10",
-    "@vue/compiler-core": "^3.5.40",
+    "@vue/compiler-core": "^3.5.41",
     "@vue/tsconfig": "^0.9.1",
     "@vueuse/core": "^14.3.0",
     "autoprefixer": "^10.5.4",
@@ -142,13 +142,13 @@
     "tsc-alias": "^1.8.17",
     "typescript": "^5.9.3",
     "vite": "^6.4.3",
-    "vite-plugin-vue-devtools": "^7.7.9",
+    "vite-plugin-vue-devtools": "^7.7.10",
     "vitepress": "^1.6.4",
     "vitest": "^4.1.10",
     "vitest-browser-vue": "^2.1.0",
-    "vue": "3.5.40",
+    "vue": "3.5.41",
     "vue-router": "^5.1.0",
-    "vue-tsc": "^3.3.7"
+    "vue-tsc": "^3.3.9"
   },
   "author": {
     "name": "Kong Inc.",
@@ -199,10 +199,10 @@
     "node": ">=v16.20.2 || >=18.12.1 || >=20.14.0 || >=22.14.0",
     "pnpm": ">=10.34.4"
   },
-  "packageManager": "pnpm@10.34.4",
+  "packageManager": "pnpm@10.34.5",
   "volta": {
     "node": "24.14.1",
-    "pnpm": "10.34.4"
+    "pnpm": "10.34.5"
   },
   "config": {
     "commitizen": {
