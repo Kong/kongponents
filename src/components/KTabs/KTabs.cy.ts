@@ -1,6 +1,16 @@
 import { h } from 'vue'
 import type { TabsAppearance } from '@/types'
 import KTabs from '@/components/KTabs/KTabs.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [{
+    name: 'home',
+    path: '/',
+    component: { template: '<div />' },
+  }],
+})
 
 const TABS = [
   { hash: '#pictures', title: 'Pictures' },
@@ -19,6 +29,9 @@ describe('KTabs', () => {
             tabs: TABS,
             appearance,
           },
+          global: {
+            plugins: [router],
+          },
         })
         cy.get('.k-tabs').should('have.class', appearance)
       })
@@ -28,6 +41,9 @@ describe('KTabs', () => {
           props: {
             tabs: TABS,
             appearance,
+          },
+          global: {
+            plugins: [router],
           },
         })
 
@@ -41,6 +57,9 @@ describe('KTabs', () => {
             modelValue: '#books',
             appearance,
           },
+          global: {
+            plugins: [router],
+          },
         })
 
         cy.get('.tab-item').eq(2).should('have.class', 'active')
@@ -51,6 +70,9 @@ describe('KTabs', () => {
           props: {
             tabs: TABS,
             appearance,
+          },
+          global: {
+            plugins: [router],
           },
         })
 
@@ -70,6 +92,9 @@ describe('KTabs', () => {
             tabs: TABS,
             hidePanels: true,
             appearance,
+          },
+          global: {
+            plugins: [router],
           },
           slots: {
             pictures: h('div', {}, picturesSlot),
@@ -104,6 +129,9 @@ describe('KTabs', () => {
             tabs,
             appearance,
           },
+          global: {
+            plugins: [router],
+          },
         })
 
         cy.get('.tab-item .tab-link').eq(1).should('have.class', 'disabled')
@@ -124,6 +152,9 @@ describe('KTabs', () => {
             tabs,
             appearance,
           },
+          global: {
+            plugins: [router],
+          },
         })
 
         cy.get('.tab-item .tab-link').eq(1).should('have.attr', 'href', '/movies')
@@ -131,15 +162,18 @@ describe('KTabs', () => {
 
       it('renders the tab as a link with no href attribute if tab.to is present and tab.disabled is true', () => {
         const tabs = [
-          { hash: '#pictures', title: 'Pictures' },
-          { hash: '#movies', title: 'Movies', to: '/movies', disabled: true },
-          { hash: '#books', title: 'Books' },
+          { hash: '#pictures', title: 'Enabled' },
+          { hash: '#movies', title: 'String to, disabled', to: '/movies', disabled: true },
+          { hash: '#books', title: 'Object to, disabled', to: { name: 'home' }, disabled: true },
         ]
 
         cy.mount(KTabs, {
           props: {
             tabs,
             appearance,
+          },
+          global: {
+            plugins: [router],
           },
         })
 
@@ -152,6 +186,9 @@ describe('KTabs', () => {
             tabs: TABS,
             beforeChange: () => false,
             appearance,
+          },
+          global: {
+            plugins: [router],
           },
         })
 
@@ -170,6 +207,9 @@ describe('KTabs', () => {
             props: {
               tabs: TABS,
               appearance,
+            },
+            global: {
+              plugins: [router],
             },
             slots: {
               pictures: h('div', {}, picturesSlot),
@@ -198,6 +238,9 @@ describe('KTabs', () => {
             props: {
               tabs: TABS,
               appearance,
+            },
+            global: {
+              plugins: [router],
             },
             slots: {
               'pictures-anchor': h('div', {}, picturesSlot),
