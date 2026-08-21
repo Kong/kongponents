@@ -564,6 +564,40 @@ describe('KMultiselect', () => {
       })
   })
 
+  it('keeps an open dropdown aligned when the selected badge rows change', () => {
+    const items = Array.from(new Array(10)).map((_, i) => ({
+      label: `Item ${i}`,
+      value: `${i}`,
+    }))
+    let initialTriggerHeight = 0
+    let triggerBottom = 0
+
+    cy.mount(KMultiselect, {
+      props: {
+        items,
+        modelValue: items.map(item => item.value),
+        selectedRowCount: 1,
+        width: '250',
+      },
+    })
+
+    cy.getTestId('multiselect-trigger').trigger('keydown', { key: 'Enter' })
+    cy.getTestId('multiselect-trigger').then($trigger => {
+      initialTriggerHeight = $trigger[0]!.getBoundingClientRect().height
+    })
+
+    cy.then(() => Cypress.vueWrapper.setProps({ selectedRowCount: 2 }))
+
+    cy.getTestId('multiselect-trigger').should($trigger => {
+      const rect = $trigger[0]!.getBoundingClientRect()
+      expect(rect.height).to.be.greaterThan(initialTriggerHeight)
+      triggerBottom = rect.bottom
+    })
+    cy.get('.multiselect-popover').filter(':visible').find('.popover-container').should($popover => {
+      expect($popover[0]!.getBoundingClientRect().top).to.be.at.least(triggerBottom)
+    })
+  })
+
   it('displays placeholder and searchPlaceholder props correctly', () => {
     const labels = ['Label 1', 'Label 2']
     const vals = ['label1', 'label2']
@@ -976,33 +1010,33 @@ describe('KMultiselect', () => {
         modelValue: ['label1', 'label2'],
       },
     }).then(({ wrapper }) => {
-      cy.getTestId('selection-badges-container').children().should('have.length', 2).then(() => {
+      cy.getTestId('selection-badges-container').find('.multiselect-selection-badge').should('have.length', 2).then(() => {
 
         // Remove 'label1'
         wrapper.setProps({
           modelValue: ['label2'],
         }).then(() => {
 
-          cy.getTestId('selection-badges-container').children().should('have.length', 1).then(() => {
+          cy.getTestId('selection-badges-container').find('.multiselect-selection-badge').should('have.length', 1).then(() => {
 
             // Change the items; 'label2' is no longer in the list.
             wrapper.setProps({
               items: allItems.slice(2),
             }).then(() => {
 
-              cy.getTestId('selection-badges-container').children().should('have.length', 1).then(() => {
+              cy.getTestId('selection-badges-container').find('.multiselect-selection-badge').should('have.length', 1).then(() => {
 
                 // Select an additional item.
                 wrapper.setProps({
                   modelValue: ['label2', 'label3'],
                 }).then(() => {
-                  cy.getTestId('selection-badges-container').children().should('have.length', 2).then(() => {
+                  cy.getTestId('selection-badges-container').find('.multiselect-selection-badge').should('have.length', 2).then(() => {
 
                     // Remove 'label2' from the selection.
                     wrapper.setProps({
                       modelValue: ['label3'],
                     }).then(() => {
-                      cy.getTestId('selection-badges-container').children().should('have.length', 1)
+                      cy.getTestId('selection-badges-container').find('.multiselect-selection-badge').should('have.length', 1)
                     })
                   })
                 })
