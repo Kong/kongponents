@@ -98,6 +98,8 @@ const handleClick = (option: NormalizedOption): void => {
 /* Component variables */
 
 $kSegmentedControlSmallHeight: 32px;
+// shared with the negative margin below so overlapping borders always coincide exactly
+$kSegmentedControlBorderWidth: var(--kui-segmented-control-border-width, var(--kui-border-width-20, $kui-border-width-20));
 
 /* Component styles */
 
@@ -111,7 +113,8 @@ $kSegmentedControlSmallHeight: 32px;
     background-color: var(--kui-segmented-control-color-background, var(--kui-color-background, $kui-color-background));
     border-color: var(--kui-segmented-control-color-border, var(--kui-color-border-primary, $kui-color-border-primary));
     border-style: solid;
-    border-width: var(--kui-segmented-control-border-width, var(--kui-border-width-20, $kui-border-width-20));
+    border-width: $kSegmentedControlBorderWidth;
+    box-sizing: border-box;
     color: var(--kui-segmented-control-color-text, var(--kui-color-text-primary, $kui-color-text-primary));
     cursor: pointer;
     display: flex;
@@ -131,9 +134,9 @@ $kSegmentedControlSmallHeight: 32px;
     z-index: 1;
 
     &:not(:first-child) {
-      // offset the border of the previous button
+      // offset the border of the previous button — must stay in sync with `border-width` above
       /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
-      margin-left: calc(var(--kui-border-width-20, $kui-border-width-20) * -1);
+      margin-left: calc(#{$kSegmentedControlBorderWidth} * -1);
     }
 
     &:first-child {
@@ -152,30 +155,26 @@ $kSegmentedControlSmallHeight: 32px;
       padding-right: var(--kui-segmented-control-padding-x-large, var(--kui-space-60, $kui-space-60));
     }
 
+    // z-index ladder: each interaction state gets its own layer so that overlapping borders
+    // (see the negative margin above) resolve deterministically instead of tying and flipping
+    // seam ownership between states on hover/focus/select.
     &:hover:not([disabled]) {
       border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
       color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
-      z-index: 2;
-    }
-
-    &:focus:not([disabled]) {
-      // Coordinates with :hover/:focus-visible via the shared -hover token
-      border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-stronger, $kui-color-border-primary-stronger));
-      color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-stronger, $kui-color-text-primary-stronger));
       z-index: 3;
     }
 
     &:active:not([disabled]) {
       border-color: var(--kui-segmented-control-color-border-active, var(--kui-color-border-primary-strongest, $kui-color-border-primary-strongest));
       color: var(--kui-segmented-control-color-text-active, var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest));
-      z-index: 3;
+      z-index: 4;
     }
 
     &:focus-visible:not([disabled]) {
       border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
       box-shadow: var(--kui-segmented-control-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
-      z-index: 3;
+      z-index: 5;
     }
 
     &[disabled] {
