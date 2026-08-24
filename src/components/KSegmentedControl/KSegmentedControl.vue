@@ -102,6 +102,7 @@ $kSegmentedControlSmallHeight: 32px;
 /* Component styles */
 
 .k-segmented-control {
+  box-sizing: border-box;
   display: flex;
   gap: var(--kui-space-0, $kui-space-0);
   overflow-x: auto;
@@ -175,7 +176,7 @@ $kSegmentedControlSmallHeight: 32px;
 
     &:focus-visible:not([disabled]) {
       border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
-      box-shadow: var(--kui-segmented-control-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
+      box-shadow: inset var(--kui-segmented-control-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       z-index: 3;
     }
