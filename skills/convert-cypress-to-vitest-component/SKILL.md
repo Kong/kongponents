@@ -42,18 +42,15 @@ stylesheet (so computed-style and visibility assertions are meaningful), and reg
 custom `getByCSS` locator, since Vitest's `page` ships only semantic `getBy*` selectors and
 has no `page.locator()`.
 
-`src/components/KBadge/KBadge.browser.spec.ts` is the reference conversion — skim it for
-house style before writing a new one.
-
 ```bash
-pnpm test:browser src/components/KBadge   # run one component's specs
-pnpm test:browser:watch                   # headed, for debugging
-pnpm test:browser:install                 # first run only — downloads the browsers
 pnpm typecheck
 pnpm lint
+pnpm test:browser src/components/<componentName>   # run one component's specs
+pnpm test:browser:watch                   # headed, for debugging
+pnpm test:browser:install                 # first run only — downloads the browsers
 ```
 
-**Every spec runs three times, once per engine.** That's the point — layout, computed
+**Every spec runs once per engine.** That's the point — layout, computed
 styles and font metrics differ between Chromium, Firefox and WebKit, and a component
 library should catch that before a consumer does. Two consequences: the suite is slow, so
 keep batches small; and a failure in one engine only is a real finding, not flake. Report
@@ -127,9 +124,9 @@ expect(screen.emitted('input')?.[0][0]).toBe(true)   // subsequent reads can be 
 `getByTestId` is built in and reads `data-testid`, so the old `getTestId`/`findTestId`
 commands need no replacement — they were only ever shorthand.
 
-Prefer an existing stable selector over adding one. In a component library the class names
-are published API that consumers style against, so asserting on `.k-badge` is meaningful
-rather than a shortcut. Add a `data-testid` only when there's no stable selector at all,
+Prefer an existing stable selector over adding one. Utilizing `data-testid`
+attributes is **always preferred** over class names or other selectors.
+Add a `data-testid` only when there's no stable selector at all,
 and call it out in your report — it changes shipped component markup.
 
 **Locators are strict.** A locator matching two elements throws when you use it, where
