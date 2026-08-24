@@ -166,7 +166,7 @@ const kpopAttrs = {
 const {
   items = [],
   totalCount = 0,
-  pageSizes = [15, 30, 50, 75, 100],
+  pageSizes = [30, 50, 75, 100],
   initialPageSize = null,
   neighbors = 1,
   currentPage = null,

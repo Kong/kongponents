@@ -27,7 +27,7 @@ export interface PaginationProps<T> {
 
   /**
    * The available page size options.
-   * @default [15, 30, 50, 75, 100]
+   * @default [30, 50, 75, 100]
    */
   pageSizes?: number[]
 

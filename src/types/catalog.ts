@@ -216,7 +216,7 @@ export interface CatalogProps<T extends readonly CatalogItem[] = readonly Catalo
 
   /**
    * A prop to pass in an array of page sizes used by the pagination component.
-   * @default [15, 30, 50, 75, 100]
+   * @default [30, 50, 75, 100]
    */
   paginationPageSizes?: number[]
 

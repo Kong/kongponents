@@ -16,7 +16,7 @@ A total number of items inside the paginated data source. This prop is **require
 
 ### pageSizes
 
-An array of numbers of page sizes that the user can choose from. The default page sizes are: `[15, 30, 50, 75, 100]`.
+An array of numbers of page sizes that the user can choose from. The default page sizes are: `[30, 50, 75, 100]`.
 
 You can provide custom page sizes. The first number in the array will be the initial page size unless otherwise specified through the [`initialPageSize` prop](#initialpagesize).
 

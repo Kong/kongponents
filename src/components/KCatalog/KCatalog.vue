@@ -197,7 +197,7 @@ const {
   fetcherCacheKey = '',
   searchInput = '',
   paginationNeighbors = 1,
-  paginationPageSizes = [15, 30, 50, 75, 100],
+  paginationPageSizes = [30, 50, 75, 100],
   paginationTotalItems = null,
   disablePaginationPageJump,
   disablePagination,
