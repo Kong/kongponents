@@ -98,6 +98,7 @@ const handleClick = (option: NormalizedOption): void => {
 /* Component variables */
 
 $kSegmentedControlSmallHeight: 32px;
+$kSegmentedControlFocusRingWidth: 4px; // matches the spread of $kui-shadow-focus
 
 /* Component styles */
 
@@ -105,9 +106,11 @@ $kSegmentedControlSmallHeight: 32px;
   box-sizing: border-box;
   display: flex;
   gap: var(--kui-space-0, $kui-space-0);
+  margin: -$kSegmentedControlFocusRingWidth; // `overflow-x: auto` clips on both axes, so reserve room inside the scroll container for the buttons' focus ring and pull it back out with a negative margin
   overflow-x: auto;
+  padding: $kSegmentedControlFocusRingWidth;
   scrollbar-width: thin;
-  width: 100%;
+  width: calc(100% + #{$kSegmentedControlFocusRingWidth * 2});
 
   .segmented-control-button {
     align-items: center;
@@ -176,7 +179,7 @@ $kSegmentedControlSmallHeight: 32px;
 
     &:focus-visible:not([disabled]) {
       border-color: var(--kui-segmented-control-color-border-hover, var(--kui-color-border-primary-strong, $kui-color-border-primary-strong));
-      box-shadow: inset var(--kui-segmented-control-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
+      box-shadow: var(--kui-segmented-control-shadow-focus, var(--kui-shadow-focus, $kui-shadow-focus));
       color: var(--kui-segmented-control-color-text-hover, var(--kui-color-text-primary-strong, $kui-color-text-primary-strong));
       z-index: 3;
     }
