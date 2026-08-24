@@ -136,7 +136,7 @@ $kSegmentedControlSmallHeight: 32px;
     &:not(:first-child) {
       // offset the border of the previous button
       /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
-      margin-left: calc(var(--kui-border-width-20, $kui-border-width-20) * -1);
+      margin-left: calc(var(--kui-segmented-control-border-width, var(--kui-border-width-20, $kui-border-width-20)) * -1);
     }
 
     &:first-child {
