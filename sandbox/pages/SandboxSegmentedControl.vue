@@ -10,12 +10,10 @@
         title="Props"
       />
       <SandboxSectionComponent title="options">
-        <div class="resizable-container">
-          <KSegmentedControl
-            v-model="vModel"
-            :options="['Item One', 'Item Two', 'Item Three']"
-          />
-        </div>
+        <KSegmentedControl
+          v-model="vModel"
+          :options="['Item One', 'Item Two', 'Item Three']"
+        />
         <KSegmentedControl
           v-model="vModel"
           :options="items"
@@ -149,13 +147,6 @@ const items = [
 
 <style lang="scss" scoped>
 .ksegmentedcontrol-sandbox {
-  .resizable-container {
-    max-width: 1280px;
-    overflow-x: auto;
-    padding-bottom: var(--kui-space-60, $kui-space-60);
-    resize: horizontal;
-  }
-
   .input-container {
     display: flex;
     gap: var(--kui-space-40, $kui-space-40);
