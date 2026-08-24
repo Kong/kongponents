@@ -278,7 +278,7 @@ of you uses it; skip the rest.
 - The test runs inside the page — `cy.window`, `cy.document`
 - Clipboard — KCopy, KCodeBlock
 - File upload / Drag and drop — KFileUpload
-- Location and routing — KLabel
+- Location and routing — KButton, KLabel
 - Expected exceptions — KMultiselect
 - Shadow DOM — KDateTimePicker
 - Component internals — KSelect, KDropdown, KMultiselect
@@ -417,25 +417,58 @@ since navigation is asynchronous and a bare `expect` won't retry:
 await expect.poll(() => window.location.hash).toBe('#docs-link')
 ```
 
-There is no `renderWithProdRouter` helper — the team removed it in review, since exactly
-one spec (KLabel) needs a router and speculative helpers weren't wanted. Install the router
-inline as a plugin when you reach it:
+That is all the KLabel's hash test needs — it clicks a plain anchor and reads the
+native `location.hash`, no router involved. KButton is the spec that actually needs a
+router, and its `.cy.ts` used `cy.mountWithProdRouter`. There is no equivalent Vitest
+helper — the team removed the Cypress command's would-be `render` counterpart in review,
+since exactly one spec needs a router and speculative helpers weren't wanted. Install the
+router inline as a plugin instead, the way `KButton.browser.spec.ts` does:
 
 ```ts
 import { createMemoryHistory, createRouter } from 'vue-router'
  
 const router = createRouter({
   history: createMemoryHistory(),
-  routes: [{ path: '/', component: defineComponent({ setup: () => () => h('div') }) }],
+  routes: [{ path: '/', name: 'home', component: defineComponent({ setup: () => () => h('div') }) }],
 })
  
-await render(KLabel, { global: { plugins: [router] } })
+await render(KButton, { global: { plugins: [router] } })
 ```
 
-The Cypress command imported vue-router's *production* CJS build, because only that build
-swallows navigation errors that would otherwise fail the test. Start with the normal
-import; if the dev build's warnings surface as failures, that's the reason, and it's worth
-telling the user rather than working around it silently.
+**The assertion, not just the mount, needs re-expressing.** `cy.mountWithProdRouter`
+imported vue-router's *production* CJS build (`vue-router/dist/vue-router.prod.cjs`),
+because only that build throws synchronously on a bad `to` value — the dev build (what a
+normal `import { createRouter } from 'vue-router'` resolves to, in Vitest same as anywhere
+else) logs a `console.warn`/`console.error` instead of throwing. The Cypress spec leaned on
+that difference directly: `expect(() => cy.mountWithProdRouter(...)).to.not.throw()`.
+
+There's no dev/prod switch to reach for in Vitest, so don't chase the prod build — spy on
+the console instead. A clean console is the dev-build-observable form of "does not throw":
+
+```ts
+// missing `to` on router-link only throws with vue-router's production build;
+// the dev build warns instead. A clean console is the dev-build-observable form
+// of "does not throw".
+const warn = vi.spyOn(console, 'warn')
+const error = vi.spyOn(console, 'error')
+ 
+await render(KButton, {
+  props: { to: { name: 'home' }, disabled: true },
+  slots: { default: () => 'Click me' },
+  global: { plugins: [router] },
+})
+ 
+await expect.element(page.getByCSS('.k-button')).toBeInTheDocument()
+expect(warn).not.toHaveBeenCalled()
+expect(error).not.toHaveBeenCalled()
+```
+
+Set the spies up *before* `render`, not after, so a warning fired during mount doesn't slip
+past unspied — and route the test's `to` through a route the router actually defines (here,
+`name: 'home'`), so a clean console reflects the component's behavior rather than a router
+that was never going to resolve anything. If a future spec's whole point is that the
+*production* build throws and a warning genuinely isn't an acceptable substitute for that,
+say so in your report rather than silently downgrading the assertion.
 
 ### Expected exceptions
 
