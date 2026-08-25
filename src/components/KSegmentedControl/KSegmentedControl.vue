@@ -98,13 +98,19 @@ const handleClick = (option: NormalizedOption): void => {
 /* Component variables */
 
 $kSegmentedControlSmallHeight: 32px;
+$kSegmentedControlFocusRingWidth: 4px; // matches the spread of $kui-shadow-focus
 
 /* Component styles */
 
 .k-segmented-control {
+  box-sizing: border-box;
   display: flex;
   gap: var(--kui-space-0, $kui-space-0);
-  width: 100%;
+  margin: -$kSegmentedControlFocusRingWidth; // `overflow-x: auto` clips on both axes, so reserve room inside the scroll container for the buttons' focus ring and pull it back out with a negative margin
+  overflow-x: auto;
+  padding: $kSegmentedControlFocusRingWidth;
+  scrollbar-width: thin;
+  width: calc(100% + #{$kSegmentedControlFocusRingWidth * 2});
 
   .segmented-control-button {
     align-items: center;
@@ -133,7 +139,7 @@ $kSegmentedControlSmallHeight: 32px;
     &:not(:first-child) {
       // offset the border of the previous button
       /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
-      margin-left: calc(var(--kui-border-width-20, $kui-border-width-20) * -1);
+      margin-left: calc(var(--kui-segmented-control-border-width, var(--kui-border-width-20, $kui-border-width-20)) * -1);
     }
 
     &:first-child {

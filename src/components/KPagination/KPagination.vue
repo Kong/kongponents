@@ -558,7 +558,7 @@ onBeforeUnmount(() => {
       :deep(.popover-content) {
         border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
         border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
-        max-height: 200px;
+        max-height: 250px;
         overflow-y: auto;
       }
 

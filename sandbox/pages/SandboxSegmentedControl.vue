@@ -149,7 +149,7 @@ const items = [
 .ksegmentedcontrol-sandbox {
   .input-container {
     display: flex;
-    gap: $kui-space-40;
+    gap: var(--kui-space-40, $kui-space-40);
   }
 }
 </style>
