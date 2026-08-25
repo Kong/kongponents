@@ -1,3 +1,10 @@
+## [9.64.11](https://github.com/Kong/kongponents/compare/v9.64.10...v9.64.11) (2026-08-25)
+
+
+### Bug Fixes
+
+* **ksegmentedcontrol:** horizontal scroll [KHCP-21533] ([#3362](https://github.com/Kong/kongponents/issues/3362)) ([7f8323f](https://github.com/Kong/kongponents/commit/7f8323f875ce39cfeef56e59d010d468fc52eb25))
+
 ## [9.64.10](https://github.com/Kong/kongponents/compare/v9.64.9...v9.64.10) (2026-08-20)
 
 
