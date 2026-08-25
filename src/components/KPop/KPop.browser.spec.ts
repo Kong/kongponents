@@ -4,7 +4,7 @@ import { render } from 'vitest-browser-vue'
 import KPop from '@/components/KPop/KPop.vue'
 import { computed, h } from 'vue'
 import { POPOVER_PARENT_ZINDEX_KEY } from '@/utilities/injection-keys'
-import { resetPointer } from '@test/utils'
+import { resetPointer } from '@test/utils/reset-pointer'
 
 describe('KPop', () => {
   it('renders props when passed', async () => {

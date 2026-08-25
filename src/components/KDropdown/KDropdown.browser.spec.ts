@@ -4,7 +4,7 @@ import { render } from 'vitest-browser-vue'
 import { defineComponent, h, ref } from 'vue'
 import KDropdown from '@/components/KDropdown/KDropdown.vue'
 import KDropdownItem from '@/components/KDropdown/KDropdownItem.vue'
-import { resetPointer } from '@test/utils'
+import { resetPointer } from '@test/utils/reset-pointer'
 
 const defaultMenuItems = [
   { label: 'Props' },

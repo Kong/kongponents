@@ -41,9 +41,10 @@ Two harness files, both under `test/`:
 - **`test/setup.ts`** imports the global stylesheet (so computed-style and visibility
   assertions are meaningful) and registers a custom `getByCSS` locator, since Vitest's
   `page` ships only semantic `getBy*` selectors and has no `page.locator()`.
-- **`test/utils.ts`** exports `resetPointer()`, which parks the mouse pointer away from the
-  component about to be mounted. Import it as `import { resetPointer } from '@test/utils'`
-  and read "Hover tests need the pointer parked" below before writing any hover test.
+- **`test/utils/`** holds one helper per file. `test/utils/reset-pointer.ts` exports
+  `resetPointer()`, which parks the mouse pointer away from the component about to be mounted.
+  Import it as `import { resetPointer } from '@test/utils/reset-pointer'` and read "Hover tests
+  need the pointer parked" below before writing any hover test.
 
 ```bash
 pnpm typecheck
@@ -213,7 +214,7 @@ mounts *underneath* the cursor the previous test left behind, and the browser fi
 Call `resetPointer()` **before** `render()` in every test that hovers:
 
 ```ts
-import { resetPointer } from '@test/utils'
+import { resetPointer } from '@test/utils/reset-pointer'
 
 it('shows element on hover', async () => {
   await resetPointer()
@@ -420,7 +421,7 @@ await page.getByCSS('input[type=file]').upload('test/fixtures/file-upload-docume
 The fixture currently lives under `cypress/fixtures/`, which goes away with Cypress. When
 converting KFileUpload, copy it to `test/fixtures/` and point the new spec there — leave the
 original in place for the Cypress spec that's still running. `test/` holds only `setup.ts`
-and `utils.ts` so far, so flag a new file there in your report rather than treating it as
+and `utils/` so far, so flag a new file there in your report rather than treating it as
 routine.
 
 Constructing the `File` inline avoids the fixture entirely and is often clearer:
