@@ -20,9 +20,12 @@ import { page } from 'vitest/browser'
 export const resetPointer = async (): Promise<void> => {
   const parkingSpot = document.createElement('div')
 
-  // Fixed to the corner furthest from where components mount, and on top of whatever is there, so
-  // the hover lands on this element rather than on something belonging to a previous test.
-  parkingSpot.setAttribute('style', 'position: fixed; right: 0; bottom: 0; height: 4px; width: 4px; z-index: 2147483647;')
+  /**
+   * On top of everything, in the corner furthest from where components mount — but inset from the
+   * edge, because the iframe is scaled down to the real window and a flush-corner spot lands
+   * ~2px outside it, which Playwright can never scroll a fixed element back into.
+   */
+  parkingSpot.setAttribute('style', 'position: fixed; right: 32px; bottom: 32px; height: 8px; width: 8px; z-index: 2147483647;')
   document.body.appendChild(parkingSpot)
 
   try {
