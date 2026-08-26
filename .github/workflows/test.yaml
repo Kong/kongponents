@@ -64,7 +64,11 @@ jobs:
           pnpm test:browser:install
           echo "::endgroup::"
 
+      # Step-level timeout so a stalled browser instance *fails* this step instead of running the
+      # whole job out of its 20 minute budget. A job cancelled on timeout skips `if: failure()`
+      # steps, so the screenshot upload below never runs and the stall leaves nothing to debug.
       - name: Run Vitest browser tests
+        timeout-minutes: 10
         run: pnpm test:browser
 
       - name: Upload Vitest screenshots (on failure)
