@@ -965,7 +965,8 @@ describe('KMultiselect', () => {
       selected: i < 400,
     }))
 
-    // `Date.now()` is unavailable in this runner; `performance.now()` is the equivalent clock.
+    // `performance.now()` rather than the original's `Date.now()`: it's monotonic, so a wall-clock
+    // adjustment mid-run can't turn this budget check into a false pass or fail.
     const startTime = performance.now()
 
     await render(KMultiselect, {
