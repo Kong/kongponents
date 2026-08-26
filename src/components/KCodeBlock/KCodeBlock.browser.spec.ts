@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
+import { resetPointer } from '@test/utils/reset-pointer'
 import KCodeBlock from './KCodeBlock.vue'
 import type { CodeBlockProps } from '@/types'
 
@@ -53,13 +54,24 @@ function renderComponent(props: Partial<CodeBlockProps> & Pick<CodeBlockProps, '
   })
 }
 
+function mockClipboard() {
+  const writeText = vi.fn().mockResolvedValue(undefined)
+  Object.defineProperty(navigator, 'clipboard', {
+    value: { writeText },
+    configurable: true,
+  })
+  return writeText
+}
+
 describe('KCodeBlock', () => {
   it('has the right default content', async () => {
     await renderComponent({ id: 'code-block' })
 
     await expect.poll(() => page.getByCSS('.line').all().length).toBe(5)
     await expect.element(page.getByTestId('code-block-copy-button-code-block')).toBeInTheDocument()
-    await expect.element(page.getByTestId('highlighted-code-block')).toHaveTextContent(code.replace(/\s+/g, ' ').trim())
+
+    const normalizedCode = code.replace(/\s+/g, ' ').trim()
+    await expect.element(page.getByTestId('highlighted-code-block').getByCSS('code')).toHaveTextContent(normalizedCode)
   })
 
   it('has no copy button when props.showCopyButton is false', async () => {
@@ -70,35 +82,34 @@ describe('KCodeBlock', () => {
 
   it('always show the copy button without needing to hover when props.showCopyButton is "always"', async () => {
     await page.viewport(1281, 800)
+    await resetPointer()
 
-    // The copy button is revealed via `opacity`, which Playwright's actionability model
-    // (and thus `toBeVisible`) doesn't factor in — a fully transparent element still has a
-    // non-empty bounding box. Assert the computed style that actually gates the reveal.
-    const defaultRender = await renderComponent({ id: 'code-block' })
+    const screen = await renderComponent({ id: 'code-block' })
     await expect.element(page.getByCSS('.secondary-actions-wrapper')).toHaveStyle({ opacity: '0' })
-    await defaultRender.unmount()
 
-    await renderComponent({ id: 'code-block', showCopyButton: 'always' })
+    await screen.rerender({ showCopyButton: 'always' })
     await expect.element(page.getByCSS('.secondary-actions-wrapper')).toHaveStyle({ opacity: '1' })
   })
 
   it('copies the value of props.code to the clipboard when props.copyCode is not provided', async () => {
-    const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue()
+    const writeText = mockClipboard()
 
     await renderComponent({ id: 'code-block', showCopyButton: 'always' })
 
     await page.getByTestId('code-block-copy-button-code-block').click()
+
     await expect.poll(() => writeText.mock.calls.length).toBe(1)
     expect(writeText).toHaveBeenCalledWith(code)
   })
 
   it('copies the value of props.copyCode to the clipboard when provided, instead of props.code', async () => {
     const copyCode = '{ "redacted": "actual-secret-value" }'
-    const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue()
+    const writeText = mockClipboard()
 
     await renderComponent({ id: 'code-block', copyCode, showCopyButton: 'always' })
 
     await page.getByTestId('code-block-copy-button-code-block').click()
+
     await expect.poll(() => writeText.mock.calls.length).toBe(1)
     expect(writeText).toHaveBeenCalledWith(copyCode)
     expect(writeText).not.toHaveBeenCalledWith(code)
@@ -106,7 +117,7 @@ describe('KCodeBlock', () => {
 
   it('copies the value of props.copyCode when triggered via the Alt+C shortcut', async () => {
     const copyCode = 'real-value-to-be-copied'
-    const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue()
+    const writeText = mockClipboard()
 
     await renderComponent({ id: 'code-block', copyCode })
 
@@ -119,25 +130,20 @@ describe('KCodeBlock', () => {
 
   it('can be searched to highlight matching lines', async () => {
     const id = 'code-block'
-    await renderComponent({
-      id,
-      searchable: true,
-    })
+    await renderComponent({ id, searchable: true })
 
     // Searches in normal mode.
     const expectedLineNumbers = [2, 3, 4]
 
     await expect.element(page.getByTestId('code-block-search-input')).toHaveAttribute('name', 'code-search')
+
     await page.getByTestId('code-block-search-input').fill('key')
-    // Ensures processing of the search is done. (The transient "processing" state itself isn't
-    // asserted — the debounce's leading edge resolves within a single tick here, faster than
-    // it's reliably observable, unlike in the Cypress command queue.)
     await expect.element(page.getByTestId('code-block-processing-icon')).not.toBeInTheDocument()
 
-    // Jumps to the next (i.e. first) match using F3 and checks that the highlighted line numbers are jumped to in order.
     await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
-    const codeBlock = page.getByTestId('k-code-block')
-    codeBlock.element().focus()
+
+    page.getByTestId('k-code-block').element().focus()
+
     for (const lineNumber of expectedLineNumbers) {
       await userEvent.keyboard('{F3}')
       await expect.element(page.getByCSS(`.line-is-highlighted-match .line-anchor#${id}-L${lineNumber}`)).toBeVisible()
@@ -152,8 +158,8 @@ describe('KCodeBlock', () => {
     await page.getByTestId('code-block-search-input').fill('key[12]')
     await expect.element(page.getByTestId('code-block-processing-icon')).not.toBeInTheDocument()
 
-    await expect.poll(() => page.getByCSS('.line-is-match').all().length).toBe(expectedLineNumbersForRegExp.length)
-    // Checks if the correct line numbers are highlighted now that processing is done.
+    const lineIsMatch = page.getByCSS('.line-is-match')
+    await expect.poll(() => lineIsMatch.all().length).toBe(expectedLineNumbersForRegExp.length)
     for (const lineNumber of expectedLineNumbersForRegExp) {
       await expect.element(page.getByCSS(`.line-is-match .line-anchor#${id}-L${lineNumber}`)).toBeInTheDocument()
     }
@@ -162,16 +168,14 @@ describe('KCodeBlock', () => {
   it('can highlight matching lines when initialized with highlightedLineNumbers', async () => {
     const id = 'code-block'
     const expectedLineNumbers = [3, 4, 5]
-    await renderComponent({
-      id,
-      highlightedLineNumbers: expectedLineNumbers,
-    })
+    await renderComponent({ id, highlightedLineNumbers: expectedLineNumbers })
 
     await expect.element(page.getByTestId('code-block-processing-icon')).not.toBeInTheDocument()
 
-    // Jumps to the next (i.e. first) match using F3 and checks that the highlighted line numbers are jumped to in order.
     await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+
     page.getByTestId('k-code-block').element().focus()
+
     for (const lineNumber of expectedLineNumbers) {
       await userEvent.keyboard('{F3}')
       await expect.element(page.getByCSS(`.line-is-highlighted-match .line-anchor#${id}-L${lineNumber}`)).toBeVisible()
@@ -192,7 +196,7 @@ describe('KCodeBlock', () => {
     }
   })
 
-  it('can highlight matching lines when initialized with highlightedLineNumbers as tuples', async () => {
+  it('can highlight matching lines when initialized with highlightedLineNumbers in range expressions', async () => {
     const id = 'code-block'
     const expectedLineNumbers = [1, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 30, 31, 32]
     await renderComponent({
@@ -216,15 +220,12 @@ describe('KCodeBlock', () => {
     await page.getByTestId('filter-mode-button').click()
 
     await page.getByTestId('code-block-search-input').fill('key')
-    // Ensures processing of the search is done. (The transient "processing" state itself isn't
-    // asserted — the debounce's leading edge resolves within a single tick here, faster than
-    // it's reliably observable, unlike in the Cypress command queue.)
     await expect.element(page.getByTestId('code-block-processing-icon')).not.toBeInTheDocument()
 
     const matchedTerms = page.getByCSS('.matched-term')
     await expect.poll(() => matchedTerms.all().length).toBe(expectedNumberOfMatches)
-    for (const matchedTerm of matchedTerms.all()) {
-      expect(expectedMatchedTerms.includes(matchedTerm.element().textContent as string)).toBe(true)
+    for (const term of matchedTerms.all()) {
+      expect(expectedMatchedTerms).toContain(term.element().textContent)
     }
 
     // Searches again in regular expression mode.
@@ -239,8 +240,8 @@ describe('KCodeBlock', () => {
 
     const matchedTermsForRegExp = page.getByCSS('.matched-term')
     await expect.poll(() => matchedTermsForRegExp.all().length).toBe(expectedNumberOfMatchesForRegExp)
-    for (const matchedTerm of matchedTermsForRegExp.all()) {
-      expect(expectedMatchedTermsForRegExp.includes(matchedTerm.element().textContent as string)).toBe(true)
+    for (const term of matchedTermsForRegExp.all()) {
+      expect(expectedMatchedTermsForRegExp).toContain(term.element().textContent)
     }
   })
 
@@ -261,13 +262,12 @@ describe('KCodeBlock', () => {
     const id = 'code-block'
     await renderComponent({ id, searchable: true, query: 'key' })
 
-    // Tests that scoped shortcuts don’t work when focus is not within the code block.
+    // Tests that scoped shortcuts don't work when focus is not within the code block.
     await userEvent.keyboard('{F3}')
     await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
 
-    const codeBlock = page.getByTestId('k-code-block')
+    page.getByTestId('k-code-block').element().focus()
 
-    codeBlock.element().focus()
     await userEvent.keyboard('{F3}')
     await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', `${id}-L2`)
 
@@ -293,7 +293,6 @@ describe('KCodeBlock', () => {
     await page.getByTestId('code-block-search-input').clear()
     await page.getByTestId('code-block-search-input').fill('key[12]')
 
-    codeBlock.element().focus()
     await userEvent.keyboard('{Alt>}r{/Alt}')
     await expect.poll(() => page.getByCSS('.matched-term').all().length).toBe(2)
   })
@@ -310,6 +309,7 @@ describe('KCodeBlock', () => {
 
     page.getByTestId('k-code-block').element().focus()
     await userEvent.keyboard('{F3}')
+
     await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('href', `#${id}-L2`)
   })
 
@@ -348,8 +348,8 @@ describe('KCodeBlock', () => {
 
     const matchedTerms = page.getByCSS('.matched-term')
     await expect.poll(() => matchedTerms.all().length).toBe(expectedNumberOfMatches)
-    for (const matchedTerm of matchedTerms.all()) {
-      expect(expectedMatchedTerms.includes(matchedTerm.element().textContent as string)).toBe(true)
+    for (const term of matchedTerms.all()) {
+      expect(expectedMatchedTerms).toContain(term.element().textContent)
     }
   })
 
@@ -360,12 +360,11 @@ describe('KCodeBlock', () => {
       id: 'code-block',
       language: 'json',
       code,
-      onCodeBlockRender,
     }
 
-    await render(KCodeBlock, { props })
+    await render(KCodeBlock, { props: { ...props, onCodeBlockRender } })
 
-    await expect.poll(() => onCodeBlockRender.mock.calls.length).toBe(1)
+    expect(onCodeBlockRender).toHaveBeenCalledTimes(1)
 
     const eventData = onCodeBlockRender.mock.calls[0][0]
 
