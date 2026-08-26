@@ -131,9 +131,9 @@ describe('KPop', () => {
     await expect.element(page.getByCSS('.popover')).toBeVisible()
 
     /**
-     * Assert the delay itself rather than bounding it with a timeout. The popover reveals ~515ms
-     * after `hover()` returns, so the old `{ timeout: 1000 }` left under 500ms of slack and went
-     * red under CI load. A timer can only fire late, so this can't false-fail — but an immediate
+     * Assert the delay itself rather than bounding it with a timeout: the reveal lands ~515ms
+     * after `hover()` returns, so a `{ timeout: 1000 }` upper bound was measuring CI load as much
+     * as the delay. A timer can only fire late, so this can't false-fail — but an immediate
      * reveal would land near 0ms and still fail.
      */
     expect(performance.now() - hoveredAt).toBeGreaterThanOrEqual(500)

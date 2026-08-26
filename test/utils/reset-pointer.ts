@@ -1,4 +1,5 @@
 import { page } from 'vitest/browser'
+import { onTestFinished } from 'vitest'
 
 /**
  * Parks the mouse pointer in the bottom-right corner of the viewport.
@@ -28,9 +29,12 @@ export const resetPointer = async (): Promise<void> => {
   parkingSpot.setAttribute('style', 'position: fixed; right: 32px; bottom: 32px; height: 8px; width: 8px; z-index: 2147483647;')
   document.body.appendChild(parkingSpot)
 
-  try {
-    await page.elementLocator(parkingSpot).hover()
-  } finally {
-    parkingSpot.remove()
-  }
+  /**
+   * Cleaned up at the end of the test rather than straight after the hover: pulling the element
+   * out from under a stationary pointer forces the browser to recompute its hover chain, and
+   * Firefox defers that until the next mouse move — which is the test's own `hover()`.
+   */
+  onTestFinished(() => parkingSpot.remove())
+
+  await page.elementLocator(parkingSpot).hover()
 }
