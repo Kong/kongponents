@@ -31,16 +31,20 @@ Convert all of them, or say which you skipped and why.
 
 ## The harness
 
-There is deliberately **no test-utils module**. The team's standing decision is to add
-shared helpers only once something actually needs them, so use the library APIs directly:
-`render` from `vitest-browser-vue`, and `page` from `vitest/browser`. If you find yourself
-wanting a helper, say so in your report rather than adding one — that's a decision for the
-user, not a side effect of a conversion.
+Shared helpers are added only once something actually needs them, so reach for the library
+APIs first: `render` from `vitest-browser-vue`, and `page` from `vitest/browser`. If you
+find yourself wanting a helper beyond the one below, say so in your report rather than
+adding one — that's a decision for the user, not a side effect of a conversion.
 
-The only harness file is `test/setup.ts`, which does two things: imports the global
-stylesheet (so computed-style and visibility assertions are meaningful), and registers a
-custom `getByCSS` locator, since Vitest's `page` ships only semantic `getBy*` selectors and
-has no `page.locator()`.
+Two harness files, both under `test/`:
+
+- **`test/setup.ts`** imports the global stylesheet (so computed-style and visibility
+  assertions are meaningful) and registers a custom `getByCSS` locator, since Vitest's
+  `page` ships only semantic `getBy*` selectors and has no `page.locator()`.
+- **`test/utils/`** holds one helper per file. `test/utils/reset-pointer.ts` exports
+  `resetPointer()`, which parks the mouse pointer away from the component about to be mounted.
+  Import it as `import { resetPointer } from '@test/utils/reset-pointer'` and read "Hover tests
+  need the pointer parked" below before writing any hover test.
 
 ```bash
 pnpm typecheck
@@ -199,6 +203,42 @@ more faithful to what a user does, but it means a test can pass or fail for a di
 reason than it used to. When a hover assertion behaves unexpectedly, check where the
 component actually binds its listener before assuming the selector is wrong.
 
+### Hover tests need the pointer parked
+
+The pointer position belongs to the browser context, not the page, so it **survives between
+tests** — and components remount at the same coordinates every time. A component therefore
+mounts *underneath* the cursor the previous test left behind, and the browser fires
+`mouseenter` on it unprompted. The result is a hover test that passes whether or not its
+`hover()` call does anything: three of KPop's and KDropdown's did exactly that.
+
+Call `resetPointer()` **before** `render()` in every test that hovers:
+
+```ts
+import { resetPointer } from '@test/utils/reset-pointer'
+
+it('shows element on hover', async () => {
+  await resetPointer()
+
+  await render(KPop, { props: { trigger: 'hover' } })
+
+  await expect.element(page.getByCSS('.popover')).not.toBeVisible()
+  await page.getByCSS('.slottedEl').hover()
+  await expect.element(page.getByCSS('.popover')).toBeVisible()
+})
+```
+
+Two things that look like fixes and aren't:
+
+- **`locator.unhover()`** is implemented as "hover `html > body`", so it parks the cursor at
+  the *centre of the body* — frequently still over the component under test. It ignores the
+  locator you call it on entirely.
+- **Parking after `render()`** still leaves a window where the component mounts under the
+  stale cursor and shows its popover transiently. That window is long enough for a retrying
+  `toBeVisible()` to catch, so the test goes green on the transient.
+
+This is the single most common way a converted hover test passes vacuously, so verify by
+deleting the `hover()` call and confirming the test fails.
+
 ### Spies and emitted events
 
 | Cypress                              | Vitest                                            |
@@ -314,7 +354,8 @@ Related: KPop binds its hover listeners to the trigger's first child rather than
 wrapper element the specs usually select. Combined with `hover()` dispatching to the
 element under the pointer, a converted hover test can work for a different reason than the
 Cypress one did. It's worth confirming the tooltip actually appears rather than trusting a
-green result.
+green result — and see "Hover tests need the pointer parked" above, which is the usual
+reason one of these is green for the wrong reason.
 
 ### The test runs inside the page
 
@@ -379,8 +420,9 @@ await page.getByCSS('input[type=file]').upload('test/fixtures/file-upload-docume
 
 The fixture currently lives under `cypress/fixtures/`, which goes away with Cypress. When
 converting KFileUpload, copy it to `test/fixtures/` and point the new spec there — leave the
-original in place for the Cypress spec that's still running. That's the first file to land
-in `test/` besides `setup.ts`, so flag it in your report rather than treating it as routine.
+original in place for the Cypress spec that's still running. `test/` holds only `setup.ts`
+and `utils/` so far, so flag a new file there in your report rather than treating it as
+routine.
 
 Constructing the `File` inline avoids the fixture entirely and is often clearer:
 
@@ -499,9 +541,14 @@ since a fetch-triggered re-render lands a tick or two after the interaction.
 
 ### Timers and transitions
 
-The suite has one fixed sleep — `cy.wait(800)` in KPop, waiting out a popover transition.
-Replace it with an assertion on the end state (`toBeVisible`, or a computed style once the
-transition has settled), which is both faster and more honest about what's being tested.
+Replace a fixed sleep with an assertion on the end state (`toBeVisible`, or a computed style
+once the transition has settled) wherever there *is* an end state to wait for — that's both
+faster and more honest about what's being tested.
+
+The exception is a test proving a **non-event**. KPop's `cy.wait(800)` outlives a 500ms
+`popoverDelay` to prove a pending show was cancelled; there is nothing to converge on, so
+the converted spec keeps the sleep with a comment saying why. Don't shorten it below the
+delay it is outlasting.
 
 Avoid `vi.useFakeTimers()` here. Fake timers interact badly with Playwright's own waiting
 in browser mode. If a test truly needs them, pass `{ shouldAdvanceTime: true }` so the
@@ -514,9 +561,13 @@ engines for every component in the batch, plus `pnpm typecheck` and `pnpm lint`.
 
 If a test passes immediately and you're unsure it's really exercising anything, break it on
 purpose once — flip an assertion or a prop — and confirm it fails. `not.exist`-style
-assertions, spy call counts, and anything mounted through a wrapper component are the usual
-culprits: they pass just as happily when the selector is wrong or the component never
-rendered at all.
+assertions, spy call counts, hover tests, and anything mounted through a wrapper component
+are the usual culprits: they pass just as happily when the selector is wrong, the pointer
+was already in the right place, or the component never rendered at all.
+
+For a hover test the mutation to make is deleting the `hover()` call. Do it in a scratch
+copy of the spec on its own — leaving the mutant alongside the other tests lets the very
+pointer residue you're testing for mask the result.
 
 ## Report
 
