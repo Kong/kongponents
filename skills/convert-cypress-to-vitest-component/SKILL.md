@@ -29,6 +29,10 @@ The user names two or three component folders under `src/components`. For each o
 Some folders hold more than one spec (`KFilterGroup` has four, `KToaster` has two).
 Convert all of them, or say which you skipped and why.
 
+Since the `.cy.ts` files all stay put, the migration's progress is whatever
+`ls src/components/*/*.browser.spec.ts` reports — check there rather than guessing when asked to
+continue, and read one or two of them first: they're the house style this batch should match.
+
 ## The harness
 
 Shared helpers are added only once something actually needs them, so reach for the library
@@ -59,6 +63,25 @@ styles and font metrics differ between Chromium, Firefox and WebKit, and a compo
 library should catch that before a consumer does. Two consequences: the suite is slow, so
 keep batches small; and a failure in one engine only is a real finding, not flake. Report
 which engine failed rather than loosening the assertion until all three pass.
+
+## Handling dependencies
+
+Check what the component you're converting imports. If it (or something it pulls in, like
+a composable) reaches a third-party npm package that few or no other components already
+use — grep `src/` for other importers to tell — add it to `optimizeDeps.include` in
+`vitest.config.ts`, next to the existing entries.
+
+Vitest Browser Mode has no `index.html` for Vite to crawl at startup, so such a package
+isn't discovered until some CI browser instance actually requests it — which, for a package
+only one component reaches, can happen in the run rather than in the first few files.
+Because CI runs three engines concurrently against one shared dev server, that late
+discovery forces a full reload that can crash an *unrelated* spec rendering in a different
+instance at that exact moment.
+
+This is invisible locally. A scoped `pnpm test:browser src/components/<Name>` run has
+nothing else concurrently in flight to collide with, and a warm `node_modules/.vite` cache
+— the normal state after repeated local runs — never re-triggers discovery at all. A green
+local run doesn't clear this; check the import against `optimizeDeps.include` directly.
 
 ## Workflow
 
@@ -100,7 +123,14 @@ prop types so a wrong prop is a type error.
 guidance rather than copying it.)
 
 Components are unmounted between tests automatically (`vitest-browser-vue` is in
-`setupFiles`), so don't add manual cleanup.
+`setupFiles`), so don't add manual cleanup. But a few specs `cy.mount` **twice inside one test**
+to compare two prop combinations, and Cypress silently replaced the first instance. `render()`
+doesn't, so the second mount leaves two matching elements and every locator afterwards throws.
+Call `await screen.unmount()` before the second `render()`.
+
+`render` infers the component's generic from the props you pass, so a literal `items: []` infers
+`never[]` and a later `rerender({ items: [...] })` is a type error. Hoist the array into an
+annotated `const` (`const items: Array<SelectItem<string>> = []`) and pass that.
 
 Asserting that an event fired at all needs `expect.poll`, because `emitted()` returns a
 plain snapshot rather than a locator and so doesn't retry — the click resolves before Vue
@@ -173,7 +203,12 @@ Four of these bite regularly:
   `expect.poll` to wait for the DOM to settle. The same goes for `.element()`.
 - **Computed styles vary by engine.** An exact `toHaveStyle` on a font metric or a derived
   length can pass in Chromium and fail in WebKit. If a value is genuinely engine-dependent,
-  assert the property that actually matters rather than the pixel value.
+  assert the property that actually matters rather than the pixel value. This extends past CSS to
+  any **rendered count derived from text measurement** — how many badges fit on a row, how many
+  items a list clamps to. Where a Cypress spec hard-codes such a count, check it in all three
+  engines before keeping the literal; if it differs, assert the invariant the test is really
+  about (that the count survives a data change, that the visible items are a prefix of the full
+  set) and report the literal you dropped.
 
 ### Interactions
 
@@ -195,6 +230,23 @@ All awaited, and each waits for the element to be actionable first.
 `fill` replaces the field's contents, while Cypress's `type` appends to them. When a test
 types into a field that already has a value, or asserts on intermediate input events, use
 `userEvent.type` instead to keep the keystroke-by-keystroke behaviour.
+
+**`click({ force: true })` has no equivalent, and the obvious translation goes vacuous.**
+Playwright refuses to click a covered or disabled target; Cypress's `force` skipped the check and
+dispatched straight onto the element you selected. Reach for
+`el.dispatchEvent(new MouseEvent('click', { bubbles: true }))` — but dispatch it on **the element
+that owns the handler**, not the wrapper the original spec selected. Both `ignores clicks on
+disabled item` specs bind `@click` to the inner `button`, so dispatching on the item wrapper
+selects nothing whether or not the item is disabled: they passed just as happily with
+`disabled: true` deleted. Dispatching on the button runs the real guard and the mutant fails.
+
+Three shapes need this, and it's worth knowing which you have before writing the line:
+
+- a **disabled** control — dispatch on the disabled element itself
+- a target **covered by a child that calls `@click.stop`** (KMultiselect's trigger is covered by
+  its own selection badges once a few items are selected) — dispatch on the outer element, which
+  is what the handler is bound to
+- a **zero-sized** wrapper (KDropdown with no `triggerText`) — dispatch on the wrapper
 
 **`hover()` is not a drop-in for `.trigger('mouseenter')`.** Cypress dispatched a synthetic
 bubbling event *on the element you selected*. Playwright moves a real pointer, so the event
@@ -309,6 +361,13 @@ elapsed time (a debounce or transition duration), and say so in a comment.
 
 `cy.then(cb)` is just sequencing; inline the callback body.
 
+**Let a dropdown finish opening before typing into it.** KSelect and KMultiselect reset their
+filter query in KPop's `open` handler, which runs a tick or two after the click. Cypress's
+`.type()` was slow enough to land after it; `userEvent.type()` isn't, so the first keystroke goes
+in before the reset and the component emits a spurious `query-change` of `''` between characters
+— which is exactly the kind of thing a per-character emit count assertion trips over. Await
+`expect.element(page.getByCSS('.select-popover')).toBeVisible()` between the click and the typing.
+
 ## Edge cases
 
 Each of these appears in only a few specs. Jump to the relevant one when the spec in front
@@ -324,6 +383,7 @@ of you uses it; skip the rest.
 - Component internals — KSelect, KDropdown, KMultiselect
 - Mock data and fixtures — KTable, KTableData, KDateTimePicker
 - Timers and transitions — KPop, KToaster
+- Components that measure before they settle — KMultiselect
 Read "Popovers and tooltips" before any component that renders a tooltip: `.k-tooltip` is
 in the DOM even when hidden, so `toBeInTheDocument` passes vacuously there and only
 `toBeVisible` means anything.
@@ -349,6 +409,15 @@ Cypress's `should('be.visible')` maps over cleanly, but `should('not.exist')` on
 should become `not.toBeVisible()`, not `not.toBeInTheDocument()`. Read the component
 first: some popovers genuinely are conditionally rendered, and then existence is the right
 assertion. Getting this backwards produces a test that passes forever.
+
+**An inline `left`/`top` on a popover does not mean it was shown.** KPop drives its position with
+`useFloating`, which computes and writes `floatingStyles` as soon as the refs exist — while the
+popover is still `display: none` and therefore zero-height. A never-opened KPop settles at
+something like `left: 100px; top: 9px` entirely on its own. So when a failure snapshot shows a
+positioned-but-hidden popover, that is the resting state of a popover that **never opened**, not
+evidence that it opened and something closed it again. Getting this backwards sends you looking
+for a stray `mouseleave` that isn't there. Confirm by rendering the component and reading
+`element().getAttribute('style')` without hovering at all.
 
 Related: KPop binds its hover listeners to the trigger's first child rather than the
 wrapper element the specs usually select. Combined with `hover()` dispatching to the
@@ -550,9 +619,59 @@ The exception is a test proving a **non-event**. KPop's `cy.wait(800)` outlives 
 the converted spec keeps the sleep with a comment saying why. Don't shorten it below the
 delay it is outlasting.
 
+**Don't bound a delay with a timeout — measure it.** KPop's `popoverDelay` spec waited for the
+popover with `{ timeout: 1000 }` against a 500ms delay, which left under 500ms of slack and made
+the assertion a proxy for CI load. Stamp `performance.now()` before the interaction, let the
+visibility assertion use the default timeout, and assert the elapsed time afterwards:
+
+```ts
+const hoveredAt = performance.now()
+await page.getByCSS('.slottedEl').hover()
+await expect.element(page.getByCSS('.popover')).toBeVisible()
+expect(performance.now() - hoveredAt).toBeGreaterThanOrEqual(500)
+```
+
+A timer can only fire late, so load can't turn this red — while a component that dropped the
+delay entirely lands near 0ms and still fails.
+
 Avoid `vi.useFakeTimers()` here. Fake timers interact badly with Playwright's own waiting
 in browser mode. If a test truly needs them, pass `{ shouldAdvanceTime: true }` so the
 runner's internal timers keep moving.
+
+### Components that measure before they settle
+
+A component that decides how much fits — KMultiselect clamps its selection badges to
+`selectedRowCount` rows via `WrapClamp` — cannot know the answer until the browser has laid the
+content out. So it **renders everything first and clamps on the next pass**. Measured on a fresh
+mount and on each width change:
+
+```text
+width 600: 10 badges → 6      width 250: 7 badges → 2      trigger height: 104px → 72px
+```
+
+Any value read straight after `render()` or `rerender()` is therefore a transient, and it is the
+*larger* one — which is what makes this dangerous. A test that captures a baseline and compares
+later reads against it can capture the transient and then fail against the settled state, or
+worse, compare a transient to a settled value and pass for the wrong reason.
+
+Two rules:
+
+- **Never capture a geometry baseline and assert against it separately.** Re-read both sides
+  inside one `expect.poll` so they always come from the same moment:
+
+  ```ts
+  await expect.poll(() => {
+    const trigger = page.getByTestId('multiselect-trigger').element().getBoundingClientRect()
+    const popover = page.getByCSS('.multiselect-popover .popover-container').element().getBoundingClientRect()
+
+    return trigger.height > initialHeight && popover.top >= trigger.bottom
+  }).toBe(true)
+  ```
+
+- **When you need the settled list, poll for stability** — two consecutive identical reads — and
+  prefer comparing against data the test already knows (the full item array) over a baseline
+  captured from the DOM. `expect.element` doesn't help here: it retries until an assertion
+  passes, and against a transient the assertion can pass immediately.
 
 ## Verification
 
@@ -564,6 +683,15 @@ purpose once — flip an assertion or a prop — and confirm it fails. `not.exis
 assertions, spy call counts, hover tests, and anything mounted through a wrapper component
 are the usual culprits: they pass just as happily when the selector is wrong, the pointer
 was already in the right place, or the component never rendered at all.
+
+**A green local run doesn't clear a CI-only failure.** The spec runs in an iframe sized to the
+configured 1366x768 viewport but scaled down to fit the real browser window, and the orchestrator
+page barely scrolls. An element flush against the viewport edge can therefore land a pixel or two
+outside the *window*, where Playwright reports "element is outside of the viewport" and — for a
+`position: fixed` element — can never scroll to it. Keep anything the test needs to click or hover
+a comfortable inset from the edges. When a failure won't reproduce locally, measure the geometry
+in the browser (`window.frameElement.getBoundingClientRect()` against `window.parent.innerHeight`)
+before theorising.
 
 For a hover test the mutation to make is deleting the `hover()` call. Do it in a scratch
 copy of the spec on its own — leaving the mutant alongside the other tests lets the very
