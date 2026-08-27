@@ -27,7 +27,7 @@ export default defineConfig({
      * of erroring. Listing deps here folds them into the eager pre-bundle, done before any
      * instance connects.
      */
-    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'virtua/vue', 'lodash-es'],
+    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'virtua/vue', 'lodash-es', 'vue-draggable-next'],
   },
   resolve: {
     alias: {
