@@ -1,3 +1,10 @@
+## [9.64.12](https://github.com/Kong/kongponents/compare/v9.64.11...v9.64.12) (2026-08-26)
+
+
+### Bug Fixes
+
+* failing test ci ([#3378](https://github.com/Kong/kongponents/issues/3378)) ([bc1c3bc](https://github.com/Kong/kongponents/commit/bc1c3bc077d90885415f594315a322d9c876ddcb))
+
 ## [9.64.11](https://github.com/Kong/kongponents/compare/v9.64.10...v9.64.11) (2026-08-25)
 
 

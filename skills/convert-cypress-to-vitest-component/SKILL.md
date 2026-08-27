@@ -64,6 +64,25 @@ library should catch that before a consumer does. Two consequences: the suite is
 keep batches small; and a failure in one engine only is a real finding, not flake. Report
 which engine failed rather than loosening the assertion until all three pass.
 
+## Handling dependencies
+
+Check what the component you're converting imports. If it (or something it pulls in, like
+a composable) reaches a third-party npm package that few or no other components already
+use — grep `src/` for other importers to tell — add it to `optimizeDeps.include` in
+`vitest.config.ts`, next to the existing entries.
+
+Vitest Browser Mode has no `index.html` for Vite to crawl at startup, so such a package
+isn't discovered until some CI browser instance actually requests it — which, for a package
+only one component reaches, can happen in the run rather than in the first few files.
+Because CI runs three engines concurrently against one shared dev server, that late
+discovery forces a full reload that can crash an *unrelated* spec rendering in a different
+instance at that exact moment.
+
+This is invisible locally. A scoped `pnpm test:browser src/components/<Name>` run has
+nothing else concurrently in flight to collide with, and a warm `node_modules/.vite` cache
+— the normal state after repeated local runs — never re-triggers discovery at all. A green
+local run doesn't clear this; check the import against `optimizeDeps.include` directly.
+
 ## Workflow
 
 1. **Read the whole `.cy.ts` first.** Conversions go wrong when done statement by
