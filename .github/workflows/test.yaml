@@ -65,6 +65,7 @@ jobs:
           echo "::endgroup::"
 
       - name: Run Vitest browser tests
+        timeout-minutes: 10
         run: pnpm test:browser
 
       - name: Upload Vitest screenshots (on failure)
