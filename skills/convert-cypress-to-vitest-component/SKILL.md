@@ -168,13 +168,6 @@ Cypress's `cy.get` silently yielded a collection. This surfaces genuine ambiguit
 Cypress hid, so when it happens prefer tightening the selector over reaching for
 `.first()`, unless the original test really did mean "any of these".
 
-Watch for **measurement duplicates**. KMultiselect renders an `aria-hidden` "staging" copy of
-every selection badge to measure how many fit, so `.multiselect-selection-badge-label` matches
-each badge twice. Scope those selectors to the real container by test id
-(`page.getByTestId('selection-badges-container').getByCSS('...')`) rather than reaching for
-`.first()` — a bare class selector there is both ambiguous and, if it resolves, quite possibly
-pointed at the invisible copy.
-
 ### Assertions
 
 Every assertion is awaited. `expect.element` retries until it passes or times out, which
@@ -211,10 +204,11 @@ Four of these bite regularly:
 - **Computed styles vary by engine.** An exact `toHaveStyle` on a font metric or a derived
   length can pass in Chromium and fail in WebKit. If a value is genuinely engine-dependent,
   assert the property that actually matters rather than the pixel value. This extends past CSS to
-  any **rendered count derived from text measurement**: KMultiselect's hidden-selection badge
-  reads `+8` in WebKit and `+7` in Chromium and Firefox for the same layout, so the Cypress
-  spec's hard-coded `+8` isn't portable. Assert the invariant the test is about (there that the
-  count survives swapping the item list) and report the literal you dropped.
+  any **rendered count derived from text measurement** — how many badges fit on a row, how many
+  items a list clamps to. Where a Cypress spec hard-codes such a count, check it in all three
+  engines before keeping the literal; if it differs, assert the invariant the test is really
+  about (that the count survives a data change, that the visible items are a prefix of the full
+  set) and report the literal you dropped.
 
 ### Interactions
 
@@ -389,6 +383,7 @@ of you uses it; skip the rest.
 - Component internals — KSelect, KDropdown, KMultiselect
 - Mock data and fixtures — KTable, KTableData, KDateTimePicker
 - Timers and transitions — KPop, KToaster
+- Components that measure before they settle — KMultiselect
 Read "Popovers and tooltips" before any component that renders a tooltip: `.k-tooltip` is
 in the DOM even when hidden, so `toBeInTheDocument` passes vacuously there and only
 `toBeVisible` means anything.
@@ -642,6 +637,41 @@ delay entirely lands near 0ms and still fails.
 Avoid `vi.useFakeTimers()` here. Fake timers interact badly with Playwright's own waiting
 in browser mode. If a test truly needs them, pass `{ shouldAdvanceTime: true }` so the
 runner's internal timers keep moving.
+
+### Components that measure before they settle
+
+A component that decides how much fits — KMultiselect clamps its selection badges to
+`selectedRowCount` rows via `WrapClamp` — cannot know the answer until the browser has laid the
+content out. So it **renders everything first and clamps on the next pass**. Measured on a fresh
+mount and on each width change:
+
+```text
+width 600: 10 badges → 6      width 250: 7 badges → 2      trigger height: 104px → 72px
+```
+
+Any value read straight after `render()` or `rerender()` is therefore a transient, and it is the
+*larger* one — which is what makes this dangerous. A test that captures a baseline and compares
+later reads against it can capture the transient and then fail against the settled state, or
+worse, compare a transient to a settled value and pass for the wrong reason.
+
+Two rules:
+
+- **Never capture a geometry baseline and assert against it separately.** Re-read both sides
+  inside one `expect.poll` so they always come from the same moment:
+
+  ```ts
+  await expect.poll(() => {
+    const trigger = page.getByTestId('multiselect-trigger').element().getBoundingClientRect()
+    const popover = page.getByCSS('.multiselect-popover .popover-container').element().getBoundingClientRect()
+
+    return trigger.height > initialHeight && popover.top >= trigger.bottom
+  }).toBe(true)
+  ```
+
+- **When you need the settled list, poll for stability** — two consecutive identical reads — and
+  prefer comparing against data the test already knows (the full item array) over a baseline
+  captured from the DOM. `expect.element` doesn't help here: it retries until an assertion
+  passes, and against a transient the assertion can pass immediately.
 
 ## Verification
 
