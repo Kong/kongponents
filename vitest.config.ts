@@ -22,12 +22,14 @@ export default defineConfig({
      * during its initial dependency crawl and pre-bundles it on demand instead. On a cold
      * cache (every CI run) that on-demand optimization races the browser instances starting
      * up concurrently, and whichever one loses throws "Vitest failed to find the runner" —
-     * or, for a dependency first pulled in partway through the run (e.g. `swrv`, only
-     * imported transitively via `useUtilities`), hangs a browser instance outright instead
-     * of erroring. Listing deps here folds them into the eager pre-bundle, done before any
-     * instance connects.
+     * or, for a dependency first pulled in partway through the run, hangs a browser instance
+     * outright instead of erroring. Listing deps here folds them into the eager pre-bundle,
+     * done before any instance connects.
+     *
+     * Both of the ones added so far are reached only transitively, which is what keeps them out
+     * of the initial crawl: `swrv` via `useUtilities`, `nanoid` via `getUniqueStringId`.
      */
-    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'virtua/vue', 'lodash-es', '@floating-ui/vue', 'vue-clamp'],
+    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'nanoid', 'virtua/vue', 'lodash-es', '@floating-ui/vue', 'vue-clamp'],
   },
   resolve: {
     alias: {
