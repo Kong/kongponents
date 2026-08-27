@@ -27,7 +27,7 @@ export default defineConfig({
      * of erroring. Listing deps here folds them into the eager pre-bundle, done before any
      * instance connects.
      */
-    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'virtua/vue', 'lodash-es'],
+    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'virtua/vue', 'lodash-es', '@floating-ui/vue', 'vue-clamp'],
   },
   resolve: {
     alias: {
@@ -90,7 +90,13 @@ export default defineConfig({
              */
             instances: [
               { browser: 'chromium' },
-              { browser: 'firefox' },
+              /**
+               * Firefox specifically (not Chromium/WebKit) races real keyboard/focus input
+               * across concurrently-running spec files — a known Vitest issue
+               * (https://github.com/vitest-dev/vitest/issues/7916). Serializing just this
+               * instance avoids it without slowing down the other two engines.
+               */
+              { browser: 'firefox', fileParallelism: false },
               { browser: 'webkit' },
             ],
             viewport: { width: 1366, height: 768 },
