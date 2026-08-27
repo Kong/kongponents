@@ -179,6 +179,7 @@ describe('KTextArea', () => {
 
     await render(KTextArea, {
       props: {
+        // @ts-expect-error - to allow passing an invalid characterLimit
         characterLimit: true,
         modelValue: string,
       },
