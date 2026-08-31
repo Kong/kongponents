@@ -106,6 +106,7 @@
 import { computed, useAttrs, useId, watch } from 'vue'
 import type { RadioTypes, LabelAttributes, RadioProps, RadioModelValue, RadioEmits, RadioSlots } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { InfoIcon } from '@kong/icons'
 import { KUI_COLOR_TEXT_NEUTRAL } from '@kong/design-tokens'
 
