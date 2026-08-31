@@ -934,18 +934,12 @@ $kSelectInputHelpTextHeight: calc(var(--kui-line-height-20, $kui-line-height-20)
     border-bottom-left-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     border-bottom-right-radius: var(--kui-border-radius-30, $kui-border-radius-30);
     border-top: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-    bottom: 0;
     color: var(--kui-color-text-neutral, $kui-color-text-neutral);
     display: flex;
     font-size: var(--kui-font-size-20, $kui-font-size-20);
     gap: var(--kui-space-30, $kui-space-30);
     line-height: var(--kui-line-height-20, $kui-line-height-20);
     padding: var(--kui-space-50, $kui-space-50);
-    position: sticky;
-
-    &-static {
-      position: static;
-    }
   }
 
   .help-text {
