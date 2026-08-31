@@ -9,9 +9,9 @@ on:
       docs-files-changed:
         description: Check if docs (`docs` directory) files have changed
         value: ${{ jobs.get-changed-files.outputs.docs-files-changed }}
-      components-or-docs-or-cypress-files-changed:
+      components-or-docs-files-changed:
         description: Check if src or docs (`src` or `docs` directories) files have changed
-        value: ${{ jobs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed }}
+        value: ${{ jobs.get-changed-files.outputs.components-or-docs-files-changed }}
       package-json-pnpm-lock-files-changed:
         description: Check if package.json or pnpm.lock files changed
         value: ${{ jobs.get-changed-files.outputs.package-json-pnpm-lock-files-changed }}
@@ -24,7 +24,7 @@ jobs:
     outputs:
       component-files-changed: ${{ steps.component-files-changed.outputs.any_modified }}
       docs-files-changed: ${{ steps.docs-files-changed.outputs.any_modified }}
-      components-or-docs-or-cypress-files-changed: ${{ steps.components-or-docs-or-cypress-files-changed.outputs.any_modified }}
+      components-or-docs-files-changed: ${{ steps.components-or-docs-files-changed.outputs.any_modified }}
       package-json-pnpm-lock-files-changed: ${{ steps.package-json-pnpm-lock-files-changed.outputs.any_modified }}
 
     steps:
@@ -53,15 +53,14 @@ jobs:
           files: |
             docs/**
 
-      - name: Check if files changed in `src/`, `docs/`, or `cypress/` directories
+      - name: Check if files changed in `src/` or `docs/` directories
         uses: Kong/changed-files@cd69b79ca4e2a1198064c5e6564cce68920df311
-        id: components-or-docs-or-cypress-files-changed
+        id: components-or-docs-files-changed
         # Return 'true' for any directories listed here that changed
         with:
           files: |
             src/**
             docs/**
-            cypress/**
 
       - name: Check if package.json or pnpm.lock files changed
         uses: Kong/changed-files@cd69b79ca4e2a1198064c5e6564cce68920df311

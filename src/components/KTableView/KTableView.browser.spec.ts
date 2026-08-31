@@ -916,7 +916,7 @@ describe('KTableView', () => {
       await expect.element(page.getByCSS('thead th[aria-sort]')).not.toBeInTheDocument()
 
       // update table preferences prop
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       await (screen.rerender as (props: any) => Promise<void>)({
         tablePreferences: {
           pageSize: pageSize,
