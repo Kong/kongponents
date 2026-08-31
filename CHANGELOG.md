@@ -1,3 +1,10 @@
+## [9.64.13](https://github.com/Kong/kongponents/compare/v9.64.12...v9.64.13) (2026-08-28)
+
+
+### Bug Fixes
+
+* **kselect:** remove ineffective sticky footer styles [KM-3173] ([#3405](https://github.com/Kong/kongponents/issues/3405)) ([81dba20](https://github.com/Kong/kongponents/commit/81dba2081e4e7176ce97646e31cbbe333eafbe43))
+
 ## [9.64.12](https://github.com/Kong/kongponents/compare/v9.64.11...v9.64.12) (2026-08-26)
 
 
