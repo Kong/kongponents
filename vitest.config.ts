@@ -29,7 +29,7 @@ export default defineConfig({
      * Both of the ones added so far are reached only transitively, which is what keeps them out
      * of the initial crawl: `swrv` via `useUtilities`, `nanoid` via `getUniqueStringId`.
      */
-    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'nanoid', 'virtua/vue', 'lodash-es', 'vue-clamp', '@floating-ui/vue', 'v-calendar', 'date-fns-tz'],
+    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'nanoid', 'virtua/vue', 'lodash-es', 'vue-clamp', '@floating-ui/vue', 'v-calendar', 'vue-draggable-next', 'date-fns-tz'],
   },
   resolve: {
     alias: {
