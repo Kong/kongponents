@@ -18,3 +18,42 @@
   command = "yarn docs:build"
   publish = "docs/.vitepress/dist"
   environment = { NODE_VERSION = "18.17.1", YARN_FLAGS="--frozen-lockfile --ignore-optional" }
+# ##############################
+# Security headers
+# ##############################
+
+ # Content Security Policy for the deployed docs site.
+#
+# Allowances beyond `'self'` are all things the docs actually load:
+#   - fonts.googleapis.com / fonts.gstatic.com  Inter font-family (see `head` in docs/.vitepress/config.ts)
+#   - picsum.photos                             KEmptyState `image` slot example
+#   - jsonplaceholder.typicode.com              KTableData / KTable fetcher examples
+#   - codepen.io                                embedded "Kongponents for Vue" pen in the guide
+#
+# `style-src 'unsafe-inline'` is required because Shiki code highlighting and Vue
+# style bindings render inline `style` attributes. `script-src` intentionally has
+# no `'unsafe-inline'`: dark mode is disabled and `metaChunk` is enabled, so
+# VitePress emits no inline scripts.
+#
+# To roll this out in monitoring mode instead of blocking mode, rename the key
+# below to `Content-Security-Policy-Report-Only`.
+[[headers]]
+  for = "/*"
+
+   [headers.values]
+    Content-Security-Policy = """\
+      default-src 'self'; \
+      base-uri 'self'; \
+      object-src 'none'; \
+      frame-ancestors 'self'; \
+      form-action 'self'; \
+      script-src 'self'; \
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+      font-src 'self' data: https://fonts.gstatic.com; \
+      img-src 'self' data: blob: https://picsum.photos; \
+      connect-src 'self' https://jsonplaceholder.typicode.com; \
+      frame-src https://codepen.io; \
+      worker-src 'self' blob:; \
+      manifest-src 'self'; \
+      upgrade-insecure-requests\
+      """
