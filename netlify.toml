@@ -31,9 +31,8 @@
 #   - codepen.io                                embedded "Kongponents for Vue" pen in the guide
 #
 # `style-src 'unsafe-inline'` is required because Shiki code highlighting and Vue
-# style bindings render inline `style` attributes. `script-src` intentionally has
-# no `'unsafe-inline'`: dark mode is disabled and `metaChunk` is enabled, so
-# VitePress emits no inline scripts.
+# style bindings render inline `style` attributes. `script-src 'unsafe-inline'`
+# allows any inline scripts.
 #
 # To roll this out in monitoring mode instead of blocking mode, rename the key
 # below to `Content-Security-Policy-Report-Only`.
@@ -47,7 +46,7 @@
       object-src 'none'; \
       frame-ancestors 'self'; \
       form-action 'self'; \
-      script-src 'self'; \
+      script-src 'self' 'unsafe-inline'; \
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
       font-src 'self' data: https://fonts.gstatic.com; \
       img-src 'self' data: blob: https://picsum.photos; \
