@@ -1,3 +1,11 @@
+## [9.64.14](https://github.com/Kong/kongponents/compare/v9.64.13...v9.64.14) (2026-09-01)
+
+
+### Bug Fixes
+
+* add unsafe-inline ([#3408](https://github.com/Kong/kongponents/issues/3408)) ([ea208b7](https://github.com/Kong/kongponents/commit/ea208b710584f53b68a443b8e1e5de9974811996))
+* implement security headers in netlify.tom ([#3407](https://github.com/Kong/kongponents/issues/3407)) ([6a70c24](https://github.com/Kong/kongponents/commit/6a70c247257381b7c7e91159ed6bfb4ab7c1a6f1))
+
 ## [9.64.13](https://github.com/Kong/kongponents/compare/v9.64.12...v9.64.13) (2026-08-28)
 
 
