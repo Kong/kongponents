@@ -24,7 +24,17 @@ const buildFormats: Array<'es' | 'cjs' | 'umd'> = isUMDBuild ? ['umd'] : ['es', 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      features: {
+        // By default the scope id used to generate v-bind() css variable names (e.g.
+        // KMultiselect's popover max-height) is hashed from the file's path AND content,
+        // so any edit anywhere in the file changes the variable name on the next release.
+        // Apps on different Kongponents versions can then disagree on the variable name
+        // for the same rule, and the style silently stops applying. 'filepath' drops
+        // content from the hash so the name stays stable across releases.
+        componentIdGenerator: 'filepath',
+      },
+    }),
     ...(process.env.DISABLE_VUE_DEVTOOLS === 'true' ? [] : [VueDevTools()]), // Cypress 14+ introduces an issue with VueDevTools when running tests so we need to disable it in the test environment only
   ],
   resolve: {
