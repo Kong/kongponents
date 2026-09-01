@@ -29,7 +29,7 @@ export default defineConfig({
      * Both of the ones added so far are reached only transitively, which is what keeps them out
      * of the initial crawl: `swrv` via `useUtilities`, `nanoid` via `getUniqueStringId`.
      */
-    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'nanoid', 'virtua/vue', 'lodash-es', 'vue-clamp', 'v-calendar', 'vue-draggable-next', 'date-fns-tz'],
+    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'nanoid', 'virtua/vue', 'lodash-es', 'vue-clamp', '@floating-ui/vue', 'v-calendar', 'vue-draggable-next', 'date-fns-tz'],
   },
   resolve: {
     alias: {
@@ -92,7 +92,13 @@ export default defineConfig({
              */
             instances: [
               { browser: 'chromium' },
-              { browser: 'firefox' },
+              /**
+               * Firefox specifically (not Chromium/WebKit) races real keyboard/focus input
+               * across concurrently-running spec files — a known Vitest issue
+               * (https://github.com/vitest-dev/vitest/issues/7916). Serializing just this
+               * instance avoids it without slowing down the other two engines.
+               */
+              { browser: 'firefox', fileParallelism: false },
               { browser: 'webkit' },
             ],
             viewport: { width: 1366, height: 768 },
