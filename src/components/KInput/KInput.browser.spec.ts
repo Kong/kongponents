@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { defineComponent, h, ref } from 'vue'
 import { render } from 'vitest-browser-vue'
@@ -275,14 +275,22 @@ describe('KInput', () => {
     await expect.element(page.getByCSS('.k-input .mask-value-toggle-button')).toBeVisible()
     await expect.element(page.getByCSS('.k-input input')).toHaveAttribute('type', 'password')
 
-    await userEvent.click(page.getByCSS('.k-input input'))
+    const input = page.getByCSS('.k-input input').element() as HTMLInputElement
+    await userEvent.fill(input, 'generated-strong-password')
+    const valueSetter = vi.spyOn(input, 'value', 'set')
+
     await page.getByCSS('.k-input .mask-value-toggle-button').click()
 
+    expect(valueSetter).toHaveBeenCalledWith('generated-strong-password')
     await expect.element(page.getByCSS('.k-input input')).toHaveAttribute('type', 'text')
+    await expect.element(page.getByCSS('.k-input input')).toHaveValue('generated-strong-password')
 
+    valueSetter.mockClear()
     await page.getByCSS('.k-input .mask-value-toggle-button').click()
 
+    expect(valueSetter).not.toHaveBeenCalled()
     await expect.element(page.getByCSS('.k-input input')).toHaveAttribute('type', 'password')
+    await expect.element(page.getByCSS('.k-input input')).toHaveValue('generated-strong-password')
     await expect.element(page.getByCSS('.k-input input')).toHaveFocus()
 
     // user-provided after slot should be rendered
