@@ -40,6 +40,7 @@
     <template v-if="!hidePanels">
       <div
         v-for="(tab, i) in tabs"
+        v-show="!cacheTabs || activeTab === tab.hash"
         :id="`panel-${i}`"
         :key="tab.hash"
         :aria-labelledby="`${getTabSlotName(tab.hash)}-tab`"
@@ -47,7 +48,7 @@
         role="tabpanel"
       >
         <slot
-          v-if="activeTab === tab.hash"
+          v-if="activeTab === tab.hash || (cacheTabs && visitedTabs.has(tab.hash))"
           :name="getTabSlotName(tab.hash)"
         />
       </div>
@@ -56,7 +57,7 @@
 </template>
 
 <script lang="ts" setup generic="const Hash extends string = string">
-import { ref, watch } from 'vue'
+import { ref, shallowRef, watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { StripHash, Tab, TabsEmits, TabsProps, TabsSlots } from '@/types'
 
@@ -64,6 +65,7 @@ const {
   tabs,
   modelValue = '',
   hidePanels,
+  cacheTabs = false,
   anchorTabindex = 0,
   beforeChange = () => true,
   appearance = 'default',
@@ -97,6 +99,15 @@ const getAnchorTabindex = (tab: Tab): string => {
 watch(() => modelValue, (newTabHash) => {
   activeTab.value = newTabHash
 })
+
+const visitedTabs = shallowRef<Set<Hash>>(new Set())
+
+watch([activeTab, () => cacheTabs, () => hidePanels, () => tabs.map(tab => tab.hash)], () => {
+  // Retain only mounted panels that still belong to this tabs instance.
+  visitedTabs.value = new Set(cacheTabs && !hidePanels
+    ? tabs.filter(tab => tab.hash === activeTab.value || visitedTabs.value.has(tab.hash)).map(tab => tab.hash)
+    : [])
+}, { immediate: true })
 </script>
 
 <style lang="scss" scoped>

@@ -211,6 +211,23 @@ If you want to keep your `v-model` in sync so that you can programmatically chan
 <KButton @click="currentTab = '#tab2'">Activate Tab 2</KButton>
 ```
 
+### cacheTabs
+
+A `boolean` that keeps visited tab content mounted when switching tabs. Defaults to `false`.
+
+When enabled, each tab mounts on its first activation. Inactive visited panels are hidden with CSS and retain their component instances, DOM, and local state. Unvisited tabs do not mount until selected.
+
+```html
+<KTabs :tabs="tabs" cache-tabs>
+  <template #tab1>Tab 1 content</template>
+  <template #tab2>Tab 2 content</template>
+</KTabs>
+```
+
+This prevents repeated mount-triggered requests. Cached content still uses memory, and its watchers and polling can continue while hidden. Charts may need to resize when their panel becomes visible again.
+
+Removing a tab discards its cached content. Disabling `cacheTabs` unmounts inactive content. Setting `hidePanels` to `true` or unmounting KTabs discards all panel content.
+
 ### hidePanels
 
 A `boolean` that determines whether all tabs should have corresponding "panel" (the tab content) containers. Defaults to `false`.
