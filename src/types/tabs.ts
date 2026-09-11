@@ -39,7 +39,7 @@ export interface TabsProps<H extends string = string> {
   hidePanels?: boolean
 
   /**
-   * Keep visited tab content mounted and hide inactive panels.
+   * Cache visited tab content with KeepAlive and deactivate inactive panels.
    * Each tab mounts only when first activated.
    * @default false
    */

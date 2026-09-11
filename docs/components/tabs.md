@@ -213,9 +213,9 @@ If you want to keep your `v-model` in sync so that you can programmatically chan
 
 ### cacheTabs
 
-A `boolean` that keeps visited tab content mounted when switching tabs. Defaults to `false`.
+A `boolean` that caches visited tab content with Vue’s `KeepAlive` when switching tabs. Defaults to `false`.
 
-When enabled, each tab mounts on its first activation. Inactive visited panels are hidden with CSS and retain their component instances, DOM, and local state. Unvisited tabs do not mount until selected.
+When enabled, each tab mounts on its first activation. Inactive visited panels are deactivated and detached from the document, retaining their component instances, DOM nodes, and local state. Unvisited tabs do not mount until selected.
 
 ```html
 <KTabs :tabs="tabs" cache-tabs>
@@ -224,7 +224,9 @@ When enabled, each tab mounts on its first activation. Inactive visited panels a
 </KTabs>
 ```
 
-This prevents repeated mount-triggered requests. Cached content still uses memory, and its watchers and polling can continue while hidden. Charts may need to resize when their panel becomes visible again.
+This prevents repeated mount-triggered requests. Dashboard components can use `onDeactivated()` to pause polling and `onActivated()` to resume polling or resize charts. These hooks also run in nested components. `onActivated()` runs on the initial mount as well as subsequent activations.
+
+`KeepAlive` does not automatically pause timers, polling, or watchers. Consumers must handle that work in the lifecycle hooks. Cached content still uses memory.
 
 Removing a tab discards its cached content. Disabling `cacheTabs` unmounts inactive content. Setting `hidePanels` to `true` or unmounting KTabs discards all panel content.
 

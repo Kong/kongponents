@@ -40,24 +40,26 @@
     <template v-if="!hidePanels">
       <div
         v-for="(tab, i) in tabs"
-        v-show="!cacheTabs || activeTab === tab.hash"
         :id="`panel-${i}`"
         :key="tab.hash"
         :aria-labelledby="`${getTabSlotName(tab.hash)}-tab`"
         class="tab-container"
         role="tabpanel"
       >
-        <slot
-          v-if="activeTab === tab.hash || (cacheTabs && visitedTabs.has(tab.hash))"
-          :name="getTabSlotName(tab.hash)"
-        />
+        <!-- Exclude all panels when disabled without replacing the active component. -->
+        <KeepAlive :include="cacheTabs ? undefined : []">
+          <KTabsPanel v-if="activeTab === tab.hash">
+            <slot :name="getTabSlotName(tab.hash)" />
+          </KTabsPanel>
+        </KeepAlive>
       </div>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup generic="const Hash extends string = string">
-import { ref, shallowRef, watch } from 'vue'
+import { ref, watch } from 'vue'
+import KTabsPanel from './KTabsPanel.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { StripHash, Tab, TabsEmits, TabsProps, TabsSlots } from '@/types'
 
@@ -99,15 +101,6 @@ const getAnchorTabindex = (tab: Tab): string => {
 watch(() => modelValue, (newTabHash) => {
   activeTab.value = newTabHash
 })
-
-const visitedTabs = shallowRef<Set<Hash>>(new Set())
-
-watch([activeTab, () => cacheTabs, () => hidePanels, () => tabs.map(tab => tab.hash)], () => {
-  // Retain only mounted panels that still belong to this tabs instance.
-  visitedTabs.value = new Set(cacheTabs && !hidePanels
-    ? tabs.filter(tab => tab.hash === activeTab.value || visitedTabs.value.has(tab.hash)).map(tab => tab.hash)
-    : [])
-}, { immediate: true })
 </script>
 
 <style lang="scss" scoped>
