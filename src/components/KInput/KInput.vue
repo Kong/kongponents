@@ -286,9 +286,13 @@ const inputType = computed((): string => {
  */
 const togglePasswordMask = (): void => {
   if (!maskValue.value && inputElementRef.value) {
+    const input = inputElementRef.value
+    const { selectionStart, selectionEnd, selectionDirection } = input
     // Reassigning the value clears Safari's additional strong password autofill mask.
-    const password = inputElementRef.value.value
-    inputElementRef.value.value = password
+    const password = input.value
+    input.value = password
+    // The value setter can reset the caret and selection even when the value is unchanged.
+    input.setSelectionRange(selectionStart, selectionEnd, selectionDirection ?? undefined)
   }
 
   maskValue.value = !maskValue.value

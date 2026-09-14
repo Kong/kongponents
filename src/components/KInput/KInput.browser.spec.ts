@@ -259,7 +259,11 @@ describe('KInput', () => {
     await expect.element(page.getByCSS('.k-input .mask-value-toggle-button')).not.toBeInTheDocument()
   })
 
-  it('toggle masking functionality behaves correctly when showPasswordMaskToggle is true and input type is password', async () => {
+  it.each([
+    { start: 4, end: 4, direction: 'forward' as const },
+    { start: 4, end: 10, direction: 'forward' as const },
+    { start: 4, end: 10, direction: 'backward' as const },
+  ])('toggle masking preserves selection $start–$end ($direction)', async ({ start, end, direction }) => {
     const afterSlot = 'after-slot'
 
     await render(KInput, {
@@ -277,6 +281,8 @@ describe('KInput', () => {
 
     const input = page.getByCSS('.k-input input').element() as HTMLInputElement
     await userEvent.fill(input, 'generated-strong-password')
+    input.setSelectionRange(start, end, direction)
+    const selectionDirection = input.selectionDirection
     const valueSetter = vi.spyOn(input, 'value', 'set')
 
     await page.getByCSS('.k-input .mask-value-toggle-button').click()
@@ -284,6 +290,10 @@ describe('KInput', () => {
     expect(valueSetter).toHaveBeenCalledWith('generated-strong-password')
     await expect.element(page.getByCSS('.k-input input')).toHaveAttribute('type', 'text')
     await expect.element(page.getByCSS('.k-input input')).toHaveValue('generated-strong-password')
+    await expect.element(input).toHaveFocus()
+    expect(input.selectionStart).toBe(start)
+    expect(input.selectionEnd).toBe(end)
+    expect(input.selectionDirection).toBe(selectionDirection)
 
     valueSetter.mockClear()
     await page.getByCSS('.k-input .mask-value-toggle-button').click()
@@ -292,6 +302,9 @@ describe('KInput', () => {
     await expect.element(page.getByCSS('.k-input input')).toHaveAttribute('type', 'password')
     await expect.element(page.getByCSS('.k-input input')).toHaveValue('generated-strong-password')
     await expect.element(page.getByCSS('.k-input input')).toHaveFocus()
+    expect(input.selectionStart).toBe(start)
+    expect(input.selectionEnd).toBe(end)
+    expect(input.selectionDirection).toBe(selectionDirection)
 
     // user-provided after slot should be rendered
     await expect.element(page.getByCSS('.k-input').getByTestId(afterSlot)).not.toBeInTheDocument()
