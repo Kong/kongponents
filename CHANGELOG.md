@@ -1,3 +1,10 @@
+## [9.64.15](https://github.com/Kong/kongponents/compare/v9.64.14...v9.64.15) (2026-09-09)
+
+
+### Bug Fixes
+
+* **deps:** audit ([#3414](https://github.com/Kong/kongponents/issues/3414)) ([9812fde](https://github.com/Kong/kongponents/commit/9812fde9259311c60e26e588a9abf6c57e040e3a))
+
 ## [9.64.14](https://github.com/Kong/kongponents/compare/v9.64.13...v9.64.14) (2026-09-01)
 
 
