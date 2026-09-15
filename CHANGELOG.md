@@ -1,3 +1,10 @@
+## [9.64.17](https://github.com/Kong/kongponents/compare/v9.64.16...v9.64.17) (2026-09-15)
+
+
+### Bug Fixes
+
+* **ktabs:** remove duplicate click handler ([#3425](https://github.com/Kong/kongponents/issues/3425)) ([d1f34eb](https://github.com/Kong/kongponents/commit/d1f34eb086f6964df26ed3a632fb01ffa445e0ff))
+
 ## [9.64.16](https://github.com/Kong/kongponents/compare/v9.64.15...v9.64.16) (2026-09-15)
 
 
