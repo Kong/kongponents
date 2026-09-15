@@ -25,7 +25,6 @@
           role="tab"
           :tabindex="getAnchorTabindex(tab)"
           :to="tab.to"
-          @click="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.space.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
