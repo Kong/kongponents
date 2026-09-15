@@ -53,7 +53,7 @@
           :aria-label="`${maskValue ? 'Hide' : 'Show'} value`"
           class="mask-value-toggle-button"
           type="button"
-          @click.stop="maskValue = !maskValue"
+          @click.stop="togglePasswordMask"
           @mousedown.prevent
           @mouseup.prevent
         >
@@ -278,6 +278,25 @@ const maskValue = ref<boolean>(false)
 const inputType = computed((): string => {
   return type === 'password' && maskValue.value ? 'text' : type
 })
+
+/**
+ * Toggles the visibility of the password input field.
+ * If the input type is 'password', it switches between 'text' and 'password'.
+ * Ensures Safari's strong password autofill mask is cleared when revealing the password.
+ */
+const togglePasswordMask = (): void => {
+  if (!maskValue.value && inputElementRef.value) {
+    const input = inputElementRef.value
+    const { selectionStart, selectionEnd, selectionDirection } = input
+    // Reassigning the value clears Safari's additional strong password autofill mask.
+    const password = input.value
+    input.value = password
+    // The value setter can reset the caret and selection even when the value is unchanged.
+    input.setSelectionRange(selectionStart, selectionEnd, selectionDirection ?? undefined)
+  }
+
+  maskValue.value = !maskValue.value
+}
 
 onMounted(async () => {
   await nextTick() // wait for the slots content to render
