@@ -1,4 +1,4 @@
-import { h } from 'vue'
+import { defineComponent, h, onActivated, onDeactivated, onMounted, onUnmounted, ref } from 'vue'
 import type { TabsAppearance } from '@/types'
 import KTabs from '@/components/KTabs/KTabs.vue'
 
@@ -9,6 +9,56 @@ const TABS = [
 ]
 
 const appearances: TabsAppearance[] = ['default', 'minimal']
+
+interface PanelLifecycle {
+  activations: number
+  deactivations: number
+  mounts: number
+  unmounts: number
+}
+
+const createStatefulPanel = (name: string, lifecycle: PanelLifecycle) => defineComponent({
+  setup() {
+    const value = ref('')
+
+    onActivated(() => {
+      lifecycle.activations += 1
+    })
+    onDeactivated(() => {
+      lifecycle.deactivations += 1
+    })
+
+    onMounted(() => {
+      lifecycle.mounts += 1
+    })
+
+    onUnmounted(() => {
+      lifecycle.unmounts += 1
+    })
+
+    return () => h('div', { 'data-testid': `${name}-panel` }, [
+      h('input', {
+        'data-testid': `${name}-input`,
+        value: value.value,
+        onInput: (event: Event) => {
+          if (event.target instanceof HTMLInputElement) {
+            value.value = event.target.value
+          }
+        },
+      }),
+    ])
+  },
+})
+
+const createPanelSlots = (lifecycles: Record<string, PanelLifecycle>) => {
+  const Pictures = createStatefulPanel('pictures', lifecycles.pictures)
+
+  return {
+    pictures: () => [h('span', 'Pictures heading'), h(Pictures)],
+    movies: h(createStatefulPanel('movies', lifecycles.movies)),
+    books: h(createStatefulPanel('books', lifecycles.books)),
+  }
+}
 
 describe('KTabs', () => {
   appearances.forEach((appearance) => {
@@ -210,6 +260,137 @@ describe('KTabs', () => {
           cy.get('#movies-tab .tab-link').should('contain.text', moviesSlot)
           cy.get('#books-tab .tab-link').should('contain.text', booksSlot)
         })
+      })
+    })
+  })
+
+  describe('cacheTabs', () => {
+    const slots = {
+      pictures: () => h('input', { 'data-testid': 'pictures-content' }),
+      movies: () => h('input', { 'data-testid': 'movies-content' }),
+      books: () => h('input', { 'data-testid': 'books-content' }),
+    }
+
+    it('unmounts inactive content by default', () => {
+      cy.mount(KTabs, { props: { tabs: TABS }, slots })
+      cy.getTestId('pictures-content').type('discarded')
+      cy.get('#movies-tab').click()
+      cy.getTestId('pictures-content').should('not.exist')
+      cy.get('#pictures-tab').click()
+      cy.getTestId('pictures-content').should('have.value', '')
+    })
+
+    it('caches initial and programmatically activated tabs', () => {
+      cy.mount(KTabs, { props: { tabs: TABS, cacheTabs: true, modelValue: '#books' }, slots })
+      cy.getTestId('books-content').type('retained')
+      cy.getTestId('pictures-content').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setProps({ modelValue: '#movies' }))
+      cy.getTestId('movies-content').should('be.visible')
+      cy.getTestId('books-content').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setProps({ modelValue: '#books' }))
+      cy.getTestId('books-content').should('be.visible').and('have.value', 'retained')
+      cy.getTestId('movies-content').should('not.exist')
+      cy.getTestId('pictures-content').should('not.exist')
+    })
+
+    it('does not mount a tab when beforeChange rejects activation', () => {
+      cy.mount(KTabs, { props: { tabs: TABS, cacheTabs: true, beforeChange: async () => false }, slots })
+      cy.get('#movies-tab').click()
+      cy.getTestId('pictures-content').should('be.visible')
+      cy.getTestId('movies-content').should('not.exist')
+    })
+
+    it('discards removed tabs and waits for activation when they are added again', () => {
+      cy.mount(KTabs, { props: { tabs: TABS, cacheTabs: true }, slots })
+      cy.getTestId('pictures-content').type('discarded')
+      cy.get('#movies-tab').click()
+      cy.then(() => Cypress.vueWrapper.setProps({ tabs: TABS.slice(1) }))
+      cy.getTestId('pictures-content').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setProps({ tabs: TABS }))
+      cy.getTestId('pictures-content').should('not.exist')
+      cy.get('#pictures-tab').click()
+      cy.getTestId('pictures-content').should('be.visible').and('have.value', '')
+    })
+
+    it('discards inactive content when caching is disabled', () => {
+      cy.mount(KTabs, { props: { tabs: TABS, cacheTabs: true }, slots })
+      cy.getTestId('pictures-content').type('discarded')
+      cy.get('#movies-tab').click()
+      cy.getTestId('movies-content').type('active')
+      cy.then(() => Cypress.vueWrapper.setProps({ cacheTabs: false }))
+      cy.getTestId('pictures-content').should('not.exist')
+      cy.getTestId('movies-content').should('have.value', 'active')
+      cy.then(() => Cypress.vueWrapper.setProps({ cacheTabs: true }))
+      cy.getTestId('pictures-content').should('not.exist')
+      cy.get('#pictures-tab').click()
+      cy.getTestId('pictures-content').should('have.value', '')
+      cy.get('#movies-tab').click()
+      cy.getTestId('movies-content').should('have.value', 'active')
+    })
+
+    it('discards all cached content when hidePanels is enabled', () => {
+      cy.mount(KTabs, { props: { tabs: TABS, cacheTabs: true }, slots })
+      cy.getTestId('pictures-content').type('discarded')
+      cy.get('#movies-tab').click()
+      cy.then(() => Cypress.vueWrapper.setProps({ hidePanels: true }))
+      cy.get('.tab-container').should('not.exist')
+      cy.then(() => Cypress.vueWrapper.setProps({ hidePanels: false }))
+      cy.getTestId('movies-content').should('be.visible')
+      cy.getTestId('pictures-content').should('not.exist')
+    })
+
+    it('lazily mounts visited panels and preserves their state and DOM identity', () => {
+      const lifecycles = {
+        pictures: { mounts: 0, unmounts: 0, activations: 0, deactivations: 0 },
+        movies: { mounts: 0, unmounts: 0, activations: 0, deactivations: 0 },
+        books: { mounts: 0, unmounts: 0, activations: 0, deactivations: 0 },
+      }
+      let picturesPanel: Element | undefined
+
+      cy.mount(KTabs, {
+        props: {
+          tabs: TABS,
+          cacheTabs: true,
+        },
+        slots: createPanelSlots(lifecycles),
+      })
+
+      cy.getTestId('pictures-panel').should('be.visible')
+      cy.then(() => {
+        expect(lifecycles.pictures.activations).to.equal(1)
+      })
+      cy.getTestId('movies-panel').should('not.exist')
+      cy.getTestId('books-panel').should('not.exist')
+      cy.getTestId('pictures-panel').then(($panel) => {
+        picturesPanel = $panel[0]
+      })
+      cy.getTestId('pictures-input').type('preserved state')
+      cy.get('.tab-item').eq(1).click()
+      cy.getTestId('movies-panel').should('be.visible')
+      cy.getTestId('pictures-panel').should('not.exist')
+      cy.then(() => {
+        expect(lifecycles.pictures.deactivations).to.equal(1)
+        expect(lifecycles.pictures.unmounts).to.equal(0)
+      })
+      cy.get('.tab-item').eq(0).click()
+      cy.getTestId('pictures-panel').should(($panel) => {
+        expect($panel[0]).to.equal(picturesPanel)
+      })
+      cy.getTestId('pictures-input').should('have.value', 'preserved state')
+      cy.get('#panel-0').should('contain.text', 'Pictures heading')
+      cy.then(() => {
+        expect(lifecycles.pictures.activations).to.equal(2)
+        expect(lifecycles.movies.deactivations).to.equal(1)
+        expect(lifecycles.pictures.mounts).to.equal(1)
+        expect(lifecycles.pictures.unmounts).to.equal(0)
+        expect(lifecycles.movies.mounts).to.equal(1)
+        expect(lifecycles.movies.unmounts).to.equal(0)
+        expect(lifecycles.books.mounts).to.equal(0)
+      })
+      cy.then(() => Cypress.vueWrapper.unmount())
+      cy.then(() => {
+        expect(lifecycles.pictures.unmounts).to.equal(1)
+        expect(lifecycles.movies.unmounts).to.equal(1)
       })
     })
   })

@@ -45,10 +45,12 @@
         class="tab-container"
         role="tabpanel"
       >
-        <slot
-          v-if="activeTab === tab.hash"
-          :name="getTabSlotName(tab.hash)"
-        />
+        <!-- Exclude all panels when disabled without replacing the active component. -->
+        <KeepAlive :include="cacheTabs ? undefined : []">
+          <KTabsPanel v-if="activeTab === tab.hash">
+            <slot :name="getTabSlotName(tab.hash)" />
+          </KTabsPanel>
+        </KeepAlive>
       </div>
     </template>
   </div>
@@ -56,6 +58,7 @@
 
 <script lang="ts" setup generic="const Hash extends string = string">
 import { ref, watch } from 'vue'
+import KTabsPanel from './KTabsPanel.vue'
 import KButton from '@/components/KButton/KButton.vue'
 import type { StripHash, Tab, TabsEmits, TabsProps, TabsSlots } from '@/types'
 
@@ -63,6 +66,7 @@ const {
   tabs,
   modelValue = '',
   hidePanels,
+  cacheTabs = false,
   anchorTabindex = 0,
   beforeChange = () => true,
   appearance = 'default',
