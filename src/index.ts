@@ -1,3 +1,4 @@
+// TEMP: trigger preview package build for PR #3311 (no-op, revert before merge)
 import type { App } from 'vue'
 // Import all components
 import * as components from './components'
