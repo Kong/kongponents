@@ -188,6 +188,22 @@
         <KAlert>
           <strong>Custom</strong> content
         </KAlert>
+
+        <KAlert class="divided-group">
+          <strong>With button</strong>
+
+          <div>
+            <KButton to="/kongponents/#/button">
+              To KButton
+            </KButton>
+            <KButton
+              disabled
+              to="/kongponents/#/button"
+            >
+              To KButton
+            </KButton>
+          </div>
+        </KAlert>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -204,7 +220,13 @@ import { KongIcon } from '@kong/icons'
 .kalert-sandbox {
   .appearance-content {
     display: flex;
-    gap: $kui-space-40;
+    gap: var(--kui-space-40, $kui-space-40);
+  }
+
+  .divided-group :deep(.alert-message) {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>
