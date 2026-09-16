@@ -68,7 +68,7 @@ export default defineConfig({
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
     rollupOptions: {
-      external: process.env.USE_SANDBOX ? externalSandboxDependencies : ['vue', 'vue-router'],
+      external: process.env.USE_SANDBOX ? externalSandboxDependencies : (isUMDBuild ? ['vue', 'vue-router'] : ['vue', 'vue-router', 'swrv']),
       output: {
         globals: process.env.USE_SANDBOX
           ? undefined
