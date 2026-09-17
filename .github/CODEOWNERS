@@ -12,10 +12,6 @@
 # CLI
 /cli/ @adamdehaven @jillztom
 
-# Cypress
-/cypress/ @adamdehaven @kaiarrowood @jillztom
-/cypress.config.ts @adamdehaven @kaiarrowood @jillztom
-
 # Component export config
 /src/index.ts @adamdehaven @jillztom
 

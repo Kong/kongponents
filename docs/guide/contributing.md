@@ -61,7 +61,7 @@ pnpm create-kongponent
 When creating a new component with the CLI it will perform the following actions:
 
 - Creates `/src/components/{KongponentName}/` directory with the following files:
-  - `{KongponentName}.cy.ts` - Cypress Component Test file
+  - `{KongponentName}.browser.spec.ts` - Vitest Component Test file
   - `{KongponentName}.vue` - Component file
 - Adds `/src/components/{KongponentName}/{KongponentName}.vue` to the exports in `/src/components/index.ts`
 - Creates a VitePress markdown file at `/docs/components/{kongponent}.md` (you have to manually add this file to the VitePress sidebar in `docs/.vitepress/config.ts`).
@@ -79,7 +79,7 @@ Once ran, this will be the resulting file structure:
 └── src/
     └── components/
         └── {KongponentName}/
-          ├── {KongponentName}.cy.ts
+          ├── {KongponentName}.browser.spec.ts
           └── {KongponentName}.vue
 ```
 

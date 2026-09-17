@@ -77,23 +77,3 @@ jobs:
             src/**/__screenshots__/**
             **/.vitest-attachments/**
           if-no-files-found: ignore
-
-      - name: Run Cypress component tests
-        uses: cypress-io/github-action@fa4a118725a8f001170d49631ea89e5d66fee626 # v7.4.1
-        with:
-          install: false
-          command: pnpm test
-
-      - name: Upload Cypress screenshots (on failure)
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-
-      - name: Upload Cypress videos (always)
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: failure()
-        with:
-          name: cypress-videos
-          path: cypress/videos
