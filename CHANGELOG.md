@@ -1,3 +1,10 @@
+## [9.64.18](https://github.com/Kong/kongponents/compare/v9.64.17...v9.64.18) (2026-09-18)
+
+
+### Bug Fixes
+
+* **build:** externalize runtime dependencies from the ES/CJS builds ([#3427](https://github.com/Kong/kongponents/issues/3427)) ([87772b8](https://github.com/Kong/kongponents/commit/87772b8fad5f826323586fefb9129b2354df326a))
+
 ## [9.64.17](https://github.com/Kong/kongponents/compare/v9.64.16...v9.64.17) (2026-09-15)
 
 
