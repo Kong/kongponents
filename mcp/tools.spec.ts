@@ -47,6 +47,43 @@ describe('Kongponents MCP tools', () => {
     expect(result.content[0].type === 'text' && result.content[0].text).toContain('KButton')
   })
 
+  it('returns only selected component documentation sections', () => {
+    const result = handlers.getComponentDocs(['KButton'], ['Props'])
+    expect(result.isError).not.toBe(true)
+    const text = result.content[0].type === 'text' ? result.content[0].text : ''
+    expect(text).toContain('## Props')
+    expect(text).not.toContain('## Slots')
+    expect(result.structuredContent).toMatchObject({
+      components: [{ returnedSections: ['Props'] }],
+    })
+    expect(JSON.stringify(result.structuredContent)).not.toContain('### appearance')
+  })
+
+  it('returns one exact component property without the rest of the props', () => {
+    const result = handlers.getComponentProperty('KButton', 'appearance')
+    expect(result.isError).not.toBe(true)
+    const text = result.content[0].type === 'text' ? result.content[0].text : ''
+    expect(text).toContain('### appearance')
+    expect(text).not.toContain('### size')
+    expect(result.structuredContent).toMatchObject({ property: 'appearance' })
+  })
+
+  it('lists available properties when an exact property is unknown', () => {
+    const result = handlers.getComponentProperty('KButton', 'not-a-prop')
+    expect(result.isError).toBe(true)
+    expect(result.content[0].type === 'text' && result.content[0].text).toContain('appearance')
+  })
+
+  it('does not duplicate large payloads in structured content', () => {
+    const docsResult = handlers.getComponentDocs(['KButton'])
+    const sourceResult = handlers.getComponentSourceCode(['KButton'])
+    const pageResult = handlers.getDocs('/components/button')
+
+    expect(JSON.stringify(docsResult.structuredContent)).not.toContain('markdown')
+    expect(JSON.stringify(sourceResult.structuredContent)).not.toContain('<template>')
+    expect(JSON.stringify(pageResult.structuredContent)).not.toContain('KButton is probably the most used')
+  })
+
   it('searches documentation with title matches before content matches', () => {
     const result = handlers.searchDocs('theming')
     const structuredContent = result.structuredContent as { results: Array<{ path: string }> }
@@ -62,8 +99,9 @@ describe('Kongponents MCP tools', () => {
   it('returns selected theme values', () => {
     const result = handlers.getThemeVariables('classic-night', 'color', 'background')
     expect(result.isError).not.toBe(true)
-    const structuredContent = result.structuredContent as { tokens: Array<{ themeValue?: string }> }
-    expect(structuredContent.tokens.length).toBeGreaterThan(0)
-    expect(structuredContent.tokens.some((token) => token.themeValue)).toBe(true)
+    const structuredContent = result.structuredContent as { tokenCount: number }
+    expect(structuredContent.tokenCount).toBeGreaterThan(0)
+    expect(result.content[0].type === 'text' && result.content[0].text.length).toBeGreaterThan(0)
+    expect(JSON.stringify(structuredContent)).not.toContain('--kui-')
   })
 })
