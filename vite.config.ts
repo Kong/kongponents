@@ -28,8 +28,8 @@ const externalDependencies = [
   ...Object.keys(peerDependencies),
 ].filter((dep) => !bundledDependencies.includes(dep))
 
-// Match the package itself and any of its subpaths, e.g. `date-fns/locale`. Style
-// imports are excluded.
+// Match the package itself and any of its subpaths, e.g. `date-fns/locale`.
+// Style imports are excluded.
 const isExternalDependency = (id: string): boolean =>
   !id.endsWith('.css') &&
   externalDependencies.some((dep) => id === dep || id.startsWith(`${dep}/`))
