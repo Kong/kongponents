@@ -133,7 +133,8 @@ Using `latest` can expose documentation newer than the version installed in an a
 | Tool | Description |
 | --- | --- |
 | `list_components` | List documented public components, exports, slugs, and deprecation status. |
-| `get_component_docs` | Get complete component documentation and examples. |
+| `get_component_docs` | Get complete component documentation or only selected sections such as Props, Slots, or Events. |
+| `get_component_property` | Get focused documentation and examples for one exact component prop. |
 | `get_component_source_code` | Get Vue and TypeScript production source and public types. |
 | `get_component_source_styles` | Get component CSS/SCSS blocks and optionally shared styles. |
 | `list_docs` | List all available documentation pages. |
@@ -141,10 +142,31 @@ Using `latest` can expose documentation newer than the version installed in an a
 | `get_docs` | Get the complete Markdown for an exact documentation path. |
 | `get_theme_variables` | Inspect the themeable-token contract and bundled theme values. |
 
+## Token-efficient usage
+
+The server is designed to return the smallest useful answer. For a single prop, use `get_component_property`. For a broader question, pass `sections` to `get_component_docs`; omit it only when the complete component page is genuinely needed.
+
+```json
+{
+  "component": "KButton",
+  "property": "appearance"
+}
+```
+
+```json
+{
+  "components": ["KButton"],
+  "sections": ["Props", "Events"]
+}
+```
+
+Large Markdown and source payloads are returned once as tool text. Structured results contain compact metadata instead of a second copy of the same content. This keeps the context smaller without removing information from the agent.
+
 ## Example prompts
 
 - "List the Kongponents available for building a form."
 - "Show all KButton props and usage examples."
+- "Show only the appearance prop for KButton."
 - "Compare KTableView and KTableData before changing this table."
 - "Get the source and styles for KDropdown."
 - "Find the migration guidance for deprecated table APIs."

@@ -13,7 +13,7 @@ export const createServer = (snapshot: McpSnapshot, version: string): McpServer 
   const server = new McpServer(
     { name: 'kongponents', version },
     {
-      instructions: 'Use this server as the source of truth for Kongponents APIs. Call list_components or search_docs to discover content before requesting complete documentation, source, styles, or theme variables. The snapshot matches the installed @kong/kongponents version.',
+      instructions: 'Use this server as the source of truth for Kongponents APIs. Prefer get_component_property for one prop, or get_component_docs with sections for a focused answer. Call list_components or search_docs to discover content before requesting complete documentation, source, styles, or theme variables. The snapshot matches the installed @kong/kongponents version.',
     },
   )
   const handlers = createToolHandlers(snapshot)
@@ -27,10 +27,22 @@ export const createServer = (snapshot: McpSnapshot, version: string): McpServer 
 
   server.registerTool('get_component_docs', {
     title: 'Get Kongponents component documentation',
-    description: 'Get complete version-matched Markdown documentation and examples for one to ten Kongponents components.',
-    inputSchema: componentListSchema,
+    description: 'Get complete or selected version-matched Markdown documentation sections and examples for one to ten Kongponents components.',
+    inputSchema: componentListSchema.extend({
+      sections: z.array(z.string().trim().min(1)).min(1).max(10).optional().describe('Optional H2 section names such as Props, Slots, Events, or Overview.'),
+    }),
     annotations: readOnlyAnnotations,
-  }, ({ components }) => handlers.getComponentDocs(components))
+  }, ({ components, sections }) => handlers.getComponentDocs(components, sections))
+
+  server.registerTool('get_component_property', {
+    title: 'Get one Kongponents component property',
+    description: 'Get the focused documentation and examples for one exact component prop. Prefer this over full component docs when only one prop is needed.',
+    inputSchema: z.object({
+      component: z.string().trim().min(1).describe('Component name, export, alias, or slug.'),
+      property: z.string().trim().min(1).describe('Exact documented prop heading, for example appearance or modelValue.'),
+    }),
+    annotations: readOnlyAnnotations,
+  }, ({ component, property }) => handlers.getComponentProperty(component, property))
 
   server.registerTool('get_component_source_code', {
     title: 'Get Kongponents component source code',

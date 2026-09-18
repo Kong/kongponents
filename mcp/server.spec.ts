@@ -24,6 +24,7 @@ describe('Kongponents MCP protocol', () => {
     expect(tools.map((tool) => tool.name)).toEqual([
       'list_components',
       'get_component_docs',
+      'get_component_property',
       'get_component_source_code',
       'get_component_source_styles',
       'list_docs',
@@ -37,6 +38,13 @@ describe('Kongponents MCP protocol', () => {
     expect(result.isError).not.toBe(true)
     expect(result.content[0]).toMatchObject({ type: 'text' })
     expect(result.content[0].type === 'text' && result.content[0].text).toContain('# Button')
+
+    const propertyResult = await client.callTool({
+      name: 'get_component_property',
+      arguments: { component: 'KButton', property: 'appearance' },
+    })
+    expect(propertyResult.isError).not.toBe(true)
+    expect(propertyResult.content[0].type === 'text' && propertyResult.content[0].text).toContain('### appearance')
 
     await server.close()
   })
