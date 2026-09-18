@@ -153,13 +153,13 @@ jobs:
         with:
           egress-policy: audit
       - name: Skip component tests
-        run: echo "No files changed in the `src/`, `docs/`, or `cypress/` directories, so no tests are needed."
+        run: echo "No files changed in the `src/` or `docs/` directories, so no tests are needed."
 
   no-publish-required:
     name: No Build and Publish needed
     needs:
       - get-changed-files
-    if: needs.get-changed-files.outputs.components-or-docs-or-cypress-files-changed == 'false' && needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'false'
+    if: needs.get-changed-files.outputs.components-or-docs-files-changed == 'false' && needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
