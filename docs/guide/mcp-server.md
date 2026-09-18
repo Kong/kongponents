@@ -111,6 +111,93 @@ For a monorepo where Kongponents is installed only in a nested workspace package
 "args": ["--dir", "path/to/package", "exec", "kongponents-mcp"]
 ```
 
+## Cursor
+
+Add a project-scoped `.cursor/mcp.json` to the consuming repository:
+
+```json
+{
+  "mcpServers": {
+    "kongponents": {
+      "command": "pnpm",
+      "args": ["exec", "kongponents-mcp"]
+    }
+  }
+}
+```
+
+Cursor shares this configuration between the editor and Cursor CLI. Open Cursor's MCP settings to enable the server and inspect its tools, or verify it from the CLI:
+
+```sh
+agent mcp list
+agent mcp list-tools kongponents
+```
+
+The agent automatically discovers the available tools and can call them when relevant. See the [official Cursor MCP documentation](https://cursor.com/docs/context/model-context-protocol) for global configuration and server-management options.
+
+## Zed
+
+Add the server to the `context_servers` object in the consuming repository's `.zed/settings.json`:
+
+```json
+{
+  "context_servers": {
+    "kongponents": {
+      "command": "pnpm",
+      "args": ["exec", "kongponents-mcp"],
+      "env": {}
+    }
+  }
+}
+```
+
+Trust the worktree when Zed asks for confirmation. Then open **Settings → AI → MCP Servers** and confirm that `kongponents` has a green **Server is active** indicator. The tools are available to the Zed Agent from its Agent Panel.
+
+If Zed cannot resolve the package from a monorepo root, point pnpm at the workspace package explicitly:
+
+```json
+"args": ["--dir", "/absolute/path/to/the/workspace/package", "exec", "kongponents-mcp"]
+```
+
+See the [official Zed MCP documentation](https://zed.dev/docs/ai/mcp) for custom-server configuration and troubleshooting.
+
+## WebStorm
+
+WebStorm can connect to Kongponents through the JetBrains AI Assistant plugin. Open **Settings → Tools → AI Assistant → Model Context Protocol (MCP)**, select **Add**, choose the STDIO transport, and use this configuration:
+
+```json
+{
+  "mcpServers": {
+    "kongponents": {
+      "command": "pnpm",
+      "args": ["exec", "kongponents-mcp"]
+    }
+  }
+}
+```
+
+Set **Working directory** to the consuming repository, choose **Current Project** as the server level, and click **Apply**. Once connected, WebStorm displays the server status and the available Kongponents tools in the MCP settings.
+
+For a pnpm monorepo where Kongponents is installed in a nested workspace package, either use that package as the working directory or provide it explicitly:
+
+```json
+{
+  "mcpServers": {
+    "kongponents": {
+      "command": "pnpm",
+      "args": [
+        "--dir",
+        "/absolute/path/to/the/workspace/package",
+        "exec",
+        "kongponents-mcp"
+      ]
+    }
+  }
+}
+```
+
+This configures WebStorm as an MCP client for Kongponents. It is separate from WebStorm's built-in MCP server, which exposes IDE tools to external clients. See the [official JetBrains AI Assistant MCP documentation](https://www.jetbrains.com/help/ai-assistant/mcp.html) for configuration and server-management options.
+
 ## Run the latest published version
 
 For standalone use or evaluation, an agent can download and run the latest package through `npx`:
