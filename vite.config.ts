@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import path, { join } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
+import pkg from './package.json'
 
 // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
 const buildVisualizerPlugin = process.env.BUILD_VISUALIZER
@@ -16,6 +17,22 @@ const buildVisualizerPlugin = process.env.BUILD_VISUALIZER
 
 // !Important: always externalize `shiki/onig.wasm`
 const externalSandboxDependencies: string[] = ['shiki/onig.wasm']
+
+// `lodash-es` is ESM-only with no `exports` map, so `require('lodash-es')` throws in some cases. It stays bundled until the next major.
+const bundledDependencies = ['lodash-es']
+
+const { dependencies, peerDependencies } = pkg
+
+const externalDependencies = [
+  ...Object.keys(dependencies),
+  ...Object.keys(peerDependencies),
+].filter((dep) => !bundledDependencies.includes(dep))
+
+// Match the package itself and any of its subpaths, e.g. `date-fns/locale`. Style
+// imports are excluded.
+const isExternalDependency = (id: string): boolean =>
+  !id.endsWith('.css') &&
+  externalDependencies.some((dep) => id === dep || id.startsWith(`${dep}/`))
 
 // we need to have a separate build for UMD to avoid issues with dynamic imports and preserveModules
 const isUMDBuild = process.env.BUILD_UMD === 'true'
@@ -68,7 +85,7 @@ export default defineConfig({
     minify: true,
     sourcemap: !!process.env.BUILD_VISUALIZER,
     rollupOptions: {
-      external: process.env.USE_SANDBOX ? externalSandboxDependencies : ['vue', 'vue-router'],
+      external: process.env.USE_SANDBOX ? externalSandboxDependencies : (isUMDBuild ? Object.keys(peerDependencies) : isExternalDependency),
       output: {
         globals: process.env.USE_SANDBOX
           ? undefined
