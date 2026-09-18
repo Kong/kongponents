@@ -45,6 +45,7 @@ jobs:
           name: kongponents-ci-build-output-artifact
           path: |
             dist/**
+            bin/**
             ./package.json
             ./README.md
             ./LICENSE

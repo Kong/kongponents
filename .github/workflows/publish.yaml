@@ -43,9 +43,8 @@ jobs:
       needs:
         - get-changed-files
         - run-tests
-      # Only run the publish action (including semantic-release) if files in the /src/ directory changed.
-      # Should only run if files in the `src/` directory were changed
-      if: needs.get-changed-files.outputs.component-files-changed == 'true' || needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'true'
+      # Documentation is embedded in the MCP snapshot, so docs-only changes also require a package release.
+      if: needs.get-changed-files.outputs.component-files-changed == 'true' || needs.get-changed-files.outputs.docs-files-changed == 'true' || needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'true'
       runs-on: ubuntu-latest
       steps:
         - name: Harden Runner
@@ -145,7 +144,7 @@ jobs:
     name: No Component Tests needed
     needs:
       - get-changed-files
-    if: needs.get-changed-files.outputs.component-files-changed == 'false' && needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'false'
+    if: needs.get-changed-files.outputs.components-or-docs-files-changed == 'false' && needs.get-changed-files.outputs.package-json-pnpm-lock-files-changed == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
@@ -153,7 +152,7 @@ jobs:
         with:
           egress-policy: audit
       - name: Skip component tests
-        run: echo "No files changed in the `src/` or `docs/` directories, so no tests are needed."
+        run: echo "No publishable runtime or documentation files changed, so no tests are needed."
 
   no-publish-required:
     name: No Build and Publish needed
@@ -167,4 +166,4 @@ jobs:
         with:
           egress-policy: audit
       - name: Skip new release
-        run: echo "No files changed in the `src/` directory, so no new release is required."
+        run: echo "No publishable runtime or documentation files changed, so no new release is required."
