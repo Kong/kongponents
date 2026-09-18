@@ -64,7 +64,7 @@ export default defineConfig({
         test: {
           name: 'unit',
           environment: 'jsdom',
-          include: ['src/**/*.spec.ts'],
+          include: ['src/**/*.spec.ts', 'mcp/**/*.spec.ts'],
           exclude: [...configDefaults.exclude, 'src/**/*.browser.spec.ts'],
         },
       },
