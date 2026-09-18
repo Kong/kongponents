@@ -6,9 +6,6 @@ dist-ssr
 *.local
 bundle-analyzer
 
-cypress/screenshots
-cypress/videos
-
 **/.vitest-attachments/
 **/__screenshots__
 

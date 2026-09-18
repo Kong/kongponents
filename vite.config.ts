@@ -25,7 +25,7 @@ const buildFormats: Array<'es' | 'cjs' | 'umd'> = isUMDBuild ? ['umd'] : ['es', 
 export default defineConfig({
   plugins: [
     vue(),
-    ...(process.env.DISABLE_VUE_DEVTOOLS === 'true' ? [] : [VueDevTools()]), // Cypress 14+ introduces an issue with VueDevTools when running tests so we need to disable it in the test environment only
+    VueDevTools(),
   ],
   resolve: {
     alias: {
@@ -93,7 +93,6 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
-      'cypress',
       'vue',
       'focus-trap',
       'focus-trap-vue',

@@ -1,3 +1,17 @@
+## [9.64.17](https://github.com/Kong/kongponents/compare/v9.64.16...v9.64.17) (2026-09-15)
+
+
+### Bug Fixes
+
+* **ktabs:** remove duplicate click handler ([#3425](https://github.com/Kong/kongponents/issues/3425)) ([d1f34eb](https://github.com/Kong/kongponents/commit/d1f34eb086f6964df26ed3a632fb01ffa445e0ff))
+
+## [9.64.16](https://github.com/Kong/kongponents/compare/v9.64.15...v9.64.16) (2026-09-15)
+
+
+### Bug Fixes
+
+* **kinput:** reveal safari generated passwords [TDX-8840] ([#3413](https://github.com/Kong/kongponents/issues/3413)) ([ba2fc17](https://github.com/Kong/kongponents/commit/ba2fc17e0c5e57c172dc83ac17e3008dd2cfecc5))
+
 ## [9.64.15](https://github.com/Kong/kongponents/compare/v9.64.14...v9.64.15) (2026-09-09)
 
 
