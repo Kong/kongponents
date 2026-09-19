@@ -120,7 +120,7 @@
     "node-emoji": "^2.2.0",
     "nuxt": "^4.4.7",
     "picocolors": "^1.1.1",
-    "playwright": "^1.62.1",
+    "playwright": "^1.63.0",
     "postcss-cli": "^11.0.1",
     "postcss-custom-properties": "^14.0.6",
     "postcss-html": "^1.8.1",
