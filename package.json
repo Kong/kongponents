@@ -103,7 +103,7 @@
     "@types/node": "^24.13.3",
     "@types/sortablejs": "^1.15.9",
     "@vitejs/plugin-vue": "^5.2.4",
-    "@vitest/browser-playwright": "^4.1.10",
+    "@vitest/browser-playwright": "^5.0.0",
     "@vue/compiler-core": "^3.5.40",
     "@vue/tsconfig": "^0.9.1",
     "@vueuse/core": "^14.3.0",
