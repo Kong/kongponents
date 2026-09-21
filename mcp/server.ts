@@ -29,7 +29,7 @@ export const createServer = (snapshot: McpSnapshot, version: string): McpServer 
     title: 'Get Kongponents component documentation',
     description: 'Get complete or selected version-matched Markdown documentation sections and examples for one to ten Kongponents components.',
     inputSchema: componentListSchema.extend({
-      sections: z.array(z.string().trim().min(1)).min(1).max(10).optional().describe('Optional H2 section names such as Props, Slots, Events, or Overview.'),
+      sections: z.array(z.string().trim().min(1)).min(1).max(10).optional().describe('Optional top-level component section names such as Props, Slots, Events, or Overview.'),
     }),
     annotations: readOnlyAnnotations,
   }, ({ components, sections }) => handlers.getComponentDocs(components, sections))
