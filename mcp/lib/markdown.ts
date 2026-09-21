@@ -49,23 +49,37 @@ const sectionEnd = (markdown: string, headings: Heading[], index: number): numbe
 
 const unique = (values: string[]): string[] => [...new Set(values)]
 
+const directSectionHeadings = (markdown: string, headings: Heading[]): Heading[] => {
+  const rootHeading = headings[0]
+  const sectionLevel = rootHeading ? rootHeading.level + 1 : 2
+  return headings.filter((heading) => heading.level === sectionLevel)
+}
+
+/** Restrict a shared documentation page to one nested component heading. */
+export const extractDocumentationScope = (markdown: string, scopeHeading?: string): string | undefined => {
+  if (!scopeHeading) return markdown
+  const headings = parseHeadings(markdown)
+  const scopeIndex = headings.findIndex((heading) => normalizeHeading(heading.title) === normalizeHeading(scopeHeading))
+  if (scopeIndex < 0) return undefined
+  const scope = headings[scopeIndex]
+  return markdown.slice(scope.start, sectionEnd(markdown, headings, scopeIndex)).trim()
+}
+
 export const listDocumentationSections = (markdown: string): string[] => unique(
-  parseHeadings(markdown)
-    .filter((heading) => heading.level === 2)
-    .map((heading) => heading.title),
+  directSectionHeadings(markdown, parseHeadings(markdown)).map((heading) => heading.title),
 )
 
 export const extractDocumentationSections = (markdown: string, requestedSections: string[]) => {
   const headings = parseHeadings(markdown)
-  const secondLevelHeadings = headings.filter((heading) => heading.level === 2)
-  const availableSections = unique(secondLevelHeadings.map((heading) => heading.title))
+  const sectionHeadings = directSectionHeadings(markdown, headings)
+  const availableSections = unique(sectionHeadings.map((heading) => heading.title))
   const requested = unique(requestedSections.map((section) => section.trim()).filter(Boolean))
   const chunks: string[] = []
   const matchedSections: string[] = []
 
   for (const section of requested) {
     if (normalizeHeading(section) === 'overview') {
-      const overviewEnd = secondLevelHeadings[0]?.start ?? markdown.length
+      const overviewEnd = sectionHeadings[0]?.start ?? markdown.length
       const overview = markdown.slice(0, overviewEnd).trim()
       if (overview) {
         chunks.push(overview)
@@ -74,7 +88,7 @@ export const extractDocumentationSections = (markdown: string, requestedSections
       continue
     }
 
-    const heading = secondLevelHeadings.find((candidate) => normalizeHeading(candidate.title) === normalizeHeading(section))
+    const heading = sectionHeadings.find((candidate) => normalizeHeading(candidate.title) === normalizeHeading(section))
     if (!heading) continue
     const headingIndex = headings.indexOf(heading)
     chunks.push(markdown.slice(heading.start, sectionEnd(markdown, headings, headingIndex)).trim())
@@ -88,35 +102,106 @@ export const extractDocumentationSections = (markdown: string, requestedSections
   }
 }
 
-export const listComponentProperties = (markdown: string): string[] => {
-  const headings = parseHeadings(markdown)
-  const propsIndex = headings.findIndex((heading) => heading.level === 2 && normalizeHeading(heading.title) === 'props')
-  if (propsIndex < 0) return []
-
-  const properties: string[] = []
-  for (const heading of headings.slice(propsIndex + 1)) {
-    if (heading.level <= 2) break
-    if (heading.level === 3) properties.push(heading.title)
-  }
-  return unique(properties)
+interface PropertyEntry {
+  title: string
+  markdown: string
 }
 
-export const extractComponentProperty = (markdown: string, property: string) => {
+const isApiSection = (title: string): boolean => {
+  const normalized = normalizeHeading(title)
+  return normalized === 'props'
+    || normalized.endsWith('props')
+    || normalized === 'arguments'
+    || normalized === 'htmlattributes'
+    || normalized === 'attributebinding'
+}
+
+const tablePropertyEntries = (sectionMarkdown: string): PropertyEntry[] => {
+  const lines = sectionMarkdown.split('\n')
+  const entries: PropertyEntry[] = []
+
+  for (let index = 0; index < lines.length - 2; index++) {
+    const header = lines[index]
+    const separator = lines[index + 1]
+    if (!header.trim().startsWith('|') || !/^\s*\|?(?:\s*:?-+:?\s*\|)+\s*$/.test(separator)) continue
+
+    for (let rowIndex = index + 2; rowIndex < lines.length; rowIndex++) {
+      const row = lines[rowIndex]
+      if (!row.trim().startsWith('|')) break
+      const firstCell = row.split('|')[1]?.trim().replace(/[`*_]/g, '')
+      if (!firstCell) continue
+      entries.push({
+        title: firstCell,
+        markdown: `### ${firstCell}\n\n${header}\n${separator}\n${row}`,
+      })
+    }
+  }
+
+  return entries
+}
+
+const headingPropertyEntries = (markdown: string, headings: Heading[], sectionIndex: number): PropertyEntry[] => {
+  const section = headings[sectionIndex]
+  const end = sectionEnd(markdown, headings, sectionIndex)
+  const candidates = headings
+    .map((heading, index) => ({ heading, index }))
+    .filter(({ heading }) => heading.start > section.start && heading.start < end && heading.level === section.level + 1)
+  const entries: PropertyEntry[] = []
+
+  for (const { heading, index } of candidates) {
+    if (normalizeHeading(heading.title) === 'htmlattributes') {
+      const containerEnd = sectionEnd(markdown, headings, index)
+      for (const nested of headings.filter((candidate) => (
+        candidate.start > heading.start
+        && candidate.start < containerEnd
+        && candidate.level === heading.level + 1
+      ))) {
+        const nestedIndex = headings.indexOf(nested)
+        entries.push({
+          title: nested.title,
+          markdown: markdown.slice(nested.start, Math.min(sectionEnd(markdown, headings, nestedIndex), containerEnd)).trim(),
+        })
+      }
+      continue
+    }
+
+    entries.push({
+      title: heading.title,
+      markdown: markdown.slice(heading.start, Math.min(sectionEnd(markdown, headings, index), end)).trim(),
+    })
+  }
+
+  return entries
+}
+
+const componentPropertyEntries = (markdown: string): PropertyEntry[] => {
   const headings = parseHeadings(markdown)
-  const propsIndex = headings.findIndex((heading) => heading.level === 2 && normalizeHeading(heading.title) === 'props')
-  const properties = listComponentProperties(markdown)
-  if (propsIndex < 0) return { markdown: undefined, matchedProperty: undefined, availableProperties: properties }
+  const apiSections = directSectionHeadings(markdown, headings)
+    .filter((heading) => isApiSection(heading.title))
+  const entries: PropertyEntry[] = []
 
-  const relativeIndex = headings.slice(propsIndex + 1).findIndex((heading) => (
-    heading.level === 3 && normalizeHeading(heading.title) === normalizeHeading(property)
+  for (const section of apiSections) {
+    const sectionIndex = headings.indexOf(section)
+    const end = sectionEnd(markdown, headings, sectionIndex)
+    const firstNestedHeading = headings.find((heading) => heading.start > section.start && heading.start < end)
+    const sectionMarkdown = markdown.slice(section.start, firstNestedHeading?.start ?? end).trim()
+    entries.push(...headingPropertyEntries(markdown, headings, sectionIndex))
+    entries.push(...tablePropertyEntries(sectionMarkdown))
+  }
+
+  return entries.filter((entry, index) => (
+    entries.findIndex((candidate) => normalizeHeading(candidate.title) === normalizeHeading(entry.title)) === index
   ))
-  if (relativeIndex < 0) return { markdown: undefined, matchedProperty: undefined, availableProperties: properties }
+}
 
-  const headingIndex = propsIndex + 1 + relativeIndex
-  const heading = headings[headingIndex]
+export const listComponentProperties = (markdown: string): string[] => componentPropertyEntries(markdown).map(({ title }) => title)
+
+export const extractComponentProperty = (markdown: string, property: string) => {
+  const entries = componentPropertyEntries(markdown)
+  const matched = entries.find((entry) => normalizeHeading(entry.title) === normalizeHeading(property))
   return {
-    markdown: markdown.slice(heading.start, sectionEnd(markdown, headings, headingIndex)).trim(),
-    matchedProperty: heading.title,
-    availableProperties: properties,
+    markdown: matched?.markdown,
+    matchedProperty: matched?.title,
+    availableProperties: entries.map(({ title }) => title),
   }
 }
