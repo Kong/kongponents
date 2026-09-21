@@ -24,6 +24,7 @@ export interface ComponentCatalogDefinition {
   slug: string
   title: string
   docPath: string
+  docHeading?: string
   exports: string[]
   sourceDirectories: string[]
   typeFiles?: string[]

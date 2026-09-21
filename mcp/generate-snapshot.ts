@@ -12,20 +12,22 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse as parseYaml } from 'yaml'
-import { COMPONENT_CATALOG } from './catalog'
-import type { ComponentRecord, DocumentationPage, DocumentationSection, McpSnapshot, SnapshotFile, StyleBlock } from './types'
+import { createComponentCatalog, UNDOCUMENTED_COMPONENT_EXPORTS } from './catalog'
+import type { ComponentCatalogDefinition, ComponentRecord, DocumentationPage, DocumentationSection, McpSnapshot, SnapshotFile, StyleBlock } from './types'
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DOCS_ROOT = path.join(REPO_ROOT, 'docs')
 const OUTPUT_PATH = path.join(REPO_ROOT, 'bin/mcp-data/snapshot.json')
 const DEPLOYED_HOSTNAME = 'https://kongponents.konghq.com'
 
+/** Convert a documentation route into the public URL shipped in MCP responses. */
 const canonicalUrlForRoute = (route: string): string => route.endsWith('/')
   ? `${DEPLOYED_HOSTNAME}${route}`
   : `${DEPLOYED_HOSTNAME}${route}.html`
 
 const toPosix = (value: string): string => value.split(path.sep).join('/')
 
+/** Recursively collect matching files in deterministic path order. */
 const walk = async (directory: string, predicate: (filePath: string) => boolean): Promise<string[]> => {
   const entries = await readdir(directory, { withFileTypes: true })
   const files = await Promise.all(entries.map(async (entry) => {
@@ -38,18 +40,21 @@ const walk = async (directory: string, predicate: (filePath: string) => boolean)
   return files.flat().sort()
 }
 
+/** Map a docs-relative Markdown path to its VitePress route. */
 const routeFromDoc = (relativePath: string): string => {
   const withoutExtension = relativePath.replace(/\.md$/, '')
   if (withoutExtension === 'index') return '/'
   return `/${withoutExtension.replace(/\/index$/, '/')}`
 }
 
+/** Classify routes for list/search filtering in the MCP API. */
 const sectionFromRoute = (route: string): DocumentationSection => {
   if (route.startsWith('/components/')) return 'components'
   if (route.startsWith('/guide/')) return 'guide'
   return 'home'
 }
 
+/** Prefer frontmatter titles and fall back to the first Markdown H1. */
 const titleFromMarkdown = (content: string, frontmatter: Record<string, unknown>, sourcePath: string): string => {
   if (typeof frontmatter.title === 'string') return frontmatter.title
   const heading = content.match(/^#\s+(.+)$/m)?.[1]
@@ -57,6 +62,7 @@ const titleFromMarkdown = (content: string, frontmatter: Record<string, unknown>
   throw new Error(`Unable to determine documentation title for ${sourcePath}`)
 }
 
+/** Split optional YAML frontmatter from the original Markdown body. */
 const parseFrontmatter = (raw: string): { data: Record<string, unknown>, content: string } => {
   if (!raw.startsWith('---\n')) return { data: {}, content: raw }
   const closingDelimiter = raw.indexOf('\n---\n', 4)
@@ -69,6 +75,7 @@ const parseFrontmatter = (raw: string): { data: Record<string, unknown>, content
   }
 }
 
+/** Read public Markdown verbatim; internal implementation plans are intentionally excluded. */
 const readDocumentation = async (): Promise<DocumentationPage[]> => {
   const files = await walk(DOCS_ROOT, (filePath) => filePath.endsWith('.md') && !filePath.includes(`${path.sep}plans${path.sep}`))
   return Promise.all(files.map(async (absolutePath) => {
@@ -89,17 +96,20 @@ const readDocumentation = async (): Promise<DocumentationPage[]> => {
   }))
 }
 
+/** Include runtime TypeScript and Vue files while excluding every test variant. */
 const isProductionSource = (filePath: string): boolean => {
   if (!/\.(ts|vue)$/.test(filePath)) return false
   return !/\.(?:cy|spec|browser\.spec)\.ts$/.test(filePath)
 }
 
+/** Read a repository file while storing a portable, repository-relative path. */
 const readSnapshotFile = async (absolutePath: string): Promise<SnapshotFile> => ({
   path: toPosix(path.relative(REPO_ROOT, absolutePath)),
   content: await readFile(absolutePath, 'utf8'),
 })
 
-const readComponent = async (definition: typeof COMPONENT_CATALOG[number]): Promise<ComponentRecord> => {
+/** Bundle production sources, public types, and extracted SFC styles for one catalog record. */
+const readComponent = async (definition: ComponentCatalogDefinition): Promise<ComponentRecord> => {
   const sourcePaths = (await Promise.all(definition.sourceDirectories.map(async (directory) => {
     const absoluteDirectory = path.join(REPO_ROOT, directory)
     return walk(absoluteDirectory, isProductionSource)
@@ -128,6 +138,7 @@ const readComponent = async (definition: typeof COMPONENT_CATALOG[number]): Prom
     slug: definition.slug,
     title: definition.title,
     docPath: definition.docPath,
+    docHeading: definition.docHeading,
     exports: definition.exports,
     aliases: definition.aliases,
     deprecated: definition.deprecated,
@@ -137,19 +148,38 @@ const readComponent = async (definition: typeof COMPONENT_CATALOG[number]): Prom
   }
 }
 
-const validateCatalog = async (docs: DocumentationPage[]): Promise<void> => {
+interface ComponentExport {
+  name: string
+  sourcePath: string
+}
+
+/** Parse the package's public default exports and their component-relative source paths. */
+const readComponentExports = async (): Promise<ComponentExport[]> => {
+  const source = await readFile(path.join(REPO_ROOT, 'src/components/index.ts'), 'utf8')
+  return [...source.matchAll(/export \{ default as (\w+) \} from ['"]([^'"]+)['"]/g)]
+    .map((match) => ({ name: match[1], sourcePath: match[2] }))
+}
+
+/** Enforce complete docs/export coverage and unique user-facing component identifiers. */
+const validateCatalog = (docs: DocumentationPage[], catalog: ComponentCatalogDefinition[], componentExports: ComponentExport[]): void => {
   const componentDocPaths = docs.filter((doc) => doc.section === 'components').map((doc) => doc.path).sort()
-  const catalogDocPaths = COMPONENT_CATALOG.map((entry) => entry.docPath).sort()
+  const catalogDocPaths = [...new Set(catalog.map((entry) => entry.docPath))].sort()
   const missingCatalogEntries = componentDocPaths.filter((docPath) => !catalogDocPaths.includes(docPath))
   const missingDocs = catalogDocPaths.filter((docPath) => !componentDocPaths.includes(docPath))
   if (missingCatalogEntries.length || missingDocs.length) {
     throw new Error(`Component catalog mismatch. Missing catalog entries: ${missingCatalogEntries.join(', ') || 'none'}. Missing docs: ${missingDocs.join(', ') || 'none'}.`)
   }
 
-  const componentExportsSource = await readFile(path.join(REPO_ROOT, 'src/components/index.ts'), 'utf8')
-  const exportedNames = new Set([...componentExportsSource.matchAll(/export \{ default as (\w+) \}/g)].map((match) => match[1]))
+  const exportedNames = new Set(componentExports.map(({ name }) => name))
+  const catalogedExports = new Set(catalog.flatMap((entry) => [...entry.exports, ...(entry.aliases ?? [])]))
+  const unaccountedExports = [...exportedNames]
+    .filter((exportName) => !catalogedExports.has(exportName) && !UNDOCUMENTED_COMPONENT_EXPORTS[exportName])
+  if (unaccountedExports.length) {
+    throw new Error(`Public component exports missing from the MCP catalog: ${unaccountedExports.join(', ')}.`)
+  }
+
   const seen = new Map<string, string>()
-  for (const entry of COMPONENT_CATALOG) {
+  for (const entry of catalog) {
     for (const key of [entry.slug, ...entry.exports, ...(entry.aliases ?? [])]) {
       const normalized = key.toLowerCase().replace(/[^a-z0-9]/g, '')
       const owner = seen.get(normalized)
@@ -162,10 +192,15 @@ const validateCatalog = async (docs: DocumentationPage[]): Promise<void> => {
   }
 }
 
+/** Assemble the version-matched, offline snapshot consumed by the bundled stdio server. */
 const main = async (): Promise<void> => {
   const docs = await readDocumentation()
-  await validateCatalog(docs)
-  const components = await Promise.all(COMPONENT_CATALOG.map(readComponent))
+  const componentExports = await readComponentExports()
+  const typeFilePaths = (await walk(path.join(REPO_ROOT, 'src/types'), (filePath) => filePath.endsWith('.ts')))
+    .map((filePath) => toPosix(path.relative(REPO_ROOT, filePath)))
+  const catalog = createComponentCatalog({ docs, componentExports, typeFilePaths })
+  validateCatalog(docs, catalog, componentExports)
+  const components = await Promise.all(catalog.map(readComponent))
   const sharedStylePaths = await walk(path.join(REPO_ROOT, 'src/styles'), (filePath) => /\.(?:css|scss|sass)$/.test(filePath))
   const sharedStyles = await Promise.all(sharedStylePaths.map(readSnapshotFile))
 
