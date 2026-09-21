@@ -1,7 +1,7 @@
 import type { CallToolResult } from '@modelcontextprotocol/server'
 import type { McpSnapshot } from './types'
 import { componentSuggestions, docSuggestions, resolveComponent, resolveDoc } from './lib/catalog'
-import { extractComponentProperty, extractDocumentationSections, listDocumentationSections } from './lib/markdown'
+import { extractComponentProperty, extractDocumentationScope, extractDocumentationSections, listDocumentationSections } from './lib/markdown'
 import { searchDocumentation } from './lib/search'
 
 export type ToolResult = CallToolResult
@@ -25,6 +25,12 @@ const componentSummary = (component: McpSnapshot['components'][number]) => ({
   deprecated: component.deprecated ?? false,
 })
 
+const headingAnchor = (heading: string): string => heading
+  .trim()
+  .toLowerCase()
+  .replace(/[^a-z0-9\s-]/g, '')
+  .replace(/\s+/g, '-')
+
 export const createToolHandlers = (snapshot: McpSnapshot) => ({
   listComponents: (query?: string): ToolResult => {
     const normalizedQuery = query?.trim().toLowerCase()
@@ -46,13 +52,15 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
     const results = components.map((component) => {
       const resolved = component!
       const doc = resolveDoc(snapshot, resolved.docPath)!
-      const selection = sections?.length ? extractDocumentationSections(doc.content, sections) : undefined
+      const scopedMarkdown = extractDocumentationScope(doc.content, resolved.docHeading)
+      if (!scopedMarkdown) throw new Error(`Unable to find documentation scope ${resolved.docHeading} for ${resolved.exports[0]}.`)
+      const selection = sections?.length ? extractDocumentationSections(scopedMarkdown, sections) : undefined
       return {
         ...componentSummary(resolved),
-        canonicalUrl: doc.canonicalUrl,
-        markdown: selection?.markdown ?? doc.content,
+        canonicalUrl: resolved.docHeading ? `${doc.canonicalUrl}#${headingAnchor(resolved.docHeading)}` : doc.canonicalUrl,
+        markdown: selection?.markdown ?? scopedMarkdown,
         returnedSections: selection?.matchedSections ?? ['All'],
-        availableSections: selection?.availableSections ?? ['Overview', ...listDocumentationSections(doc.content)],
+        availableSections: selection?.availableSections ?? ['Overview', ...listDocumentationSections(scopedMarkdown)],
       }
     })
     const emptySelection = results.find((result) => !result.markdown)
@@ -76,14 +84,16 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
     const component = resolveComponent(snapshot, identifier)
     if (!component) return failure(`Unknown component "${identifier}". Did you mean: ${componentSuggestions(snapshot, identifier).join(', ')}?`)
     const doc = resolveDoc(snapshot, component.docPath)!
-    const result = extractComponentProperty(doc.content, property)
+    const scopedMarkdown = extractDocumentationScope(doc.content, component.docHeading)
+    if (!scopedMarkdown) return failure(`Documentation scope "${component.docHeading}" was not found for ${component.exports[0]}.`)
+    const result = extractComponentProperty(scopedMarkdown, property)
     if (!result.markdown || !result.matchedProperty) {
       return failure(`Unknown property "${property}" for ${component.exports[0]}. Available properties: ${result.availableProperties.join(', ') || 'none documented'}.`)
     }
     return success(`# ${component.exports[0]}: ${result.matchedProperty}\n\n${result.markdown}`, {
       component: componentSummary(component),
       property: result.matchedProperty,
-      canonicalUrl: doc.canonicalUrl,
+      canonicalUrl: component.docHeading ? `${doc.canonicalUrl}#${headingAnchor(component.docHeading)}` : doc.canonicalUrl,
     })
   },
 
