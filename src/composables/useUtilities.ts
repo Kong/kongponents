@@ -1,8 +1,7 @@
 import type { Ref } from 'vue'
 import { ref, computed, watchEffect } from 'vue'
-import type { IConfig } from 'swrv'
+import type { IConfig, IKey, fetcherFn } from 'swrv'
 import useSWRV from 'swrv'
-import type { IKey, fetcherFn } from 'swrv/dist/types'
 import type { SwrvState } from '@/types'
 
 const swrvState = {
