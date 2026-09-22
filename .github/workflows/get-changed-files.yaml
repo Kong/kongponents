@@ -10,7 +10,7 @@ on:
         description: Check if docs (`docs` directory) files have changed
         value: ${{ jobs.get-changed-files.outputs.docs-files-changed }}
       components-or-docs-files-changed:
-        description: Check if src or docs (`src` or `docs` directories) files have changed
+        description: Check if files changed in `src/`, `nuxt/`, `cli/`, `mcp/`, or `docs/` directories
         value: ${{ jobs.get-changed-files.outputs.components-or-docs-files-changed }}
       package-json-pnpm-lock-files-changed:
         description: Check if package.json or pnpm.lock files changed
