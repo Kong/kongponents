@@ -18,8 +18,12 @@ const buildVisualizerPlugin = process.env.BUILD_VISUALIZER
 // !Important: always externalize `shiki/onig.wasm`
 const externalSandboxDependencies: string[] = ['shiki/onig.wasm']
 
-// `lodash-es` is ESM-only with no `exports` map, so `require('lodash-es')` throws in some cases. It stays bundled until the next major.
-const bundledDependencies = ['lodash-es']
+const bundledDependencies = [
+  // `lodash-es` is ESM-only with no `exports` map, so `require('lodash-es')` throws in some cases. It stays bundled until the next major.
+  'lodash-es',
+  // `date-fns` bundling lets two incompatible dep versions (kongponents' ^2.x and a consumer's ^4.x) land in the same bundle. There is no shared-instance requirement like `swrv`, so it should stay bundled.
+  'date-fns', 'date-fns-tz',
+]
 
 const { dependencies, peerDependencies } = pkg
 
