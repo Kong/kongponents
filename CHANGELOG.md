@@ -1,3 +1,10 @@
+## [9.64.19](https://github.com/Kong/kongponents/compare/v9.64.18...v9.64.19) (2026-09-23)
+
+
+### Bug Fixes
+
+* **deps:** bundle date-fns to allow multiple majors in host app ([#3440](https://github.com/Kong/kongponents/issues/3440)) ([cbe5256](https://github.com/Kong/kongponents/commit/cbe52564c7be84686e19716693b916772efb9a63))
+
 ## [9.64.18](https://github.com/Kong/kongponents/compare/v9.64.17...v9.64.18) (2026-09-18)
 
 
