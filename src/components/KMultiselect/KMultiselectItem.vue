@@ -54,6 +54,7 @@ const handleClick = (): void => {
     background-color: var(--kui-select-item-color-background, var(--kui-color-background, $kui-color-background));
     border: none;
     display: flex;
+    outline: none;
     outline-offset: -1px;
     padding: var(--kui-space-0, $kui-space-0);
     text-align: left;
@@ -66,6 +67,10 @@ const handleClick = (): void => {
         .multiselect-item-label {
           background-color: var(--kui-select-item-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
         }
+      }
+
+      &:focus-visible {
+        box-shadow: inset var(--kui-shadow-focus, $kui-shadow-focus);
       }
     }
 
