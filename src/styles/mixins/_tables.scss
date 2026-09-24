@@ -3,6 +3,16 @@
 @use "@/styles/mixins/links" as *;
 @use "@/styles/mixins/common" as *;
 
+/** Background applied to a table row that is hovered or holds focus. */
+@mixin tableRowHighlight {
+  background-color: var(--kui-table-row-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+
+  .sticky-column,
+  .actions-column {
+    background-color: var(--kui-table-row-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+  }
+}
+
 @mixin table {
   /* Local variables */
   $tableThPaddingY: var(--kui-space-50, $kui-space-50);
@@ -272,6 +282,13 @@
                   color: var(--kui-table-cell-color-text, var(--kui-color-text, $kui-color-text));
                   display: block;
                   text-decoration: none;
+
+                  // the focus ring is rendered around the entire row instead
+                  &:focus-visible {
+                    box-shadow: none;
+                    color: var(--kui-table-cell-color-text, var(--kui-color-text, $kui-color-text));
+                    outline: none;
+                  }
                 }
 
                 .expandable-row-control-container {
@@ -314,6 +331,27 @@
 
             &.last-row {
               border-bottom: none;
+            }
+
+            // when a row link cell is focused, render a single focus ring around the whole row
+            &:has(> td > .cell-wrapper:focus-visible) {
+              @include tableRowHighlight;
+
+              position: relative;
+
+              &::after {
+                // an overlay keeps the ring continuous across cells and above the sticky ones
+                box-shadow: inset var(--kui-shadow-focus, $kui-shadow-focus);
+                content: "";
+                height: 100%;
+                left: 0;
+                // allows clicks to pass through to the cell links underneath
+                pointer-events: none;
+                position: absolute;
+                top: 0;
+                width: 100%;
+                z-index: 1;
+              }
             }
 
             &.expandable-content-row {
@@ -387,12 +425,7 @@
         // Variants
         &.has-hover {
           tbody tr:not(.expandable-content-row):hover {
-            background-color: var(--kui-table-row-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-
-            .sticky-column,
-            .actions-column {
-              background-color: var(--kui-table-row-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
-            }
+            @include tableRowHighlight;
           }
         }
 

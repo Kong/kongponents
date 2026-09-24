@@ -1118,6 +1118,13 @@ const getRowBulkActionTooltip = (row: Row): string => {
   return rowBulkActionEnabledValue.disabledTooltip || ''
 }
 
+/**
+ * Key of the first cell that renders a row link. Only that cell stays tabbable
+ * so that tabbing lands on the row once instead of on every cell.
+ */
+const firstRowLinkColumnKey = computed((): ColumnKey | undefined => visibleHeaders.value
+  .find((header) => header.key !== TableViewHeaderKeys.EXPANDABLE && header.key !== TableViewHeaderKeys.BULK_ACTIONS && header.key !== TableViewHeaderKeys.ACTIONS)?.key)
+
 // determine the component to use for the row link
 const getRowLinkComponent = (row: Row, columnKey: ColumnKey): string => {
   const { to } = rowLink(row)
@@ -1145,6 +1152,8 @@ const getRowLinkAttrs = (row: Row, columnKey: ColumnKey): Record<string, unknown
     ...(isAnchor && { href: to }),
     ...((isRouterLink || isAnchor) && {
       ...(target && { target: target }),
+      // keep every cell link but the first one out of the tab order
+      ...(columnKey !== firstRowLinkColumnKey.value && { tabindex: -1 }),
     }),
   }
 }
