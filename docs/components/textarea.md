@@ -1,6 +1,9 @@
 # TextArea
 
 KTextArea provides a wrapper around textarea element, as well as contextual styling and states (error, focus, etc).
+:::tip NOTE
+The default maximum character limit is `2048 characters`.
+:::
 
 <KTextArea />
 
