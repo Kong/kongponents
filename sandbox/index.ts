@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, defineComponent, h } from 'vue'
 import App from './App.vue'
 import router from './router'
 import '../src/styles/styles.scss'
@@ -12,8 +12,18 @@ import '@kong-ui-public/sandbox-layout/dist/style.css'
 
 const app = createApp(App)
 
-// Globally register the component the sandbox app
-app.component('SandboxLayout', SandboxLayout)
+/**
+ * Globally register SandboxLayout with its built-in theme picker disabled, so no page has to
+ * pass the prop. That picker writes `data-kui-theme` to <html>, whose token block outranks the
+ * subset our own SandboxThemePicker injects — leaving stale tokens from the attribute theme.
+ */
+app.component('SandboxLayout', defineComponent({
+  name: 'SandboxLayout',
+  inheritAttrs: false,
+  setup(_props, { attrs, slots }) {
+    return () => h(SandboxLayout, { applyTheming: false, ...attrs }, slots)
+  },
+}))
 
 // Define the sandbox layout links here to inject
 const sandboxAppLinks: SandboxNavigationItem[] = ([
