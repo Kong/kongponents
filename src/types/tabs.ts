@@ -39,6 +39,13 @@ export interface TabsProps<H extends string = string> {
   hidePanels?: boolean
 
   /**
+   * Cache visited tab content with KeepAlive and deactivate inactive panels.
+   * Each tab mounts only when first activated.
+   * @default false
+   */
+  cacheTabs?: boolean
+
+  /**
    * The tabindex of the tab buttons.
    * @deprecated Previously used to support adding links inside tab buttons, this prop is now deprecated as the to prop has built-in support via the `to` prop.
    * @default 0

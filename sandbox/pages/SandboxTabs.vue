@@ -58,6 +58,33 @@
           </template>
         </KTabs>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="cacheTabs">
+        <KInputSwitch
+          v-model="cacheTabs"
+          label="Cache visited tabs"
+        />
+        <p>
+          Type in a tab, switch to another tab, then return. With caching enabled,
+          your text stays. Turn caching off and switch tabs to see the text reset.
+        </p>
+        <KTabs
+          :cache-tabs="cacheTabs"
+          :tabs="cacheItems"
+        >
+          <template #draft>
+            <KInput
+              label="Draft notes"
+              placeholder="Type something to keep in this tab"
+            />
+          </template>
+          <template #ideas>
+            <KInput
+              label="Ideas"
+              placeholder="This tab keeps its own text"
+            />
+          </template>
+        </KTabs>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="hidePanels">
         <KTabs
           v-model="vModel2"
@@ -222,6 +249,11 @@ const items = [
 
 const vModel1 = ref<string>('#tab2')
 const vModel2 = ref<string>('#tab2')
+const cacheTabs = ref(true)
+const cacheItems = [
+  { hash: '#draft', title: 'Draft' },
+  { hash: '#ideas', title: 'Ideas' },
+]
 const confirmedTab = ref<string>('#tab1')
 
 const dynamicRouterViewItems = [
