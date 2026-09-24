@@ -1,3 +1,10 @@
+## [9.64.20](https://github.com/Kong/kongponents/compare/v9.64.19...v9.64.20) (2026-09-24)
+
+
+### Bug Fixes
+
+* focus visible in select dropdown items and tables [KHCP-21904] ([#3442](https://github.com/Kong/kongponents/issues/3442)) ([eb17504](https://github.com/Kong/kongponents/commit/eb175042541c5197169511c7da99a95c696bf8ab))
+
 ## [9.64.19](https://github.com/Kong/kongponents/compare/v9.64.18...v9.64.19) (2026-09-23)
 
 
