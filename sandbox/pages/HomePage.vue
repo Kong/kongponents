@@ -1,7 +1,6 @@
 <template>
   <SandboxLayout
     :links="inject('app-links', [])"
-    :theme-picker="false"
     title="Kongponents Sandbox"
   >
     <div class="sandbox-welcome">
