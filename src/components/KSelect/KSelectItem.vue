@@ -80,6 +80,11 @@ const handleClick = (e: MouseEvent): void => {
 
       &:focus-visible {
         box-shadow: inset var(--kui-shadow-focus, $kui-shadow-focus);
+
+        .select-item-label {
+          background-color: var(--kui-select-item-color-background-hover, var(--kui-color-background-primary-weakest, $kui-color-background-primary-weakest));
+          color: var(--kui-select-item-color-text-selected, var(--kui-color-text-primary-strongest, $kui-color-text-primary-strongest));
+        }
       }
     }
 
