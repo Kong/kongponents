@@ -30,7 +30,6 @@ describe('Kongponents MCP protocol', () => {
       'list_docs',
       'search_docs',
       'get_docs',
-      'get_theme_variables',
     ])
     expect(tools.every((tool) => tool.annotations?.readOnlyHint === true)).toBe(true)
 

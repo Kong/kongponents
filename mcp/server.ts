@@ -13,7 +13,7 @@ export const createServer = (snapshot: McpSnapshot, version: string): McpServer 
   const server = new McpServer(
     { name: 'kongponents', version },
     {
-      instructions: 'Use this server as the source of truth for Kongponents APIs. Prefer get_component_property for one prop, or get_component_docs with sections for a focused answer. Call list_components or search_docs to discover content before requesting complete documentation, source, styles, or theme variables. The snapshot matches the installed @kong/kongponents version.',
+      instructions: 'Use this server as the source of truth for Kongponents APIs. Prefer get_component_property for one prop, or get_component_docs with sections for a focused answer. Call list_components or search_docs to discover content before requesting complete documentation, source, or styles. The snapshot matches the installed @kong/kongponents version.',
     },
   )
   const handlers = createToolHandlers(snapshot)
@@ -85,17 +85,6 @@ export const createServer = (snapshot: McpSnapshot, version: string): McpServer 
     inputSchema: z.object({ path: z.string().min(1).describe('Path such as /guide/usage or /components/button.') }),
     annotations: readOnlyAnnotations,
   }, ({ path }) => handlers.getDocs(path))
-
-  server.registerTool('get_theme_variables', {
-    title: 'Get Kongponents theme variables',
-    description: 'Get the themeable design-token contract and values from any bundled Kong design-token theme.',
-    inputSchema: z.object({
-      theme: z.string().optional().describe('Bundled theme ID, for example classic-day.'),
-      category: z.string().optional().describe('Optional exact token category filter.'),
-      query: z.string().optional().describe('Optional token name or description filter.'),
-    }),
-    annotations: readOnlyAnnotations,
-  }, ({ theme, category, query }) => handlers.getThemeVariables(theme, category, query))
 
   return server
 }
