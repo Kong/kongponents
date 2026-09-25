@@ -14,6 +14,9 @@
     "dist",
     "bin"
   ],
+  "bin": {
+    "kongponents-mcp": "./bin/kongponents-mcp.js"
+  },
   "types": "dist/types/index.d.ts",
   "typings": "dist/types",
   "exports": {
@@ -31,15 +34,17 @@
     "./dist/*": "./dist/*"
   },
   "scripts": {
-    "build:cli": "rimraf ./bin && tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
+    "build:bin": "rimraf ./bin && pnpm build:cli && pnpm build:mcp",
+    "build:cli": "tsc --project ./cli/tsconfig.json && chmod u+x ./bin/index.js",
     "build:docs": "vitepress build docs",
+    "build:mcp": "tsx ./mcp/build.ts && tsx ./mcp/generate-snapshot.ts",
     "build:kongponents:umd": "BUILD_UMD=true vite build",
     "build:kongponents": "pnpm typecheck && vite build && vue-tsc -p './tsconfig.build.json' --emitDeclarationOnly && tsc-alias -p './tsconfig.build.json' && pnpm build:kongponents:umd && pnpm build:nuxt",
     "build:nuxt": "tsc -p ./tsconfig.build.nuxt.json --outDir dist/nuxt",
     "build:theme-contract": "tsx ./scripts/generate-theme-contract.mjs",
     "build:visualize": "cross-env-shell BUILD_VISUALIZER=true vite build -m production",
-    "build": "pnpm build:cli && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
-    "build:ci": "pnpm build:kongponents && pnpm build:docs",
+    "build": "pnpm build:bin && pnpm stylelint && pnpm lint && pnpm build:kongponents && pnpm build:docs",
+    "build:ci": "pnpm build:bin && pnpm build:kongponents && pnpm build:docs",
     "commit": "cz",
     "create-kongponent": "node ./bin/index.js",
     "sandbox:dev": "cross-env USE_SANDBOX=true vite",
@@ -50,12 +55,14 @@
     "docs:dev": "vitepress dev docs",
     "docs:serve": "vitepress serve docs",
     "docs:preview": "vitepress preview docs --port 8080",
-    "typecheck": "vue-tsc -p './tsconfig.json' --noEmit",
+    "mcp:inspect": "cross-env PNPM_CONFIG_TRUST_POLICY_EXCLUDE=chokidar@4.0.3 pnpm dlx @modelcontextprotocol/inspector@2.7.0 --web --cwd . node ./bin/kongponents-mcp.js",
+    "typecheck": "vue-tsc -p './tsconfig.json' --noEmit && tsc -p './mcp/tsconfig.json' --noEmit",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "stylelint": "stylelint './src/**/*.{css,scss,sass,vue}'",
     "stylelint:fix": "stylelint './src/**/*.{css,scss,sass,vue}' --fix",
-    "test": "pnpm test:unit && pnpm test:browser",
+    "test": "pnpm test:unit && pnpm test:mcp && pnpm test:browser",
+    "test:mcp": "pnpm build:mcp && vitest run --project mcp",
     "test:unit": "vitest run --project unit",
     "test:unit:open": "vitest --project unit",
     "test:browser:install": "playwright install --with-deps chromium firefox webkit",
@@ -94,6 +101,8 @@
     "@kong/design-tokens": "3.3.1",
     "@kong/eslint-config-kong-ui": "1.7.1",
     "@kong/stylelint-plugin-design-tokens": "2.0.0",
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
     "@nuxt/kit": "^4.5.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -105,6 +114,7 @@
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/browser-playwright": "^4.1.10",
     "@vue/compiler-core": "^3.5.40",
+    "@vue/compiler-sfc": "3.5.40",
     "@vue/tsconfig": "^0.9.1",
     "@vueuse/core": "^14.3.0",
     "autoprefixer": "^10.5.4",
@@ -113,6 +123,7 @@
     "copyfiles": "^2.4.1",
     "cross-env": "^10.1.0",
     "cz-conventional-changelog": "3.3.0",
+    "esbuild": "^0.28.1",
     "eslint": "^9.39.5",
     "inquirer": "^9.3.6",
     "jsdom": "^29.1.1",
@@ -136,6 +147,7 @@
     "stylelint-config-recommended-vue": "^1.6.1",
     "stylelint-order": "^7.0.1",
     "tsc-alias": "^1.8.17",
+    "tsx": "^4.23.13",
     "typescript": "^5.9.3",
     "vite": "^6.4.3",
     "vite-plugin-vue-devtools": "^7.7.9",
@@ -144,7 +156,9 @@
     "vitest-browser-vue": "^2.1.0",
     "vue": "3.5.40",
     "vue-router": "^5.1.0",
-    "vue-tsc": "^3.3.7"
+    "vue-tsc": "^3.3.7",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
   },
   "author": {
     "name": "Kong Inc.",
@@ -170,7 +184,17 @@
       }
     ],
     "plugins": [
-      "@semantic-release/commit-analyzer",
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "docs",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
       "@semantic-release/release-notes-generator",
       [
         "@semantic-release/changelog",
