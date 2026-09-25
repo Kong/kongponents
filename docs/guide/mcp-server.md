@@ -1,18 +1,12 @@
 # MCP Server
 
-Kongponents provides a local [Model Context Protocol](https://modelcontextprotocol.io/) server that gives coding agents direct access to documentation, component source code, source styles, and theme variables.
+Kongponents provides a local [Model Context Protocol](https://modelcontextprotocol.io/) server for accessing documentation, component source code, and source styles.
 
 The server uses the documentation bundled with the installed `@kong/kongponents` version. It does not require an API key, a remote service, or network access after installation.
 
 ::: info REQUIREMENT
 The MCP server requires Node.js 20 or newer. This requirement applies only to the MCP executable; the Kongponents Vue library keeps its existing Node.js support policy.
 :::
-
-## UI for Agents
-
-Kongponents is a UI library for people building interfaces. Its MCP server is the corresponding UI for agents: a structured, searchable interface through which an agent can discover components, check their exact APIs, inspect implementation details, and select supported design tokens before editing an application.
-
-This is especially useful in repositories such as `konnect-apps`. Instead of relying on general model knowledge or searching Markdown files one by one, the agent can ask the installed Kongponents version which component fits a task and retrieve the authoritative examples and types. The agent still edits and validates the consuming application normally; MCP supplies version-matched context at the point it is needed.
 
 ## Use the installed Kongponents version
 
@@ -200,7 +194,7 @@ This configures WebStorm as an MCP client for Kongponents. It is separate from W
 
 ## Run the latest published version
 
-For standalone use or evaluation, an agent can download and run the latest package through `npx`:
+For standalone use, an agent can download and run the latest package through `npx`:
 
 ```json
 {
@@ -227,53 +221,6 @@ Using `latest` can expose documentation newer than the version installed in an a
 | `list_docs` | List all available documentation pages. |
 | `search_docs` | Search guides and component documentation. |
 | `get_docs` | Get the complete Markdown for an exact documentation path. |
-| `get_theme_variables` | Inspect the themeable-token contract and bundled theme values. |
-
-## Token-efficient usage
-
-The server is designed to return the smallest useful answer. For a single prop, use `get_component_property`. For a broader question, pass `sections` to `get_component_docs`; omit it only when the complete component page is genuinely needed.
-
-```json
-{
-  "component": "KButton",
-  "property": "appearance"
-}
-```
-
-```json
-{
-  "components": ["KButton"],
-  "sections": ["Props", "Events"]
-}
-```
-
-Large Markdown and source payloads are returned once as tool text. Structured results contain compact metadata instead of a second copy of the same content. This keeps the context smaller without removing information from the agent.
-
-### MCP, Skills, and direct documentation access
-
-MCP is not the only way to provide agent-facing documentation. A repository-scoped Skill can bundle an index, instructions, scripts, and reference files and load them progressively. This is a good fit when a team primarily needs a repeatable Codex workflow and is willing to install or check the Skill into each consuming repository. See the [official Codex customization documentation](https://learn.chatgpt.com/docs/customization/overview#skills).
-
-The bundled MCP server is useful for a different set of constraints:
-
-| Approach | Strengths | Tradeoffs |
-| --- | --- | --- |
-| Read Markdown directly | No additional runtime or tool schemas; the agent sees the complete page and its relationships. | The agent must locate files and may load substantially more context than a focused question needs. |
-| Version-matched Skill and document index | Progressive disclosure with lightweight instructions and references; well suited to a Codex-specific workflow. | The Skill must be installed or copied into a location the client discovers and kept aligned with the application's Kongponents dependency. Other MCP clients do not automatically consume a Codex Skill. |
-| Bundled MCP server | Uses the exact installed package version and exposes the same structured, read-only interface to multiple stdio MCP clients. It can query docs, source, styles, and theme tokens. | Tool schemas, server instructions, and additional tool calls have a fixed context and latency cost. Focused payload savings do not guarantee lower total token usage. |
-
-Skills and MCP can also be complementary: a Skill can describe a team workflow while delegating version-matched Kongponents lookup to this server.
-
-### Evaluation methodology
-
-Measure retrieval approaches on complete coding tasks, not only on the size of one documentation response. Use the same model, prompt, clean context, repository state, and validation commands for each run, and compare:
-
-- task correctness and test results;
-- non-cached input and total end-to-end tokens;
-- number of document reads or tool calls, including repeated lookups;
-- whether cross-section constraints were missed;
-- wall-clock time and tool errors.
-
-The exploratory benchmark in the pull request found a `92.8%` reduction in documentation payload and a `20.3%` reduction in non-cached input, but a `4.4%` increase in total end-to-end tokens across five component tasks. These results support the narrower claim that focused retrieval reduces documentation context; they do not establish that MCP always reduces total token usage or improves task quality. A Skill-backed run should use the same component-to-document index and version-matched Markdown so that the comparison isolates the delivery mechanism rather than document quality.
 
 ## Example prompts
 
@@ -283,7 +230,6 @@ The exploratory benchmark in the pull request found a `92.8%` reduction in docum
 - "Compare KTableView and KTableData before changing this table."
 - "Get the source and styles for KDropdown."
 - "Find the migration guidance for deprecated table APIs."
-- "Show the classic-night values for color tokens."
 
 ## Local development
 

@@ -176,27 +176,4 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
       },
     })
   },
-
-  getThemeVariables: (theme?: string, category?: string, query?: string): ToolResult => {
-    const normalizedTheme = theme?.trim().toLowerCase()
-    if (normalizedTheme && !snapshot.themes[normalizedTheme]) {
-      return failure(`Unknown theme "${theme}". Available themes: ${Object.keys(snapshot.themes).join(', ')}.`)
-    }
-    const normalizedCategory = category?.trim().toLowerCase()
-    const normalizedQuery = query?.trim().toLowerCase()
-    const tokens = snapshot.themeTokens.filter((token) => (
-      (!normalizedCategory || token.category.toLowerCase() === normalizedCategory)
-      && (!normalizedQuery || token.name.toLowerCase().includes(normalizedQuery) || token.description.toLowerCase().includes(normalizedQuery))
-    )).map((token) => ({
-      ...token,
-      ...(normalizedTheme ? { themeValue: snapshot.themes[normalizedTheme][token.name] ?? null } : {}),
-    }))
-    const text = tokens.map((token) => `- ${token.name}: ${'themeValue' in token ? token.themeValue ?? token.value ?? 'unset' : token.value ?? 'unset'} — ${token.description}`).join('\n')
-    return success(text || 'No theme variables matched the filters.', {
-      theme: normalizedTheme,
-      availableThemes: Object.keys(snapshot.themes),
-      tokenCount: tokens.length,
-      filters: { category: normalizedCategory, query: normalizedQuery },
-    })
-  },
 })

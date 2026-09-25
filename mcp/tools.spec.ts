@@ -12,23 +12,13 @@ describe('Kongponents MCP snapshot', () => {
   it('contains all public documentation and component records', () => {
     expect(snapshot.docs.length).toBeGreaterThan(40)
     expect(snapshot.components).toHaveLength(48)
-    expect(snapshot.docs.some((doc) => doc.sourcePath.startsWith('docs/plans/'))).toBe(false)
     expect(snapshot.components.every((component) => component.sourceFiles.length > 0)).toBe(true)
     expect(snapshot.docs.find((doc) => doc.path === '/guide/')?.canonicalUrl).toBe('https://kongponents.konghq.com/guide/')
-    expect(snapshot.docs.find((doc) => doc.path === '/guide/mcp-server')?.content).toContain('## UI for Agents')
+    expect(snapshot.docs.find((doc) => doc.path === '/guide/mcp-server')?.content).toContain('## Available tools')
   })
 
-  it('contains source styles and all bundled themes', () => {
+  it('contains source styles', () => {
     expect(snapshot.components.find((component) => component.exports.includes('KButton'))?.styleBlocks.length).toBeGreaterThan(0)
-    expect(Object.keys(snapshot.themes)).toEqual([
-      'classic-day',
-      'classic-night',
-      'electric-lime-day',
-      'electric-lime-day-high-contrast',
-      'electric-lime-night',
-      'electric-lime-night-high-contrast',
-    ])
-    expect(snapshot.themeTokens.length).toBeGreaterThan(500)
   })
 
   it('scopes every component and round-trips every indexed property', () => {
@@ -155,14 +145,5 @@ describe('Kongponents MCP tools', () => {
     expect(handlers.getDocs('components/button.md').isError).not.toBe(true)
     expect(handlers.getDocs('/components/button.html').isError).not.toBe(true)
     expect(handlers.getDocs('../../package.json').isError).toBe(true)
-  })
-
-  it('returns selected theme values', () => {
-    const result = handlers.getThemeVariables('classic-night', 'color', 'background')
-    expect(result.isError).not.toBe(true)
-    const structuredContent = result.structuredContent as { tokenCount: number }
-    expect(structuredContent.tokenCount).toBeGreaterThan(0)
-    expect(result.content[0].type === 'text' && result.content[0].text.length).toBeGreaterThan(0)
-    expect(JSON.stringify(structuredContent)).not.toContain('--kui-')
   })
 })

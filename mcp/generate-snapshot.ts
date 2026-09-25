@@ -1,13 +1,4 @@
 import { parse as parseSfc } from '@vue/compiler-sfc'
-import { KUI_THEMEABLE_TOKENS } from '@kong/design-tokens/tokens/themeable-tokens'
-import {
-  classicDay,
-  classicNight,
-  electricLimeDay,
-  electricLimeDayHighContrast,
-  electricLimeNight,
-  electricLimeNightHighContrast,
-} from '@kong/design-tokens/themes'
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -75,9 +66,9 @@ const parseFrontmatter = (raw: string): { data: Record<string, unknown>, content
   }
 }
 
-/** Read public Markdown verbatim; internal implementation plans are intentionally excluded. */
+/** Read public Markdown verbatim for the version-matched snapshot. */
 const readDocumentation = async (): Promise<DocumentationPage[]> => {
-  const files = await walk(DOCS_ROOT, (filePath) => filePath.endsWith('.md') && !filePath.includes(`${path.sep}plans${path.sep}`))
+  const files = await walk(DOCS_ROOT, (filePath) => filePath.endsWith('.md'))
   return Promise.all(files.map(async (absolutePath) => {
     const sourcePath = toPosix(path.relative(REPO_ROOT, absolutePath))
     const relativePath = toPosix(path.relative(DOCS_ROOT, absolutePath))
@@ -209,15 +200,6 @@ const main = async (): Promise<void> => {
     docs,
     components,
     sharedStyles,
-    themeTokens: [...KUI_THEMEABLE_TOKENS],
-    themes: {
-      'classic-day': classicDay,
-      'classic-night': classicNight,
-      'electric-lime-day': electricLimeDay,
-      'electric-lime-day-high-contrast': electricLimeDayHighContrast,
-      'electric-lime-night': electricLimeNight,
-      'electric-lime-night-high-contrast': electricLimeNightHighContrast,
-    },
   }
 
   await mkdir(path.dirname(OUTPUT_PATH), { recursive: true })

@@ -7,7 +7,6 @@ const KONG_SVG = '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/
 
 export default defineConfig({
   base: '/',
-  srcExclude: ['plans/**'],
   lang: 'en-US',
   title: 'Kongponents',
   description: 'Kong UI Components & Style Guide',
@@ -117,12 +116,6 @@ export default defineConfig({
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Usage', link: '/guide/usage' },
             { text: 'Theming', link: '/guide/theming' },
-          ],
-        },
-        {
-          text: 'UI for Agents',
-          collapsed: false,
-          items: [
             { text: 'MCP Server', link: '/guide/mcp-server' },
           ],
         },
