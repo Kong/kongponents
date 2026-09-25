@@ -38,18 +38,9 @@ export interface ComponentRecord extends Omit<ComponentCatalogDefinition, 'sourc
   typeFiles: SnapshotFile[]
 }
 
-export interface ThemeToken {
-  name: string
-  description: string
-  category: string
-  value: string | null
-}
-
 export interface McpSnapshot {
   schemaVersion: 1
   docs: DocumentationPage[]
   components: ComponentRecord[]
   sharedStyles: SnapshotFile[]
-  themeTokens: ThemeToken[]
-  themes: Record<string, Record<string, string>>
 }
