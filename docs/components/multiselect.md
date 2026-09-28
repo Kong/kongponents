@@ -974,14 +974,6 @@ Fires when `enableItemCreation` is true and an added item is deselected. Returns
 
 Fires when the filter string is changed. Returns the `query` String.
 
-### open
-
-Fires when the dropdown is opened. No payload.
-
-### close
-
-Fires when the dropdown is closed. No payload.
-
 An example of hooking into events to modify newly created items (`enableItemCreation`) as they are added.
 
 <ClientOnly>
@@ -1054,6 +1046,14 @@ const handleSelection = (selectedItems) => {
 }
 </script>
 ```
+
+### open
+
+Fires when the dropdown is opened. No payload.
+
+### close
+
+Fires when the dropdown is closed. No payload.
 
 <script lang="ts">
 import { defineComponent } from 'vue'
