@@ -335,6 +335,12 @@
           label="@query-change"
           @query-change="onQueryChange"
         />
+        <KSelect
+          :items="selectItems"
+          label="@open / @close"
+          @close="onClose"
+          @open="onOpen"
+        />
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>
@@ -406,6 +412,14 @@ const onChange = (item: SelectItem | null): void => {
 
 const onQueryChange = (query: string): void => {
   console.log('@query-change', '\n', query)
+}
+
+const onOpen = (): void => {
+  console.log('@open')
+}
+
+const onClose = (): void => {
+  console.log('@close')
 }
 
 const selectItemsInitial = ref<SelectEntry[]>([

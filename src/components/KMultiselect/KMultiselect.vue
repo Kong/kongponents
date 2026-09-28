@@ -616,6 +616,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
       filterString.value = ''
       toggle()
       sortItems()
+      emit('open')
 
       await nextTick() // wait for the dropdown to open
 
@@ -626,6 +627,7 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
     if (isToggled.value) { // not already closed
       filterString.value = ''
       toggle()
+      emit('close')
     }
   }
 }

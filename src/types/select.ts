@@ -266,6 +266,16 @@ export interface SelectEmits<T extends string | number> {
    * Emitted when an item is removed when `enableItemCreation` is true.
    */
   'item-removed': [value: SelectItem<string>]
+
+  /**
+   * Emitted when the dropdown is opened.
+   */
+  open: []
+
+  /**
+   * Emitted when the dropdown is closed.
+   */
+  close: []
 }
 
 export interface SelectSlots<T extends string | number> {

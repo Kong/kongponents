@@ -228,6 +228,16 @@ export interface MultiselectEmits<T extends string = string> {
   'query-change': [query: string]
   'item-added': [item: MultiselectItem]
   'item-removed': [item: MultiselectItem<T>]
+
+  /**
+   * Emitted when the dropdown is opened.
+   */
+  open: []
+
+  /**
+   * Emitted when the dropdown is closed.
+   */
+  close: []
 }
 
 export interface MultiselectSlots<T extends string = string> {

@@ -1180,4 +1180,21 @@ describe('KMultiselect', () => {
       await screen.unmount()
     }
   })
+
+  it('emits open and close when the dropdown is toggled', async () => {
+    const screen = await render(KMultiselect, {
+      props: {
+        items: [{ label: 'Label 1', value: 'val1' }],
+      },
+    })
+
+    await page.getByCSS('.multiselect-trigger').click()
+    await expect.element(page.getByCSS('.multiselect-popover')).toBeVisible()
+    await expect.poll(() => screen.emitted('open')?.length).toBe(1)
+    expect(screen.emitted('close')).toBeUndefined()
+
+    await userEvent.keyboard('{Escape}')
+    await expect.element(page.getByCSS('.multiselect-popover')).not.toBeVisible()
+    await expect.poll(() => screen.emitted('close')?.length).toBe(1)
+  })
 })
