@@ -1,3 +1,10 @@
+## [9.64.21](https://github.com/Kong/kongponents/compare/v9.64.20...v9.64.21) (2026-09-28)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** dropdown open and close events [KHCP-21968] ([#3446](https://github.com/Kong/kongponents/issues/3446)) ([23617fb](https://github.com/Kong/kongponents/commit/23617fb3307d2069a02a7d2fa4448f003b3e994c))
+
 ## [9.64.20](https://github.com/Kong/kongponents/compare/v9.64.19...v9.64.20) (2026-09-24)
 
 
