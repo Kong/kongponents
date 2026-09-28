@@ -611,7 +611,13 @@ const handleFilterClick = (event: any) => {
 }
 
 const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () => any) => {
+  /**
+   * KPop only fires `open`/`close` on an actual visibility change, so relay them before the
+   * toggle-sync guard: `collapsedContext` escape flips `isToggled` itself and would swallow them.
+   */
   if (open) {
+    emit('open')
+
     if (!isToggled.value) { // not already open
       filterString.value = ''
       toggle()
@@ -623,6 +629,8 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
       input?.focus({ preventScroll: true })
     }
   } else {
+    emit('close')
+
     if (isToggled.value) { // not already closed
       filterString.value = ''
       toggle()

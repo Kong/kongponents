@@ -1047,6 +1047,14 @@ const handleSelection = (selectedItems) => {
 </script>
 ```
 
+### open
+
+Fires when the dropdown is opened. No payload.
+
+### close
+
+Fires when the dropdown is closed. No payload.
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { KongIcon, DisabledIcon } from '@kong/icons'

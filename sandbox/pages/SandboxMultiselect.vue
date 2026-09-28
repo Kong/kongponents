@@ -344,6 +344,20 @@
           />
         </div>
       </SandboxSectionComponent>
+
+      <!-- Events -->
+      <SandboxTitleComponent
+        is-subtitle
+        title="Events"
+      />
+      <SandboxSectionComponent title="open / close">
+        <KMultiselect
+          :items="multiselectItems"
+          label="@open / @close"
+          @close="onClose"
+          @open="onOpen"
+        />
+      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -354,6 +368,14 @@ import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import type { MultiselectEntry, MultiselectItem } from '@/types'
 import { KongIcon, DisabledIcon, AddIcon } from '@kong/icons'
+
+const onOpen = (): void => {
+  console.log('@open')
+}
+
+const onClose = (): void => {
+  console.log('@close')
+}
 
 const multiselectItems: MultiselectEntry[] = [
   {

@@ -960,4 +960,22 @@ describe('KSelect', () => {
     await page.getByTestId('select-input').click()
     await expect.element(page.getByCSS('.select-popover')).not.toBeVisible()
   })
+
+  it('emits open and close when the dropdown is toggled', async () => {
+    const screen = await render(KSelect, {
+      props: {
+        items: [{ label: 'Label 1', value: 'val1' }],
+      },
+    })
+
+    await page.getByTestId('select-input').click()
+    await expect.element(page.getByCSS('.select-popover')).toBeVisible()
+    await expect.poll(() => screen.emitted('open')?.length).toBe(1)
+    expect(screen.emitted('close')).toBeUndefined()
+
+    // KPop closes on an outside `mousedown`, so dispatch one away from the trigger and popover.
+    document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }))
+    await expect.element(page.getByCSS('.select-popover')).not.toBeVisible()
+    await expect.poll(() => screen.emitted('close')?.length).toBe(1)
+  })
 })

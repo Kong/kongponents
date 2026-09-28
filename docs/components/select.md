@@ -859,6 +859,14 @@ Event payload is added [item](#items).
 
 Event payload is removed [item](#items).
 
+### open
+
+Fires when the dropdown is opened. No payload.
+
+### close
+
+Fires when the dropdown is closed. No payload.
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { KongIcon, SearchIcon } from '@kong/icons'

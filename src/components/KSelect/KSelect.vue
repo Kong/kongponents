@@ -590,6 +590,7 @@ const onPopoverClick = (toggle: () => void) => {
 
 const onClose = (toggle: () => void, isToggled: boolean) => {
   isDropdownOpen.value = false
+  emit('close')
 
   if (selectedItem.value) {
     skipQueryChangeEmit.value = true
@@ -605,6 +606,7 @@ const onClose = (toggle: () => void, isToggled: boolean) => {
 
 const onOpen = (toggle: () => void) => {
   isDropdownOpen.value = true
+  emit('open')
 
   if (enableFiltering) {
     filterQuery.value = ''
