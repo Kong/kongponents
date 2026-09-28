@@ -1197,4 +1197,23 @@ describe('KMultiselect', () => {
     await expect.element(page.getByCSS('.multiselect-popover')).not.toBeVisible()
     await expect.poll(() => screen.emitted('close')?.length).toBe(1)
   })
+
+  it('emits close on a collapsedContext escape', async () => {
+    const screen = await render(KMultiselect, {
+      props: {
+        collapsedContext: true,
+        items: [{ label: 'Label 1', value: 'val1' }],
+      },
+    })
+
+    await page.getByCSS('.multiselect-trigger').click()
+    await expect.element(page.getByCSS('.multiselect-popover')).toBeVisible()
+    await expect.poll(() => screen.emitted('open')?.length).toBe(1)
+
+    // The trigger input's own escape handler clears `isToggled` on keyup, which can beat KPop's
+    // 0ms close timer — `close` has to survive losing that race.
+    await userEvent.keyboard('{Escape}')
+    await expect.element(page.getByCSS('.multiselect-popover')).not.toBeVisible()
+    await expect.poll(() => screen.emitted('close')?.length).toBe(1)
+  })
 })
