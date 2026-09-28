@@ -148,6 +148,24 @@ describe('KMultiselect', () => {
     await expect.element(page.getByCSS('.k-label')).toHaveTextContent(labelText)
   })
 
+  it('renders label with `label` slot applied', async () => {
+    const labelText = 'Slotted label'
+
+    await render(KMultiselect, {
+      props: {
+        items: [{
+          label: 'Label 1',
+          value: 'label1',
+        }],
+      },
+      slots: {
+        label: () => h('span', { 'data-testid': 'custom-label' }, labelText),
+      },
+    })
+
+    await expect.element(page.getByCSS('.k-label').getByTestId('custom-label')).toHaveTextContent(labelText)
+  })
+
   it('renders label with labelAttributes applied', async () => {
     const labelText = 'A Label'
 

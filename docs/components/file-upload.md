@@ -244,6 +244,22 @@ By default KFileUpload will display the error state with a generic error message
 
 ## Slots
 
+### label
+
+Provide slotted content for the file upload label. This slot takes precedence over the `label` prop if both are provided.
+
+<ClientOnly>
+  <KFileUpload :accept="acceptedFileType">
+    <template #label>Slotted <code>label</code></template>
+  </KFileUpload>
+</ClientOnly>
+
+```html
+<KFileUpload :accept="acceptedFileType">
+  <template #label>Slotted <code>label</code></template>
+</KFileUpload>
+```
+
 ### icon
 
 Slot for an icon in front of the input field.

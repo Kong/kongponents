@@ -62,6 +62,13 @@ export interface SliderProps {
   labelAttributes?: LabelAttributes
 }
 
+export interface SliderSlots {
+  /**
+   * Slot for custom label content.
+   */
+  label?(): any
+}
+
 export interface SliderEmits {
   /**
    * Fired on change, returns the new value of the slider.

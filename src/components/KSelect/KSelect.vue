@@ -4,13 +4,15 @@
     :class="[$attrs.class]"
   >
     <KLabel
-      v-if="label"
+      v-if="label || $slots.label"
       data-testid="select-label"
       v-bind="labelAttributes"
       :for="selectInputId"
       :required="isRequired"
     >
-      {{ strippedLabel }}
+      <slot name="label">
+        {{ strippedLabel }}
+      </slot>
 
       <template
         v-if="hasLabelTooltip()"

@@ -824,6 +824,22 @@ Text passed in for the `label` will automatically strip any trailing `*` when us
 
 ## Slots
 
+### label
+
+Provide slotted content for the multiselect label. This slot takes precedence over the `label` prop if both are provided.
+
+<ClientOnly>
+  <KMultiselect :items="deepClone(defaultItems)">
+    <template #label>Slotted <code>label</code></template>
+  </KMultiselect>
+</ClientOnly>
+
+```html
+<KMultiselect :items="items">
+  <template #label>Slotted <code>label</code></template>
+</KMultiselect>
+```
+
 ### label-tooltip
 
 If you want to utilize HTML in the multiselect label's tooltip, use the slot.

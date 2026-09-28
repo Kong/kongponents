@@ -8,13 +8,15 @@
     @drop.prevent="onDrop"
   >
     <KLabel
-      v-if="label"
+      v-if="label || $slots.label"
       v-bind="labelAttributes"
       :id="isAppearanceDropzone ? `file-upload-dropzone-label-${fileInputId}` : undefined"
       :for="fileInputId"
       :required="isRequired"
     >
-      {{ strippedLabel }}
+      <slot name="label">
+        {{ strippedLabel }}
+      </slot>
 
       <template
         v-if="hasLabelTooltip()"
@@ -86,7 +88,7 @@
       <div
         ref="dropzone"
         :aria-disabled="disabled ? 'true' : undefined"
-        :aria-labelledby="label ? `file-upload-dropzone-label-${fileInputId}` : undefined"
+        :aria-labelledby="label || $slots.label ? `file-upload-dropzone-label-${fileInputId}` : undefined"
         class="dropzone"
         :class="{
           dragging: isDragging && !disabled,

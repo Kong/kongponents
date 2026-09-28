@@ -1,9 +1,25 @@
 import { describe, it, expect } from 'vitest'
 import { page } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
+import { h } from 'vue'
 import KSlider from '@/components/KSlider/KSlider.vue'
 
 describe('KSlider', () => {
+  it('renders label with `label` slot applied', async () => {
+    const labelText = 'Slotted label'
+
+    await render(KSlider, {
+      props: {
+        modelValue: 0,
+      },
+      slots: {
+        label: () => h('span', { 'data-testid': 'custom-label' }, labelText),
+      },
+    })
+
+    await expect.element(page.getByCSS('.k-label').getByTestId('custom-label')).toHaveTextContent(labelText)
+  })
+
   it('renders input[type="range"] element with label and datalist', async () => {
     const labelContent = 'Test slider'
 

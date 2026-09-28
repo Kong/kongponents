@@ -805,6 +805,22 @@ Slot to display custom content when items is empty or no items match filter quer
 </KSelect>
 ```
 
+### label
+
+Provide slotted content for the select label. This slot takes precedence over the `label` prop if both are provided.
+
+<ClientOnly>
+  <KSelect :items="selectItems">
+    <template #label>Slotted <code>label</code></template>
+  </KSelect>
+</ClientOnly>
+
+```html
+<KSelect :items="selectItems">
+  <template #label>Slotted <code>label</code></template>
+</KSelect>
+```
+
 ### label-tooltip
 
 Use this slot to pass any custom content to label tooltip.

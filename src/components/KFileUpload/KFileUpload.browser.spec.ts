@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 import { page } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
 import KFileUpload from '@/components/KFileUpload/KFileUpload.vue'
@@ -28,6 +28,21 @@ describe('KFileUpload', () => {
       })
 
       await expect.element(page.getByCSS('.k-label')).toHaveTextContent(text)
+    })
+
+    it('renders label with `label` slot applied', async () => {
+      const labelText = 'Slotted label'
+
+      await render(KFileUpload, {
+        props: {
+          accept: ['.md'],
+        },
+        slots: {
+          label: () => h('span', { 'data-testid': 'custom-label' }, labelText),
+        },
+      })
+
+      await expect.element(page.getByCSS('.k-label').getByTestId('custom-label')).toHaveTextContent(labelText)
     })
 
     it('renders label with labelAttributes applied', async () => {
