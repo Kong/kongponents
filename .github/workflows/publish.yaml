@@ -148,7 +148,7 @@ jobs:
           id: semantic_release
           uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
           env:
-            # Since branch protections are on (pushing commits) you need to use a bot PAT
+            # Since branch protections are on (pushing commits) the token needs contents:write
             GITHUB_TOKEN: ${{ steps.app-token-kong.outputs.token }}
 
   no-tests-required:
