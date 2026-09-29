@@ -7,17 +7,20 @@ import KSlider from '@/components/KSlider/KSlider.vue'
 describe('KSlider', () => {
   it('renders label with `label` slot applied', async () => {
     const labelText = 'Slotted label'
+    const customLabelDataTestId = 'custom-label'
 
     await render(KSlider, {
       props: {
         modelValue: 0,
+        label: 'Prop label',
       },
       slots: {
-        label: () => h('span', { 'data-testid': 'custom-label' }, labelText),
+        label: () => h('span', { 'data-testid': customLabelDataTestId }, labelText),
       },
     })
 
-    await expect.element(page.getByCSS('.k-label').getByTestId('custom-label')).toHaveTextContent(labelText)
+    await expect.element(page.getByCSS('.k-label')).toHaveTextContent(labelText)
+    await expect.element(page.getByCSS('.k-label').getByTestId(customLabelDataTestId)).toBeVisible()
   })
 
   it('renders input[type="range"] element with label and datalist', async () => {
