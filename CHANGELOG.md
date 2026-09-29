@@ -1,3 +1,10 @@
+## [9.64.23](https://github.com/Kong/kongponents/compare/v9.64.22...v9.64.23) (2026-09-29)
+
+
+### Bug Fixes
+
+* switching ci from pat to app token [KHCP-2195] ([#3448](https://github.com/Kong/kongponents/issues/3448)) ([2b27020](https://github.com/Kong/kongponents/commit/2b27020ee0e3a0b35bba01255f14c1de0e2c2bf6))
+
 ## [9.64.22](https://github.com/Kong/kongponents/compare/v9.64.21...v9.64.22) (2026-09-29)
 
 
