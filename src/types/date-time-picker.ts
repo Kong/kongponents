@@ -142,7 +142,7 @@ export interface DateTimePickerProps {
   mode: `${DateTimePickerMode}`
 
   /**
-   * Help text displayed as the default mesage inside the input field.
+   * Help text displayed as the default message inside the input field.
    * When "Clear" is clicked, the input will revert to displaying this.
    * @default 'Select a time range'
    */
