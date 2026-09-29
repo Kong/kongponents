@@ -280,6 +280,11 @@ export interface SelectEmits<T extends string | number> {
 
 export interface SelectSlots<T extends string | number> {
   /**
+   * Slot for custom label content.
+   */
+  label?(): any
+
+  /**
    * Use this slot to pass custom content to the items.
    */
   'item-template'?: NoInfer<(props: { item: SelectItem<T> }) => any>

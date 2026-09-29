@@ -52,6 +52,23 @@ describe('KInput', () => {
     await expect.element(page.getByCSS('.k-label')).toHaveTextContent(label)
   })
 
+  it('renders label with `label` slot applied', async () => {
+    const labelText = 'Slotted label'
+    const customLabelDataTestId = 'custom-label'
+
+    await render(KInput, {
+      props: {
+        label: 'Prop label',
+      },
+      slots: {
+        label: () => h('span', { 'data-testid': customLabelDataTestId }, labelText),
+      },
+    })
+
+    await expect.element(page.getByCSS('.k-label')).toHaveTextContent(labelText)
+    await expect.element(page.getByCSS('.k-label').getByTestId(customLabelDataTestId)).toBeVisible()
+  })
+
   it('renders label with labelAttributes applied', async () => {
     const label = 'A label'
 

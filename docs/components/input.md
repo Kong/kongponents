@@ -217,6 +217,20 @@ const clearMyInput = (): void => {
 
 ## Slots
 
+### label
+
+Provide slotted content for the input label. This slot takes precedence over the `label` prop if both are provided.
+
+<KInput>
+  <template #label>Slotted <code>label</code></template>
+</KInput>
+
+```html
+<KInput>
+  <template #label>Slotted <code>label</code></template>
+</KInput>
+```
+
 ### before and after
 
 Use the `before` and `after` slots for inserting icons before and/or after the input field.

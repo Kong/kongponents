@@ -90,6 +90,11 @@ export interface FileUploadEmits {
 
 export interface FileUploadSlots {
   /**
+   * Slot for custom label content.
+   */
+  label?(): any
+
+  /**
    * Slot for an icon in front of the input field.
    */
   icon?(): any

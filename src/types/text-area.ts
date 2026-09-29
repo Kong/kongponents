@@ -96,6 +96,11 @@ export interface TextAreaEmits {
 
 export interface TextAreaSlots {
   /**
+   * Slot for custom label content.
+   */
+  label?: () => any
+
+  /**
    * Slot for tooltip content if textarea has a label and label has tooltip.
    */
   'label-tooltip'?: () => any
