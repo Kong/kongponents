@@ -3,7 +3,7 @@ import { page } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
 import { format } from 'date-fns'
 import KDateTimePicker from '@/components/KDateTimePicker/KDateTimePicker.vue'
-import type { TimeFrameSection } from '@/types'
+import type { TimeFrameSection, TimeRange } from '@/types'
 
 // Inline timeframe data matching what KDateTimePickerMockData would produce.
 // The mocks file is not included in typecheck (see tsconfig.json), so we inline
@@ -813,6 +813,152 @@ describe('KDateTimePicker', () => {
       await page.getByTestId('time-input-end').fill('01:00')
 
       await expect.element(page.getByTestId(submitButton)).toBeDisabled()
+    })
+  })
+
+  describe('time zone display', () => {
+    const triggerDisplayText = () =>
+      (page.getByTestId(timepickerDisplay).element() as HTMLElement)?.textContent?.replace(/\s+/g, ' ').trim()
+
+    it('spring-forward range shows both wall times and the start abbreviation', async () => {
+      const start = new Date('2025-03-09T01:30:00-05:00')
+      const end = new Date('2025-03-09T03:30:00-04:00')
+
+      const screen = await render(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start, end },
+          range: true,
+        },
+      })
+
+      await page.getByTestId(timepickerInput).click()
+      await page.getByTestId(submitButton).nth(0).click()
+
+      await expect.poll(triggerDisplayText).toBe('Mar 9, 2025 01:30 AM - Mar 9, 2025 03:30 AM (EST)')
+
+      const lastChange = screen.emitted<[TimeRange]>('change')?.at(-1)?.[0]
+      expect(lastChange?.start?.getTime()).toBe(start.getTime())
+      expect(lastChange?.end?.getTime()).toBe(end.getTime())
+
+      const lastUpdate = screen.emitted<[TimeRange]>('update:modelValue')?.at(-1)?.[0]
+      expect(lastUpdate?.start?.getTime()).toBe(start.getTime())
+      expect(lastUpdate?.end?.getTime()).toBe(end.getTime())
+    })
+
+    it('fall-back range shows the wall times and instants the picker produces', async () => {
+      const start = new Date('2025-11-02T01:30:00-04:00')
+      const end = new Date('2025-11-02T01:30:00-05:00')
+
+      const screen = await render(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start, end },
+          range: true,
+        },
+      })
+
+      await page.getByTestId(timepickerInput).click()
+      await page.getByTestId(submitButton).nth(0).click()
+
+      await expect.poll(triggerDisplayText).toBe('Nov 2, 2025 01:30 AM - Nov 2, 2025 01:30 AM (EDT)')
+
+      const lastChange = screen.emitted<[TimeRange]>('change')?.at(-1)?.[0]
+      expect(lastChange?.start?.getTime()).toBe(start.getTime())
+      expect(lastChange?.end?.getTime()).toBe(start.getTime())
+
+      const lastUpdate = screen.emitted<[TimeRange]>('update:modelValue')?.at(-1)?.[0]
+      expect(lastUpdate?.start?.getTime()).toBe(start.getTime())
+      expect(lastUpdate?.end?.getTime()).toBe(start.getTime())
+    })
+
+    it('single date shows the wall time and the abbreviation', async () => {
+      const start = new Date('2025-07-04T09:15:00-04:00')
+
+      const screen = await render(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start, end: null },
+          range: false,
+        },
+      })
+
+      await page.getByTestId(timepickerInput).click()
+      await page.getByTestId(submitButton).nth(0).click()
+
+      await expect.poll(triggerDisplayText).toBe('Jul 4, 2025 09:15 AM (EDT)')
+
+      const lastChange = screen.emitted<[TimeRange]>('change')?.at(-1)?.[0]
+      expect(lastChange?.start?.getTime()).toBe(start.getTime())
+      expect(lastChange?.end ?? null).toBeNull()
+
+      const lastUpdate = screen.emitted<[TimeRange]>('update:modelValue')?.at(-1)?.[0]
+      expect(lastUpdate?.start?.getTime()).toBe(start.getTime())
+      expect(lastUpdate?.end ?? null).toBeNull()
+    })
+
+    it('spring-forward range with second granularity shows seconds in both wall times', async () => {
+      const start = new Date('2025-03-09T01:30:00-05:00')
+      const end = new Date('2025-03-09T03:30:00-04:00')
+
+      const screen = await render(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start, end },
+          range: true,
+          timeGranularity: 'secondly',
+        },
+      })
+
+      await page.getByTestId(timepickerInput).click()
+      await page.getByTestId(submitButton).nth(0).click()
+
+      await expect.poll(triggerDisplayText).toBe('Mar 9, 2025 01:30:00 AM - Mar 9, 2025 03:30:00 AM (EST)')
+
+      const lastChange = screen.emitted<[TimeRange]>('change')?.at(-1)?.[0]
+      expect(lastChange?.start?.getTime()).toBe(start.getTime())
+      expect(lastChange?.end?.getTime()).toBe(end.getTime())
+
+      const lastUpdate = screen.emitted<[TimeRange]>('update:modelValue')?.at(-1)?.[0]
+      expect(lastUpdate?.start?.getTime()).toBe(start.getTime())
+      expect(lastUpdate?.end?.getTime()).toBe(end.getTime())
+    })
+  })
+
+  describe('non-Date modelValue display', () => {
+    const triggerDisplayText = () =>
+      (page.getByTestId(timepickerDisplay).element() as HTMLElement)?.textContent?.replace(/\s+/g, ' ').trim()
+
+    it('leaves the display untouched when a range has no end', async () => {
+      const screen = await render(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: new Date('2025-03-09T01:30:00-05:00'), end: null },
+          range: true,
+        },
+      })
+
+      await expect.poll(triggerDisplayText).toBe('Select a time range')
+
+      // The granularity watcher is the one path that reaches the display with the
+      // range still missing its end.
+      await screen.rerender({ timeGranularity: 'secondly' })
+
+      await expect.poll(triggerDisplayText).toBe('Select a time range')
+      await expect.element(page.getByTestId(timepickerDisplay)).not.toHaveTextContent(/19(69|70)/)
+    })
+
+    it('leaves the display untouched when the start is not a Date', async () => {
+      await render(KDateTimePicker, {
+        props: {
+          mode: 'dateTime',
+          modelValue: { start: '2025' as unknown as Date, end: null },
+          range: false,
+        },
+      })
+
+      await expect.poll(triggerDisplayText).toBe('Select a time range')
+      await expect.element(page.getByTestId(timepickerDisplay)).not.toHaveTextContent(/19(69|70)/)
     })
   })
 })
