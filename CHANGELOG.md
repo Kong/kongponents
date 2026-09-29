@@ -1,3 +1,10 @@
+## [9.64.22](https://github.com/Kong/kongponents/compare/v9.64.21...v9.64.22) (2026-09-29)
+
+
+### Bug Fixes
+
+* label slot in components using klabel [KHCP-21969] ([#3445](https://github.com/Kong/kongponents/issues/3445)) ([c1bf309](https://github.com/Kong/kongponents/commit/c1bf309062b9b6c6375daf3219e08a51212f6bfc))
+
 ## [9.64.21](https://github.com/Kong/kongponents/compare/v9.64.20...v9.64.21) (2026-09-28)
 
 
