@@ -22,8 +22,6 @@ export default defineConfig({
       '@kong/design-tokens/tokens/themeable-tokens': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/themeable-tokens/index.mjs'),
       '@kong/design-tokens/themes': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/themes/index.mjs'),
       '@kong/design-tokens': path.resolve(__dirname, '../node_modules/@kong/design-tokens/dist/tokens/js/'),
-      // We must alias `date-fns-tz` here for the docs build to specifically utilize the esm build
-      'date-fns-tz': path.resolve(__dirname, '../node_modules/date-fns-tz/esm'),
     },
   },
   css: {
