@@ -10,6 +10,7 @@ import { applyTheme } from './theme/applyTheme'
 // Export Vue plugin by default
 export default {
   install: (app: App, options: KongponentsPluginOptions = {}): void => {
+    console.log('forked code addition')
     for (const key in components) {
       // @ts-ignore - key is a valid string
       app.component(key, components[key])
