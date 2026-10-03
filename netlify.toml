@@ -2,6 +2,7 @@
 # unless otherwise overridden by more specific contexts.
 #
 # Defaulting to the settings for the `main` branch
+# test
 [build]
   base = "/"
   command = "pnpm build:ci"
