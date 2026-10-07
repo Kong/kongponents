@@ -1,11 +1,6 @@
 import type { LimitExceededData } from './input'
 import type { LabelAttributes } from './label'
 
-/**
- * @deprecated Use `LimitExceededData` instead.
- */
-export type TextAreaLimitExceed = LimitExceededData
-
 export interface TextAreaProps {
   /**
    * To set the value of the textarea without using `v-model`.
@@ -61,20 +56,6 @@ export interface TextAreaProps {
    * @default ''
    */
   help?: string
-
-  /**
-   * Whether to allow vertically resizing using the drag handle in the right-hand corner of the textarea.
-   * @default false
-   * @deprecated Use `resizable` instead.
-   */
-  isResizable?: boolean
-
-  /**
-   * Boolean to indicate whether the element is in an error state and should apply error styling.
-   * @default false
-   * @deprecated Use `error` instead.
-   */
-  hasError?: boolean
 }
 
 export interface TextAreaEmits {

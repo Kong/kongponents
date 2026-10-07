@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-input"
-    :class="[attrs.class, { 'input-error': charLimitExceeded || error || hasError }]"
+    :class="[attrs.class, { 'input-error': charLimitExceeded || error }]"
   >
     <KLabel
       v-if="label || $slots.label"
@@ -37,7 +37,7 @@
         :id="inputId"
         ref="inputElement"
         :aria-describedby="helpText || slots.help ? helpTextId : undefined"
-        :aria-invalid="error || hasError || charLimitExceeded ? 'true' : undefined"
+        :aria-invalid="error || charLimitExceeded ? 'true' : undefined"
         class="input"
         :type="inputType"
         v-bind="modifiedAttrs"
@@ -120,22 +120,9 @@ const {
   error,
   errorMessage = '',
   characterLimit = null,
-  hasError,
   type = 'text',
   showPasswordMaskToggle,
 } = defineProps<InputProps>()
-
-watch(() => hasError, (val) => {
-  if (val) {
-    console.warn('KInput: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kinput')
-  }
-}, { immediate: true })
-
-watch(() => labelAttributes.help, (help) => {
-  if (help) {
-    console.warn('KInput: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
-  }
-})
 
 const emit = defineEmits<InputEmits>()
 const slots = defineSlots<InputSlots>()
@@ -205,7 +192,7 @@ const charLimitExceededErrorMessage = computed((): string => {
 })
 
 // Whether `help` slot or `help` prop should be shown
-const showHelp = (): boolean => !charLimitExceeded.value && !error && !hasError && !!(help || slots.help)
+const showHelp = (): boolean => !charLimitExceeded.value && !error && !!(help || slots.help)
 
 const helpText = computed((): string => {
   // if character limit exceeded, return that error message
@@ -214,7 +201,7 @@ const helpText = computed((): string => {
   }
 
   // if error prop is true and there is an error message, return that
-  if ((error || hasError) && errorMessage) {
+  if (error && errorMessage) {
     return errorMessage
   }
 

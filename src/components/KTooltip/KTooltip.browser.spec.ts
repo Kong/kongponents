@@ -4,11 +4,11 @@ import { render } from 'vitest-browser-vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { defineComponent, h, ref } from 'vue'
 import { PopPlacementsArray } from '@/types'
-import type { PopPlacements } from '@/types'
+import type { PopPlacement } from '@/types'
 
 const positions = PopPlacementsArray
 
-const rendersCorrectPosition = (variant: PopPlacements) => {
+const rendersCorrectPosition = (variant: PopPlacement) => {
   it(`renders tooltip to the ${variant} side`, async () => {
     const text = 'Button text'
 

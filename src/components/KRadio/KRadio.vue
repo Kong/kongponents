@@ -103,8 +103,8 @@
 </template>
 
 <script lang="ts">
-import { computed, useAttrs, useId, watch } from 'vue'
-import type { RadioTypes, LabelAttributes, RadioProps, RadioModelValue, RadioEmits, RadioSlots } from '@/types'
+import { computed, useAttrs, useId } from 'vue'
+import type { RadioProps, RadioModelValue, RadioEmits, RadioSlots } from '@/types'
 import KLabel from '@/components/KLabel/KLabel.vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import { InfoIcon } from '@kong/icons'
@@ -126,20 +126,7 @@ const {
   card,
   cardRadioVisible = true,
   cardOrientation = 'vertical',
-  type = '',
 } = defineProps<RadioProps<T>>()
-
-watch(() => labelAttributes, (newValue: LabelAttributes): void => {
-  if (newValue.help) {
-    console.warn('KRadio: `help` property of `labelAttributes` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
-  }
-}, { deep: true, immediate: true })
-
-watch(() => type, (newValue: RadioTypes): void => {
-  if (newValue) {
-    console.warn('KRadio: `type` prop is deprecated. Please use `card` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kradio')
-  }
-}, { immediate: true })
 
 const emit = defineEmits<RadioEmits<Exclude<T, null>>>()
 
@@ -174,7 +161,7 @@ const modifiedAttrs = computed((): Record<string, any> => {
 const kRadioClasses = (): Record<string, boolean> => {
   return {
     disabled: isDisabled.value,
-    'radio-card': card || type === 'card',
+    'radio-card': card,
     'input-error': error,
     checked: isChecked.value,
     'has-description': showDescription(),
