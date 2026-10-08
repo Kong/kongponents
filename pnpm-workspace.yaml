@@ -25,8 +25,7 @@ overrides:
   '@nuxt/devtools@<3.3.1': '>=3.4.2'
   axios@>=1.0.0 <1.12.0: '>=1.20.0'
   brace-expansion@<1.1.18: '>=1.1.18 <2.0.0'
-  brace-expansion@>=2.0.0 <2.1.4: '>=2.1.4 <3.0.0'
-  brace-expansion@>=3.0.0 <5.0.9: '>=5.0.9'
+  brace-expansion@>=2.0.0 <5.0.9: '>=5.0.12 <6.0.0'
   browserslist@<=4.28.6: '>=4.28.7'
   devalue@<5.9.2: '>=5.9.2 <6.0.0'
   esbuild: '>=0.28.1'
@@ -55,10 +54,16 @@ overrides:
 trustPolicy: no-downgrade
 
 trustPolicyExclude:
-  # False positive. semver@6.3.1 (2023-07-10) is the 6.x maintenance backport of the
-  # ReDoS fix (CVE-2022-25883), published by the npm CLI team 3 days after 7.5.4
-  # (2023-07-07). 7.5.x builds on the release branch that had provenance enabled; the
-  # 6.x branch did not. Since trust checks compare by publish date and ignore semver,
-  # pnpm reads the older 6.x line as a downgrade from the newer-published 7.5.x.
-  # Only reaches us transitively via @babel/helper-create-class-features-plugin.
-  - semver@6.3.1
+  # False positives. semver@5.7.2 (2023-07-10 19:57 UTC) and semver@6.3.1
+  # (2023-07-10 22:38 UTC) are the 5.x and 6.x maintenance backports of the ReDoS
+  # fix (CVE-2022-25883), published by the npm CLI team a few hours apart and 3 days
+  # after 7.5.4 (2023-07-07). 7.5.x builds on the release branch that had provenance
+  # enabled; the 5.x and 6.x branches did not. Since trust checks compare by publish
+  # date and ignore semver, pnpm reads both older lines as trust downgrades from the
+  # newer-published 7.5.x (ERR_PNPM_TRUST_DOWNGRADE), which blocked renovate's
+  # lockfile update for the brace-expansion override bump (PR #3458).
+  # NOTE: pnpm only honors the first trustPolicyExclude entry per package name, so
+  # multiple versions must be combined into a single union entry.
+  # 6.3.1 only reaches us via @babel/helper-create-class-features-plugin; 5.7.2 via
+  # dev-only deps (shx -> execa -> cross-spawn@6). Neither is shipped.
+  - semver@5.7.2 || 6.3.1
