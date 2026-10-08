@@ -1,0 +1,38 @@
+name: Check PR Labels
+
+on:
+  pull_request:
+    # 'labeled'/'unlabeled' re-trigger this check when PR labels change
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+      - unlabeled
+
+# Cancel stale runs for the same PR, e.g. when labels are toggled rapidly
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  label-do-not-merge:
+    name: Check PR for do not merge label
+    # No 'if' guard: the shared action reads labels from the event payload and
+    # passes when the label is absent, so the check always reports a status.
+    # This matters when the job is marked as required in branch protection.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          deploy-on-self-hosted-vm: "true"
+          egress-policy: audit
+
+      # No checkout needed: the label state comes from the event payload
+      - name: Fail on blocking label
+        uses: Kong/public-shared-actions/code-check-actions/check-labels@87fe3cf83cddf2ade2a51f942b331641c89caa68
+        with:
+          label: 'do not merge'
