@@ -249,6 +249,13 @@ onBeforeUnmount(() => {
 
   .copy-to-clipboard-button {
     @include defaultButtonReset;
+
+    outline: none;
+
+    &:focus-visible {
+      border-radius: var(--kui-border-radius-10, $kui-border-radius-10);
+      box-shadow: var(--kui-shadow-focus, $kui-shadow-focus);
+    }
   }
 }
 </style>
