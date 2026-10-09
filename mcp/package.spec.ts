@@ -40,7 +40,12 @@ describe('Kongponents MCP package', () => {
     expect(existsSync(path.join(packagedRoot, 'bin/mcp/server.js'))).toBe(true)
     expect(existsSync(path.join(packagedRoot, 'bin/mcp-data/snapshot.json'))).toBe(true)
 
-    const transport = new StdioClientTransport({ command: executable, cwd: temporaryDirectory, stderr: 'pipe' })
+    const transport = new StdioClientTransport({
+      command: process.platform === 'win32' ? process.execPath : executable,
+      args: process.platform === 'win32' ? [executable] : [],
+      cwd: temporaryDirectory,
+      stderr: 'pipe',
+    })
     const client = new Client({ name: 'kongponents-mcp-package-test', version: '1.0.0' })
 
     try {
