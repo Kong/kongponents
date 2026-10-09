@@ -116,6 +116,7 @@ export default defineConfig({
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Usage', link: '/guide/usage' },
             { text: 'Theming', link: '/guide/theming' },
+            { text: 'MCP Server', link: '/guide/mcp-server' },
           ],
         },
         {
