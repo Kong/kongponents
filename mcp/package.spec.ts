@@ -23,9 +23,12 @@ describe('Kongponents MCP package', () => {
     temporaryDirectories.push(temporaryDirectory)
     mkdirSync(extractedDirectory)
 
-    execFileSync('pnpm', ['pack', '--pack-destination', temporaryDirectory], {
+    // A Windows pnpm.cmd needs a shell; pass the temp path through the environment so shell characters in it stay data.
+    execFileSync('pnpm', ['pack', '--pack-destination', process.platform === 'win32' ? '"%MCP_PACK_DESTINATION%"' : temporaryDirectory], {
       cwd: repoRoot,
       stdio: 'ignore',
+      shell: process.platform === 'win32',
+      env: { ...process.env, MCP_PACK_DESTINATION: temporaryDirectory },
     })
 
     const tarball = readdirSync(temporaryDirectory).find((entry) => entry.endsWith('.tgz'))
