@@ -3,6 +3,7 @@ import { page, userEvent } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
 import { defineComponent, h, ref } from 'vue'
 import KSelect from '@/components/KSelect/KSelect.vue'
+import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { SelectItem } from '@/types'
 
 /**
@@ -446,6 +447,39 @@ describe('KSelect', () => {
 
     await expect.element(page.getByCSS('.dropdown-footer')).toBeVisible()
     await expect.element(page.getByCSS('.dropdown-footer')).toHaveTextContent(dropdownFooterText)
+  })
+
+  it.each(['static', 'sticky'] as const)('preserves nested tooltip styles in the %s dropdown footer', async (dropdownFooterPosition) => {
+    await render(KSelect, {
+      props: {
+        items: [{ label: 'Label 1', value: 'val1' }],
+        dropdownFooterPosition,
+      },
+      slots: {
+        'dropdown-footer': () => h(KTooltip, {
+          text: 'Footer help',
+          style: {
+            '--kui-tooltip-padding': '7px',
+            '--kui-tooltip-border-radius': '11px',
+          },
+        }, {
+          default: () => h('button', { 'data-testid': 'footer-trigger' }, 'Footer'),
+        }),
+      },
+    })
+
+    await page.getByTestId('select-input').click()
+    await page.getByTestId('footer-trigger').hover()
+    await expect.element(page.getByRole('tooltip')).toBeVisible()
+    await expect.element(page.getByCSS('.select-popover > .popover-container')).toHaveStyle({
+      borderStyle: 'solid',
+      paddingBottom: '0px',
+    })
+    await expect.element(page.getByCSS('.k-tooltip.popover > .popover-container')).toHaveStyle({
+      borderStyle: 'none',
+      borderRadius: '11px',
+      padding: '7px',
+    })
   })
 
   it('renders interactive content in the dropdown-footer slot', async () => {
