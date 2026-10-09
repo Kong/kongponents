@@ -9,6 +9,10 @@ const snapshotPath = path.join(repoRoot, 'bin/mcp-data/snapshot.json')
 /** Ensure MCP specs can run from a fresh checkout without relying on a preceding CI build. */
 export default function setup(): void {
   if (!existsSync(snapshotPath)) {
-    execFileSync('pnpm', ['build:mcp'], { cwd: repoRoot, stdio: 'inherit' })
+    execFileSync('pnpm', ['build:mcp'], {
+      cwd: repoRoot,
+      stdio: 'inherit',
+      shell: process.platform === 'win32',
+    })
   }
 }
