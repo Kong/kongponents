@@ -60,26 +60,6 @@ export interface TablePreferences<Key extends string = string> {
 
 export type TableViewData<Row extends Record<string, any> = Record<string, any>> = Row[]
 
-/**
- * @deprecated in favor of TableDataHeader
- */
-export interface TableHeader {
-  /** Must be unique for each column */
-  key: string
-  /** Visible column header text */
-  label?: string
-  /** This property defines whether sort icon should be displayed next to the column header and whether the column header will emit sort event upon clicking on it */
-  sortable?: boolean
-  /** Allow toggling column visibility */
-  hidable?: boolean
-  /** When provided, an info icon will be rendered next to the column label, upon hovering on which the tooltip will be revealed */
-  tooltip?: string
-  /** Whether column header text should be hidden (only visible to screen readers) */
-  hideLabel?: boolean
-  /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
-  useSortHandlerFunction?: boolean
-}
-
 export interface TableViewHeader<Key extends string = string> {
   /** Must be unique for each column */
   key: Key
@@ -96,12 +76,12 @@ export interface TableViewHeader<Key extends string = string> {
 }
 
 export interface TableDataHeader<Key extends string = string> extends TableViewHeader<Key> {
-  /** Whether KTable should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
+  /** Whether KTableData should use function passed through sortHandlerFunction prop to apply sorting logic to this column */
   useSortHandlerFunction?: boolean
 }
 
 /**
- * Provide a type interface for KTable `column-*` and `tooltip-*` slot names.
+ * Provide a type interface for KTableView/KTableData `column-*` and `tooltip-*` slot names.
  *
  * This helps TypeScript infer the slot name in the template section so that
  * the slot props can be resolved.

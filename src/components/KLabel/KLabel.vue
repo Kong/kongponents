@@ -20,14 +20,14 @@
         tabindex="0"
       />
       <template #content>
-        <slot name="tooltip">{{ info || help }}</slot>
+        <slot name="tooltip">{{ info }}</slot>
       </template>
     </KTooltip>
   </label>
 </template>
 
 <script setup lang="ts">
-import { watch, useId, useTemplateRef } from 'vue'
+import { useId, useTemplateRef } from 'vue'
 import KTooltip from '@/components/KTooltip/KTooltip.vue'
 import type { LabelProps, LabelSlots } from '@/types'
 import { InfoIcon } from '@kong/icons'
@@ -37,18 +37,11 @@ const {
   info = '',
   required,
   tooltipAttributes = {},
-  help = '',
 } = defineProps<LabelProps>()
-
-watch(() => help, (value: string): void => {
-  if (value) {
-    console.warn('KLabel: `help` prop is deprecated. Please use `info` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#klabel')
-  }
-}, { immediate: true })
 
 const slots = defineSlots<LabelSlots>()
 
-const hasTooltip = (): boolean => !!(help || info || slots.tooltip)
+const hasTooltip = (): boolean => !!(info || slots.tooltip)
 
 const tooltipId = useId()
 

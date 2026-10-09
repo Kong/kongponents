@@ -7,7 +7,7 @@ import type { KongponentsTheme } from '@kong/kongponents'
 import type { NuxtModule } from 'nuxt/schema'
 
 type ComponentKeys = keyof typeof components
-type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager' | 'KTable' | 'KModalFullscreen' | 'KDropdownMenu'>
+type ExcludedComponentKeys = Exclude<ComponentKeys, 'ToastManager'>
 
 
 export interface ModuleOptions {
@@ -42,7 +42,7 @@ export interface ModuleOptions {
 }
 
 // Components that should always be excluded from auto-registration
-const ALWAYS_EXCLUDE_COMPONENTS = ['ToastManager', 'KTable', 'KModalFullscreen', 'KDropdownMenu']
+const ALWAYS_EXCLUDE_COMPONENTS = ['ToastManager']
 
 const kongponentsModule: NuxtModule<ModuleOptions, ModuleOptions, false> = defineNuxtModule<ModuleOptions>({
   meta: {

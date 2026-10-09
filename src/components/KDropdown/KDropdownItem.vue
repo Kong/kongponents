@@ -4,7 +4,7 @@
     :class="[{
       'has-divider': hasDivider,
       'disabled': disabled,
-      'danger': danger || isDangerous,
+      'danger': danger,
       'dropdown-selected-option': selected,
     }, $attrs.class, $attrs.style]"
     data-testid="dropdown-item"
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup generic="T extends DropdownItem<string | number> | null = null">
-import { computed, useAttrs, watch } from 'vue'
+import { computed, useAttrs } from 'vue'
 import type { DropdownItem, DropdownItemEmits, DropdownItemProps, DropdownItemRenderedRecord, DropdownItemRenderedType, DropdownItemType } from '@/types'
 
 defineOptions({
@@ -43,14 +43,7 @@ const {
   selected,
   selectionMenuChild,
   onClick,
-  isDangerous = undefined,
 } = defineProps<DropdownItemProps<T>>()
-
-watch(() => isDangerous, (newVal) => {
-  if (typeof newVal !== 'undefined') {
-    console.warn('KDropdownItem: `isDangerous` prop is deprecated. Please use `danger` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
-  }
-})
 
 const emit = defineEmits<DropdownItemEmits<T>>()
 

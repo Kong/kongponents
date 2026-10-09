@@ -213,20 +213,6 @@
           </KButton>
         </div>
       </SandboxSectionComponent>
-
-      <!-- Legacy -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Legacy"
-      />
-      <SandboxSectionComponent
-        title="hasError prop (deprecated)"
-      >
-        <KInput
-          has-error
-          label="Label"
-        />
-      </SandboxSectionComponent>
     </div>
   </SandboxLayout>
 </template>
@@ -253,7 +239,7 @@ const setFocus = () => {
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    gap: $kui-space-70;
+    gap: var(--kui-space-70, $kui-space-70);
   }
 
   .full-width-input {
@@ -263,7 +249,7 @@ const setFocus = () => {
   .input-and-button {
     align-items: flex-end;
     display: flex;
-    gap: $kui-space-40;
+    gap: var(--kui-space-40, $kui-space-40);
   }
 }
 </style>

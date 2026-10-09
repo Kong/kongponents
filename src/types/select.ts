@@ -9,15 +9,6 @@ export interface SelectItem<T extends string | number = string | number> extends
   key?: string
   selected?: boolean
   disabled?: boolean
-  /**
-   * @deprecated The `group` property on individual items is deprecated.
-   * Instead, use the `SelectGroup` interface to structure grouped items.
-   */
-  group?: string
-}
-
-export interface SelectItemWithGroup<T extends string | number = string | number> extends SelectItem<T> {
-  group: string
 }
 
 export interface SelectGroup<T extends string | number = string | number> extends Record<string, any> {
@@ -86,11 +77,6 @@ export interface SelectFilterFunctionParams<T extends string | number> {
 }
 
 export type SelectDropdownFooterPosition = 'sticky' | 'static'
-
-/**
- * @deprecated Use `SelectDropdownFooterPosition` instead.
- */
-export type SelectDropdownFooterTextPosition = SelectDropdownFooterPosition
 
 export interface SelectProps<T extends string | number, U extends boolean = false> {
   /**
@@ -184,18 +170,8 @@ export interface SelectProps<T extends string | number, U extends boolean = fals
   dropdownFooterText?: string
 
   /**
-   * @deprecated Use `dropdownFooterPosition` instead.
-   *
-   * Dropdown footer text position.
-   * Accepted values: 'sticky' and 'static'.
-   * @default 'sticky'
-   */
-  dropdownFooterTextPosition?: SelectDropdownFooterTextPosition
-
-  /**
    * Dropdown footer position.
    * Accepted values: 'sticky' and 'static'.
-   * Takes precedence over the deprecated `dropdownFooterTextPosition` prop.
    * @default 'sticky'
    */
   dropdownFooterPosition?: SelectDropdownFooterPosition
@@ -295,15 +271,8 @@ export interface SelectSlots<T extends string | number> {
   'selected-item-template'?: NoInfer<(props: { item: SelectItem<T> }) => any>
 
   /**
-   * @deprecated Use the `dropdown-footer` slot instead, which also supports interactive content.
-   *
-   * A slot alternative for the `dropdownFooterText` prop.
-   */
-  'dropdown-footer-text'?(): any
-
-  /**
    * A slot for custom dropdown footer content. Supports interactive content.
-   * Takes precedence over the `dropdownFooterText` prop and the deprecated `dropdown-footer-text` slot.
+   * Takes precedence over the `dropdownFooterText` prop.
    */
   'dropdown-footer'?(): any
 

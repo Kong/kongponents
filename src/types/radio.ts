@@ -1,10 +1,4 @@
-import type { AnyElementOf } from '@/types/utils'
 import type { LabelAttributes } from './label'
-
-// TODO: remove when deprecated `type` prop is removed
-export const RadioTypesArray = ['', 'radio', 'card'] as const
-
-export type RadioTypes = AnyElementOf<typeof RadioTypesArray>
 
 export type RadioModelValue = string | number | boolean | object
 
@@ -61,14 +55,6 @@ export interface RadioProps<T extends RadioModelValue | null> {
    * @default 'vertical'
    */
   cardOrientation?: 'horizontal' | 'vertical'
-
-  /**
-   * The type of radio to render.
-   * One of ['', 'radio', 'card'].
-   * @deprecated Use `card` prop instead.
-   * @default ''
-   */
-  type?: RadioTypes
 }
 
 export interface RadioEmits<T extends RadioModelValue> {

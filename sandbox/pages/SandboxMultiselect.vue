@@ -13,8 +13,6 @@
         title="items"
       >
         <KMultiselect :items="multiselectItems" />
-        <p>Old approach with group property (alphabetical): Series 1, Series 2</p>
-        <KMultiselect :items="multiselectItemsWithGroupProperty" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="label"
@@ -502,46 +500,6 @@ const onItemCreationQueryChange = (query: string): void => {
 const onDropdownFooterAction = (): void => {
   window.alert('Interactive dropdown footer action clicked!')
 }
-
-// Example using old group property approach
-const multiselectItemsWithGroupProperty: MultiselectItem[] = [
-  {
-    label: 'Service B2',
-    value: 'b2',
-    group: 'Series 2',
-  },
-  {
-    label: 'Service A (long truncated with ellipsis item)',
-    value: 'a',
-    selected: true,
-  },
-  {
-    label: 'Service B',
-    value: 'b',
-  },
-  {
-    label: 'Service F',
-    value: 'f',
-    disabled: true,
-    selected: true,
-  },
-  {
-    label: 'Service A1',
-    value: 'a1',
-    group: 'Series 1',
-  },
-  {
-    label: 'Service B1',
-    value: 'b1',
-    group: 'Series 1',
-    selected: true,
-  },
-  {
-    label: 'Service A2',
-    value: 'a2',
-    group: 'Series 2',
-  },
-]
 </script>
 
 <style lang="scss" scoped>
