@@ -1,3 +1,10 @@
+## [9.64.24](https://github.com/Kong/kongponents/compare/v9.64.23...v9.64.24) (2026-10-09)
+
+
+### Bug Fixes
+
+* **deps:** resolve pnpm audit high vulnerabilities [KHCP-22033] ([#3455](https://github.com/Kong/kongponents/issues/3455)) ([8dc9d14](https://github.com/Kong/kongponents/commit/8dc9d1429c91045004e4e495e0784ff3a8ca7bb4))
+
 ## [9.64.23](https://github.com/Kong/kongponents/compare/v9.64.22...v9.64.23) (2026-09-29)
 
 
