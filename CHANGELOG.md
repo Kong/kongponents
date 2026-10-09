@@ -1,3 +1,10 @@
+## [9.64.25](https://github.com/Kong/kongponents/compare/v9.64.24...v9.64.25) (2026-10-09)
+
+
+### Bug Fixes
+
+* **kcopy:** copy button focus visible styles ([#3462](https://github.com/Kong/kongponents/issues/3462)) ([279efbe](https://github.com/Kong/kongponents/commit/279efbeb756812c01888533d3ef7977ab9713e99))
+
 ## [9.64.24](https://github.com/Kong/kongponents/compare/v9.64.23...v9.64.24) (2026-10-09)
 
 
