@@ -8,128 +8,130 @@
     @blur="currentLineIndex = null"
   >
     <div
-      v-if="showCodeBlockActions"
+      v-if="showCodeBlockActions()"
       class="code-block-actions"
     >
-      <KInput
-        v-model="searchQuery"
-        aria-label="Search"
-        autocomplete="off"
-        class="code-block-search-input"
-        data-testid="code-block-search-input"
-        :error="regExpError !== null"
-        :error-message="regExpError !== null ? regExpError.message : undefined"
-        name="code-search"
-        placeholder="Search..."
-        @input="handleSearch"
-      >
-        <template #before>
-          <Transition
-            mode="out-in"
-            name="kongponents-fade-transition"
-          >
-            <button
-              v-if="searchQuery"
-              aria-label="Clear query"
-              class="clear-query-button"
-              data-testid="clear-query-button"
-              title="Clear query"
-              type="button"
-              @click="clearQuery"
+      <slot name="actions">
+        <KInput
+          v-model="searchQuery"
+          aria-label="Search"
+          autocomplete="off"
+          class="code-block-search-input"
+          data-testid="code-block-search-input"
+          :error="regExpError !== null"
+          :error-message="regExpError !== null ? regExpError.message : undefined"
+          name="code-search"
+          placeholder="Search..."
+          @input="handleSearch"
+        >
+          <template #before>
+            <Transition
+              mode="out-in"
+              name="kongponents-fade-transition"
             >
-              <CloseIcon decorative />
-            </button>
-            <SearchIcon
-              v-else
-              class="code-block-search-icon"
-              decorative
-            />
-          </Transition>
-        </template>
-      </KInput>
+              <button
+                v-if="searchQuery"
+                aria-label="Clear query"
+                class="clear-query-button"
+                data-testid="clear-query-button"
+                title="Clear query"
+                type="button"
+                @click="clearQuery"
+              >
+                <CloseIcon decorative />
+              </button>
+              <SearchIcon
+                v-else
+                class="code-block-search-icon"
+                decorative
+              />
+            </Transition>
+          </template>
+        </KInput>
 
-      <Transition name="kongponents-fade-transition">
-        <div
-          v-if="isProcessing || searchQuery"
-          class="code-block-search-results-container"
-        >
-          <Transition name="kongponents-fade-transition">
-            <ProgressIcon
-              v-if="isProcessing"
-              class="code-block-processing-icon"
-              :color="`var(--kui-color-text-neutral-strong, ${KUI_COLOR_TEXT_NEUTRAL_STRONG})`"
-              data-testid="code-block-processing-icon"
-              :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
-              title="Loading"
-            />
-          </Transition>
-
-          <p
-            v-if="searchQuery"
-            class="code-block-search-results"
+        <Transition name="kongponents-fade-transition">
+          <div
+            v-if="isProcessing || searchQuery"
+            class="code-block-search-results-container"
           >
-            <template v-if="matchingLineNumbers.length === 0">
-              No results
-            </template>
+            <Transition name="kongponents-fade-transition">
+              <ProgressIcon
+                v-if="isProcessing"
+                class="code-block-processing-icon"
+                :color="`var(--kui-color-text-neutral-strong, ${KUI_COLOR_TEXT_NEUTRAL_STRONG})`"
+                data-testid="code-block-processing-icon"
+                :size="`var(--kui-icon-size-30, ${KUI_ICON_SIZE_30})`"
+                title="Loading"
+              />
+            </Transition>
 
-            <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
-              {{ currentLineIndex + 1 }} of {{ matchingLineNumbers.length }}
-            </template>
+            <p
+              v-if="searchQuery"
+              class="code-block-search-results"
+            >
+              <template v-if="matchingLineNumbers.length === 0">
+                No results
+              </template>
 
-            <template v-else>
-              {{ matchingLineNumbers.length }} {{ matchingLineNumbers.length === 1 ? 'result' : 'results' }}
-            </template>
-          </p>
+              <template v-else-if="typeof currentLineIndex === 'number' && !isShowingFilteredCode">
+                {{ currentLineIndex + 1 }} of {{ matchingLineNumbers.length }}
+              </template>
+
+              <template v-else>
+                {{ matchingLineNumbers.length }} {{ matchingLineNumbers.length === 1 ? 'result' : 'results' }}
+              </template>
+            </p>
+          </div>
+        </Transition>
+
+        <div class="code-block-search-actions">
+          <KCodeBlockIconButton
+            :active="isRegExpMode"
+            :aria-label="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
+            :aria-pressed="isRegExpMode"
+            class="regexp-mode-button"
+            data-testid="regexp-mode-button"
+            :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
+            @click="toggleRegExpMode"
+          >
+            <RegexIcon decorative />
+          </KCodeBlockIconButton>
+
+          <KCodeBlockIconButton
+            :active="isFilterMode"
+            :aria-label="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
+            :aria-pressed="isFilterMode"
+            class="action-button filter-mode-button"
+            data-testid="filter-mode-button"
+            :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
+            @click="toggleFilterMode"
+          >
+            <FilterIcon decorative />
+          </KCodeBlockIconButton>
+
+          <KCodeBlockIconButton
+            aria-label="Previous match (Shift+F3)"
+            class="previous-match-button"
+            data-testid="previous-match-button"
+            :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+            title="Previous match (Shift+F3)"
+            @click="jumpToPreviousMatch"
+          >
+            <ArrowUpIcon decorative />
+          </KCodeBlockIconButton>
+
+          <KCodeBlockIconButton
+            aria-label="Next match (F3)"
+            class="next-match-button"
+            data-testid="next-match-button"
+            :disabled="matchingLineNumbers.length === 0 || isFilterMode"
+            title="Next match (F3)"
+            @click="jumpToNextMatch"
+          >
+            <ArrowDownIcon decorative />
+          </KCodeBlockIconButton>
         </div>
-      </Transition>
-
-      <div class="code-block-search-actions">
-        <KCodeBlockIconButton
-          :active="isRegExpMode"
-          :aria-label="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
-          :aria-pressed="isRegExpMode"
-          class="regexp-mode-button"
-          data-testid="regexp-mode-button"
-          :title="`Use regular expression (${ALT_SHORTCUT_LABEL}+R)`"
-          @click="toggleRegExpMode"
-        >
-          <RegexIcon decorative />
-        </KCodeBlockIconButton>
-
-        <KCodeBlockIconButton
-          :active="isFilterMode"
-          :aria-label="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-          :aria-pressed="isFilterMode"
-          class="action-button filter-mode-button"
-          data-testid="filter-mode-button"
-          :title="`Filter results (${ALT_SHORTCUT_LABEL}+F)`"
-          @click="toggleFilterMode"
-        >
-          <FilterIcon decorative />
-        </KCodeBlockIconButton>
-
-        <KCodeBlockIconButton
-          aria-label="Previous match (Shift+F3)"
-          class="previous-match-button"
-          data-testid="previous-match-button"
-          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          title="Previous match (Shift+F3)"
-          @click="jumpToPreviousMatch"
-        >
-          <ArrowUpIcon decorative />
-        </KCodeBlockIconButton>
-
-        <KCodeBlockIconButton
-          aria-label="Next match (F3)"
-          class="next-match-button"
-          data-testid="next-match-button"
-          :disabled="matchingLineNumbers.length === 0 || isFilterMode"
-          title="Next match (F3)"
-          @click="jumpToNextMatch"
-        >
-          <ArrowDownIcon decorative />
-        </KCodeBlockIconButton>
-      </div>
+      </slot>
     </div>
 
     <div
@@ -227,7 +229,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { Comment, computed, Fragment, isVNode, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import type { VNodeArrayChildren } from 'vue'
 import { Virtualizer } from 'virtua/vue'
 import { debounce } from 'lodash-es'
 import KInput from '@/components/KInput/KInput.vue'
@@ -348,7 +351,29 @@ const filteredCode = computed((): string => {
 
   return highlightMatchingChars(filtered, searchQuery.value, isRegExpMode.value)
 })
-const showCodeBlockActions = computed((): boolean => !singleLine && searchable)
+/**
+ * Mirrors how Vue decides whether to render slot fallback content: a slot that renders only
+ * comments (e.g. its content is behind a falsy `v-if`) or empty fragments counts as empty.
+ */
+function hasValidVNodes(vnodes: VNodeArrayChildren): boolean {
+  return vnodes.some((child) => {
+    if (!isVNode(child)) {
+      return true
+    }
+
+    if (child.type === Comment) {
+      return false
+    }
+
+    return child.type !== Fragment || hasValidVNodes(child.children as VNodeArrayChildren)
+  })
+}
+
+// The `actions` slot replaces the search UI and its shortcuts only when it renders content, otherwise
+// the search UI is rendered as fallback. Slot content is not reactive, so read it at render and event
+// time instead of caching it in a computed.
+const isSearchReplaced = (): boolean => !!slots.actions && hasValidVNodes(slots.actions())
+const showCodeBlockActions = (): boolean => !singleLine && (searchable || isSearchReplaced())
 
 // The final code to be rendered in the code block, needs to be escaped so that
 // we can safely render it as `v-html`.
@@ -418,7 +443,7 @@ const commands: Record<CommandKeywords, Command> = {
   toggleFilterMode: {
     trigger: toggleFilterMode,
     isAllowedContext(event: Event) {
-      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     shouldPreventDefaultAction: true,
   },
@@ -426,7 +451,7 @@ const commands: Record<CommandKeywords, Command> = {
   toggleRegExpMode: {
     trigger: toggleRegExpMode,
     isAllowedContext(event: Event) {
-      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     shouldPreventDefaultAction: true,
   },
@@ -434,7 +459,7 @@ const commands: Record<CommandKeywords, Command> = {
   jumpToNextMatch: {
     trigger: jumpToNextMatch,
     isAllowedContext(event: Event) {
-      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value) && !isNativeEnterTarget(event)
     },
     isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
     shouldPreventDefaultAction: true,
@@ -443,7 +468,7 @@ const commands: Record<CommandKeywords, Command> = {
   jumpToPreviousMatch: {
     trigger: jumpToPreviousMatch,
     isAllowedContext(event: Event) {
-      return codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value) && !isNativeEnterTarget(event)
     },
     isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
     shouldPreventDefaultAction: true,
@@ -456,6 +481,21 @@ const commands: Record<CommandKeywords, Command> = {
     },
     shouldPreventDefaultAction: true,
   },
+}
+
+/**
+ * Whether an Enter key press targets an interactive element (e.g. a button in a slot) that should keep its native
+ * Enter behavior instead of jumping between matches. The search input is excluded so Enter still jumps from there.
+ */
+function isNativeEnterTarget(event: Event): boolean {
+  if (!(event instanceof KeyboardEvent) || event.key !== 'Enter' || !(event.target instanceof Element)) {
+    return false
+  }
+
+  const isSearchInputTarget = event.target instanceof HTMLInputElement && event.target.closest('.code-block-search-input') !== null
+
+  return !isSearchInputTarget
+    && event.target.closest('a[href], button, input, select, textarea, [contenteditable]:not([contenteditable="false"])') !== null
 }
 
 const shortcutManager = new ShortcutManager(keyMap, commands)

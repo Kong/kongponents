@@ -140,6 +140,10 @@ export interface CodeBlockEmits {
 
 export interface CodeBlockSlots {
   /**
+   * Content of the code block header. Replaces the search bar shown when `searchable` is true.
+   */
+  actions?(): any
+  /**
    * Additional actions to be displayed in the code block.
    */
   'secondary-actions'?(): any
