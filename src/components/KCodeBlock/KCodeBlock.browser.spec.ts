@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
+import { h } from 'vue'
 import { page, userEvent } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
 import { resetPointer } from '@test/utils/reset-pointer'
@@ -295,6 +296,51 @@ describe('KCodeBlock', () => {
 
     await userEvent.keyboard('{Alt>}r{/Alt}')
     await expect.poll(() => page.getByCSS('.matched-term').all().length).toBe(2)
+  })
+
+  it('renders the actions slot in the header even when not searchable', async () => {
+    await render(KCodeBlock, {
+      props: { id: 'code-block', language: 'json', code },
+      slots: { actions: () => h('button', { 'data-testid': 'custom-action' }, 'Action') },
+    })
+
+    await expect.element(page.getByCSS('.code-block-actions')).toBeInTheDocument()
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+  })
+
+  it('replaces the search UI and its shortcuts with the actions slot', async () => {
+    await render(KCodeBlock, {
+      props: { id: 'code-block', language: 'json', code, searchable: true, query: 'key' },
+      slots: { actions: () => h('button', { 'data-testid': 'custom-action' }, 'Action') },
+    })
+
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+    await expect.element(page.getByTestId('code-block-search-input')).not.toBeInTheDocument()
+
+    page.getByTestId('k-code-block').element().focus()
+
+    await userEvent.keyboard('{Alt>}f{/Alt}')
+    await expect.element(page.getByCSS('.filtered-code-block')).not.toBeInTheDocument()
+
+    await userEvent.keyboard('{F3}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+  })
+
+  it('does not swallow Enter on buttons within the code block', async () => {
+    const onClick = vi.fn()
+
+    await render(KCodeBlock, {
+      props: { id: 'code-block', language: 'json', code, highlightedLineNumbers: [2] },
+      slots: {
+        'secondary-actions': () => h('button', { 'data-testid': 'custom-action', onClick }, 'Action'),
+      },
+    })
+
+    page.getByTestId('custom-action').element().focus()
+    await userEvent.keyboard('{Enter}')
+
+    expect(onClick).toHaveBeenCalledTimes(1)
+    await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
   })
 
   it('can hide line numbers', async () => {

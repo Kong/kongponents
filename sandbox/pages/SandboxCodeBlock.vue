@@ -203,6 +203,26 @@
       />
       <SandboxSectionComponent
         class="limited-width"
+        title="actions"
+      >
+        <KCodeBlock
+          id="actions-slot"
+          :code="code"
+          language="json"
+          searchable
+        >
+          <template #actions>
+            <KButton
+              appearance="secondary"
+              size="small"
+            >
+              Action
+            </KButton>
+          </template>
+        </KCodeBlock>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
         title="secondary-actions"
       >
         <KCodeBlock
