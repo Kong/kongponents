@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { h } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 import { page, userEvent } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
 import { resetPointer } from '@test/utils/reset-pointer'
@@ -341,6 +341,38 @@ describe('KCodeBlock', () => {
 
     expect(onClick).toHaveBeenCalledTimes(1)
     await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+  })
+
+  it('reacts to the actions slot being added or removed after mount', async () => {
+    const hasActions = ref(false)
+    const Wrapper = defineComponent(() => () => h(
+      KCodeBlock,
+      { id: 'code-block', language: 'json', code, query: 'key' },
+      hasActions.value ? { actions: () => h('button', { 'data-testid': 'custom-action' }, 'Action') } : {},
+    ))
+
+    await render(Wrapper)
+    await expect.element(page.getByCSS('.code-block-actions')).not.toBeInTheDocument()
+
+    hasActions.value = true
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+
+    hasActions.value = false
+    await expect.element(page.getByCSS('.code-block-actions')).not.toBeInTheDocument()
+
+    // Search shortcuts work again once the slot is removed.
+    page.getByTestId('k-code-block').element().focus()
+    await userEvent.keyboard('{F3}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', 'code-block-L2')
+  })
+
+  it('activates the clear query button with Enter', async () => {
+    await renderComponent({ id: 'code-block', searchable: true, query: 'key' })
+
+    page.getByTestId('clear-query-button').element().focus()
+    await userEvent.keyboard('{Enter}')
+
+    await expect.element(page.getByTestId('code-block-search-input')).toHaveValue('')
   })
 
   it('can hide line numbers', async () => {

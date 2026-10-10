@@ -8,7 +8,7 @@
     @blur="currentLineIndex = null"
   >
     <div
-      v-if="showCodeBlockActions"
+      v-if="showCodeBlockActions()"
       class="code-block-actions"
     >
       <slot name="actions">
@@ -350,9 +350,10 @@ const filteredCode = computed((): string => {
 
   return highlightMatchingChars(filtered, searchQuery.value, isRegExpMode.value)
 })
-const showCodeBlockActions = computed((): boolean => !singleLine && (searchable || !!slots.actions))
-// The `actions` slot replaces the search UI, so search-related shortcuts are disabled when it's used.
-const isSearchReplaced = computed((): boolean => !!slots.actions)
+// The `actions` slot replaces the search UI and its shortcuts. Slot presence is not reactive,
+// so read it at render and event time instead of caching it in a computed.
+const showCodeBlockActions = (): boolean => !singleLine && (searchable || !!slots.actions)
+const isSearchReplaced = (): boolean => !!slots.actions
 
 // The final code to be rendered in the code block, needs to be escaped so that
 // we can safely render it as `v-html`.
@@ -422,7 +423,7 @@ const commands: Record<CommandKeywords, Command> = {
   toggleFilterMode: {
     trigger: toggleFilterMode,
     isAllowedContext(event: Event) {
-      return !isSearchReplaced.value && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     shouldPreventDefaultAction: true,
   },
@@ -430,7 +431,7 @@ const commands: Record<CommandKeywords, Command> = {
   toggleRegExpMode: {
     trigger: toggleRegExpMode,
     isAllowedContext(event: Event) {
-      return !isSearchReplaced.value && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value)
     },
     shouldPreventDefaultAction: true,
   },
@@ -438,7 +439,7 @@ const commands: Record<CommandKeywords, Command> = {
   jumpToNextMatch: {
     trigger: jumpToNextMatch,
     isAllowedContext(event: Event) {
-      return !isSearchReplaced.value && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value) && !isNativeEnterTarget(event)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value) && !isNativeEnterTarget(event)
     },
     isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
     shouldPreventDefaultAction: true,
@@ -447,7 +448,7 @@ const commands: Record<CommandKeywords, Command> = {
   jumpToPreviousMatch: {
     trigger: jumpToPreviousMatch,
     isAllowedContext(event: Event) {
-      return !isSearchReplaced.value && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value) && !isNativeEnterTarget(event)
+      return !isSearchReplaced() && codeBlockRef.value !== null && event.composedPath().includes(codeBlockRef.value) && !isNativeEnterTarget(event)
     },
     isDisabled: () => matchingLineNumbers.value.length === 0 || isFilterMode.value,
     shouldPreventDefaultAction: true,
@@ -471,7 +472,9 @@ function isNativeEnterTarget(event: Event): boolean {
     return false
   }
 
-  return event.target.closest('.code-block-search-input') === null
+  const isSearchInputTarget = event.target instanceof HTMLInputElement && event.target.closest('.code-block-search-input') !== null
+
+  return !isSearchInputTarget
     && event.target.closest('a[href], button, input, select, textarea, [contenteditable]:not([contenteditable="false"])') !== null
 }
 
