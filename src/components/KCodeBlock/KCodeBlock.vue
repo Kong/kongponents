@@ -229,7 +229,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { Comment, computed, Fragment, isVNode, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
+import type { VNodeArrayChildren } from 'vue'
 import { Virtualizer } from 'virtua/vue'
 import { debounce } from 'lodash-es'
 import KInput from '@/components/KInput/KInput.vue'
@@ -350,10 +351,29 @@ const filteredCode = computed((): string => {
 
   return highlightMatchingChars(filtered, searchQuery.value, isRegExpMode.value)
 })
-// The `actions` slot replaces the search UI and its shortcuts. Slot presence is not reactive,
-// so read it at render and event time instead of caching it in a computed.
-const showCodeBlockActions = (): boolean => !singleLine && (searchable || !!slots.actions)
-const isSearchReplaced = (): boolean => !!slots.actions
+/**
+ * Mirrors how Vue decides whether to render slot fallback content: a slot that renders only
+ * comments (e.g. its content is behind a falsy `v-if`) or empty fragments counts as empty.
+ */
+function hasValidVNodes(vnodes: VNodeArrayChildren): boolean {
+  return vnodes.some((child) => {
+    if (!isVNode(child)) {
+      return true
+    }
+
+    if (child.type === Comment) {
+      return false
+    }
+
+    return child.type !== Fragment || hasValidVNodes(child.children as VNodeArrayChildren)
+  })
+}
+
+// The `actions` slot replaces the search UI and its shortcuts only when it renders content, otherwise
+// the search UI is rendered as fallback. Slot content is not reactive, so read it at render and event
+// time instead of caching it in a computed.
+const isSearchReplaced = (): boolean => !!slots.actions && hasValidVNodes(slots.actions())
+const showCodeBlockActions = (): boolean => !singleLine && (searchable || isSearchReplaced())
 
 // The final code to be rendered in the code block, needs to be escaped so that
 // we can safely render it as `v-html`.

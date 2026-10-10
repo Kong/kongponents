@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { defineComponent, h, ref } from 'vue'
+import { createCommentVNode, defineComponent, h, ref } from 'vue'
 import { page, userEvent } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
 import { resetPointer } from '@test/utils/reset-pointer'
@@ -364,6 +364,35 @@ describe('KCodeBlock', () => {
     page.getByTestId('k-code-block').element().focus()
     await userEvent.keyboard('{F3}')
     await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', 'code-block-L2')
+  })
+
+  it('falls back to the search UI and its shortcuts when the actions slot renders no content', async () => {
+    const hasContent = ref(true)
+    const searchable = ref(true)
+    // Mimics `<template #actions><button v-if="hasContent" /></template>`, where the slot is always passed.
+    const Wrapper = defineComponent(() => () => h(
+      KCodeBlock,
+      { id: 'code-block', language: 'json', code, query: 'key', searchable: searchable.value },
+      { actions: () => [hasContent.value ? h('button', { 'data-testid': 'custom-action' }, 'Action') : createCommentVNode('v-if', true)] },
+    ))
+
+    await render(Wrapper)
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+    await expect.element(page.getByTestId('code-block-search-input')).not.toBeInTheDocument()
+
+    hasContent.value = false
+    await expect.element(page.getByTestId('code-block-search-input')).toBeInTheDocument()
+
+    page.getByTestId('k-code-block').element().focus()
+    await userEvent.keyboard('{F3}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', 'code-block-L2')
+
+    await userEvent.keyboard('{Alt>}f{/Alt}')
+    await expect.element(page.getByCSS('.filtered-code-block')).toBeInTheDocument()
+
+    // Without `searchable`, an empty slot doesn't render the header at all.
+    searchable.value = false
+    await expect.element(page.getByCSS('.code-block-actions')).not.toBeInTheDocument()
   })
 
   it('activates the clear query button with Enter', async () => {
