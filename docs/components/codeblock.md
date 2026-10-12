@@ -324,6 +324,8 @@ You might need to turn this off for sites that already constantly use the fragme
 
 Allows rendering custom content in the code block header. When provided, the header is shown regardless of the [`searchable` prop](#searchable), and the slot content replaces the search bar along with its keyboard shortcuts.
 
+This also applies when the slot renders no content. To restore the search bar, conditionally provide the slot itself (for example, `<template v-if="showActions" #actions>`). The header remains hidden in `singleLine` mode.
+
 <KCodeBlock
   id="code-block-slots-actions"
   :code="code"

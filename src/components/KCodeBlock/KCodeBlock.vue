@@ -11,7 +11,11 @@
       v-if="showCodeBlockActions()"
       class="code-block-actions"
     >
-      <slot name="actions">
+      <slot
+        v-if="slots.actions"
+        name="actions"
+      />
+      <template v-else>
         <KInput
           v-model="searchQuery"
           aria-label="Search"
@@ -131,7 +135,7 @@
             <ArrowDownIcon decorative />
           </KCodeBlockIconButton>
         </div>
-      </slot>
+      </template>
     </div>
 
     <div
@@ -229,8 +233,7 @@
 </template>
 
 <script setup lang="ts">
-import { Comment, computed, Fragment, isVNode, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
-import type { VNodeArrayChildren } from 'vue'
+import { computed, nextTick, normalizeClass, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { Virtualizer } from 'virtua/vue'
 import { debounce } from 'lodash-es'
 import KInput from '@/components/KInput/KInput.vue'
@@ -251,6 +254,7 @@ import { KUI_COLOR_TEXT_NEUTRAL_STRONG, KUI_ICON_SIZE_30, KUI_LINE_HEIGHT_30 } f
 import KCodeBlockIconButton from './KCodeBlockIconButton.vue'
 import { IS_MAYBE_MAC } from '@/utilities/browser'
 import { normalizeSize } from '@/utilities/css'
+import { findInteractiveAncestor } from '@/utilities/interactiveElements'
 
 const ALT_SHORTCUT_LABEL = IS_MAYBE_MAC ? 'Option' : 'Alt'
 
@@ -351,28 +355,8 @@ const filteredCode = computed((): string => {
 
   return highlightMatchingChars(filtered, searchQuery.value, isRegExpMode.value)
 })
-/**
- * Mirrors how Vue decides whether to render slot fallback content: a slot that renders only
- * comments (e.g. its content is behind a falsy `v-if`) or empty fragments counts as empty.
- */
-function hasValidVNodes(vnodes: VNodeArrayChildren): boolean {
-  return vnodes.some((child) => {
-    if (!isVNode(child)) {
-      return true
-    }
-
-    if (child.type === Comment) {
-      return false
-    }
-
-    return child.type !== Fragment || hasValidVNodes(child.children as VNodeArrayChildren)
-  })
-}
-
-// The `actions` slot replaces the search UI and its shortcuts only when it renders content, otherwise
-// the search UI is rendered as fallback. Slot content is not reactive, so read it at render and event
-// time instead of caching it in a computed.
-const isSearchReplaced = (): boolean => !!slots.actions && hasValidVNodes(slots.actions())
+// Slot presence is not reactive, so read it at render and event time instead of caching it in a computed.
+const isSearchReplaced = (): boolean => !!slots.actions
 const showCodeBlockActions = (): boolean => !singleLine && (searchable || isSearchReplaced())
 
 // The final code to be rendered in the code block, needs to be escaped so that
@@ -495,7 +479,7 @@ function isNativeEnterTarget(event: Event): boolean {
   const isSearchInputTarget = event.target instanceof HTMLInputElement && event.target.closest('.code-block-search-input') !== null
 
   return !isSearchInputTarget
-    && event.target.closest('a[href], button, input, select, textarea, [contenteditable]:not([contenteditable="false"])') !== null
+    && findInteractiveAncestor(event.target, '[contenteditable]:not([contenteditable="false"])') !== null
 }
 
 const shortcutManager = new ShortcutManager(keyMap, commands)
