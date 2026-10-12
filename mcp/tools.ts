@@ -6,9 +6,9 @@ import { searchDocumentation } from './lib/search'
 
 export type ToolResult = CallToolResult
 
-const success = (text: string, structuredContent: Record<string, unknown>): ToolResult => ({
+const success = (text: string, structuredContent?: Record<string, unknown>): ToolResult => ({
   content: [{ type: 'text', text }],
-  structuredContent,
+  ...(structuredContent ? { structuredContent } : {}),
 })
 
 const failure = (message: string): ToolResult => ({
@@ -24,12 +24,6 @@ const componentSummary = (component: McpSnapshot['components'][number]) => ({
   exports: component.exports,
   deprecated: component.deprecated ?? false,
 })
-
-const headingAnchor = (heading: string): string => heading
-  .trim()
-  .toLowerCase()
-  .replace(/[^a-z0-9\s-]/g, '')
-  .replace(/\s+/g, '-')
 
 export const createToolHandlers = (snapshot: McpSnapshot) => ({
   listComponents: (query?: string): ToolResult => {
@@ -57,9 +51,7 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
       const selection = sections?.length ? extractDocumentationSections(scopedMarkdown, sections) : undefined
       return {
         ...componentSummary(resolved),
-        canonicalUrl: resolved.docHeading ? `${doc.canonicalUrl}#${headingAnchor(resolved.docHeading)}` : doc.canonicalUrl,
         markdown: selection?.markdown ?? scopedMarkdown,
-        returnedSections: selection?.matchedSections ?? ['All'],
         availableSections: selection?.availableSections ?? ['Overview', ...listDocumentationSections(scopedMarkdown)],
       }
     })
@@ -67,17 +59,7 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
     if (emptySelection) {
       return failure(`None of the requested sections were found for ${emptySelection.exports[0]}. Available sections: ${emptySelection.availableSections.join(', ')}.`)
     }
-    const metadata = results.map((result) => ({
-      title: result.title,
-      slug: result.slug,
-      docPath: result.docPath,
-      exports: result.exports,
-      deprecated: result.deprecated,
-      canonicalUrl: result.canonicalUrl,
-      returnedSections: result.returnedSections,
-      availableSections: result.availableSections,
-    }))
-    return success(results.map((result) => `# ${result.exports.join(', ')}\n\n${result.markdown}`).join('\n\n---\n\n'), { components: metadata })
+    return success(results.map((result) => `# ${result.exports.join(', ')}\n\n${result.markdown}`).join('\n\n---\n\n'))
   },
 
   getComponentProperty: (identifier: string, property: string): ToolResult => {
@@ -90,11 +72,7 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
     if (!result.markdown || !result.matchedProperty) {
       return failure(`Unknown property "${property}" for ${component.exports[0]}. Available properties: ${result.availableProperties.join(', ') || 'none documented'}.`)
     }
-    return success(`# ${component.exports[0]}: ${result.matchedProperty}\n\n${result.markdown}`, {
-      component: componentSummary(component),
-      property: result.matchedProperty,
-      canonicalUrl: component.docHeading ? `${doc.canonicalUrl}#${headingAnchor(component.docHeading)}` : doc.canonicalUrl,
-    })
+    return success(`# ${component.exports[0]}: ${result.matchedProperty}\n\n${result.markdown}`)
   },
 
   getComponentSourceCode: (identifiers: string[]): ToolResult => {
@@ -109,12 +87,7 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
       files: [...component!.sourceFiles, ...component!.typeFiles],
     }))
     const text = results.flatMap((result) => result.files.map((file) => `## ${result.component}: ${file.path}\n\n\`\`\`\n${file.content}\n\`\`\``)).join('\n\n')
-    return success(text, {
-      components: results.map((result) => ({
-        component: result.component,
-        files: result.files.map((file) => ({ path: file.path, sizeChars: file.content.length })),
-      })),
-    })
+    return success(text)
   },
 
   getComponentSourceStyles: (identifiers: string[], includeShared: boolean = false): ToolResult => {
@@ -132,13 +105,7 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
     if (includeShared) {
       blocks.push(...snapshot.sharedStyles.map((file) => `## Shared: ${file.path}\n\n\`\`\`scss\n${file.content}\n\`\`\``))
     }
-    return success(blocks.join('\n\n'), {
-      components: results.map((result) => ({
-        component: result.component,
-        styles: result.styles.map((style) => ({ path: style.path, lang: style.lang, scoped: style.scoped, sizeChars: style.content.length })),
-      })),
-      sharedStyles: includeShared ? snapshot.sharedStyles.map((file) => ({ path: file.path, sizeChars: file.content.length })) : [],
-    })
+    return success(blocks.join('\n\n'))
   },
 
   listDocs: (section?: McpSnapshot['docs'][number]['section'], query?: string): ToolResult => {
@@ -151,29 +118,12 @@ export const createToolHandlers = (snapshot: McpSnapshot) => ({
 
   searchDocs: (query: string, section?: McpSnapshot['docs'][number]['section'], limit?: number): ToolResult => {
     const results = searchDocumentation(snapshot.docs, query, section, limit)
-    return success(results.map((result) => `## ${result.title}\n${result.path}\n\n${result.snippet}`).join('\n\n') || 'No documentation content matched the query.', {
-      results: results.map((result) => ({
-        title: result.title,
-        path: result.path,
-        section: result.section,
-        canonicalUrl: result.canonicalUrl,
-        score: result.score,
-      })),
-    })
+    return success(results.map((result) => `## ${result.title}\n${result.path}\n\n${result.snippet}`).join('\n\n') || 'No documentation content matched the query.')
   },
 
   getDocs: (path: string): ToolResult => {
     const doc = resolveDoc(snapshot, path)
     if (!doc) return failure(`Unknown documentation path "${path}". Did you mean: ${docSuggestions(snapshot, path).join(', ')}?`)
-    return success(doc.content, {
-      doc: {
-        path: doc.path,
-        sourcePath: doc.sourcePath,
-        title: doc.title,
-        section: doc.section,
-        canonicalUrl: doc.canonicalUrl,
-        frontmatter: doc.frontmatter,
-      },
-    })
+    return success(doc.content)
   },
 })

@@ -9,27 +9,36 @@ export interface SearchResult {
   score: number
 }
 
-const createSnippet = (content: string, query: string): string => {
+const queryTerms = (query: string): string[] => [...new Set(query.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [])]
+
+const createSnippet = (content: string, terms: string[]): string => {
   const normalizedContent = content.replace(/\s+/g, ' ').trim()
-  const matchIndex = normalizedContent.toLowerCase().indexOf(query.toLowerCase())
-  if (matchIndex < 0) return normalizedContent.slice(0, 220)
-  const start = Math.max(0, matchIndex - 90)
-  const end = Math.min(normalizedContent.length, matchIndex + query.length + 130)
+  const lowerContent = normalizedContent.toLowerCase()
+  const matchIndexes = terms.map((term) => lowerContent.indexOf(term)).filter((index) => index >= 0)
+  if (!matchIndexes.length) return normalizedContent.slice(0, 220)
+  const starts = matchIndexes.map((index) => Math.max(0, index - 90))
+  const start = starts.reduce((best, candidate) => {
+    const coverage = (position: number) => terms.filter((term) => lowerContent.slice(position, position + 220).includes(term)).length
+    return coverage(candidate) > coverage(best) ? candidate : best
+  })
+  const end = Math.min(normalizedContent.length, start + 220)
   return `${start > 0 ? '…' : ''}${normalizedContent.slice(start, end)}${end < normalizedContent.length ? '…' : ''}`
 }
 
-const scoreDoc = (doc: DocumentationPage, query: string): number => {
-  const normalizedQuery = query.toLowerCase()
+const scoreDoc = (doc: DocumentationPage, terms: string[], query: string): number => {
+  if (!terms.length) return 0
   const title = doc.title.toLowerCase()
   const path = doc.path.toLowerCase()
   const content = doc.content.toLowerCase()
-  if (title === normalizedQuery) return 100
-  if (title.startsWith(normalizedQuery)) return 80
-  if (path.startsWith(normalizedQuery) || path.startsWith(`/${normalizedQuery}`)) return 70
-  if (title.includes(normalizedQuery)) return 60
-  if (path.includes(normalizedQuery)) return 50
-  if (content.includes(normalizedQuery)) return 10
-  return 0
+  const matches = terms.filter((term) => title.includes(term) || path.includes(term) || content.includes(term))
+  if (matches.length < Math.min(2, terms.length)) return 0
+
+  const termScore = matches.reduce((score, term) => score
+    + (title.includes(term) ? 20 : 0)
+    + (path.includes(term) ? 10 : 0)
+    + (content.includes(term) ? 2 : 0), 0)
+  const phraseScore = title === query ? 80 : title.includes(query) ? 40 : path.includes(query) ? 30 : 0
+  return termScore + phraseScore + Math.round(20 * matches.length / terms.length)
 }
 
 export const searchDocumentation = (
@@ -37,17 +46,21 @@ export const searchDocumentation = (
   query: string,
   section?: DocumentationSection,
   limit: number = 10,
-): SearchResult[] => docs
-  .filter((doc) => !section || doc.section === section)
-  .map((doc) => ({ doc, score: scoreDoc(doc, query) }))
-  .filter(({ score }) => score > 0)
-  .sort((left, right) => right.score - left.score || left.doc.title.localeCompare(right.doc.title))
-  .slice(0, limit)
-  .map(({ doc, score }) => ({
-    title: doc.title,
-    path: doc.path,
-    section: doc.section,
-    canonicalUrl: doc.canonicalUrl,
-    snippet: createSnippet(doc.content, query),
-    score,
-  }))
+): SearchResult[] => {
+  const terms = queryTerms(query)
+  const normalizedQuery = query.trim().toLowerCase()
+  return docs
+    .filter((doc) => !section || doc.section === section)
+    .map((doc) => ({ doc, score: scoreDoc(doc, terms, normalizedQuery) }))
+    .filter(({ score }) => score > 0)
+    .sort((left, right) => right.score - left.score || left.doc.title.localeCompare(right.doc.title))
+    .slice(0, limit)
+    .map(({ doc, score }) => ({
+      title: doc.title,
+      path: doc.path,
+      section: doc.section,
+      canonicalUrl: doc.canonicalUrl,
+      snippet: createSnippet(doc.content, terms),
+      score,
+    }))
+}
