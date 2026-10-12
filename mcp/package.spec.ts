@@ -52,6 +52,32 @@ describe('Kongponents MCP package', () => {
       await client.connect(transport)
       const { tools } = await client.listTools()
       expect(tools.map((tool) => tool.name)).toContain('get_component_docs')
+
+      const componentList = await client.callTool({ name: 'list_components', arguments: { query: 'button' } })
+      const docList = await client.callTool({ name: 'list_docs', arguments: { query: 'usage' } })
+      expect(componentList.structuredContent).toMatchObject({ components: expect.any(Array) })
+      expect(docList.structuredContent).toMatchObject({ docs: expect.any(Array) })
+
+      const contentCalls = [
+        { name: 'get_component_docs', arguments: { components: ['KButton'] }, expected: '## Props' },
+        { name: 'get_component_property', arguments: { component: 'KButton', property: 'appearance' }, expected: '### appearance' },
+        { name: 'get_component_source_code', arguments: { components: ['KButton'] }, expected: '<template>' },
+        { name: 'get_component_source_styles', arguments: { components: ['KButton'] }, expected: 'scss' },
+        { name: 'get_docs', arguments: { path: '/guide/usage' }, expected: '# Usage' },
+        { name: 'search_docs', arguments: { query: 'confirmation modal confirm action' }, expected: 'confirm their action' },
+      ]
+      for (const { name, arguments: args, expected } of contentCalls) {
+        const result = await client.callTool({ name, arguments: args })
+        expect(result.isError, name).not.toBe(true)
+        expect(result.structuredContent, name).toBeUndefined()
+        expect(result.content[0].type === 'text' && result.content[0].text, name).toContain(expected)
+      }
+
+      const docs = await client.callTool({ name: 'get_docs', arguments: { path: '/guide/usage' } })
+      expect(docs.content[0].type === 'text' && docs.content[0].text.length).toBeGreaterThan(1000)
+
+      const search = await client.callTool({ name: 'search_docs', arguments: { query: 'confirmation modal confirm action' } })
+      expect(search.content[0].type === 'text' && search.content[0].text).toContain('/components/modal')
     } finally {
       await client.close()
     }

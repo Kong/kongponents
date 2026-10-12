@@ -3,6 +3,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { createToolHandlers } from './tools'
 import { extractComponentProperty, extractDocumentationScope, listComponentProperties } from './lib/markdown'
+import { searchDocumentation } from './lib/search'
 import type { McpSnapshot } from './types'
 
 const snapshot = JSON.parse(readFileSync(path.resolve('bin/mcp-data/snapshot.json'), 'utf8')) as McpSnapshot
@@ -65,10 +66,7 @@ describe('Kongponents MCP tools', () => {
     const text = result.content[0].type === 'text' ? result.content[0].text : ''
     expect(text).toContain('## Props')
     expect(text).not.toContain('## Slots')
-    expect(result.structuredContent).toMatchObject({
-      components: [{ returnedSections: ['Props'] }],
-    })
-    expect(JSON.stringify(result.structuredContent)).not.toContain('### appearance')
+    expect(result.structuredContent).toBeUndefined()
   })
 
   it('returns one exact component property without the rest of the props', () => {
@@ -77,7 +75,7 @@ describe('Kongponents MCP tools', () => {
     const text = result.content[0].type === 'text' ? result.content[0].text : ''
     expect(text).toContain('### appearance')
     expect(text).not.toContain('### size')
-    expect(result.structuredContent).toMatchObject({ property: 'appearance' })
+    expect(result.structuredContent).toBeUndefined()
   })
 
   it('does not return a slot with the same name as a requested property', () => {
@@ -125,20 +123,33 @@ describe('Kongponents MCP tools', () => {
     expect(result.content[0].type === 'text' && result.content[0].text).toContain('appearance')
   })
 
-  it('does not duplicate large payloads in structured content', () => {
-    const docsResult = handlers.getComponentDocs(['KButton'])
-    const sourceResult = handlers.getComponentSourceCode(['KButton'])
-    const pageResult = handlers.getDocs('/components/button')
+  it('returns content tools as text without metadata-only structured content', () => {
+    const results = [
+      handlers.getComponentDocs(['KButton']),
+      handlers.getComponentProperty('KButton', 'appearance'),
+      handlers.getComponentSourceCode(['KButton']),
+      handlers.getComponentSourceStyles(['KButton']),
+      handlers.searchDocs('theming'),
+      handlers.getDocs('/components/button'),
+    ]
 
-    expect(JSON.stringify(docsResult.structuredContent)).not.toContain('markdown')
-    expect(JSON.stringify(sourceResult.structuredContent)).not.toContain('<template>')
-    expect(JSON.stringify(pageResult.structuredContent)).not.toContain('KButton is probably the most used')
+    for (const result of results) {
+      expect(result.isError).not.toBe(true)
+      expect(result.structuredContent).toBeUndefined()
+      expect(result.content[0].type === 'text' && result.content[0].text.length).toBeGreaterThan(0)
+    }
   })
 
   it('searches documentation with title matches before content matches', () => {
-    const result = handlers.searchDocs('theming')
-    const structuredContent = result.structuredContent as { results: Array<{ path: string }> }
-    expect(structuredContent.results[0].path).toBe('/guide/theming')
+    const results = searchDocumentation(snapshot.docs, 'theming')
+    expect(results[0].path).toBe('/guide/theming')
+  })
+
+  it('finds a confirmation modal from a natural-language query', () => {
+    const results = searchDocumentation(snapshot.docs, 'confirmation modal confirm action')
+    expect(results[0].path).toBe('/components/modal')
+    expect(results[0].snippet).toContain('confirm their action')
+    expect(new Set(results.map((result) => result.score)).size).toBeGreaterThan(1)
   })
 
   it('normalizes documentation paths without exposing the filesystem', () => {
