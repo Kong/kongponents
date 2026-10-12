@@ -12,7 +12,7 @@
       class="code-block-actions"
     >
       <slot
-        v-if="slots.actions"
+        v-if="isSearchReplaced()"
         name="actions"
       />
       <template v-else>
@@ -477,9 +477,11 @@ function isNativeEnterTarget(event: Event): boolean {
   }
 
   const isSearchInputTarget = event.target instanceof HTMLInputElement && event.target.closest('.code-block-search-input') !== null
+  const interactiveAncestor = findInteractiveAncestor(event.target, '[contenteditable]:not([contenteditable="false"])')
 
   return !isSearchInputTarget
-    && findInteractiveAncestor(event.target, '[contenteditable]:not([contenteditable="false"])') !== null
+    && interactiveAncestor !== null
+    && codeBlockRef.value?.contains(interactiveAncestor) === true
 }
 
 const shortcutManager = new ShortcutManager(keyMap, commands)
