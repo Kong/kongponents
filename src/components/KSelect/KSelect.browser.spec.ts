@@ -1043,6 +1043,26 @@ describe('KSelect', () => {
       await expect.poll(() => document.activeElement).toBe(page.getByTestId('select-item-val2').getByRole('button').element())
     })
 
+    it('focuses the last item when opening with arrow up and nothing is selected', async () => {
+      await render(KSelect, { props: { items } })
+
+      getInput().focus()
+      await userEvent.keyboard('{ArrowUp}')
+      await expect.poll(() => document.activeElement).toBe(page.getByTestId('select-item-val2').getByRole('button').element())
+    })
+
+    it('focuses the selected item on arrow down after opening with enter', async () => {
+      await render(KSelect, { props: { items, modelValue: 'val2' } })
+
+      getInput().focus()
+      await userEvent.keyboard('{Enter}')
+      await expect.element(page.getByCSS('.select-popover')).toBeVisible()
+      expect(document.activeElement).toBe(getInput())
+
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.poll(() => document.activeElement).toBe(page.getByTestId('select-item-val2').getByRole('button').element())
+    })
+
     it('opens the dropdown when typing with filtering enabled', async () => {
       await render(KSelect, { props: { items, enableFiltering: true } })
 

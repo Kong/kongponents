@@ -124,12 +124,17 @@ const moveItemFocus = (direction: 'down' | 'up'): void => {
   }
 }
 
-// focuses the selected item, or the first item when none is selected
-const focusSelectedItem = (): void => {
+// focuses the selected item, or the first (down) or last (up) item when none is selected
+const focusSelectedItem = (direction: 'down' | 'up'): void => {
   const container = itemsContainerRef.value
-  const item = container?.querySelector<HTMLButtonElement>(SELECTED_ITEM_SELECTOR) ?? container?.querySelector<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
+  const selectedItem = container?.querySelector<HTMLButtonElement>(SELECTED_ITEM_SELECTOR)
+  if (selectedItem) {
+    selectedItem.focus()
+    return
+  }
 
-  item?.focus()
+  const items = container?.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
+  items?.[direction === 'down' ? 0 : items.length - 1]?.focus()
 }
 
 const onKeyPress = ({ target, key } : KeyboardEvent) => {

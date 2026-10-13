@@ -187,6 +187,7 @@
           <div
             v-if="hasDropdownFooter() && resolvedDropdownFooterPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
+            @keydown.esc="focusInput"
           >
             <slot
               v-if="$slots['dropdown-footer']"
@@ -551,15 +552,18 @@ const selectItemsRef = useTemplateRef('kSelectItems')
 // https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
 const NAVIGATION_KEYS = ['ArrowDown', 'ArrowUp']
 const OPEN_KEYS = [...NAVIGATION_KEYS, 'Enter', ' ']
-// keys that never open the dropdown, e.g. so that tabbing onto or away from the select doesn't
+// keys that never open the dropdown, e.g. so that tabbing onto or away from the select doesn't open it
 const IGNORED_KEYS = ['Tab', 'Escape', 'Shift', 'Control', 'Alt', 'Meta', 'CapsLock']
 
 const triggerFocus = (evt: KeyboardEvent, isToggled: Ref<boolean>): void => {
   const isNavigationKey = NAVIGATION_KEYS.includes(evt.key)
+  const direction = evt.key === 'ArrowDown' ? 'down' : 'up'
 
   if (isToggled.value) {
+    // focus is still on the input, so move it into the dropdown starting from the selected item
     if (isNavigationKey) {
-      selectItemsRef.value?.setFocus(evt.key === 'ArrowDown' ? 'down' : 'up')
+      evt.preventDefault()
+      selectItemsRef.value?.focusSelectedItem(direction)
     }
     return
   }
@@ -575,7 +579,7 @@ const triggerFocus = (evt: KeyboardEvent, isToggled: Ref<boolean>): void => {
   if (isNavigationKey) {
     // prevent the page from scrolling
     evt.preventDefault()
-    nextTick(() => selectItemsRef.value?.focusSelectedItem())
+    nextTick(() => selectItemsRef.value?.focusSelectedItem(direction))
   }
 }
 
