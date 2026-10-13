@@ -741,7 +741,11 @@ function getVirtualizerProps(filtered: boolean): VirtualizerProps {
     border-bottom-color: var(--kui-code-block-actions-color-border, var(--kui-color-border, $kui-color-border));
     border-bottom-style: solid;
     border-bottom-width: var(--kui-code-block-actions-border-width, var(--kui-border-width-10, $kui-border-width-10));
+    box-sizing: content-box; // min-height applies to the content box so it stays independent of the customizable padding and border
     justify-content: space-between;
+    // match the search input height so slotted content keeps a consistent header height
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+    min-height: calc(var(--kui-input-line-height, var(--kui-line-height-40, $kui-line-height-40)) + 2 * var(--kui-input-padding-y, var(--kui-space-40, $kui-space-40)));
     padding: var(--kui-code-block-actions-padding, var(--kui-space-20, $kui-space-20) var(--kui-space-40, $kui-space-40));
 
     .code-block-search-input {
