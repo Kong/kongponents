@@ -1,3 +1,10 @@
+# [9.65.0](https://github.com/Kong/kongponents/compare/v9.64.25...v9.65.0) (2026-10-14)
+
+
+### Features
+
+* **kcodeblock:** add actions slot [KM-3400] ([#3464](https://github.com/Kong/kongponents/issues/3464)) ([421c6fd](https://github.com/Kong/kongponents/commit/421c6fd9ec30adec90590600a67a1a80dbf0661f))
+
 ## [9.64.25](https://github.com/Kong/kongponents/compare/v9.64.24...v9.64.25) (2026-10-09)
 
 
