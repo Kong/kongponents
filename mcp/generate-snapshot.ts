@@ -5,13 +5,14 @@ import { fileURLToPath } from 'node:url'
 import { gzipSync } from 'node:zlib'
 import { parse as parseYaml } from 'yaml'
 import { createComponentCatalog, UNDOCUMENTED_COMPONENT_EXPORTS } from './catalog'
+import { snapshotFilename } from './snapshot-format'
 import type { ComponentCatalogDefinition, ComponentRecord, DocumentationPage, DocumentationSection, McpSnapshot, SnapshotFile, StyleBlock } from './types'
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DOCS_ROOT = path.join(REPO_ROOT, 'docs')
 const SNAPSHOT_DIRECTORY = path.join(REPO_ROOT, 'bin/mcp-data')
 const SNAPSHOT_FORMAT = process.env.SNAPSHOT_FORMAT === 'json' ? 'json' : 'gzip'
-const OUTPUT_PATH = path.join(SNAPSHOT_DIRECTORY, SNAPSHOT_FORMAT === 'json' ? 'snapshot.json' : 'snapshot.json.gz')
+const OUTPUT_PATH = path.join(SNAPSHOT_DIRECTORY, snapshotFilename(SNAPSHOT_FORMAT))
 const DEPLOYED_HOSTNAME = 'https://kongponents.konghq.com'
 
 /** Convert a documentation route into the public URL shipped in MCP responses. */
@@ -205,7 +206,7 @@ const main = async (): Promise<void> => {
   }
 
   await mkdir(path.dirname(OUTPUT_PATH), { recursive: true })
-  await rm(path.join(SNAPSHOT_DIRECTORY, SNAPSHOT_FORMAT === 'json' ? 'snapshot.json.gz' : 'snapshot.json'), { force: true })
+  await rm(path.join(SNAPSHOT_DIRECTORY, snapshotFilename(SNAPSHOT_FORMAT === 'json' ? 'gzip' : 'json')), { force: true })
   const serialized = Buffer.from(`${JSON.stringify(snapshot)}\n`)
   await writeFile(OUTPUT_PATH, SNAPSHOT_FORMAT === 'json' ? serialized : gzipSync(serialized, { level: 9 }))
   process.stderr.write(`Generated Kongponents MCP snapshot: ${docs.length} docs, ${components.length} components.\n`)
