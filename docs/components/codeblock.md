@@ -320,6 +320,38 @@ You might need to turn this off for sites that already constantly use the fragme
 
 ## Slots
 
+### actions
+
+Allows rendering custom content in the code block header. When provided, the header is shown regardless of the [`searchable` prop](#searchable), and the slot content replaces the search bar along with its keyboard shortcuts.
+
+This also applies when the slot renders no content. To restore the search bar, conditionally provide the slot itself (for example, `<template v-if="showActions" #actions>`). The header remains hidden in `singleLine` mode.
+
+<KCodeBlock
+  id="code-block-slots-actions"
+  :code="code"
+  language="json"
+>
+  <template #actions>
+    <KSelect
+      :items="[{ label: 'JSON', value: 'json', selected: true }, { label: 'YAML', value: 'yaml' }]"
+    />
+  </template>
+</KCodeBlock>
+
+```html
+<KCodeBlock
+  id="code-block-slots-actions"
+  :code="code"
+  language="json"
+>
+  <template #actions>
+    <KSelect
+      :items="[{ label: 'JSON', value: 'json', selected: true }, { label: 'YAML', value: 'yaml' }]"
+    />
+  </template>
+</KCodeBlock>
+```
+
 ### secondary-actions
 
 Allows adding elements after the location of the copy button. See example in [KCodeBlockIconButton component docs section](#kcodeblockiconbutton).

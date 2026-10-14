@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
+import { createCommentVNode, defineComponent, h, ref } from 'vue'
 import { page, userEvent } from 'vitest/browser'
 import { render } from 'vitest-browser-vue'
 import { resetPointer } from '@test/utils/reset-pointer'
@@ -295,6 +296,160 @@ describe('KCodeBlock', () => {
 
     await userEvent.keyboard('{Alt>}r{/Alt}')
     await expect.poll(() => page.getByCSS('.matched-term').all().length).toBe(2)
+  })
+
+  it('renders the actions slot in the header even when not searchable', async () => {
+    await render(KCodeBlock, {
+      props: { id: 'code-block', language: 'json', code },
+      slots: { actions: () => h('button', { 'data-testid': 'custom-action' }, 'Action') },
+    })
+
+    await expect.element(page.getByCSS('.code-block-actions')).toBeInTheDocument()
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+  })
+
+  it('replaces the search UI and its shortcuts with the actions slot', async () => {
+    await render(KCodeBlock, {
+      props: { id: 'code-block', language: 'json', code, searchable: true, query: 'key' },
+      slots: { actions: () => h('button', { 'data-testid': 'custom-action' }, 'Action') },
+    })
+
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+    await expect.element(page.getByTestId('code-block-search-input')).not.toBeInTheDocument()
+
+    page.getByTestId('k-code-block').element().focus()
+
+    await userEvent.keyboard('{Alt>}f{/Alt}')
+    await expect.element(page.getByCSS('.filtered-code-block')).not.toBeInTheDocument()
+
+    await userEvent.keyboard('{F3}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+  })
+
+  it('does not swallow Enter on buttons within the code block', async () => {
+    const onClick = vi.fn()
+
+    await render(KCodeBlock, {
+      props: { id: 'code-block', language: 'json', code, highlightedLineNumbers: [2] },
+      slots: {
+        'secondary-actions': () => h('button', { 'data-testid': 'custom-action', onClick }, 'Action'),
+      },
+    })
+
+    page.getByTestId('custom-action').element().focus()
+    await userEvent.keyboard('{Enter}')
+
+    expect(onClick).toHaveBeenCalledTimes(1)
+    await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+  })
+
+  it.each([false, true])('reacts to actions slot changes with searchable=%s', async (searchable) => {
+    const hasActions = ref(false)
+    const Wrapper = defineComponent(() => () => h(
+      KCodeBlock,
+      { id: 'code-block', language: 'json', code, query: 'key', searchable },
+      hasActions.value ? { actions: () => h('button', { 'data-testid': 'custom-action' }, 'Action') } : {},
+    ))
+
+    await render(Wrapper)
+    await expect.poll(() => page.getByCSS('.code-block-actions').all().length).toBe(searchable ? 1 : 0)
+    await expect.poll(() => page.getByTestId('code-block-search-input').all().length).toBe(searchable ? 1 : 0)
+
+    hasActions.value = true
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+    await expect.element(page.getByTestId('code-block-search-input')).not.toBeInTheDocument()
+
+    page.getByTestId('k-code-block').element().focus()
+    await userEvent.keyboard('{F3}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+
+    hasActions.value = false
+    await expect.element(page.getByTestId('custom-action')).not.toBeInTheDocument()
+    await expect.poll(() => page.getByCSS('.code-block-actions').all().length).toBe(searchable ? 1 : 0)
+    await expect.poll(() => page.getByTestId('code-block-search-input').all().length).toBe(searchable ? 1 : 0)
+
+    // Search shortcuts work again once the slot is removed.
+    page.getByTestId('k-code-block').element().focus()
+    await userEvent.keyboard('{F3}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', 'code-block-L2')
+  })
+
+  it('keeps search replaced when a provided actions slot renders no content', async () => {
+    const hasContent = ref(true)
+    const searchable = ref(true)
+    // Mimics `<template #actions><button v-if="hasContent" /></template>`, where the slot is always passed.
+    const Wrapper = defineComponent(() => () => h(
+      KCodeBlock,
+      { id: 'code-block', language: 'json', code, query: 'key', searchable: searchable.value },
+      { actions: () => [hasContent.value ? h('button', { 'data-testid': 'custom-action' }, 'Action') : createCommentVNode('v-if', true)] },
+    ))
+
+    await render(Wrapper)
+    await expect.element(page.getByTestId('custom-action')).toBeInTheDocument()
+    await expect.element(page.getByTestId('code-block-search-input')).not.toBeInTheDocument()
+
+    hasContent.value = false
+    await expect.element(page.getByTestId('custom-action')).not.toBeInTheDocument()
+    await expect.element(page.getByCSS('.code-block-actions')).toBeInTheDocument()
+    await expect.element(page.getByTestId('code-block-search-input')).not.toBeInTheDocument()
+
+    page.getByTestId('k-code-block').element().focus()
+    await userEvent.keyboard('{F3}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+
+    await userEvent.keyboard('{Alt>}f{/Alt}')
+    await expect.element(page.getByCSS('.filtered-code-block')).not.toBeInTheDocument()
+
+    // Slot presence controls header visibility even when the slot renders no content.
+    searchable.value = false
+    await expect.element(page.getByCSS('.code-block-actions')).toBeInTheDocument()
+  })
+
+  it('navigates matches with Enter and Shift+Enter inside an outer details element', async () => {
+    const Wrapper = defineComponent(() => () => h(
+      'details',
+      { open: true },
+      [h(KCodeBlock, { id: 'code-block', language: 'json', code, query: 'key', searchable: true })],
+    ))
+
+    await render(Wrapper)
+    page.getByTestId('k-code-block').element().focus()
+
+    await userEvent.keyboard('{Enter}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', 'code-block-L2')
+
+    await userEvent.keyboard('{Enter}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', 'code-block-L3')
+
+    await userEvent.keyboard('{Shift>}{Enter}{/Shift}')
+    await expect.element(page.getByCSS('.line-is-highlighted-match .line-anchor')).toHaveAttribute('id', 'code-block-L2')
+  })
+
+  it('does not swallow Enter on a summary within the code block', async () => {
+    await render(KCodeBlock, {
+      props: { id: 'code-block', language: 'json', code, highlightedLineNumbers: [2] },
+      slots: {
+        'secondary-actions': () => h('details', { 'data-testid': 'custom-details' }, [
+          h('summary', { 'data-testid': 'custom-summary' }, 'Details'),
+          h('p', {}, 'Content'),
+        ]),
+      },
+    })
+
+    page.getByTestId('custom-summary').element().focus()
+    await userEvent.keyboard('{Enter}')
+
+    await expect.element(page.getByTestId('custom-details')).toHaveAttribute('open')
+    await expect.element(page.getByCSS('.line-is-highlighted-match')).not.toBeInTheDocument()
+  })
+
+  it('activates the clear query button with Enter', async () => {
+    await renderComponent({ id: 'code-block', searchable: true, query: 'key' })
+
+    page.getByTestId('clear-query-button').element().focus()
+    await userEvent.keyboard('{Enter}')
+
+    await expect.element(page.getByTestId('code-block-search-input')).toHaveValue('')
   })
 
   it('can hide line numbers', async () => {
