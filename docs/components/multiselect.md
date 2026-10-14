@@ -136,11 +136,6 @@ interface MultiselectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
-  /**
-   * @deprecated The `group` property on individual items is deprecated.
-   * Instead, use the `SelectGroup` interface to structure grouped items.
-   */
-  group?: string
 }
 
 interface MultiselectGroup {
@@ -480,26 +475,6 @@ Accepted values: `sticky` (default) and `static`.
 
 ```html
 <KMultiselect dropdown-footer-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" />
-```
-
-### dropdownFooterTextPosition
-
-::: warning DEPRECATED
-This prop is deprecated. Use the [`dropdownFooterPosition` prop](#dropdownfooterposition) instead.
-:::
-
-By default, the dropdown footer text will be stuck to the bottom of the dropdown and will always be visible even if the dropdown content is scrolled.
-
-If you want to override the behaviour and have the footer text at the end of the dropdown list, use the value `static`. This ensures the footer text is visible only when the user scrolls to view the bottom of the list.
-
-Accepted values: `sticky` (default) and `static`.
-
-<ClientOnly>
-  <KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="deepClone(defaultItemsLongList)" />
-</ClientOnly>
-
-```html
-<KMultiselect dropdown-footer-text-position="static" dropdown-footer-text="Static dropdown footer text" :items="items" />
 ```
 
 ### loading
@@ -918,7 +893,7 @@ You can use the `empty` slot to customize the look of the dropdown list when the
 
 Use this slot to render custom content at the bottom of the dropdown container. Unlike the [`dropdownFooterText` prop](#dropdownfootertext), this slot supports interactive content (for example, buttons or links).
 
-This slot takes precedence over the `dropdownFooterText` prop and the deprecated [`dropdown-footer-text` slot](#dropdown-footer-text) when provided.
+This slot takes precedence over the `dropdownFooterText` prop when provided.
 
 <ClientOnly>
   <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
@@ -936,30 +911,6 @@ This slot takes precedence over the `dropdownFooterText` prop and the deprecated
     <KButton appearance="tertiary" size="small">
       Interactive footer action
     </KButton>
-  </template>
-</KMultiselect>
-```
-
-### dropdown-footer-text
-
-::: warning DEPRECATED
-This slot is deprecated. Use the [`dropdown-footer` slot](#dropdown-footer) instead, which also supports interactive content.
-:::
-
-Slot the content of the dropdown footer text. This slot will override the `dropdownFooterText` prop if provided.
-
-<ClientOnly>
-  <KMultiselect dropdown-footer-text="Dropdown footer text" :items="deepClone(defaultItemsLongList)">
-    <template #dropdown-footer-text>
-      Come as you are
-    </template>
-  </KMultiselect>
-</ClientOnly>
-
-```html
-<KMultiselect dropdown-footer-text="I am replaceable" :items="items">
-  <template #dropdown-footer-text>
-    Come as you are
   </template>
 </KMultiselect>
 ```

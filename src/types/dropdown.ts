@@ -73,17 +73,6 @@ export interface DropdownItemProps<T extends DropdownItem<string | number> | nul
    * The event handler that triggers when the item is clicked.
    */
   onClick?: (event: MouseEvent) => any
-
-  /**
-   * Triggers when the item is clicked.
-   */
-
-  /**
-   * Whether to apply danger styles to the item.
-   * @deprecated Use `danger` instead.
-   * @default false
-   */
-  isDangerous?: boolean
 }
 
 export interface DropdownItemEmits<T extends DropdownItem<string | number> | null> {
@@ -161,12 +150,6 @@ export interface DropdownProps<T extends string | number> {
    * @default ''
    */
   disabledTooltip?: string
-
-  /**
-   * The text for the dropdown trigger button.
-   * @deprecated Use `triggerText` instead.
-   */
-  label?: string
 }
 
 export interface DropdownEmits<T extends string | number> {

@@ -237,17 +237,10 @@
             <div
               v-if="hasDropdownFooter()"
               class="dropdown-footer"
-              :class="`dropdown-footer-${resolvedDropdownFooterPosition}`"
+              :class="`dropdown-footer-${dropdownFooterPosition}`"
               data-testid="dropdown-footer"
             >
-              <slot
-                v-if="$slots['dropdown-footer']"
-                name="dropdown-footer"
-              />
-              <slot
-                v-else
-                name="dropdown-footer-text"
-              >
+              <slot name="dropdown-footer">
                 {{ dropdownFooterText }}
               </slot>
             </div>
@@ -280,12 +273,11 @@ import type {
   MultiselectItem,
   MultiselectGroup,
   MultiselectEntry,
-  PopPlacements,
+  PopPlacement,
   BadgeAppearance,
   MultiselectProps,
   MultiselectEmits,
   MultiselectSlots,
-  DropdownFooterPosition,
   PopoverAttributes,
 } from '@/types'
 import { CloseIcon, ChevronDownIcon, ProgressIcon } from '@kong/icons'
@@ -375,8 +367,7 @@ const {
   enableItemCreation,
   loading,
   dropdownFooterText = '',
-  dropdownFooterTextPosition,
-  dropdownFooterPosition,
+  dropdownFooterPosition = 'sticky',
   itemCreationValidator = () => true,
 } = defineProps<MultiselectProps<T, U>>()
 
@@ -394,7 +385,7 @@ const multiselectItemsRef = useTemplateRef('kMultiselectItems')
 
 const isRequired = computed((): boolean => attrs.required !== undefined && String(attrs.required) !== 'false')
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
-const hasLabelTooltip = (): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip'])
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.info || slots['label-tooltip'])
 
 const getBadgeAppearance = (item?: Item): BadgeAppearance => {
   if (isDisabled.value || isReadonly.value || item?.disabled) {
@@ -410,7 +401,7 @@ const getBadgeAppearance = (item?: Item): BadgeAppearance => {
 
 const defaultKPopAttributes = {
   hideCaret: true,
-  placement: 'bottom-start' as PopPlacements,
+  placement: 'bottom-start' as PopPlacement,
   popoverTimeout: 0,
   popoverClasses: 'k-multiselect-popover multiselect-popover',
 }
@@ -500,10 +491,7 @@ const modifiedAttrs = computed(() => {
 
 // Do not cache slot presence checks in a computed - `computed()` does not track raw property
 // access on the `slots` object, so slots added by a parent after mount would never be detected.
-const hasDropdownFooter = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer'])
-
-// `dropdownFooterPosition` takes precedence over the deprecated `dropdownFooterTextPosition` prop
-const resolvedDropdownFooterPosition = computed((): DropdownFooterPosition => dropdownFooterPosition ?? dropdownFooterTextPosition ?? 'sticky')
+const hasDropdownFooter = (): boolean => !!(dropdownFooterText || slots['dropdown-footer'])
 
 const createKPopAttributes = (): PopoverAttributes => {
   return {
@@ -957,66 +945,18 @@ watch(() => items, (newValue, oldValue) => {
    * NORMALIZATION AND PROCESSING
    *
    * Similar to KSelect:
-   * 1. Normalize items into consistent structure (detect MultiselectGroup vs old-style)
+   * 1. Normalize items into consistent structure (flat items or MultiselectGroups)
    * 2. Flatten for internal operations
    * 3. Process items (add keys, selected state, etc.)
    */
 
   const itemsCopy: Array<MultiselectEntry<Value>> = cloneDeep(items)
 
-  // Detect if using new MultiselectGroup approach
+  // Detect if using MultiselectGroup structure
   const hasMultiselectGroups = itemsCopy.some(entry => isGroup(entry))
 
-  const flattenedItems: Item[] = []
-  const normalized: NormalizedEntry[] = []
-
-  if (hasMultiselectGroups) {
-    // NEW APPROACH: Use MultiselectGroup structure, ignore 'group' property on items
-    for (const entry of itemsCopy) {
-      if (isGroup(entry)) {
-        // Process group items but don't add to flat list yet
-        flattenedItems.push(...entry.items)
-      } else {
-        // Regular ungrouped item
-        flattenedItems.push(entry)
-      }
-    }
-  } else {
-    // OLD APPROACH: Use 'group' property with alphabetical sorting
-    const groupMap = new Map<string, Item[]>()
-
-    for (const entry of itemsCopy) {
-      if (!isGroup(entry)) {
-        if (entry.group) {
-          // Grouped item
-          if (!groupMap.has(entry.group)) {
-            groupMap.set(entry.group, [])
-          }
-          groupMap.get(entry.group)!.push(entry)
-        }
-        flattenedItems.push(entry)
-      }
-    }
-
-    // Sort groups alphabetically (old approach default)
-    const sortedGroupNames = Array.from(groupMap.keys()).sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase()),
-    )
-
-    // Build normalized structure: ungrouped items first, then groups
-    const ungroupedItems = flattenedItems.filter(item => !item.group)
-
-    // Add ungrouped items to normalized
-    normalized.push(...ungroupedItems)
-
-    // Add sorted groups to normalized
-    for (const groupName of sortedGroupNames) {
-      normalized.push({
-        label: groupName,
-        items: groupMap.get(groupName)!,
-      })
-    }
-  }
+  const flattenedItems: Item[] = itemsCopy.flatMap(entry => isGroup(entry) ? entry.items : [entry])
+  const normalized: NormalizedEntry[] = hasMultiselectGroups ? [] : [...flattenedItems]
 
   // Process all flattened items (add keys, selected state, etc.)
   unfilteredItems.value = flattenedItems
@@ -1043,7 +983,7 @@ watch(() => items, (newValue, oldValue) => {
     }
   }
 
-  // Build normalized structure for NEW approach after processing
+  // Build normalized MultiselectGroup structure after processing
   if (hasMultiselectGroups) {
     const ungroupedProcessedItems: Item[] = []
     const groupsToAdd: NormalizedGroup[] = []

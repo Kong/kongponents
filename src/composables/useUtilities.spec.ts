@@ -3,7 +3,7 @@ import useUtilities from '@/composables/useUtilities'
 
 const { clientSideSorter, stripRequiredLabel } = useUtilities()
 
-describe('Client-side sorting (deprecated in favor of server-side sorting)', () => {
+describe('Client-side sorting', () => {
   it('clientSideSorter(): sorts the items by string', () => {
     const items = [
       {

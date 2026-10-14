@@ -86,7 +86,6 @@ export default defineConfig({
             { text: 'Slider', link: '/components/slider' },
             { text: 'Stepper', link: '/components/stepper' },
             { text: 'Table Data', link: '/components/table-data' },
-            { text: 'Table (deprecated)', link: '/components/table' },
             { text: 'Table View', link: '/components/table-view' },
             { text: 'Tabs', link: '/components/tabs' },
             { text: 'Textarea', link: '/components/textarea' },
@@ -122,6 +121,7 @@ export default defineConfig({
           text: 'Migrations',
           collapsed: false,
           items: [
+            { text: 'Migrating to v10', link: '/guide/migrating-to-version-10' },
             { text: 'Migrating to v9', link: '/guide/migrating-to-version-9' },
           ],
         },

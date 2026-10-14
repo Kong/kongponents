@@ -49,11 +49,6 @@ interface SelectItem {
   key?: string
   selected?: boolean
   disabled?: boolean
-  /**
-   * @deprecated The `group` property on individual items is deprecated.
-   * Instead, use the `SelectGroup` interface to structure grouped items.
-   */
-  group?: string
 }
 
 interface SelectGroup {
@@ -235,7 +230,7 @@ Maximum height for dropdown container. Defaults to `300px`.
 
 ### dropdownFooterText
 
-Text to be displayed at the bottom of the dropdown container. Can also be [slotted](#dropdown-footer-text).
+Text to be displayed at the bottom of the dropdown container. Can also be [slotted](#dropdown-footer).
 
 <ClientOnly>
   <KSelect dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
@@ -255,22 +250,6 @@ Defaults to `sticky`, but also accepts `static` value should you want the dropdo
 
 ```html
 <KSelect dropdown-footer-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
-```
-
-### dropdownFooterTextPosition
-
-::: warning DEPRECATED
-This prop is deprecated. Use the [`dropdownFooterPosition` prop](#dropdownfooterposition) instead.
-:::
-
-Defaults to `sticky`, but also accepts `static` value should you want text passed through `dropdownFooterText` prop to be displayed at the bottom of dropdown container after all items.
-
-<ClientOnly>
-  <KSelect dropdown-footer-text-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
-</ClientOnly>
-
-```html
-<KSelect dropdown-footer-text-position="static" dropdown-footer-text="Helpful text in the dropdown." :items="selectItems" />
 ```
 
 ### enableFiltering
@@ -336,20 +315,16 @@ const selectItems: SelectItem[] = [{
 }, {
   label: 'Service A1',
   value: 'a1',
-  group: 'Series 1',
 }, {
   label: 'Service B1',
   value: 'b1',
-  group: 'Series 1',
 }, {
   label: 'Service A2',
   value: 'a2',
-  group: 'Series 2',
   env: 'prod',
 }, {
   label: 'Service B2',
   value: 'b2',
-  group: 'Series 2',
   env: 'prod',
 }]
 
@@ -710,7 +685,7 @@ Use this slot to provide custom content to the selected item. The slot exposes `
 
 Use this slot to render custom content at the bottom of the dropdown container. Unlike the [`dropdownFooterText` prop](#dropdownfootertext), this slot supports interactive content (for example, buttons or links).
 
-This slot takes precedence over the `dropdownFooterText` prop and the deprecated [`dropdown-footer-text` slot](#dropdown-footer-text) when provided.
+This slot takes precedence over the `dropdownFooterText` prop when provided.
 
 <ClientOnly>
   <KSelect :items="selectItems">
@@ -730,32 +705,6 @@ This slot takes precedence over the `dropdownFooterText` prop and the deprecated
       <KongIcon />
       Interactive footer action
     </KButton>
-  </template>
-</KSelect>
-```
-
-### dropdown-footer-text
-
-::: warning DEPRECATED
-This slot is deprecated. Use the [`dropdown-footer` slot](#dropdown-footer) instead, which also supports interactive content.
-:::
-
-A slot alternative for [`dropdownFooterText` prop](#dropdownfootertext).
-
-<ClientOnly>
-  <KSelect :items="selectItems">
-    <template #dropdown-footer-text>
-      <KongIcon />
-      Dropdown footer content.
-    </template>
-  </KSelect>
-</ClientOnly>
-
-```html
-<KSelect :items="selectItems">
-  <template #dropdown-footer-text>
-    <KongIcon />
-    Dropdown footer content.
   </template>
 </KSelect>
 ```
@@ -901,19 +850,15 @@ const selectItems: SelectItem[] = [{
 }, {
   label: 'Service A1',
   value: 'a1',
-  group: 'Series 1',
 }, {
   label: 'Service B1',
   value: 'b1',
-  group: 'Series 1',
 }, {
   label: 'Service A2',
   value: 'a2',
-  group: 'Series 2',
 }, {
   label: 'Service B2',
   value: 'b2',
-  group: 'Series 2',
 }]
 
 const selectItemsUnselected: SelectItem[] = JSON.parse(JSON.stringify(selectItems)).map((item: SelectItem) => ({ ...item, selected: false }))

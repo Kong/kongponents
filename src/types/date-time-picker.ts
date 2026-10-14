@@ -50,13 +50,6 @@ export interface DateTimePickerState {
   tabName: string
 }
 
-/**
- * @deprecated Use `import type { CSSProperties } from 'vue'` instead.
- */
-export interface CSSProperties {
-  [key: string]: string
-}
-
 export enum DateTimePickerModes {
   Date = 'date',
   Time = 'time',
@@ -65,12 +58,6 @@ export enum DateTimePickerModes {
   RelativeDate = 'relativeDate',
   RelativeDateTime = 'relativeDateTime',
 }
-
-/**
- * @deprecated Use `DateTimePickerMode` instead.
- */
-export type TimepickerMode = DateTimePickerModes
-export const TimepickerMode = DateTimePickerModes
 
 export const ModeArray: DateTimePickerMode[] = Object.values(DateTimePickerModes)
 
@@ -92,11 +79,6 @@ export const ModeDateOnly: DateTimePickerMode[] = [
 ]
 
 export type DateTimePickerMode = `${DateTimePickerModes}`
-
-/**
- * @deprecated Use `DateTimePickerMode` instead.
- */
-export type Mode = DateTimePickerMode
 
 export interface DateTimePickerProps {
   /**

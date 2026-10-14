@@ -158,17 +158,10 @@
                 :item="{ label: 'No results', value: 'no_results', disabled: true }"
               />
               <div
-                v-if="hasDropdownFooter() && resolvedDropdownFooterPosition === 'static'"
+                v-if="hasDropdownFooter() && dropdownFooterPosition === 'static'"
                 class="dropdown-footer dropdown-footer-static"
               >
-                <slot
-                  v-if="$slots['dropdown-footer']"
-                  name="dropdown-footer"
-                />
-                <slot
-                  v-else
-                  name="dropdown-footer-text"
-                >
+                <slot name="dropdown-footer">
                   {{ dropdownFooterText }}
                 </slot>
               </div>
@@ -182,17 +175,10 @@
             </div>
           </div>
           <div
-            v-if="hasDropdownFooter() && resolvedDropdownFooterPosition === 'sticky'"
+            v-if="hasDropdownFooter() && dropdownFooterPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
           >
-            <slot
-              v-if="$slots['dropdown-footer']"
-              name="dropdown-footer"
-            />
-            <slot
-              v-else
-              name="dropdown-footer-text"
-            >
+            <slot name="dropdown-footer">
               {{ dropdownFooterText }}
             </slot>
           </div>
@@ -227,7 +213,6 @@ import type {
   SelectProps,
   SelectEmits,
   SelectSlots,
-  SelectDropdownFooterPosition,
   PopoverAttributes,
 } from '@/types'
 import { ChevronDownIcon, CloseIcon, ProgressIcon } from '@kong/icons'
@@ -261,8 +246,7 @@ const {
   loading,
   clearable,
   dropdownFooterText = '',
-  dropdownFooterTextPosition,
-  dropdownFooterPosition,
+  dropdownFooterPosition = 'sticky',
   reuseItemTemplate,
   enableItemCreation,
   itemCreationValidator = () => true,
@@ -295,10 +279,7 @@ const defaultKPopAttributes: Omit<PopoverAttributes, 'popoverClasses'> = {
 
 // Do not cache slot presence checks in a computed - `computed()` does not track raw property
 // access on the `slots` object, so slots added by a parent after mount would never be detected.
-const hasDropdownFooter = (): boolean => !!(dropdownFooterText || slots['dropdown-footer-text'] || slots['dropdown-footer'])
-
-// `dropdownFooterPosition` takes precedence over the deprecated `dropdownFooterTextPosition` prop
-const resolvedDropdownFooterPosition = computed((): SelectDropdownFooterPosition => dropdownFooterPosition ?? dropdownFooterTextPosition ?? 'sticky')
+const hasDropdownFooter = (): boolean => !!(dropdownFooterText || slots['dropdown-footer'])
 
 const inputKey = ref<number>(0)
 const inputRef = useTemplateRef('inputElement')
@@ -382,7 +363,7 @@ const createKPopAttributes = (): PopoverAttributes => {
   return {
     ...defaultKPopAttributes,
     ...kpopAttributes,
-    popoverClasses: `k-select-popover select-popover ${hasDropdownFooter() ? `has-${resolvedDropdownFooterPosition.value}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
+    popoverClasses: `k-select-popover select-popover ${hasDropdownFooter() ? `has-${dropdownFooterPosition}-dropdown-footer` : ''} ${kpopAttributes?.popoverClasses ?? ''}`,
     width: String(actualElementWidth.value),
     maxWidth: String(actualElementWidth.value),
     disabled: isDisabled.value || isReadonly.value,
@@ -639,66 +620,18 @@ watch(() => items, (newValue, oldValue) => {
    * NORMALIZATION AND PROCESSING
    *
    * When items change:
-   * 1. Normalize items into consistent structure (detect SelectGroup vs old-style)
+   * 1. Normalize items into consistent structure (flat items or SelectGroups)
    * 2. Flatten for internal operations
    * 3. Process items (add keys, selected state, etc.)
    */
 
   const itemsCopy: Array<SelectEntry<Value>> = JSON.parse(JSON.stringify(items))
 
-  // Detect if using new SelectGroup approach
+  // Detect if using SelectGroup structure
   const hasSelectGroups = itemsCopy.some(entry => isGroup(entry))
 
-  const flattenedItems: Item[] = []
-  const normalized: NormalizedEntry[] = []
-
-  if (hasSelectGroups) {
-    // NEW APPROACH: Use SelectGroup structure, ignore 'group' property on items
-    for (const entry of itemsCopy) {
-      if (isGroup(entry)) {
-        // Process group items but don't add to flat list yet
-        flattenedItems.push(...entry.items)
-      } else {
-        // Regular ungrouped item
-        flattenedItems.push(entry)
-      }
-    }
-  } else {
-    // OLD APPROACH: Use 'group' property with alphabetical sorting
-    const groupMap = new Map<string, Item[]>()
-
-    for (const entry of itemsCopy) {
-      if (!isGroup(entry)) {
-        if (entry.group) {
-          // Grouped item
-          if (!groupMap.has(entry.group)) {
-            groupMap.set(entry.group, [])
-          }
-          groupMap.get(entry.group)!.push(entry)
-        }
-        flattenedItems.push(entry)
-      }
-    }
-
-    // Sort groups alphabetically (old approach default)
-    const sortedGroupNames = Array.from(groupMap.keys()).sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase()),
-    )
-
-    // Build normalized structure: ungrouped items first, then groups
-    const ungroupedItems = flattenedItems.filter(item => !item.group)
-
-    // Add ungrouped items to normalized
-    normalized.push(...ungroupedItems)
-
-    // Add sorted groups to normalized
-    for (const groupName of sortedGroupNames) {
-      normalized.push({
-        label: groupName,
-        items: groupMap.get(groupName)!,
-      })
-    }
-  }
+  const flattenedItems: Item[] = itemsCopy.flatMap(entry => isGroup(entry) ? entry.items : [entry])
+  const normalized: NormalizedEntry[] = hasSelectGroups ? [] : [...flattenedItems]
 
   // Process all flattened items (add keys, selected state, etc.)
   selectItems.value = flattenedItems
@@ -738,7 +671,7 @@ watch(() => items, (newValue, oldValue) => {
     }
   }
 
-  // Build normalized structure for NEW approach after processing
+  // Build normalized SelectGroup structure after processing
   if (hasSelectGroups) {
     const ungroupedProcessedItems: Item[] = []
     const groupsToAdd: NormalizedGroup[] = []

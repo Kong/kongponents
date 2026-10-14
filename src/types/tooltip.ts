@@ -21,13 +21,6 @@ export interface TooltipProps {
   maxWidth?: number | string
 
   /**
-   * Text to show in tooltip.
-   * @default ''
-   * @deprecated Use `text` instead.
-   */
-  label?: string
-
-  /**
    * A string to be used as id attribute on underlying `role="tooltip"` element.
    * Useful for setting accessible attributes (such as `aria-describedby`) on other elements.
    * @default ''
@@ -65,4 +58,4 @@ export interface TooltipSlots {
   content?(): any
 }
 
-export type TooltipAttributes = Pick<TooltipProps, 'label' | 'placement' | 'maxWidth'>
+export type TooltipAttributes = Pick<TooltipProps, 'placement' | 'maxWidth'>

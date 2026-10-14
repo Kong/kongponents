@@ -21,10 +21,10 @@
         role="tooltip"
       >
         <slot
-          :label="text || label"
+          :label="text"
           name="content"
         >
-          {{ text || label }}
+          {{ text }}
         </slot>
       </div>
     </template>
@@ -49,7 +49,6 @@ const {
   text = '',
   placement = 'bottom',
   maxWidth = 'none',
-  label = '',
   tooltipId = '',
   zIndex = 9999,
   kpopAttributes = {},
@@ -58,7 +57,7 @@ const {
 
 const slots = defineSlots<TooltipSlots>()
 
-const showTooltip = (): boolean => !disabled && (!!text || !!label || !!slots.content)
+const showTooltip = (): boolean => !disabled && (!!text || !!slots.content)
 
 const randomTooltipId = useId()
 </script>

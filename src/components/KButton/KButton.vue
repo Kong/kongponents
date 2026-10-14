@@ -2,7 +2,7 @@
   <component
     :is="buttonType"
     class="k-button"
-    :class="[buttonSize, buttonAppearance, { 'icon-button': icon === true || (!slots.default && slots.icon /* TODO: remove this once we remove icon slot */) }]"
+    :class="[buttonSize, buttonAppearance, { 'icon-button': icon }]"
     :disabled="disabled ? disabled : undefined"
     :role="buttonType !== 'button' ? 'button' : undefined"
     :tabindex="disabled && buttonType !== 'button' ? '-1' : undefined"
@@ -10,15 +10,12 @@
     v-bind="strippedAttrs"
     v-on="listeners"
   >
-    <!-- @deprecated -->
-    <!-- KButton: `icon` slot will be removed in the next major release -->
-    <slot name="icon" />
     <slot />
   </component>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, useAttrs, watch } from 'vue'
+import { computed, useAttrs } from 'vue'
 import { ButtonAppearances } from '@/types'
 import type { ButtonAppearance, ButtonProps, ButtonSize, ButtonSlots } from '@/types'
 
@@ -31,14 +28,7 @@ const {
   icon,
 } = defineProps<ButtonProps>()
 
-// Deprecation warning. Remove this in next major release.
-watch(() => icon, (value) => {
-  if (typeof value === 'string') {
-    console.warn('KButton: `icon` prop usage has changed. Please refer to the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
-  }
-}, { immediate: true })
-
-const slots = defineSlots<ButtonSlots>()
+defineSlots<ButtonSlots>()
 const attrs = useAttrs()
 
 const buttonType = computed(() => {
@@ -51,15 +41,7 @@ const buttonType = computed(() => {
   return 'button'
 })
 
-const buttonAppearance = computed((): ButtonAppearance | [ButtonAppearance, string] => {
-  // If the appearance is invalid, output both to keep backwards compatibility
-  // in case some of the tests rely on the invalid appearance output
-  if (Object.values(ButtonAppearances).indexOf(appearance) === -1) {
-    return ['primary', appearance]
-  }
-
-  return appearance
-})
+const buttonAppearance = computed((): ButtonAppearance => Object.values(ButtonAppearances).includes(appearance) ? appearance : 'primary')
 
 const buttonSize = computed((): ButtonSize | null => {
   if (appearance === 'none' && !icon) {
@@ -116,12 +98,6 @@ const listeners = computed(() => {
     dblclickCapture: stop,
     mousedownCapture: stop,
     mouseupCapture: stop,
-  }
-})
-
-onMounted(() => {
-  if (slots.icon) {
-    console.warn('KButton: `icon` slot is deprecated. Please slot an icon into the `default` slot instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kbutton')
   }
 })
 </script>

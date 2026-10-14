@@ -331,10 +331,8 @@ Slot the card actions for each entry. The slot exposes card item through the `it
       { label: 'Dropdown', to: { path: '/components/dropdown' } },
       { label: 'Button', to: { path: '/components/button' } }
     ]">
-      <KButton size="small" :title="`${item.title} actions`" appearance="secondary">
-        <template #icon>
-          <MoreIcon />
-        </template>
+      <KButton size="small" :title="`${item.title} actions`" appearance="secondary" icon>
+        <MoreIcon />
       </KButton>
     </KDropdown>
   </template>
@@ -344,10 +342,8 @@ Slot the card actions for each entry. The slot exposes card item through the `it
 <KCatalog :fetcher="fetcher">
   <template #card-actions="{ item }">
     <KDropdown :items="items">
-      <KButton size="small" :title="`${item.title} actions`" appearance="secondary">
-        <template #icon>
-          <MoreIcon />
-        </template>
+      <KButton size="small" :title="`${item.title} actions`" appearance="secondary" icon>
+        <MoreIcon />
       </KButton>
     </KDropdown>
   </template>
