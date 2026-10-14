@@ -38,7 +38,7 @@ describe('Kongponents MCP package', () => {
     const packagedRoot = path.join(extractedDirectory, 'package')
     const executable = path.join(packagedRoot, 'bin/kongponents-mcp.js')
     expect(existsSync(path.join(packagedRoot, 'bin/mcp/server.js'))).toBe(true)
-    expect(existsSync(path.join(packagedRoot, 'bin/mcp-data/snapshot.json'))).toBe(true)
+    expect(existsSync(path.join(packagedRoot, 'bin/mcp-data', process.env.SNAPSHOT_FORMAT === 'json' ? 'snapshot.json' : 'snapshot.json.gz'))).toBe(true)
 
     const transport = new StdioClientTransport({
       command: process.platform === 'win32' ? process.execPath : executable,

@@ -1,12 +1,11 @@
 import { Client, InMemoryTransport } from '@modelcontextprotocol/client'
-import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
+import { loadSnapshot } from './load-snapshot'
 import { createServer } from './server'
-import type { McpSnapshot } from './types'
 
 const clients: Client[] = []
-const snapshot = JSON.parse(readFileSync(path.resolve('bin/mcp-data/snapshot.json'), 'utf8')) as McpSnapshot
+const snapshot = loadSnapshot(path.resolve('bin/mcp-data'))
 
 afterEach(async () => {
   await Promise.all(clients.splice(0).map((client) => client.close()))

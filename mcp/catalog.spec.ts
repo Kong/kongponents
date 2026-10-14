@@ -8,7 +8,6 @@ const componentDoc = (path: string, title: string): DocumentationPage => ({
   title,
   section: 'components',
   canonicalUrl: `https://example.test${path}`,
-  frontmatter: {},
   content: `# ${title}`,
 })
 

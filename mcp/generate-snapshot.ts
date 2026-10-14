@@ -1,14 +1,17 @@
 import { parse as parseSfc } from '@vue/compiler-sfc'
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { gzipSync } from 'node:zlib'
 import { parse as parseYaml } from 'yaml'
 import { createComponentCatalog, UNDOCUMENTED_COMPONENT_EXPORTS } from './catalog'
 import type { ComponentCatalogDefinition, ComponentRecord, DocumentationPage, DocumentationSection, McpSnapshot, SnapshotFile, StyleBlock } from './types'
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DOCS_ROOT = path.join(REPO_ROOT, 'docs')
-const OUTPUT_PATH = path.join(REPO_ROOT, 'bin/mcp-data/snapshot.json')
+const SNAPSHOT_DIRECTORY = path.join(REPO_ROOT, 'bin/mcp-data')
+const SNAPSHOT_FORMAT = process.env.SNAPSHOT_FORMAT === 'json' ? 'json' : 'gzip'
+const OUTPUT_PATH = path.join(SNAPSHOT_DIRECTORY, SNAPSHOT_FORMAT === 'json' ? 'snapshot.json' : 'snapshot.json.gz')
 const DEPLOYED_HOSTNAME = 'https://kongponents.konghq.com'
 
 /** Convert a documentation route into the public URL shipped in MCP responses. */
@@ -81,7 +84,6 @@ const readDocumentation = async (): Promise<DocumentationPage[]> => {
       title: titleFromMarkdown(parsed.content, parsed.data, sourcePath),
       section: sectionFromRoute(route),
       canonicalUrl: canonicalUrlForRoute(route),
-      frontmatter: parsed.data,
       content: raw,
     }
   }))
@@ -203,7 +205,9 @@ const main = async (): Promise<void> => {
   }
 
   await mkdir(path.dirname(OUTPUT_PATH), { recursive: true })
-  await writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot)}\n`, 'utf8')
+  await rm(path.join(SNAPSHOT_DIRECTORY, SNAPSHOT_FORMAT === 'json' ? 'snapshot.json.gz' : 'snapshot.json'), { force: true })
+  const serialized = Buffer.from(`${JSON.stringify(snapshot)}\n`)
+  await writeFile(OUTPUT_PATH, SNAPSHOT_FORMAT === 'json' ? serialized : gzipSync(serialized, { level: 9 }))
   process.stderr.write(`Generated Kongponents MCP snapshot: ${docs.length} docs, ${components.length} components.\n`)
 }
 
