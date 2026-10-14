@@ -1,3 +1,10 @@
+## [9.65.1](https://github.com/Kong/kongponents/compare/v9.65.0...v9.65.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* **themes:** classic night theme tweaks ([#3466](https://github.com/Kong/kongponents/issues/3466)) ([41117b2](https://github.com/Kong/kongponents/commit/41117b23f17281de160fa920bf0671abc4917e9a))
+
 # [9.65.0](https://github.com/Kong/kongponents/compare/v9.64.25...v9.65.0) (2026-10-14)
 
 
