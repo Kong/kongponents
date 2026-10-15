@@ -1,12 +1,11 @@
-import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { loadSnapshot } from './load-snapshot'
 import { createToolHandlers } from './tools'
 import { extractComponentProperty, extractDocumentationScope, listComponentProperties } from './lib/markdown'
 import { searchDocumentation } from './lib/search'
-import type { McpSnapshot } from './types'
 
-const snapshot = JSON.parse(readFileSync(path.resolve('bin/mcp-data/snapshot.json'), 'utf8')) as McpSnapshot
+const snapshot = loadSnapshot(path.resolve('bin/mcp-data'))
 const handlers = createToolHandlers(snapshot)
 
 describe('Kongponents MCP snapshot', () => {

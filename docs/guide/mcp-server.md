@@ -239,6 +239,8 @@ Build the server and snapshot from this repository:
 pnpm build:mcp
 ```
 
+The build stores a compressed snapshot in `bin/mcp-data/snapshot.json.gz`. For local debugging, run `SNAPSHOT_FORMAT=json pnpm build:mcp` to generate a readable `snapshot.json` instead. Rebuild without that setting before packaging.
+
 Open the server with MCP Inspector:
 
 ```sh

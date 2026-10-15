@@ -6,6 +6,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { afterAll, describe, expect, it } from 'vitest'
+import { snapshotFilename } from './snapshot-format'
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const temporaryDirectories: string[] = []
@@ -38,7 +39,7 @@ describe('Kongponents MCP package', () => {
     const packagedRoot = path.join(extractedDirectory, 'package')
     const executable = path.join(packagedRoot, 'bin/kongponents-mcp.js')
     expect(existsSync(path.join(packagedRoot, 'bin/mcp/server.js'))).toBe(true)
-    expect(existsSync(path.join(packagedRoot, 'bin/mcp-data/snapshot.json'))).toBe(true)
+    expect(existsSync(path.join(packagedRoot, 'bin/mcp-data', snapshotFilename(process.env.SNAPSHOT_FORMAT === 'json' ? 'json' : 'gzip')))).toBe(true)
 
     const transport = new StdioClientTransport({
       command: process.platform === 'win32' ? process.execPath : executable,
@@ -80,6 +81,23 @@ describe('Kongponents MCP package', () => {
       expect(search.content[0].type === 'text' && search.content[0].text).toContain('/components/modal')
     } finally {
       await client.close()
+    }
+
+    if (existsSync(path.join(packagedRoot, 'bin/mcp-data/snapshot.json.gz'))) {
+      const conflictingEnvClient = new Client({ name: 'kongponents-mcp-env-test', version: '1.0.0' })
+      try {
+        await conflictingEnvClient.connect(new StdioClientTransport({
+          command: process.execPath,
+          args: [executable],
+          cwd: temporaryDirectory,
+          env: { SNAPSHOT_FORMAT: 'json' },
+          stderr: 'pipe',
+        }))
+        const { tools } = await conflictingEnvClient.listTools()
+        expect(tools.map((tool) => tool.name)).toContain('get_component_docs')
+      } finally {
+        await conflictingEnvClient.close()
+      }
     }
   })
 })

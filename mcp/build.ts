@@ -17,7 +17,7 @@ await build({
   target: 'node20',
   packages: 'bundle',
   sourcemap: false,
-  minify: false,
+  minify: true,
   banner: { js: '/* Kongponents MCP server — generated bundle */' },
 })
 

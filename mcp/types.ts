@@ -16,7 +16,6 @@ export interface DocumentationPage {
   title: string
   section: DocumentationSection
   canonicalUrl: string
-  frontmatter: Record<string, unknown>
   content: string
 }
 
