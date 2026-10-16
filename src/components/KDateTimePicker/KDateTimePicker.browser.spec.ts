@@ -83,6 +83,42 @@ describe('KDateTimePicker', () => {
     await expect.element(page.getByTestId(clearButton)).not.toBeInTheDocument()
   })
 
+  describe('calendar icon alignment', () => {
+    const getIconGaps = async () => {
+      const trigger = page.getByTestId(timepickerInput).element().getBoundingClientRect()
+      const icon = page.getByCSS('.calendar-icon').element().getBoundingClientRect()
+
+      return { trigger, above: icon.top - trigger.top, below: trigger.bottom - icon.bottom }
+    }
+
+    it('is vertically centred at the default control height', async () => {
+      await render(KDateTimePicker, {
+        props: { mode: 'date', modelValue: singleDate, icon: true },
+      })
+
+      const { trigger, above, below } = await getIconGaps()
+
+      expect(trigger.height).toBeCloseTo(40, 0)
+      expect(above).toBeCloseTo(10, 0)
+      expect(below).toBeCloseTo(10, 0)
+    })
+
+    it('is vertically centred at a compact control height', async () => {
+      await render(KDateTimePicker, {
+        props: { mode: 'date', modelValue: singleDate, icon: true },
+        attrs: {
+          style: '--kui-input-padding-y: 4px; --kui-input-line-height: 20px; --kui-icon-size-40: 16px;',
+        },
+      })
+
+      const { trigger, above, below } = await getIconGaps()
+
+      expect(trigger.height).toBeCloseTo(28, 0)
+      expect(above).toBeCloseTo(6, 0)
+      expect(below).toBeCloseTo(6, 0)
+    })
+  })
+
   it('renders with clear button', async () => {
     await render(KDateTimePicker, {
       props: {
