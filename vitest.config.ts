@@ -29,7 +29,7 @@ export default defineConfig({
      * Both of the ones added so far are reached only transitively, which is what keeps them out
      * of the initial crawl: `swrv` via `useUtilities`, `nanoid` via `getUniqueStringId`.
      */
-    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'nanoid', 'virtua/vue', 'lodash-es', 'vue-clamp', '@floating-ui/vue', 'v-calendar', 'vue-draggable-next', 'date-fns-tz'],
+    include: ['vitest-browser-vue', '@kong/design-tokens/tokens/themeable-tokens', 'swrv', 'nanoid', 'virtua/vue', 'lodash-es', 'vue-clamp', '@floating-ui/vue', 'v-calendar', 'vue-draggable-next'],
   },
   resolve: {
     alias: {
@@ -83,7 +83,12 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: playwright(),
+            /**
+             * Time zone and DST behaviour must be exercised deterministically, and CI runners
+             * are UTC, which would never observe a transition. The locale is fixed too, because
+             * time zone abbreviations such as `EST` depend on it.
+             */
+            provider: playwright({ contextOptions: { timezoneId: 'America/New_York', locale: 'en-US' } }),
             /**
              * Every spec runs in each browser, so engine differences in layout, computed
              * styles and font metrics surface here rather than in a consumer's app.
