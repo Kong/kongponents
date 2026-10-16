@@ -1,3 +1,10 @@
+## [9.66.1](https://github.com/Kong/kongponents/compare/v9.66.0...v9.66.1) (2026-10-16)
+
+
+### Bug Fixes
+
+* **deps:** align vue with @vue/server-renderer override to fix docs SSG [KHCP-22033] ([#3471](https://github.com/Kong/kongponents/issues/3471)) ([200eb74](https://github.com/Kong/kongponents/commit/200eb74004f7a05c81b130ff028952ec56f34302))
+
 # [9.66.0](https://github.com/Kong/kongponents/compare/v9.65.3...v9.66.0) (2026-10-16)
 
 
