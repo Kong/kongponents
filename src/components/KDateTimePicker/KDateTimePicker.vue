@@ -461,7 +461,6 @@ const onOpenPopover = (): void => {
 /* Component variables */
 
 $kDateTimePickerInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin, search for variable name in mixins
-$kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin
 
 /* Component styles */
 
@@ -537,10 +536,10 @@ $kDateTimePickerInputPaddingY: var(--kui-space-40, $kui-space-40); // correspond
 
     .calendar-icon {
       left: $kDateTimePickerInputPaddingX;
-      margin-top: 2px; // align icon vertically with input text
       pointer-events: none;
       position: absolute;
-      top: $kDateTimePickerInputPaddingY;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     &.disabled {
