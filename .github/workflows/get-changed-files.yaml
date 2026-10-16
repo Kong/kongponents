@@ -4,13 +4,13 @@ on:
   workflow_call:
     outputs:
       component-files-changed:
-        description: Check if component (`src` directory) files have changed
+        description: Check if publishable runtime files have changed
         value: ${{ jobs.get-changed-files.outputs.component-files-changed }}
       docs-files-changed:
         description: Check if docs (`docs` directory) files have changed
         value: ${{ jobs.get-changed-files.outputs.docs-files-changed }}
       components-or-docs-files-changed:
-        description: Check if src or docs (`src` or `docs` directories) files have changed
+        description: Check if files changed in `src/`, `nuxt/`, `cli/`, `mcp/`, or `docs/` directories
         value: ${{ jobs.get-changed-files.outputs.components-or-docs-files-changed }}
       package-json-pnpm-lock-files-changed:
         description: Check if package.json or pnpm.lock files changed
@@ -36,7 +36,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check if component (`src` directory) files have changed
+      - name: Check if publishable runtime files have changed
         uses: Kong/changed-files@cd69b79ca4e2a1198064c5e6564cce68920df311
         id: component-files-changed
         # Return 'true' for any directories listed here that changed
@@ -44,6 +44,8 @@ jobs:
           files: |
             src/**
             nuxt/**
+            cli/**
+            mcp/**
 
       - name: Check if docs (`docs` directory) files have changed
         uses: Kong/changed-files@cd69b79ca4e2a1198064c5e6564cce68920df311
@@ -53,13 +55,16 @@ jobs:
           files: |
             docs/**
 
-      - name: Check if files changed in `src/` or `docs/` directories
+      - name: Check if files changed in `src/`, `nuxt/`, `cli/`, `mcp/`, or `docs/` directories
         uses: Kong/changed-files@cd69b79ca4e2a1198064c5e6564cce68920df311
         id: components-or-docs-files-changed
         # Return 'true' for any directories listed here that changed
         with:
           files: |
             src/**
+            nuxt/**
+            cli/**
+            mcp/**
             docs/**
 
       - name: Check if package.json or pnpm.lock files changed

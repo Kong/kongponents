@@ -4,15 +4,15 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
 /**
- * Two test projects share this root config:
+ * Three test projects share this root config:
  *
  * - `unit`    — jsdom, for pure logic: composables, utilities, theme helpers.
+ * - `mcp`     — Node, for the MCP server and packaged executable.
  * - `browser` — Browser Mode (Chromium, Firefox and WebKit via Playwright), for
  *               component tests.
  *
- * The suffix decides which project claims a file: `*.browser.spec.ts` runs in the browser,
- * every other `*.spec.ts` runs in jsdom. Directory doesn't matter, so a component can have
- * both kinds of test side by side.
+ * Component `*.browser.spec.ts` files run in the browser, other component
+ * `*.spec.ts` files run in jsdom, and MCP specs run in Node.
  */
 export default defineConfig({
   plugins: [vue()],
@@ -66,6 +66,15 @@ export default defineConfig({
           environment: 'jsdom',
           include: ['src/**/*.spec.ts'],
           exclude: [...configDefaults.exclude, 'src/**/*.browser.spec.ts'],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'mcp',
+          environment: 'node',
+          globalSetup: ['./mcp/test-global-setup.ts'],
+          include: ['mcp/**/*.spec.ts'],
         },
       },
       {
