@@ -109,17 +109,17 @@ importers:
         specifier: ^2.1.10
         version: 2.1.10
       '@kong-ui-public/sandbox-layout':
-        specifier: 2.7.7
-        version: 2.7.7(vue@3.5.40(typescript@5.9.3))
+        specifier: 2.8.0
+        version: 2.8.0(vue@3.5.40(typescript@5.9.3))
       '@kong/design-tokens':
-        specifier: 3.3.5-pr.732.72b5b45.0
-        version: 3.3.5-pr.732.72b5b45.0
+        specifier: 3.4.0
+        version: 3.4.0
       '@kong/eslint-config-kong-ui':
         specifier: 1.7.1
         version: 1.7.1(@typescript-eslint/parser@8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
       '@kong/stylelint-plugin-design-tokens':
-        specifier: 2.0.0
-        version: 2.0.0(stylelint@16.26.1(typescript@5.9.3))
+        specifier: 2.0.1
+        version: 2.0.1(stylelint@16.26.1(typescript@5.9.3))
       '@nuxt/kit':
         specifier: ^4.5.2
         version: 4.5.2(magic-string@1.1.0)(magicast@0.5.4)(unplugin@3.3.0(esbuild@0.28.1)(vite@7.3.5(@types/node@24.13.3)(jiti@2.7.0)(sass@1.102.0)(terser@5.47.1)(yaml@2.9.0)))
@@ -1204,13 +1204,13 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
-  '@kong-ui-public/sandbox-layout@2.7.7':
-    resolution: {integrity: sha512-7qoEAZE3lkclRCwJeKdXuKveh0qVx/t/d4MYIuGmq4YzcBcI//SqfpZOoXyjE/5kD3argdLTowLKGB3ACaggTw==}
+  '@kong-ui-public/sandbox-layout@2.8.0':
+    resolution: {integrity: sha512-7O5bVQmweweqKTZP7Nt9MDGog6diRooaJeiMjMuAOrf7718QK+Bbs9mpxxyaYa3boZ4xeLlLDdHqlwU7eB2ZWw==}
     peerDependencies:
       vue: '>= 3.3.13 < 4'
 
-  '@kong/design-tokens@3.3.5-pr.732.72b5b45.0':
-    resolution: {integrity: sha512-BNwQyohUBc1VVZLn1kof1AIkQ1ZKT3QbZJXCIEUcwk72+q5nTOQlLcDQZCL0HFYRhLfXGeh2oe0pxN/00RZZhQ==}
+  '@kong/design-tokens@3.4.0':
+    resolution: {integrity: sha512-BIL4Tpa8xAlOBix39SbLyeThy+ln9tocHSF2SirTaZisCX0fb8bikIE0NuRb09FHbkextDnBdiu8xtzm25Biyw==}
     engines: {node: '>=20.19.5', pnpm: '>=10.28.2'}
 
   '@kong/eslint-config-kong-ui@1.7.1':
@@ -1235,8 +1235,8 @@ packages:
     peerDependencies:
       vue: '>= 3.3.4 < 4'
 
-  '@kong/stylelint-plugin-design-tokens@2.0.0':
-    resolution: {integrity: sha512-gxFGm2KEZVSsALb5mQgC7nwZi9aQR62nXP/Sh4gfyOvbYlD+o6sWh8IGCUj1BRhpKZpVgddSIkPgsJpVaZsE3Q==}
+  '@kong/stylelint-plugin-design-tokens@2.0.1':
+    resolution: {integrity: sha512-C/8kFbIcLEU4swabK81sx+q+HFCBfoKmLZGGdKmUI57WvyoUyyIN2t/9KCP1MmUSUTyOLjfuQmpo1VmndzQL3Q==}
     engines: {node: '>=20.19.5', pnpm: '>=10.28.2'}
     peerDependencies:
       stylelint: '>=14.0.0'
@@ -7785,12 +7785,12 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@kong-ui-public/sandbox-layout@2.7.7(vue@3.5.40(typescript@5.9.3))':
+  '@kong-ui-public/sandbox-layout@2.8.0(vue@3.5.40(typescript@5.9.3))':
     dependencies:
       '@kong/icons': 1.62.1(vue@3.5.40(typescript@5.9.3))
       vue: 3.5.40(typescript@5.9.3)
 
-  '@kong/design-tokens@3.3.5-pr.732.72b5b45.0': {}
+  '@kong/design-tokens@3.4.0': {}
 
   '@kong/eslint-config-kong-ui@1.7.1(@typescript-eslint/parser@8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)':
     dependencies:
@@ -7823,7 +7823,7 @@ snapshots:
     dependencies:
       vue: 3.5.40(typescript@5.9.3)
 
-  '@kong/stylelint-plugin-design-tokens@2.0.0(stylelint@16.26.1(typescript@5.9.3))':
+  '@kong/stylelint-plugin-design-tokens@2.0.1(stylelint@16.26.1(typescript@5.9.3))':
     dependencies:
       stylelint: 16.26.1(typescript@5.9.3)
 
