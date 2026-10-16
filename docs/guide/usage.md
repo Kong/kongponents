@@ -3,7 +3,7 @@
 You can use Kongponents in your project in three ways, depending on your setup and needs:
 
 - [Vue Plugin](#vue-plugin)
-- [Import components as needed](#using-the-vue-plugin-in-nuxt)
+- [Import components as needed](#individual-components)
 - [Nuxt Module](#nuxt-module)
 
 For standard Vue projects, you'll need to manually import the Kongponents CSS, since [Vite's library mode](https://vitejs.dev/guide/build.html#library-mode) doesn't currently support CSS in JS when building in library mode.

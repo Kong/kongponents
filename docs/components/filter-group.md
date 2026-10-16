@@ -39,7 +39,7 @@ interface FilterSelection {
     :filters="modelFilters"
   />
   <br>
-  <div style="display: flex; gap: 8px;">
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
     <KButton
       :disabled="modelSelection?.status?.value === 'inprogress'"
       @click="filterInProgress"
