@@ -1,151 +1,38 @@
 ---
-title: Getting Started
+title: Introduction
+description: Learn what Kongponents provides and find the right guide for your Vue project.
+pageClass: guide-landing
 ---
 
-![Kongponents Logo](/img/kongponents-logo.jpg)
+# Introduction
 
-Kongponents is a Vue component library of frequently needed UI elements. They were developed to solve [Kong's](https://konghq.com) application needs, but are generic enough to use in any web application.
+Kongponents is the Vue component library used across Kong products. It brings common interface patterns into one library, with documented component APIs, TypeScript types, and themes built from [`@kong/design-tokens`](https://github.com/Kong/design-tokens). Nuxt applications can use the dedicated module for automatic component and style registration.
 
-## Install
-
-To begin using Kongponents, start by installing the package into your project.
-
-```sh
-pnpm add @kong/kongponents
-```
-
-If you choose to utilize any of the [CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) included in the `@kong/kongponents` package and your project uses [PostCSS](https://postcss.org/), you will likely need use the [`postcss-custom-properties` PostCSS plugin](https://github.com/postcss/postcss-custom-properties) so that the variables are preserved in their original form.
-
-```sh
-pnpm add postcss-custom-properties --dev
-```
-
-Next, add a `postcss.config.js` file to your project with the following content
-
-```js
-// postcss.config.js
-
-module.exports = () => ({
-  plugins: {
-    'postcss-custom-properties': {
-      preserve: true
-    }
-  }
-})
-```
-
-### Define global constant replacements
-
-If your app utilizes [Vite](https://vitejs.dev/), you may need to define global constant replacements in your `vite.config.ts` file as shown here:
-
-```ts
-export default defineConfig({
-  // Define global constant replacements
-  define: {
-    'process.env.development': JSON.stringify('development'),
-    'process.env.production': JSON.stringify('production'),
-  },
-})
-```
-
-### Optimize or Transpile Dependencies
-
-Depending on your project setup, you may need to optimize or transpile the `@kong/kongponents` package in your project.
-
-If your project uses [Vite](https://vitejs.dev), just add the following to your `vite.config.ts
-
-```ts
-export default defineConfig({
-  build: {
-    commonjsOptions: {
-      include: [
-        /@kong\/kongponents/,
-        /node_modules/
-      ]
-    },
-  }
-})
-```
-
-If your project already has a `vue.config.ts` file, just add the following `transpileDependencies` entry
-
-```ts
-// vue.config.ts
-
-module.exports = {
-  transpileDependencies: [
-    /@kong\/kongponents/
-  ]
-}
-```
-
-If your project does not have a `vue.config.ts` file and instead uses webpack config files, you can add a loader rule (for example, for `babel-loader`) similar to the following (only showing the relevant entries)
-
-```js
-// webpack.config.js
-
-module.exports = (env) => {
-  return {
-    module: {
-      loaders: [
-        // transpile Kongponents packages
-        {
-          test: /\.js$/,
-          include: /(node_modules)\/(@kong\/kongponents)/,
-          loader: 'babel-loader',
-        },
-        // process all .js files, but ignore all other node_modules not listed above
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          loader: 'babel-loader'
-        },
-      ]
-    }
-  }
-}
-```
-
-## Using Kongponents from CDN
-
-You can also use Kongponents in a project where there is no build system as long as Vue is included on the page.
-
-::: tip NOTE
-You must import the CSS from the `@kong/kongponents` package along with Vue.
-:::
-
-### Example
-
-```html
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://unpkg.com/@kong/kongponents@9/dist/kongponents.umd.js"></script>
-<link href="https://unpkg.com/@kong/kongponents@9/dist/style.css" rel="stylesheet" />
-
-<div id="app">
-  <k-button appearance="primary" v-on:click="count += 1" icon="plus">Add</k-button>
-  <p>Click count: {{ count }}</p>
+<div class="docs-quick-links">
+  <a href="/guide/quick-start.html"><span>Start building</span><strong>Quick Start</strong></a>
+  <a href="/guide/frameworks.html"><span>Choose your setup</span><strong>Vue &amp; Nuxt</strong></a>
+  <a href="/components/"><span>See the library</span><strong>Components</strong></a>
+  <a href="/guide/theming.html"><span>Customize</span><strong>Theming</strong></a>
+  <a href="/guide/mcp-server.html"><span>Work with an agent</span><strong>MCP Server</strong></a>
 </div>
 
-<script>
-  const {
-    createApp
-  } = Vue
-  const components = Kongponents
-  createApp({
-    components: {
-      KButton: components.KButton
-    },
-    data() {
-      return {
-        count: 1
-      }
-    }
-  }).mount('#app')
-</script>
-```
+## What you can build with
 
-<iframe width="100%" height="300" style="width: 100%;" scrolling="no" title="Kongponents for Vue" src="https://codepen.io/adamdehaven/embed/KKowxVQ?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/adamdehaven/pen/KKowxVQ">
-  Kongponents for Vue</a> by Kong, Inc.
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+- **Components for real product states.** Use form controls, tables, navigation, overlays, and feedback components that are already part of the Kongponents library. [Browse the component directory](/components/).
+- **A consistent visual language.** Change `--kui-*` design tokens to theme components across an application or within a subtree. [Read the theming handbook](/guide/theming).
+- **Version-matched context for coding agents.** The local MCP server exposes component documentation, props, source, and styles from the Kongponents version installed in your project. [Set up MCP](/guide/mcp-server).
+
+## Choose your path
+
+| If you want to… | Read |
+| --- | --- |
+| Render your first component | [Quick Start](/guide/quick-start) |
+| Configure a bundler or use the CDN | [Installation](/guide/installation) |
+| Set up Vue 3 or Nuxt | [Frameworks](/guide/frameworks) |
+| Register components in Vue or Nuxt | [Usage](/guide/usage) |
+| Apply or switch a theme | [Theming](/guide/theming) |
+| Understand token overrides | [Design Tokens](/guide/design-tokens) |
+| Add a light and dark theme | [Dark Mode](/guide/dark-mode) |
+| Connect a coding agent | [MCP Server](/guide/mcp-server) |
+
+Kongponents is released under the Apache-2.0 License. For upgrades from v8, use the [v9 migration guide](/guide/migrating-to-version-9).

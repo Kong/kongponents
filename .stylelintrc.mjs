@@ -35,4 +35,15 @@ export default {
     // Disable the following rules
     'no-descending-specificity': null,
   },
+  overrides: [
+    {
+      // The VitePress docs theme is not shipped to consuming apps, so it may
+      // rely on VitePress CSS custom properties (--vp-*) and relative font units
+      files: ['docs/**/*.{css,scss,sass,vue}'],
+      rules: {
+        'custom-property-pattern': null,
+        'unit-disallowed-list': null,
+      },
+    },
+  ],
 }

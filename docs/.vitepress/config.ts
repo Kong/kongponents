@@ -3,8 +3,6 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 
 const DEPLOYED_HOSTNAME = 'https://kongponents.konghq.com' // Ensure this does NOT end with a trailing-slash
 
-const KONG_SVG = '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Kong API Gateway and Service Connectivity Platform</title><path fill-rule="evenodd" clip-rule="evenodd" d="m16.28 36.66 1-1.3h7.45l3.88 4.96-.7 1.68h-9.6l.24-1.68-2.27-3.66Z" fill="#169FCC"/><path fill-rule="evenodd" clip-rule="evenodd" d="m18.55 19.75 3.6-6.21h4.19L45.1 35.35 43.65 42H35.6l.5-1.87-17.55-20.38Z" fill="#14B59A"/><path fill-rule="evenodd" clip-rule="evenodd" d="m22.92 12.36 1.72-3.19L29.8 5l8.85 6.94-1.15 1.17 1.54 2.13v2.28l-4.4 3.6-7.4-8.76h-4.32Z" fill="#1BC263"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.25 26.23h2.33l6.1-5.1 8.08 9.4-2.28 3.41h-7.46l-5.15 6.55L9.7 42H3v-8.03l6.25-7.74Z" fill="#16BDCC"/></svg>'
-
 export default defineConfig({
   base: '/',
   lang: 'en-US',
@@ -12,8 +10,8 @@ export default defineConfig({
   description: 'Kong UI Components & Style Guide',
   head: [
     // ['meta', { name: 'robots', content: 'noindex,nofollow' }], // TODO: Enable on a non-main deployed branch (e.g. `alpha`)
-    ['meta', { name: 'theme-color', content: '#1456cb' }],
-    ['meta', { name: 'msapplication-TileColor', content: '#1456cb' }],
+    ['meta', { name: 'theme-color', content: '#f9fbf9' }],
+    ['meta', { name: 'msapplication-TileColor', content: '#f9fbf9' }],
     ['meta', { name: 'application-name', content: 'Kongponents' }],
     ['meta', { name: 'apple-mobile-web-app-title', content: 'Kongponents' }],
     ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -42,7 +40,7 @@ export default defineConfig({
     lineNumbers: true,
     theme: 'material-theme-palenight',
   },
-  appearance: false, // Disable dark mode (If enabled, we'd first need to update Kongponent CSS to handle accordingly)
+  appearance: false, // The docs theme picker controls both color mode and Kongponents tokens.
   themeConfig: {
     search: {
       provider: 'local',
@@ -51,49 +49,80 @@ export default defineConfig({
       // Components sidebar
       '/components/': [
         {
-          text: 'Components',
+          text: 'Introduction',
+          collapsed: false,
+          items: [
+            { text: 'Overview', link: '/components/' },
+          ],
+        },
+        {
+          text: 'Essentials',
           collapsed: false,
           items: [
             { text: 'Alert', link: '/components/alert' },
             { text: 'Badge', link: '/components/badge' },
-            { text: 'Breadcrumbs', link: '/components/breadcrumbs' },
             { text: 'Button', link: '/components/button' },
             { text: 'Card', link: '/components/card' },
-            { text: 'Catalog', link: '/components/catalog' },
-            { text: 'Checkbox', link: '/components/checkbox' },
-            { text: 'Code Block', link: '/components/codeblock' },
-            { text: 'Collapse', link: '/components/collapse' },
-            { text: 'Copy', link: '/components/copy' },
-            { text: 'DateTime Picker', link: '/components/datetime-picker' },
-            { text: 'Dropdown', link: '/components/dropdown' },
             { text: 'Empty State', link: '/components/empty-state' },
-            { text: 'External Link', link: '/components/external-link' },
+            { text: 'Label', link: '/components/label' },
+            { text: 'Skeleton', link: '/components/skeleton' },
+            { text: 'Theme Provider', link: '/components/theme-provider' },
+          ],
+        },
+        {
+          text: 'Forms & inputs',
+          collapsed: false,
+          items: [
+            { text: 'Checkbox', link: '/components/checkbox' },
+            { text: 'DateTime Picker', link: '/components/datetime-picker' },
             { text: 'File Upload', link: '/components/file-upload' },
             { text: 'Filter Group', link: '/components/filter-group' },
             { text: 'Input', link: '/components/input' },
             { text: 'Input Switch', link: '/components/input-switch' },
-            { text: 'Label', link: '/components/label' },
-            { text: 'Modal', link: '/components/modal' },
             { text: 'Multiselect', link: '/components/multiselect' },
-            { text: 'Pagination', link: '/components/pagination' },
-            { text: 'Popover', link: '/components/popover' },
-            { text: 'Prompt', link: '/components/prompt' },
             { text: 'Radio', link: '/components/radio' },
             { text: 'Segmented Control', link: '/components/segmented-control' },
             { text: 'Select', link: '/components/select' },
-            { text: 'Skeleton', link: '/components/skeleton' },
-            { text: 'Slideout', link: '/components/slideout' },
             { text: 'Slider', link: '/components/slider' },
+            { text: 'Textarea', link: '/components/textarea' },
+          ],
+        },
+        {
+          text: 'Navigation & data',
+          collapsed: false,
+          items: [
+            { text: 'Breadcrumbs', link: '/components/breadcrumbs' },
+            { text: 'Catalog', link: '/components/catalog' },
+            { text: 'Pagination', link: '/components/pagination' },
             { text: 'Stepper', link: '/components/stepper' },
             { text: 'Table Data', link: '/components/table-data' },
             { text: 'Table (deprecated)', link: '/components/table' },
             { text: 'Table View', link: '/components/table-view' },
             { text: 'Tabs', link: '/components/tabs' },
-            { text: 'Textarea', link: '/components/textarea' },
-            { text: 'Theme Provider', link: '/components/theme-provider' },
+            { text: 'Tree List', link: '/components/tree-list' },
+          ],
+        },
+        {
+          text: 'Overlays & feedback',
+          collapsed: false,
+          items: [
+            { text: 'Collapse', link: '/components/collapse' },
+            { text: 'Dropdown', link: '/components/dropdown' },
+            { text: 'Modal', link: '/components/modal' },
+            { text: 'Popover', link: '/components/popover' },
+            { text: 'Prompt', link: '/components/prompt' },
+            { text: 'Slideout', link: '/components/slideout' },
             { text: 'Toaster', link: '/components/toaster' },
             { text: 'Tooltip', link: '/components/tooltip' },
-            { text: 'Tree List', link: '/components/tree-list' },
+          ],
+        },
+        {
+          text: 'Utilities',
+          collapsed: false,
+          items: [
+            { text: 'Code Block', link: '/components/codeblock' },
+            { text: 'Copy', link: '/components/copy' },
+            { text: 'External Link', link: '/components/external-link' },
             { text: 'Truncate', link: '/components/truncate' },
           ],
         },
@@ -110,12 +139,29 @@ export default defineConfig({
       // Guide Sidebar
       '/guide/': [
         {
-          text: 'Guide',
+          text: 'Overview',
           collapsed: false,
           items: [
-            { text: 'Getting Started', link: '/guide/' },
+            { text: 'Introduction', link: '/guide/' },
+            { text: 'Quick Start', link: '/guide/quick-start' },
+            { text: 'Installation', link: '/guide/installation' },
+            { text: 'Frameworks', link: '/guide/frameworks' },
             { text: 'Usage', link: '/guide/usage' },
+          ],
+        },
+        {
+          text: 'Handbook',
+          collapsed: false,
+          items: [
+            { text: 'Design Tokens', link: '/guide/design-tokens' },
             { text: 'Theming', link: '/guide/theming' },
+            { text: 'Dark Mode', link: '/guide/dark-mode' },
+          ],
+        },
+        {
+          text: 'UI for Agents',
+          collapsed: false,
+          items: [
             { text: 'MCP Server', link: '/guide/mcp-server' },
           ],
         },
@@ -134,11 +180,21 @@ export default defineConfig({
           ],
         },
       ],
+      '/changelog': [
+        {
+          text: 'Updates',
+          items: [
+            { text: 'Changelog', link: '/changelog' },
+            { text: 'All releases', link: 'https://github.com/Kong/kongponents/releases' },
+          ],
+        },
+      ],
     },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/', activeMatch: '/guide/' },
-      { text: 'Components', link: '/components/alert', activeMatch: '/components/' },
+      { text: 'Components', link: '/components/', activeMatch: '/components/' },
+      { text: 'Changelog', link: '/changelog' },
       {
         text: 'v9.x',
         items: [
@@ -159,11 +215,10 @@ export default defineConfig({
     siteTitle: 'Kongponents',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Kong/kongponents' },
-      { link: 'https://konghq.com', icon: { svg: KONG_SVG } },
     ],
     footer: {
       message: 'Released under the Apache-2.0 License.',
-      copyright: 'Copyright © 2019-present <a href="https://konghq.com" target="_blank">Kong, Inc.</a>',
+      copyright: 'Copyright © 2019–2026 <a href="https://konghq.com" target="_blank" rel="noopener noreferrer">Kong, Inc.</a>',
     },
     editLink: {
       pattern: 'https://github.com/Kong/kongponents/edit/main/docs/:path',
