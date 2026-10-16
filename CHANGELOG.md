@@ -1,3 +1,10 @@
+# [9.66.0](https://github.com/Kong/kongponents/compare/v9.65.3...v9.66.0) (2026-10-16)
+
+
+### Features
+
+* **mcp:** POC - mcp server in Kongponents [KHCP-21913] ([#3432](https://github.com/Kong/kongponents/issues/3432)) ([7d94c8f](https://github.com/Kong/kongponents/commit/7d94c8fd54f8f838e2831ffd99a498270be2c539)), closes [#3467](https://github.com/Kong/kongponents/issues/3467)
+
 ## [9.65.3](https://github.com/Kong/kongponents/compare/v9.65.2...v9.65.3) (2026-10-16)
 
 
