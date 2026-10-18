@@ -1098,7 +1098,7 @@ useResizeObserver(multiselectElementRef, () => {
 <style lang="scss" scoped>
 /* Component variables */
 
-$kMultiselectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin, search for variable name in mixins
+$kMultiselectInputPaddingY: var(--kui-multiselect-trigger-padding-y, var(--kui-space-40, $kui-space-40)); // corresponds to mixin, search for variable name in mixins
 $kMultiselectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin
 $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 $kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
@@ -1131,7 +1131,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     box-sizing: border-box;
     margin-bottom: $kMultiselectInputPaddingY;
     margin-top: $kMultiselectInputPaddingY;
-    min-height: 24px; // minimum height to prevent jumping when badges are removed or added
+    min-height: var(--kui-multiselect-selections-min-height, 24px); // minimum height to prevent jumping when badges are removed or added
     padding-left: $kMultiselectInputPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
 

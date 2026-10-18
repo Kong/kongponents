@@ -379,8 +379,8 @@ $kInputSlotSpacing: var(--kui-space-40, $kui-space-40); // $kSelectInputSlotSpac
 
       // enforce icon size exported by @kong/icons because it's defined by the design system
       :deep(#{$kongponentsKongIconSelector}) {
-        height: $kInputIconSize !important;
-        width: $kInputIconSize !important;
+        height: var(--kui-input-icon-size, $kInputIconSize) !important;
+        width: var(--kui-input-icon-size, $kInputIconSize) !important;
       }
 
       // enhance the experience for most common cases that icon only slots should not
