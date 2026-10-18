@@ -1168,10 +1168,10 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .multiselect-icons-container {
     color: var(--kui-input-color-text-placeholder, var(--kui-color-text-neutral, $kui-color-text-neutral));
     margin-right: $kMultiselectInputPaddingX;
-    margin-top: 10px;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(calc(-50% + 2px)); // nudge down to optically centre the caret
     z-index: 1;
 
     .multiselect-clear-icon {
