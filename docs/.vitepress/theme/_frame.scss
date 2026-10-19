@@ -60,20 +60,30 @@
   }
 
   .Layout .VPNavBar.has-sidebar .container > .title {
-    left: calc(var(--docs-frame-inset) + 1px);
+    left: var(--docs-frame-inset);
     padding-left: 24px;
     padding-right: 24px;
     width: var(--docs-sidebar-width);
   }
 
   .Layout .VPNavBar.has-sidebar .content {
-    padding-left: calc(var(--docs-frame-inset) + var(--docs-sidebar-width) + 1px);
-    padding-right: calc(var(--docs-frame-inset) + 32px);
+    padding-left: calc(var(--docs-frame-inset) + var(--docs-sidebar-width));
+    padding-right: calc(var(--docs-frame-inset) + 24px);
+  }
+}
+
+@media (max-width: 959px) {
+  .Layout .VPNavBar.has-sidebar .wrapper {
+    margin: 0 auto;
+    max-width: var(--docs-frame-width);
+    padding-inline: 24px;
+    width: calc(100% - 32px);
   }
 }
 
 @media (max-width: 640px) {
   .Layout { --docs-frame-inset: 12px; }
 
-  .Layout .VPNavBar:not(.has-sidebar) .wrapper { width: 100%; }
+  .Layout .VPNavBar:not(.has-sidebar) .wrapper,
+  .Layout .VPNavBar.has-sidebar .wrapper { width: 100%; }
 }
