@@ -1098,13 +1098,13 @@ useResizeObserver(multiselectElementRef, () => {
 <style lang="scss" scoped>
 /* Component variables */
 
-$kMultiselectInputPaddingY: var(--kui-multiselect-trigger-padding-y, var(--kui-space-40, $kui-space-40)); // corresponds to mixin, search for variable name in mixins
+$kMultiselectInputPaddingY: var(--kui-input-padding-y, var(--kui-space-40, $kui-space-40)); // corresponds to mixin, search for variable name in mixins
 $kMultiselectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin
 /**
  * Wrapper divs only; the inner <input> still uses `--kui-input-padding-x`.
  * Equal in every shipped theme — if they diverge, text shifts between empty and filled states.
  */
-$kMultiselectTriggerPaddingX: var(--kui-multiselect-trigger-padding-x, var(--kui-space-50, $kui-space-50));
+$kMultiselectTriggerPaddingX: var(--kui-input-padding-x, var(--kui-space-50, $kui-space-50));
 $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
 $kMultiselectSelectionsPaddingRight: calc($kMultiselectTriggerPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40)); // reserves room for the chevron
 $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
