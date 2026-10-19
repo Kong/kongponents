@@ -1100,8 +1100,13 @@ useResizeObserver(multiselectElementRef, () => {
 
 $kMultiselectInputPaddingY: var(--kui-multiselect-trigger-padding-y, var(--kui-space-40, $kui-space-40)); // corresponds to mixin, search for variable name in mixins
 $kMultiselectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin
+/**
+ * Wrapper divs only; the inner <input> still uses `--kui-input-padding-x`.
+ * Equal in every shipped theme — if they diverge, text shifts between empty and filled states.
+ */
+$kMultiselectTriggerPaddingX: var(--kui-multiselect-trigger-padding-x, var(--kui-space-50, $kui-space-50));
 $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
-$kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
+$kMultiselectSelectionsPaddingRight: calc($kMultiselectTriggerPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40)); // reserves room for the chevron
 $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
 
 /* Component styles */
@@ -1121,7 +1126,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
       color: var(--kui-input-color-text-placeholder, var(--kui-color-text-neutral, $kui-color-text-neutral)); // override mixin with placeholder text color
       font-size: var(--kui-font-size-30, $kui-font-size-30); // override mixin with placeholder font size
       padding-bottom: $kMultiselectInputPaddingY;
-      padding-left: $kMultiselectInputPaddingX;
+      padding-left: $kMultiselectTriggerPaddingX;
       padding-right: $kMultiselectSelectionsPaddingRight;
       padding-top: $kMultiselectInputPaddingY;
     }
@@ -1129,10 +1134,12 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
 
   .selection-badges-container {
     box-sizing: border-box;
+    // stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token -- trigger padding applied as margin on the badges row
     margin-bottom: $kMultiselectInputPaddingY;
+    // stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token -- trigger padding applied as margin on the badges row
     margin-top: $kMultiselectInputPaddingY;
-    min-height: var(--kui-multiselect-selections-min-height, 24px); // minimum height to prevent jumping when badges are removed or added
-    padding-left: $kMultiselectInputPaddingX;
+    min-height: var(--kui-input-line-height, var(--kui-line-height-40, $kui-line-height-40)); // match the empty-state text line so the trigger doesn't jump when badges are added or removed
+    padding-left: $kMultiselectTriggerPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
 
     :deep([data-part="content"]) {

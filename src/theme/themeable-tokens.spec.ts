@@ -36,9 +36,9 @@ describe('KUI_THEMEABLE_TOKENS (from @kong/design-tokens)', () => {
     expect(names).toContain('--kui-input-shadow-border-hover')
     expect(names).toContain('--kui-badge-border-radius')
     expect(names).toContain('--kui-input-icon-size')
-    expect(names).toContain('--kui-table-gap')
+    expect(names).toContain('--kui-table-toolbar-gap')
     expect(names).toContain('--kui-multiselect-trigger-padding-y')
-    expect(names).toContain('--kui-multiselect-selections-min-height')
+    expect(names).toContain('--kui-multiselect-trigger-padding-x')
   })
 
   it('marks value-less component tokens with category "component" and a null value', () => {
