@@ -473,7 +473,7 @@ describe('KTreeList', () => {
 
   it('does not flip-flop the dragged item when it is dragged across items of different heights', async () => {
     const pointerEvent = (type: string, x: number, y: number): PointerEvent => new PointerEvent(type, {
-      bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: type === 'pointerup' ? 0 : 1, pointerId: 1, pointerType: 'mouse', isPrimary: true,
+      bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: 1, pointerId: 1, pointerType: 'mouse', isPrimary: true,
     })
     const folder = (id: string, childIds: string[]) => ({
       id,
@@ -514,7 +514,8 @@ describe('KTreeList', () => {
         seen.push(order)
       }
     }
-    document.dispatchEvent(pointerEvent('pointerup', x, startY + 400))
+    // SortableJS' fallback mode ends the drag on mouseup
+    document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + 400 }))
 
     const reversals = seen.filter((order, index) => index >= 2 && order === seen[index - 2]).length
     expect(reversals).toBe(0)
