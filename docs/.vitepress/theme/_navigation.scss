@@ -225,3 +225,13 @@
 
   .Layout .VPNavBar .docs-theme-picker { margin-left: 0; }
 }
+
+@media (max-width: 360px) {
+  .Layout .VPNavBar:not(.has-sidebar) .wrapper { padding-inline: 12px; }
+
+  .Layout .VPNavBar .VPNavBarTitle .title { font-size: 12px; }
+
+  .Layout .VPNavBar .content-body { gap: 0; }
+
+  .Layout .VPNavBar .docs-theme-picker { gap: 4px; }
+}
