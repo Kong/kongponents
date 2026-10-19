@@ -74,61 +74,157 @@
       </div>
 
       <div
+        ref="showcaseRef"
         aria-label="Interactive preview built with Kongponents"
         class="showcase"
+        @focusin="pauseShowcase"
+        @focusout="onShowcaseFocusOut"
+        @mouseenter="pauseShowcase"
+        @mouseleave="resumeShowcase"
       >
         <div class="showcase__top">
           <span class="showcase__label">THE SYSTEM IN ACTION</span><span class="showcase__version">LIVE COMPONENTS</span>
         </div>
         <div class="showcase__window">
           <div class="showcase__window-bar">
-            <div class="showcase__dots">
-              <i /><i /><i />
-            </div><span>Component preview</span><span class="showcase__window-spacer" />
-          </div>
-          <div class="showcase__content">
-            <div class="showcase__intro">
-              <span class="showcase__overline">YOUR WORKSPACE</span><span class="showcase__status"><i /> All systems ready</span>
-            </div>
-            <h2>Everything in its place.</h2>
-            <p>Give every detail room to breathe.</p>
-            <KInput
-              v-model="workspaceName"
-              class="showcase__input"
-              label="Workspace name"
-              maxlength="40"
-            />
-            <div class="showcase__row">
-              <KBadge appearance="success">
-                Active
-              </KBadge><KBadge appearance="neutral">
-                Production
-              </KBadge><span class="showcase__row-line" />
-            </div>
-            <div class="showcase__buttons">
-              <KButton
-                appearance="tertiary"
-                size="small"
-                to="/components/"
-              >
-                View components
-              </KButton>
-              <KButton
-                appearance="primary"
-                :disabled="!workspaceName.trim()"
-                size="small"
-                @click="saveWorkspace"
-              >
-                {{ workspaceSaved ? 'Saved' : 'Save workspace' }}
-              </KButton>
-            </div>
-            <p
-              v-if="workspaceSaved"
-              aria-live="polite"
-              class="showcase__confirmation"
+            <div
+              aria-label="Choose component preview"
+              class="showcase__dots"
+              role="group"
             >
-              {{ savedWorkspaceName }} is ready to use.
-            </p>
+              <button
+                v-for="(example, index) in showcaseExamples"
+                :key="example.title"
+                :aria-label="`Show ${example.title} example`"
+                :aria-pressed="activeShowcase === index"
+                :class="{ 'is-active': activeShowcase === index }"
+                type="button"
+                @click="selectShowcase(index)"
+              />
+            </div><span>{{ showcaseExamples[activeShowcase].title }}</span><span class="showcase__window-spacer" />
+          </div>
+          <div
+            aria-live="off"
+            class="showcase__window-body"
+          >
+            <Transition
+              mode="out-in"
+              name="showcase-swap"
+            >
+              <div
+                :key="activeShowcase"
+                class="showcase__content"
+                :class="`showcase__content--${activeShowcase}`"
+              >
+                <template v-if="activeShowcase === 0">
+                  <div class="showcase__intro">
+                    <span class="showcase__overline">YOUR WORKSPACE</span><span class="showcase__status"><i /> All systems ready</span>
+                  </div>
+                  <h2>Everything in its place.</h2>
+                  <p>Give every detail room to breathe.</p>
+                  <KInput
+                    v-model="workspaceName"
+                    class="showcase__input"
+                    label="Workspace name"
+                    maxlength="40"
+                  />
+                  <div class="showcase__row">
+                    <KBadge appearance="success">
+                      Active
+                    </KBadge>
+                    <KBadge appearance="neutral">
+                      Production
+                    </KBadge>
+                    <span class="showcase__row-line" />
+                  </div>
+                  <div class="showcase__buttons">
+                    <KButton
+                      appearance="tertiary"
+                      size="small"
+                      to="/components/"
+                    >
+                      View components
+                    </KButton>
+                    <KButton
+                      appearance="primary"
+                      :disabled="!workspaceName.trim()"
+                      size="small"
+                      @click="saveWorkspace"
+                    >
+                      {{ workspaceSaved ? 'Saved' : 'Save workspace' }}
+                    </KButton>
+                  </div>
+                  <p
+                    v-if="workspaceSaved"
+                    aria-live="polite"
+                    class="showcase__confirmation"
+                  >
+                    {{ savedWorkspaceName }} is ready to use.
+                  </p>
+                </template>
+
+                <template v-else-if="activeShowcase === 1">
+                  <div class="showcase__intro">
+                    <span class="showcase__overline">ROUTE SETUP</span><span class="showcase__status"><i /> Step 2 of 3</span>
+                  </div>
+                  <h2>Take the next step.</h2>
+                  <p>A guided route configuration, ready to put into practice.</p>
+                  <div class="showcase__route">
+                    <KStepper :steps="routeSteps" />
+                    <div class="showcase__route-fields">
+                      <KSelect
+                        v-model="routeService"
+                        :items="routeServices"
+                        label="Upstream service"
+                      />
+                      <div class="showcase__route-path">
+                        <span>PUBLIC PATH</span>
+                        <code>{{ routePath }}</code>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="showcase__buttons">
+                    <KButton
+                      appearance="tertiary"
+                      size="small"
+                      to="/components/stepper"
+                    >
+                      Explore stepper
+                    </KButton>
+                  </div>
+                </template>
+
+                <template v-else>
+                  <div class="showcase__intro">
+                    <span class="showcase__overline">API SPECIFICATION</span><span class="showcase__status"><i /> Import</span>
+                  </div>
+                  <h2>Drop in the details.</h2>
+                  <p>Bring an API definition into your workspace.</p>
+                  <div class="showcase__import">
+                    <div class="showcase__import-heading">
+                      <strong>{{ specFileName || 'Import an OpenAPI spec' }}</strong>
+                      <span>YAML OR JSON</span>
+                    </div>
+                    <KFileUpload
+                      :accept="['.yaml', '.yml', '.json']"
+                      appearance="dropzone"
+                      label="Choose a specification file"
+                      @file-added="onSpecAdded"
+                      @file-removed="onSpecRemoved"
+                    />
+                  </div>
+                  <div class="showcase__buttons">
+                    <KButton
+                      appearance="tertiary"
+                      size="small"
+                      to="/components/file-upload"
+                    >
+                      Explore file upload
+                    </KButton>
+                  </div>
+                </template>
+              </div>
+            </Transition>
           </div>
         </div>
         <div class="showcase__bottom">
@@ -346,6 +442,26 @@ const savedWorkspaceName = ref('')
 const workspaceSaved = ref(false)
 const motionReady = ref(false)
 const serviceEnabled = ref(true)
+const routeService = ref('payments')
+const routeServices = [
+  { label: 'Payments API', value: 'payments' },
+  { label: 'Orders API', value: 'orders' },
+  { label: 'Customers API', value: 'customers' },
+]
+const routePath = computed(() => `/v1/${routeService.value}`)
+const routeSteps = [
+  { label: 'Name', state: 'completed' },
+  { label: 'Configure', state: 'active' },
+  { label: 'Review' },
+]
+const specFileName = ref('')
+const showcaseRef = ref<HTMLElement | null>(null)
+const showcaseExamples = [
+  { title: 'Workspace setup' },
+  { title: 'Route setup' },
+  { title: 'API import' },
+]
+const activeShowcase = ref(0)
 const metricOptions = [
   { label: 'Traffic', value: 'traffic' },
   { label: 'Errors', value: 'errors' },
@@ -359,6 +475,11 @@ const metricData: Record<string, { label: string, value: string, description: st
 const selectedMetric = ref('traffic')
 const currentMetric = computed(() => metricData[selectedMetric.value] ?? metricData.traffic)
 let revealObserver: IntersectionObserver | undefined
+let showcaseObserver: IntersectionObserver | undefined
+let showcaseTimer: ReturnType<typeof setInterval> | undefined
+let showcaseVisible = false
+let showcasePaused = false
+let reducedMotion = false
 
 watch(workspaceName, () => {
   workspaceSaved.value = false
@@ -371,8 +492,69 @@ function saveWorkspace(): void {
   workspaceSaved.value = true
 }
 
+function onSpecAdded(files: FileList): void {
+  specFileName.value = files[0]?.name ?? ''
+}
+
+function onSpecRemoved(): void {
+  specFileName.value = ''
+}
+
+function stopShowcase(): void {
+  if (showcaseTimer) clearInterval(showcaseTimer)
+  showcaseTimer = undefined
+}
+
+function startShowcase(): void {
+  if (showcaseTimer || !showcaseVisible || showcasePaused || reducedMotion || document.hidden) return
+  showcaseTimer = setInterval(() => {
+    activeShowcase.value = (activeShowcase.value + 1) % showcaseExamples.length
+  }, 6500)
+}
+
+function selectShowcase(index: number): void {
+  activeShowcase.value = index
+  stopShowcase()
+  startShowcase()
+}
+
+function pauseShowcase(): void {
+  showcasePaused = true
+  stopShowcase()
+}
+
+function resumeShowcase(): void {
+  showcasePaused = false
+  startShowcase()
+}
+
+function onShowcaseFocusOut(event: FocusEvent): void {
+  if (showcaseRef.value?.contains(event.relatedTarget as Node | null)) return
+  resumeShowcase()
+}
+
+function onVisibilityChange(): void {
+  if (document.hidden) stopShowcase()
+  else startShowcase()
+}
+
 onMounted(() => {
-  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  document.addEventListener('visibilitychange', onVisibilityChange)
+
+  if ('IntersectionObserver' in window) {
+    showcaseObserver = new IntersectionObserver(([entry]) => {
+      showcaseVisible = Boolean(entry?.isIntersecting)
+      if (showcaseVisible) startShowcase()
+      else stopShowcase()
+    }, { threshold: 0.4 })
+    if (showcaseRef.value) showcaseObserver.observe(showcaseRef.value)
+  } else {
+    showcaseVisible = true
+    startShowcase()
+  }
+
+  if (!('IntersectionObserver' in window) || reducedMotion) return
 
   revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -387,5 +569,10 @@ onMounted(() => {
   motionReady.value = true
 })
 
-onUnmounted(() => revealObserver?.disconnect())
+onUnmounted(() => {
+  revealObserver?.disconnect()
+  showcaseObserver?.disconnect()
+  stopShowcase()
+  document.removeEventListener('visibilitychange', onVisibilityChange)
+})
 </script>
