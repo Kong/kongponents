@@ -1,3 +1,10 @@
+## [9.66.2](https://github.com/Kong/kongponents/compare/v9.66.1...v9.66.2) (2026-10-19)
+
+
+### Bug Fixes
+
+* **kinput, kmultiselect, ktableview:** apply new component tokens ([#3476](https://github.com/Kong/kongponents/issues/3476)) ([c4a76aa](https://github.com/Kong/kongponents/commit/c4a76aa5e23184ccd532c4b4d577262f084dd17f))
+
 ## [9.66.1](https://github.com/Kong/kongponents/compare/v9.66.0...v9.66.1) (2026-10-16)
 
 
