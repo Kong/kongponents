@@ -390,7 +390,7 @@
   .home-section--ai { gap: 48px; grid-template-columns: 1fr; }
 
   .component-row { gap: 30px; } }
-@media (max-width: 640px) { .home-page { width: 100%; }
+@media (max-width: 640px) { .home-page { width: calc(100% - 24px); }
 
   .home-hero__copy { padding: 60px 24px 45px; }
 

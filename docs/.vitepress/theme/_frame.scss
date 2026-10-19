@@ -1,7 +1,7 @@
 // The frame is shared by the homepage, guide, component docs, and changelog.
 .Layout {
   --docs-frame-width: 1440px;
-  --docs-frame-inset: max(16px, calc((100vw - var(--docs-frame-width)) / 2));
+  --docs-frame-inset: max(16px, calc((100% - var(--docs-frame-width)) / 2));
   --docs-sidebar-width: 232px;
 
   position: relative;

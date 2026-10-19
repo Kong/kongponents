@@ -122,7 +122,7 @@ pre.json {
 @media (max-width: 640px) {
   .Layout .VPFooter:not(.has-sidebar) {
     padding: 28px 24px;
-    width: 100%;
+    width: calc(100% - 24px);
   }
 }
 
