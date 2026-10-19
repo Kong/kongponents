@@ -12,6 +12,16 @@ const componentDoc = (path: string, title: string): DocumentationPage => ({
 })
 
 describe('MCP component catalog discovery', () => {
+  it('ignores the component overview while cataloging component reference pages', () => {
+    const catalog = createComponentCatalog({
+      docs: [componentDoc('/components/', 'Components'), componentDoc('/components/example-card', 'Example Card')],
+      componentExports: [{ name: 'KExampleCard', sourcePath: './KExampleCard/KExampleCard.vue' }],
+      typeFilePaths: [],
+    })
+
+    expect(catalog.map(({ slug }) => slug)).toEqual(['example-card'])
+  })
+
   it('discovers a conventionally named component without a manual catalog entry', () => {
     const catalog = createComponentCatalog({
       docs: [componentDoc('/components/example-card', 'Example Card')],
