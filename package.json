@@ -100,7 +100,7 @@
     "@kong-ui-public/sandbox-layout": "2.8.0",
     "@kong/design-tokens": "3.4.2-pr.735.d16eec2.0",
     "@kong/eslint-config-kong-ui": "1.8.1",
-    "@kong/stylelint-plugin-design-tokens": "2.0.3-pr.735.d16eec2.0",
+    "@kong/stylelint-plugin-design-tokens": "2.0.3-pr.735.62206f7.0",
     "@modelcontextprotocol/client": "^2.0.0",
     "@modelcontextprotocol/server": "^2.0.0",
     "@nuxt/kit": "^4.5.2",

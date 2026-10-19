@@ -1139,6 +1139,7 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
     // stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token -- trigger padding applied as margin on the badges row
     margin-top: $kMultiselectInputPaddingY;
     // match the empty-state input text line height so the trigger doesn't jump when badges are added or removed
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
     min-height: var(--kui-input-line-height, var(--kui-line-height-40, $kui-line-height-40));
     padding-left: $kMultiselectTriggerPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
