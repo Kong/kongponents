@@ -13429,7 +13429,7 @@ snapshots:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.7
-      rollup: '@rollup/wasm-node@4.64.7'
+      rollup: '@rollup/wasm-node@4.64.10'
       webpack-virtual-modules: 0.6.2
     optionalDependencies:
       esbuild: 0.28.1
