@@ -470,4 +470,53 @@ describe('KTreeList', () => {
 
     await expect.element(page.getByTestId('tree-item-id1').getByTestId('tree-item-expanded-button')).not.toBeInTheDocument()
   })
+
+  it('does not flip-flop the dragged item when it is dragged across items of different heights', async () => {
+    const pointerEvent = (type: string, x: number, y: number): PointerEvent => new PointerEvent(type, {
+      bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: type === 'pointerup' ? 0 : 1, pointerId: 1, pointerType: 'mouse', isPrimary: true,
+    })
+    const folder = (id: string, childIds: string[]) => ({
+      id,
+      name: id,
+      children: childIds.map(childId => ({ id: childId, name: childId })),
+    })
+
+    await render(KTreeList, {
+      props: {
+        items: [
+          folder('components', ['profile-card']),
+          folder('pages', ['home', 'user']),
+          folder('user', ['user-list', 'user-detail']),
+          folder('settings', ['settings-general']),
+          { id: 'symbols', name: 'symbols' },
+        ],
+      },
+    })
+
+    const labelOrder = (): string => Array.from(document.querySelectorAll('.k-tree-list .tree-item-label'))
+      .filter(label => !label.closest('.sortable-fallback'))
+      .map(label => label.textContent?.trim())
+      .join(',')
+
+    const source = page.getByTestId('tree-item-components').element()
+    const rect = source.getBoundingClientRect()
+    const x = rect.left + 70
+    const startY = rect.top + rect.height / 2
+
+    // Move the pointer down monotonically; the order may only ever progress, never return to a previous state
+    const seen: string[] = []
+    source.dispatchEvent(pointerEvent('pointerdown', x, startY))
+    for (let i = 1; i <= 200; i++) {
+      document.dispatchEvent(pointerEvent('pointermove', x, startY + i * 2))
+      await new Promise(resolve => setTimeout(resolve, 16))
+      const order = labelOrder()
+      if (order !== seen[seen.length - 1]) {
+        seen.push(order)
+      }
+    }
+    document.dispatchEvent(pointerEvent('pointerup', x, startY + 400))
+
+    const reversals = seen.filter((order, index) => index >= 2 && order === seen[index - 2]).length
+    expect(reversals).toBe(0)
+  })
 })
