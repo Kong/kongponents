@@ -1133,7 +1133,13 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   }
 
   .selection-badges-container {
+    /**
+     * As a block, the line box around the baseline-aligned inline-flex badges wrapper also fits the
+     * inherited font's strut descender, making the row 1-2px taller than its content. Flex removes the line box.
+     */
+    align-items: center;
     box-sizing: border-box;
+    display: flex;
     // stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token -- trigger padding applied as margin on the badges row
     margin-bottom: $kMultiselectInputPaddingY;
     // stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token -- trigger padding applied as margin on the badges row
