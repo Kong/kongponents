@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;
   font-family: var(--kui-table-font-family, var(--kui-font-family-text, $kui-font-family-text));
-  gap: var(--kui-space-70, $kui-space-70);
+  gap: var(--kui-table-toolbar-gap, var(--kui-space-70, $kui-space-70)); // between the toolbar and the table content, not between toolbar items
 
   .table-toolbar {
     display: flex;

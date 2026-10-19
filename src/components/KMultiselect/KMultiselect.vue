@@ -1098,10 +1098,10 @@ useResizeObserver(multiselectElementRef, () => {
 <style lang="scss" scoped>
 /* Component variables */
 
-$kMultiselectInputPaddingY: var(--kui-space-40, $kui-space-40); // corresponds to mixin, search for variable name in mixins
-$kMultiselectInputPaddingX: var(--kui-space-50, $kui-space-50); // corresponds to mixin
+$kMultiselectInputPaddingY: var(--kui-input-padding-y, var(--kui-space-40, $kui-space-40)); // corresponds to mixin, search for variable name in mixins
+$kMultiselectInputPaddingX: var(--kui-input-padding-x, var(--kui-space-50, $kui-space-50)); // corresponds to mixin
 $kMultiselectChevronIconSize: var(--kui-icon-size-40, $kui-icon-size-40);
-$kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40));
+$kMultiselectSelectionsPaddingRight: calc($kMultiselectInputPaddingX + $kMultiselectChevronIconSize + var(--kui-space-40, $kui-space-40)); // reserves room for the chevron
 $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20); // corresponds to mixin
 
 /* Component styles */
@@ -1128,10 +1128,20 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   }
 
   .selection-badges-container {
+    /**
+     * As a block, the line box around the baseline-aligned inline-flex badges wrapper also fits the
+     * inherited font's strut descender, making the row 1-2px taller than its content. Flex removes the line box.
+     */
+    align-items: center;
     box-sizing: border-box;
+    display: flex;
+    // stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token -- trigger padding applied as margin on the badges row
     margin-bottom: $kMultiselectInputPaddingY;
+    // stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token -- trigger padding applied as margin on the badges row
     margin-top: $kMultiselectInputPaddingY;
-    min-height: 24px; // minimum height to prevent jumping when badges are removed or added
+    // match the empty-state input text line height so the trigger doesn't jump when badges are added or removed
+    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
+    min-height: var(--kui-input-line-height, var(--kui-line-height-40, $kui-line-height-40));
     padding-left: $kMultiselectInputPaddingX;
     padding-right: $kMultiselectSelectionsPaddingRight;
 
@@ -1168,10 +1178,10 @@ $kMultiselectInputHelpTextHeight: var(--kui-line-height-20, $kui-line-height-20)
   .multiselect-icons-container {
     color: var(--kui-input-color-text-placeholder, var(--kui-color-text-neutral, $kui-color-text-neutral));
     margin-right: $kMultiselectInputPaddingX;
-    margin-top: 10px;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(calc(-50% + 2px)); // nudge down to optically centre the caret
     z-index: 1;
 
     .multiselect-clear-icon {
