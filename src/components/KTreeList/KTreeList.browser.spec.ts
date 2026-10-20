@@ -472,9 +472,13 @@ describe('KTreeList', () => {
   })
 
   it('does not flip-flop the dragged item when it is dragged across items of different heights', async () => {
-    const pointerEvent = (type: string, x: number, y: number): PointerEvent => new PointerEvent(type, {
-      bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: 1, pointerId: 1, pointerType: 'mouse', isPrimary: true,
-    })
+    // SortableJS listens to pointer events, except in Safari-family browsers where it listens to mouse events,
+    // so dispatch both to make sure the drag starts everywhere
+    const dispatchPointer = (target: Element | Document, type: 'down' | 'move', x: number, y: number): void => {
+      const init = { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: 1 }
+      target.dispatchEvent(new PointerEvent(`pointer${type}`, { ...init, pointerId: 1, pointerType: 'mouse', isPrimary: true }))
+      target.dispatchEvent(new MouseEvent(`mouse${type}`, init))
+    }
     const folder = (id: string, childIds: string[]) => ({
       id,
       name: id,
@@ -505,19 +509,24 @@ describe('KTreeList', () => {
 
     // Move the pointer down monotonically; the order may only ever progress, never return to a previous state
     const seen: string[] = []
-    source.dispatchEvent(pointerEvent('pointerdown', x, startY))
+    dispatchPointer(source, 'down', x, startY)
     for (let i = 1; i <= 200; i++) {
-      document.dispatchEvent(pointerEvent('pointermove', x, startY + i * 2))
+      dispatchPointer(document, 'move', x, startY + i * 2)
       await new Promise(resolve => setTimeout(resolve, 16))
       const order = labelOrder()
       if (order !== seen[seen.length - 1]) {
         seen.push(order)
       }
     }
-    // SortableJS' fallback mode ends the drag on mouseup
+    // SortableJS ends a fallback drag on mouseup
     document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + 400 }))
 
     const reversals = seen.filter((order, index) => index >= 2 && order === seen[index - 2]).length
     expect(reversals).toBe(0)
-  })
+
+    // make sure the drag really happened, otherwise the check above passes without testing anything
+    expect(seen.length).toBeGreaterThan(1)
+    expect(seen[seen.length - 1].split(',')[0]).not.toBe('components')
+    // the pointer is moved with real timers, which takes a few seconds and is slower on busy CI machines
+  }, 20000)
 })
