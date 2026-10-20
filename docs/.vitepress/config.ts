@@ -48,29 +48,19 @@ export default defineConfig({
     sidebar: {
       // Components sidebar
       '/components/': [
+        { text: 'Introduction', items: [{ text: 'Overview', link: '/components/' }] },
         {
-          text: 'Introduction',
+          text: 'Element',
           collapsed: false,
           items: [
-            { text: 'Overview', link: '/components/' },
-          ],
-        },
-        {
-          text: 'Essentials',
-          collapsed: false,
-          items: [
-            { text: 'Alert', link: '/components/alert' },
             { text: 'Badge', link: '/components/badge' },
             { text: 'Button', link: '/components/button' },
             { text: 'Card', link: '/components/card' },
-            { text: 'Empty State', link: '/components/empty-state' },
             { text: 'Label', link: '/components/label' },
-            { text: 'Skeleton', link: '/components/skeleton' },
-            { text: 'Theme Provider', link: '/components/theme-provider' },
           ],
         },
         {
-          text: 'Forms & inputs',
+          text: 'Form',
           collapsed: false,
           items: [
             { text: 'Checkbox', link: '/components/checkbox' },
@@ -88,42 +78,58 @@ export default defineConfig({
           ],
         },
         {
-          text: 'Navigation & data',
+          text: 'Data',
           collapsed: false,
           items: [
-            { text: 'Breadcrumbs', link: '/components/breadcrumbs' },
             { text: 'Catalog', link: '/components/catalog' },
-            { text: 'Pagination', link: '/components/pagination' },
-            { text: 'Stepper', link: '/components/stepper' },
-            { text: 'Table Data', link: '/components/table-data' },
+            { text: 'Code Block', link: '/components/codeblock' },
+            { text: 'Collapse', link: '/components/collapse' },
             { text: 'Table (deprecated)', link: '/components/table' },
+            { text: 'Table Data', link: '/components/table-data' },
             { text: 'Table View', link: '/components/table-view' },
-            { text: 'Tabs', link: '/components/tabs' },
             { text: 'Tree List', link: '/components/tree-list' },
+            { text: 'Truncate', link: '/components/truncate' },
           ],
         },
         {
-          text: 'Overlays & feedback',
+          text: 'Navigation',
           collapsed: false,
           items: [
-            { text: 'Collapse', link: '/components/collapse' },
+            { text: 'Breadcrumbs', link: '/components/breadcrumbs' },
+            { text: 'External Link', link: '/components/external-link' },
+            { text: 'Pagination', link: '/components/pagination' },
+            { text: 'Stepper', link: '/components/stepper' },
+            { text: 'Tabs', link: '/components/tabs' },
+          ],
+        },
+        {
+          text: 'Overlay',
+          collapsed: false,
+          items: [
             { text: 'Dropdown', link: '/components/dropdown' },
             { text: 'Modal', link: '/components/modal' },
             { text: 'Popover', link: '/components/popover' },
             { text: 'Prompt', link: '/components/prompt' },
             { text: 'Slideout', link: '/components/slideout' },
-            { text: 'Toaster', link: '/components/toaster' },
             { text: 'Tooltip', link: '/components/tooltip' },
+          ],
+        },
+        {
+          text: 'Feedback',
+          collapsed: false,
+          items: [
+            { text: 'Alert', link: '/components/alert' },
+            { text: 'Empty State', link: '/components/empty-state' },
+            { text: 'Skeleton', link: '/components/skeleton' },
+            { text: 'Toaster', link: '/components/toaster' },
           ],
         },
         {
           text: 'Utilities',
           collapsed: false,
           items: [
-            { text: 'Code Block', link: '/components/codeblock' },
             { text: 'Copy', link: '/components/copy' },
-            { text: 'External Link', link: '/components/external-link' },
-            { text: 'Truncate', link: '/components/truncate' },
+            { text: 'Theme Provider', link: '/components/theme-provider' },
           ],
         },
         {
@@ -131,8 +137,8 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'KClipboardProvider', link: '/components/renderless/clipboard-provider' },
-            { text: 'KToggle', link: '/components/renderless/toggle' },
             { text: 'KComponent', link: '/components/renderless/k-component' },
+            { text: 'KToggle', link: '/components/renderless/toggle' },
           ],
         },
       ],

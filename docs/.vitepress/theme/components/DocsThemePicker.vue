@@ -4,48 +4,6 @@
     class="docs-theme-picker"
   >
     <button
-      :aria-checked="activeMode === 'dark'"
-      :aria-label="activeMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
-      class="mode-btn"
-      role="switch"
-      :title="activeMode === 'dark' ? 'Light mode' : 'Dark mode'"
-      type="button"
-      @click="toggleMode"
-    >
-      <svg
-        v-if="activeMode === 'dark'"
-        aria-hidden="true"
-        fill="none"
-        height="18"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-width="1.7"
-        viewBox="0 0 24 24"
-        width="18"
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="4"
-        />
-        <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
-      </svg>
-      <svg
-        v-else
-        aria-hidden="true"
-        fill="none"
-        height="18"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.7"
-        viewBox="0 0 24 24"
-        width="18"
-      >
-        <path d="M20.7 14.3A8.8 8.8 0 0 1 9.7 3.3 8.8 8.8 0 1 0 20.7 14.3Z" />
-      </svg>
-    </button>
-    <button
       ref="buttonRef"
       :aria-expanded="open"
       aria-haspopup="menu"
@@ -133,7 +91,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useDocsTheme } from '../composables/useDocsTheme'
 import { DOCS_THEME_OPTIONS } from '../utils/docsThemes'
 
-const { activeThemeLabel, activeMode, themeLabels, selectTheme, toggleMode, applyCurrentTheme } = useDocsTheme()
+const { activeThemeLabel, themeLabels, selectTheme, applyCurrentTheme } = useDocsTheme()
 
 const open = ref(false)
 const pickerRef = ref<HTMLElement | null>(null)
@@ -152,7 +110,7 @@ function select(label: string): void {
 function swatchFor(label: string): string {
   if (label.startsWith('Electric Lime')) return '#ccff00'
   if (label.startsWith('Mono Lime')) return '#a8d400'
-  const theme = DOCS_THEME_OPTIONS[label]?.light
+  const theme = DOCS_THEME_OPTIONS[label]
   if (!theme) return '#1155cb'
   const t = theme as Record<string, string>
   return t['--kui-button-color-background-primary']
@@ -184,12 +142,10 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
 .docs-theme-picker {
   align-items: center;
   display: flex;
-  gap: 8px;
   margin-left: 8px;
   position: relative;
 }
 
-.mode-btn,
 .theme-btn {
   align-items: center;
   background: var(--vp-c-bg-soft);
@@ -198,28 +154,18 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
   color: var(--vp-c-text-1);
   cursor: pointer;
   display: flex;
+  gap: 8px;
   height: 38px;
   justify-content: center;
+  padding: 0 11px;
   transition: background-color 0.25s, border-color 0.25s;
 }
 
-.mode-btn {
-  flex: 0 0 38px;
-  padding: 0;
-}
-
-.theme-btn {
-  gap: 8px;
-  padding: 0 11px;
-}
-
-.mode-btn:hover,
 .theme-btn:hover {
   background: color-mix(in srgb, var(--vp-c-text-1) 10%, var(--vp-c-bg));
   border-color: var(--vp-c-text-3);
 }
 
-.mode-btn:focus-visible,
 .theme-btn:focus-visible,
 .flyout-item:focus-visible {
   outline: 2px solid var(--vp-c-brand-1);
@@ -258,8 +204,9 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   box-shadow: 0 18px 44px #0003;
+  max-height: min(70vh, 480px);
   min-width: 252px;
-  overflow: hidden;
+  overflow-y: auto;
   padding: 8px;
   position: absolute;
   right: 0;
@@ -332,15 +279,12 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
 }
 
 @media (max-width: 767px) {
-  .mode-btn,
   .theme-btn {
     border: 0;
     height: 36px;
     padding: 0;
     width: 36px;
   }
-
-  .mode-btn { flex-basis: 36px; }
 
   .theme-btn-label,
   .theme-chevron { display: none; }
