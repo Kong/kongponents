@@ -4,38 +4,32 @@ import {
   DOCS_COLOR_MODE_STORAGE_KEY,
   DOCS_THEME_OPTIONS,
   DOCS_THEME_STORAGE_KEY,
-  type DocsColorMode,
 } from '../utils/docsThemes'
 
-const FALLBACK_THEME = 'Electric Lime'
+const FALLBACK_THEME = 'Classic Day'
 
-function readSaved(): { theme: string, mode: DocsColorMode } {
-  if (typeof localStorage === 'undefined') return { theme: FALLBACK_THEME, mode: 'light' }
+function readSaved(): string {
+  if (typeof localStorage === 'undefined') return FALLBACK_THEME
 
   const savedTheme = localStorage.getItem(DOCS_THEME_STORAGE_KEY) ?? FALLBACK_THEME
-  const legacyMode: DocsColorMode = savedTheme.includes('Night') ? 'dark' : 'light'
-  const theme = savedTheme
-    .replace(' Day High Contrast', ' High Contrast')
-    .replace(' Night High Contrast', ' High Contrast')
-    .replace(/ (Day|Night)$/, '')
   const savedMode = localStorage.getItem(DOCS_COLOR_MODE_STORAGE_KEY)
+  if (savedTheme in DOCS_THEME_OPTIONS) return savedTheme
 
-  return {
-    theme: theme in DOCS_THEME_OPTIONS ? theme : FALLBACK_THEME,
-    mode: savedMode === 'light' || savedMode === 'dark' ? savedMode : legacyMode,
-  }
+  // Migrate selections saved by the previous two-control picker.
+  const mode = savedMode === 'dark' ? 'Night' : 'Day'
+  const migrated = savedTheme.endsWith(' High Contrast')
+    ? `${savedTheme.replace(' High Contrast', '')} ${mode} High Contrast`
+    : `${savedTheme} ${mode}`
+  return migrated in DOCS_THEME_OPTIONS ? migrated : FALLBACK_THEME
 }
 
-const saved = readSaved()
-const activeThemeLabel = ref(saved.theme)
-const activeMode = ref<DocsColorMode>(saved.mode)
+const activeThemeLabel = ref(readSaved())
 
 export function useDocsTheme() {
   function applyCurrentTheme(): void {
-    applyTheme(DOCS_THEME_OPTIONS[activeThemeLabel.value][activeMode.value])
-    document.documentElement.classList.toggle('dark', activeMode.value === 'dark')
+    applyTheme(DOCS_THEME_OPTIONS[activeThemeLabel.value])
+    document.documentElement.classList.toggle('dark', activeThemeLabel.value.includes('Night'))
     localStorage.setItem(DOCS_THEME_STORAGE_KEY, activeThemeLabel.value)
-    localStorage.setItem(DOCS_COLOR_MODE_STORAGE_KEY, activeMode.value)
   }
 
   function selectTheme(label: string): void {
@@ -44,17 +38,10 @@ export function useDocsTheme() {
     applyCurrentTheme()
   }
 
-  function toggleMode(): void {
-    activeMode.value = activeMode.value === 'light' ? 'dark' : 'light'
-    applyCurrentTheme()
-  }
-
   return {
     activeThemeLabel,
-    activeMode,
     themeLabels: Object.keys(DOCS_THEME_OPTIONS),
     selectTheme,
-    toggleMode,
     applyCurrentTheme,
   }
 }

@@ -13,26 +13,17 @@ import {
 import { defineKongponentsTheme } from '../../../../src/theme/defineKongponentsTheme'
 import type { KongponentsTheme } from '../../../../src/types/theme'
 
-export type DocsColorMode = 'light' | 'dark'
-
-export const DOCS_THEME_OPTIONS: Record<string, Record<DocsColorMode, KongponentsTheme>> = {
-  'Electric Lime': {
-    light: defineKongponentsTheme(electricLimeDay),
-    dark: defineKongponentsTheme(electricLimeNight),
-  },
-  Classic: { light: classicDay, dark: classicNight },
-  'Electric Lime High Contrast': {
-    light: defineKongponentsTheme(electricLimeDayHighContrast),
-    dark: defineKongponentsTheme(electricLimeNightHighContrast),
-  },
-  'Mono Lime': {
-    light: defineKongponentsTheme(monoLimeDay),
-    dark: defineKongponentsTheme(monoLimeNight),
-  },
-  'Mono Lime High Contrast': {
-    light: defineKongponentsTheme(monoLimeDayHighContrast),
-    dark: defineKongponentsTheme(monoLimeNightHighContrast),
-  },
+export const DOCS_THEME_OPTIONS: Record<string, KongponentsTheme> = {
+  'Classic Day': classicDay,
+  'Classic Night': classicNight,
+  'Electric Lime Day': defineKongponentsTheme(electricLimeDay),
+  'Electric Lime Night': defineKongponentsTheme(electricLimeNight),
+  'Electric Lime Day High Contrast': defineKongponentsTheme(electricLimeDayHighContrast),
+  'Electric Lime Night High Contrast': defineKongponentsTheme(electricLimeNightHighContrast),
+  'Mono Lime Day': defineKongponentsTheme(monoLimeDay),
+  'Mono Lime Night': defineKongponentsTheme(monoLimeNight),
+  'Mono Lime Day High Contrast': defineKongponentsTheme(monoLimeDayHighContrast),
+  'Mono Lime Night High Contrast': defineKongponentsTheme(monoLimeNightHighContrast),
 }
 
 export const DOCS_THEME_STORAGE_KEY = 'kongponents-docs-theme'

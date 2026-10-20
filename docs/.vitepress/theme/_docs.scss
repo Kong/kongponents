@@ -196,6 +196,19 @@
     padding-right: 28px;
   }
 
+  // VitePress pulls code blocks outside their content column on narrow screens.
+  // Keep them within the page frame so its vertical borders do not cross the code.
+  .vp-doc div[class*='language-'],
+  .vp-doc .vp-block {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .vp-doc .vp-code-group .tabs {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .vp-doc > div > .vertical-container {
     padding: 18px;
   }

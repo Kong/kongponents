@@ -17,26 +17,50 @@ Find the building blocks for clear, consistent Vue interfaces. Each component pa
 
 ## Explore the library
 
-Use the navigation on the left to browse all components by purpose, from essentials and forms to data displays and overlays.
+Browse by purpose below, or use the sidebar and search to find a component by name.
 
-### Essentials
+### Element
 
-[Alert](/components/alert) · [Badge](/components/badge) · [Button](/components/button) · [Card](/components/card) · [Empty State](/components/empty-state) · [Label](/components/label) · [Skeleton](/components/skeleton) · [Theme Provider](/components/theme-provider)
+Core building blocks for interfaces.
 
-### Forms & inputs
+[Badge](/components/badge) · [Button](/components/button) · [Card](/components/card) · [Label](/components/label)
+
+### Form
+
+Controls for entering and selecting values.
 
 [Checkbox](/components/checkbox) · [DateTime Picker](/components/datetime-picker) · [File Upload](/components/file-upload) · [Filter Group](/components/filter-group) · [Input](/components/input) · [Input Switch](/components/input-switch) · [Multiselect](/components/multiselect) · [Radio](/components/radio) · [Segmented Control](/components/segmented-control) · [Select](/components/select) · [Slider](/components/slider) · [Textarea](/components/textarea)
 
-### Navigation & data
+### Data
 
-[Breadcrumbs](/components/breadcrumbs) · [Catalog](/components/catalog) · [Pagination](/components/pagination) · [Stepper](/components/stepper) · [Table Data](/components/table-data) · [Table View](/components/table-view) · [Tabs](/components/tabs) · [Tree List](/components/tree-list)
+Components for displaying and organizing content.
 
-### Overlays & feedback
+[Catalog](/components/catalog) · [Code Block](/components/codeblock) · [Collapse](/components/collapse) · [Table (deprecated)](/components/table) · [Table Data](/components/table-data) · [Table View](/components/table-view) · [Tree List](/components/tree-list) · [Truncate](/components/truncate)
 
-[Collapse](/components/collapse) · [Dropdown](/components/dropdown) · [Modal](/components/modal) · [Popover](/components/popover) · [Prompt](/components/prompt) · [Slideout](/components/slideout) · [Toaster](/components/toaster) · [Tooltip](/components/tooltip)
+### Navigation
+
+Links and controls for moving through an interface.
+
+[Breadcrumbs](/components/breadcrumbs) · [External Link](/components/external-link) · [Pagination](/components/pagination) · [Stepper](/components/stepper) · [Tabs](/components/tabs)
+
+### Overlay
+
+Content shown above the current page.
+
+[Dropdown](/components/dropdown) · [Modal](/components/modal) · [Popover](/components/popover) · [Prompt](/components/prompt) · [Slideout](/components/slideout) · [Tooltip](/components/tooltip)
+
+### Feedback
+
+States and messages that explain what is happening.
+
+[Alert](/components/alert) · [Empty State](/components/empty-state) · [Skeleton](/components/skeleton) · [Toaster](/components/toaster)
 
 ### Utilities
 
-[Code Block](/components/codeblock) · [Copy](/components/copy) · [External Link](/components/external-link) · [Truncate](/components/truncate)
+Helpers for common interface behavior and theming.
 
-Looking for low-level behavior? Explore the renderless components in the sidebar.
+[Copy](/components/copy) · [Theme Provider](/components/theme-provider)
+
+### Renderless
+
+Behavior without a fixed visual presentation: [KClipboardProvider](/components/renderless/clipboard-provider) · [KComponent](/components/renderless/k-component) · [KToggle](/components/renderless/toggle).
