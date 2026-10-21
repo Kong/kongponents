@@ -66,6 +66,7 @@ const showCardHeader = (): boolean => {
     display: inline-flex;
     gap: var(--kui-card-header-gap, var(--kui-space-50, $kui-space-50));
     justify-content: space-between;
+    padding: var(--kui-card-header-padding, var(--kui-space-0, $kui-space-0));
 
     .card-title {
       align-items: center;
@@ -74,7 +75,6 @@ const showCardHeader = (): boolean => {
       font-weight: var(--kui-card-title-font-weight, var(--kui-font-weight-bold, $kui-font-weight-bold));
       line-height: var(--kui-card-title-line-height, var(--kui-line-height-30, $kui-line-height-30));
       margin: var(--kui-space-0, $kui-space-0);
-      padding: var(--kui-card-title-padding, var(--kui-space-0, $kui-space-0));
       text-align: left;
       width: 100%;
     }
