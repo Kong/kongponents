@@ -21,12 +21,12 @@ overrides:
   handlebars@<4.7.10: '>=4.7.10'
   immutable@>=5.0.0-beta.1 <5.1.8: '>=5.1.8 <6.0.0'
   js-yaml@<5.4.1: '>=5.4.1 <6.0.0'
-  launch-editor@<=2.14.0: '>=2.14.1'
+  launch-editor@<=2.14.0: '>=2.14.2'
   lodash@<=4.17.23: '>=4.18.0'
   nanoid@<3.3.18: '>=3.3.18'
   nuxt@>=4.0.0 <4.5.1: '>=4.5.1'
-  postcss@<=8.5.17: '>=8.5.23'
   postcss-selector-parser@>=7.0.0 <7.1.6: '>=7.1.6 <8.0.0'
+  postcss@<=8.5.17: '>=8.5.23'
   qs@>=2.2.5 <6.16.0: '>=6.16.0 <7.0.0'
   rollup: npm:@rollup/wasm-node@^4.43.0
   seroval@<1.6.3: '>=1.6.3 <2.0.0'
@@ -41,6 +41,7 @@ overrides:
   undici@>=7.0.0 <7.29.1: '>=7.29.1 <8.0.0'
   undici@>=8.0.0 <8.10.2: '>=8.10.2 <9.0.0'
   vite: '>=6.4.3'
+  vite@>=7.0.0 <=7.3.6: '>=7.3.7'
   ws@>=8.0.0 <8.21.0: '>=8.21.1'
 
 importers:
@@ -1305,7 +1306,7 @@ packages:
   '@nuxt/devtools-kit@3.4.1':
     resolution: {integrity: sha512-6ltPm2yUW8GvDdf3VJna7+flLi+ej7xRfSr+S4ovevKt/CuPf9EqYOn1jW7Kw/U1MXt/71zkn+/O2vu3G6O9Hg==}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
 
   '@nuxt/devtools-wizard@3.4.1':
     resolution: {integrity: sha512-taGeuTnkHsZVjgD9r6NXvvHaBzB2j4mCgOmlmkz3ntsqgh1SJfmsD11Tmtl7FVAxJS8Wuvuzgt0GyTlADBW9Wg==}
@@ -1316,7 +1317,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@vitejs/devtools': '*'
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
     peerDependenciesMeta:
       '@vitejs/devtools':
         optional: true
@@ -1865,7 +1866,7 @@ packages:
       oxc-parser: '>=0.98.0'
       rolldown: '>=1.0.0'
       unhead: ^3.3.1
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       webpack: '>=5.0.0'
     peerDependenciesMeta:
       '@unhead/cli':
@@ -1888,7 +1889,7 @@ packages:
   '@unhead/vue@3.3.1':
     resolution: {integrity: sha512-iS+eiE1NehbV/eF7wzR7UUuUVTv8fIphFOCekQvEMuPqfKPCB8f3wf7sgPgUngYX6mdgM6PmkGmaOQgTBxqwbw==}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       vue: '>=3.5.18'
       webpack: '>=5.0.0'
     peerDependenciesMeta:
@@ -1906,7 +1907,7 @@ packages:
     resolution: {integrity: sha512-YXvi4as2clxt6DFw5+a0tTA97ntiQXm/raR8ofNj3aNwwdlVGTiG2gp7EvfZW17P50acL/9bP0ccF4XnqNmlgA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       vue: ^3.0.0
 
   '@vitejs/plugin-vue@5.2.4':
@@ -1920,7 +1921,7 @@ packages:
     resolution: {integrity: sha512-0ZjgOg7oO6farnNGup7yvoM/YXZV84OZxHAwtflItNa/6zzQyVb5LNxyea3FEKEX2XlagIKzrlH7wwxkKgtiew==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       vue: ^3.2.25
 
   '@vitest/browser-playwright@4.1.11':
@@ -6039,7 +6040,7 @@ packages:
   unhead@3.3.1:
     resolution: {integrity: sha512-eqHlbLyuvIXw898WopQmosTml4PdYW5ZhXDom/sf7ysAqQB9uvYrw2/dNvbrmkJTufSkmNmgGCjoQcvoT2mS/A==}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
     peerDependenciesMeta:
       vite:
         optional: true
@@ -6116,7 +6117,7 @@ packages:
       esbuild: '>=0.28.1'
       rolldown: '*'
       unloader: '*'
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       webpack: '*'
     peerDependenciesMeta:
       '@farmfe/core':
@@ -6147,7 +6148,7 @@ packages:
       esbuild: '>=0.28.1'
       rolldown: '*'
       unloader: '*'
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       webpack: '*'
     peerDependenciesMeta:
       '@farmfe/core':
@@ -6322,12 +6323,12 @@ packages:
   vite-dev-rpc@2.0.0:
     resolution: {integrity: sha512-yKwbTwdHKSD2k/aGqyWpPHepo45OQc8lH3/6IfT4ZqeKE26ooKvi4WIEKzqWav8v+9Is8u1k8q54hvOmqASazA==}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
 
   vite-hot-client@2.2.0:
     resolution: {integrity: sha512-76Zs9zrHbH7M7wqeyooGQKdX+yg0pQ0xuQ1PbFp4z5a0Lzn2e5IPFoCswnmqZ4GiwqB4Jo3WcDAMO9jARTJl8w==}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
 
   vite-node@6.0.0:
     resolution: {integrity: sha512-oj4PVrT+pDh6GYf5wfUXkcZyekYS8kKPfLPXVl8qe324Ec6l4K2DUKNadRbZ3LQl0qGcDz+PyOo7ZAh00Y+JjQ==}
@@ -6345,7 +6346,7 @@ packages:
       oxlint: '>=1'
       stylelint: '>=16.26.1'
       typescript: '*'
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       vue-tsc: ~2.2.10 || ^3.0.0
     peerDependenciesMeta:
       '@biomejs/biome':
@@ -6380,7 +6381,7 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -6389,17 +6390,17 @@ packages:
     resolution: {integrity: sha512-08DvePf663SxqLFJeMVNW537zzVyakp9KIrI2K7lwgaTqA5R/ydN/N2K8dgZO34tg/Qmw0ch84fOKoBtCEdcGg==}
     engines: {node: '>=v14.21.3'}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
 
   vite-plugin-vue-inspector@5.4.0:
     resolution: {integrity: sha512-Iq/024CydcE46FZqWPU4t4lw4uYOdLnFSO1RNxJVt2qY9zxIjmnkBqhHnYaReWM82kmNnaXs7OkfgRrV2GEjyw==}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
 
   vite-plugin-vue-tracer@1.4.0:
     resolution: {integrity: sha512-0tQCjCqZWVSK6UeRW9S4ABbf47lKQ68zvrT2FNvZmiL+alDydCVyH/T3Jlfbdc3T3C2Iuyyl5aVsMbF8IQIoxA==}
     peerDependencies:
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       vue: ^3.5.0
 
   vite@7.3.5:
@@ -6476,7 +6477,7 @@ packages:
       '@vitest/ui': 4.1.11
       happy-dom: '*'
       jsdom: '*'
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
     peerDependenciesMeta:
       '@edge-runtime/vm':
         optional: true
@@ -6547,7 +6548,7 @@ packages:
       '@pinia/colada': '>=0.21.2'
       '@vue/compiler-sfc': ^3.5.34 || ^4.0.0
       pinia: ^3.0.4 || ^4.0.2
-      vite: '>=6.4.3'
+      vite: '>=7.3.7'
       vue: ^3.5.34 || ^4.0.0
     peerDependenciesMeta:
       '@pinia/colada':
