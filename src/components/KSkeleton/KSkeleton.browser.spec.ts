@@ -77,6 +77,21 @@ describe('KSkeleton', () => {
       await expect.element(page.getByRole('img', { name: 'Loading' })).toBeVisible()
     })
 
+    it('does not rely on document-wide ids for full screen loader animation', async () => {
+      await render(KSkeleton, {
+        props: {
+          type: 'fullscreen-kong',
+        },
+      })
+
+      const loaderImage = page.getByRole('img', { name: 'Loading' })
+
+      await expect.element(loaderImage).toBeVisible()
+
+      /** Multiple loader instances would bind their animations to the first instance's ids */
+      expect(loaderImage.element().querySelectorAll('[id], [href], [*|href]')).toHaveLength(0)
+    })
+
     it('hides full screen loader progress bar when hideProgress is true', async () => {
       await render(KSkeleton, {
         props: {

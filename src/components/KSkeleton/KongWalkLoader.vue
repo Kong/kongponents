@@ -8,1060 +8,932 @@
     viewBox="0 0 514 448"
     width="160"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
   >
-    <defs>
-      <animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.9393939;0.939397;1"
-        repeatCount="indefinite"
-        to="1"
-        values="0;0;1;1"
-        xlink:href="#_R_G_L_19_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.8787879;0.8787909;0.9393939;0.939394;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_18_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.8484848;0.8484879;0.8787879;0.8787879;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_17_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.8181818;0.8181848;0.8484848;0.8484849;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_16_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.7878788;0.7878818;0.8181818;0.8181818;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_15_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.7575758;0.7575788;0.7878788;0.7878788;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_14_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.7272727;0.7272758;0.7575758;0.7575758;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_13_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.6666667;0.6666697;0.7272727;0.7272728;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_12_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.6060606;0.6060636;0.6666667;0.6666667;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_11_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.5151515;0.5151545;0.6060606;0.6060606;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_10_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.4545455;0.4545485;0.5151515;0.5151515;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_9_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.3939394;0.3939424;0.4545455;0.4545455;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_8_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.3636364;0.3636394;0.3939394;0.3939394;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_7_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.3333333;0.3333364;0.3636364;0.3636364;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_6_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.3030303;0.3030333;0.3333333;0.3333334;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_5_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.2727273;0.2727303;0.3030303;0.3030303;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_4_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.2424242;0.2424273;0.2727273;0.2727273;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_3_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.1818182;0.1818212;0.2424242;0.2424243;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_2_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="0"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.1212121;0.1212152;0.1818182;0.1818182;1"
-        repeatCount="indefinite"
-        to="0"
-        values="0;0;1;1;0;0"
-        xlink:href="#_R_G_L_1_G_M"
-      /><animate
-        attributeName="opacity"
-        begin="0s"
-        calcMode="spline"
-        dur="1.1s"
-        fill="freeze"
-        from="1"
-        keySplines="0 0 0 0;0 0 0 0;0 0 0 0"
-        keyTimes="0;0.1212121;0.1212122;1"
-        repeatCount="indefinite"
-        to="0"
-        values="1;1;0;0"
-        xlink:href="#_R_G_L_0_G_M"
-      /><animate
-        attributeName="opacity"
-        attributeType="XML"
-        dur="1s"
-        from="0"
-        to="1"
-        xlink:href="#time_group"
-      />
-    </defs><g id="_R_G">
-      <g id="_R_G_L_19_G_M">
-        <g id="_R_G_L_19_G">
+    <g>
+      <g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.9393939;0.939397;1"
+          repeatCount="indefinite"
+          to="1"
+          values="0;0;1;1"
+        />
+        <g>
           <path
-            id="_R_G_L_19_G_D_0_P_0"
             d=" M166 428 C166,428 162,442 162,442 C162,442 130,420 130,420 C130,420 144,400 144,400 C144,400 166,428 166,428z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_19_G_D_1_P_0"
             d=" M182 425 C182,425 179,447 179,447 C179,447 299,428 299,428 C299,428 310,402 310,402 C310,402 261,366 261,366 C261,366 165,368 165,368 C165,368 154,386 154,386 C154,386 182,425 182,425z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_19_G_D_2_P_0"
             d=" M108 257 C108,257 76,257 76,257 C76,257 6,349 6,349 C6,349 0,448 0,448 C0,448 83,448 83,448 C83,448 157,349 157,349 C157,349 247,349 247,349 C247,349 270,313 270,313 C270,313 176,190 176,190 C176,190 108,257 108,257z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_19_G_D_3_P_0"
             d=" M191 172 C191,172 240,105 240,105 C240,105 287,109 287,109 C287,109 393,249 393,249 C393,249 488,339 488,339 C488,339 500,406 500,406 C500,406 388,435 388,435 C388,435 385,409 385,409 C385,409 303,325 303,325 C303,325 191,172 191,172z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_19_G_D_4_P_0"
             d=" M374 200 C374,200 428,161 428,161 C428,161 430,135 430,135 C430,135 415,109 415,109 C415,109 428,96 428,96 C428,96 369,43 369,43 C369,43 332,8 332,8 C332,8 268,53 268,53 C268,53 246,88 246,88 C246,88 297,92 297,92 C297,92 374,200 374,200z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_18_G_M">
-        <g id="_R_G_L_18_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.8787879;0.8787909;0.9393939;0.939394;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_18_G_D_0_P_0"
             d=" M121 448 C121,448 208,448 208,448 C208,448 211,438 211,438 C211,438 169,445 169,445 C169,445 167,410 167,410 C167,410 155,382 155,382 C155,382 121,448 121,448z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_18_G_D_1_P_0"
             d=" M181 197 C181,197 108,256 108,256 C108,256 75,256 75,256 C75,256 20,344 20,344 C20,344 4,448 4,448 C4,448 106,448 106,448 C106,448 156,344 156,344 C156,344 241,344 241,344 C241,344 279,304 279,304 C279,304 190,184 190,184 C190,184 181,197 181,197z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_18_G_D_2_P_0"
             d=" M399 401 C399,401 507,368 507,368 C507,368 495,308 495,308 C495,308 388,228 388,228 C388,228 300,109 300,109 C300,109 249,102 249,102 C249,102 208,168 208,168 C208,168 294,288 294,288 C294,288 391,374 391,374 C391,374 399,401 399,401z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_18_G_D_3_P_0"
             d=" M389 198 C389,198 436,169 436,169 C436,169 439,144 439,144 C439,144 425,115 425,115 C425,115 439,104 439,104 C439,104 418,81 418,81 C418,81 349,10 349,10 C349,10 283,50 283,50 C283,50 258,85 258,85 C258,85 308,91 308,91 C308,91 389,198 389,198z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_18_G_D_4_P_0"
             d=" M164 358 C164,358 182,406 182,406 C182,406 184,429 184,429 C184,429 306,392 306,392 C306,392 310,370 310,370 C310,370 262,338 262,338 C262,338 245,352 245,352 C245,352 164,358 164,358z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_17_G_M">
-        <g id="_R_G_L_17_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.8484848;0.8484879;0.8787879;0.8787879;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_17_G_D_0_P_0"
             d=" M136 448 C136,448 235,448 235,448 C235,448 251,410 251,410 C251,410 252,393 252,393 C252,393 165,389 165,389 C165,389 136,448 136,448z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_17_G_D_1_P_0"
             d=" M175 355 C175,355 172,369 172,369 C172,369 295,376 295,376 C295,376 306,355 306,355 C306,355 287,323 287,323 C287,323 253,352 253,352 C253,352 175,355 175,355z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_17_G_D_2_P_0"
             d=" M127 230 C127,230 95,245 95,245 C95,245 34,352 34,352 C34,352 9,448 9,448 C9,448 120,448 120,448 C120,448 146,397 146,397 C146,397 170,344 170,344 C170,344 248,334 248,334 C248,334 298,283 298,283 C298,283 286,271 286,271 C286,271 200,159 200,159 C200,159 127,230 127,230z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_17_G_D_3_P_0"
             d=" M214 142 C214,142 306,265 306,265 C306,265 398,333 398,333 C398,333 411,372 411,372 C411,372 514,330 514,330 C514,330 500,280 500,280 C500,280 394,201 394,201 C394,201 318,105 318,105 C318,105 262,89 262,89 C262,89 214,142 214,142z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_17_G_D_4_P_0"
             d=" M409 192 C409,192 440,176 440,176 C440,176 446,151 446,151 C446,151 435,122 435,122 C435,122 449,112 449,112 C449,112 408,60 408,60 C408,60 369,11 369,11 C369,11 299,44 299,44 C299,44 275,74 275,74 C275,74 330,90 330,90 C330,90 409,192 409,192z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_16_G_M">
-        <g id="_R_G_L_16_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.8181818;0.8181848;0.8484848;0.8484849;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_16_G_D_0_P_0"
             d=" M390 362 C390,362 485,332 485,332 C485,332 474,279 474,279 C474,279 453,257 453,257 C453,257 384,214 384,214 C384,214 328,104 328,104 C328,104 263,87 263,87 C263,87 217,124 217,124 C217,124 280,257 280,257 C280,257 386,339 386,339 C386,339 390,362 390,362z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_16_G_D_1_P_0"
             d=" M294 292 C294,292 242,330 242,330 C242,330 193,339 193,339 C193,339 168,385 168,385 C168,385 128,447 128,447 C128,447 25,447 25,447 C25,447 64,357 64,357 C64,357 98,232 98,232 C98,232 147,206 147,206 C147,206 204,140 204,140 C204,140 267,273 267,273 C267,273 294,292 294,292z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_16_G_D_2_P_0"
             d=" M261 333 C261,333 272,327 272,327 C272,327 260,409 260,409 C260,409 243,447 243,447 C243,447 148,447 148,447 C148,447 189,389 189,389 C189,389 198,367 198,367 C198,367 259,361 259,361 C259,361 261,333 261,333z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_16_G_D_3_P_0"
             d=" M247 341 C247,341 248,350 248,350 C248,350 199,355 199,355 C199,355 203,347 203,347 C203,347 247,341 247,341z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_16_G_D_4_P_0"
             d=" M395 200 C395,200 441,177 441,177 C441,177 447,151 447,151 C447,151 437,123 437,123 C437,123 452,113 452,113 C452,113 429,83 429,83 C429,83 373,9 373,9 C373,9 303,41 303,41 C303,41 275,72 275,72 C275,72 340,90 340,90 C340,90 395,200 395,200z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_15_G_M">
-        <g id="_R_G_L_15_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.7878788;0.7878818;0.8181818;0.8181818;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_15_G_D_0_P_0"
             d=" M367 8 C367,8 410,63 410,63 C410,63 447,110 447,110 C447,110 432,120 432,120 C432,120 443,149 443,149 C443,149 437,175 437,175 C437,175 389,199 389,199 C389,199 381,194 381,194 C381,194 353,125 353,125 C353,125 320,83 320,83 C320,83 269,73 269,73 C269,73 297,42 297,42 C297,42 367,8 367,8z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_15_G_D_1_P_0"
             d=" M260 87 C260,87 311,98 311,98 C311,98 335,126 335,126 C335,126 369,208 369,208 C369,208 434,259 434,259 C434,259 456,316 456,316 C456,316 457,356 457,356 C457,356 357,361 357,361 C357,361 354,329 354,329 C354,329 257,260 257,260 C257,260 218,123 218,123 C218,123 260,87 260,87z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_15_G_D_2_P_0"
             d=" M207 133 C207,133 239,272 239,272 C239,272 272,294 272,294 C272,294 239,324 239,324 C239,324 195,336 195,336 C195,336 183,383 183,383 C183,383 148,447 148,447 C148,447 47,447 47,447 C47,447 74,382 74,382 C74,382 98,350 98,350 C98,350 98,214 98,214 C98,214 124,204 124,204 C124,204 207,133 207,133z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_15_G_D_3_P_0"
             d=" M83 251 C83,251 83,346 83,346 C83,346 59,380 59,380 C59,380 46,380 46,380 C46,380 58,273 58,273 C58,273 83,251 83,251z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_15_G_D_4_P_0"
             d=" M171 446 C171,446 255,446 255,446 C255,446 270,412 270,412 C270,412 274,316 274,316 C274,316 248,339 248,339 C248,339 209,349 209,349 C209,349 201,390 201,390 C201,390 171,446 171,446z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_14_G_M">
-        <g id="_R_G_L_14_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.7575758;0.7575788;0.7878788;0.7878788;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_14_G_D_0_P_0"
             d=" M280 447 C280,447 196,447 196,447 C196,447 230,377 230,377 C230,377 229,331 229,331 C229,331 254,315 254,315 C254,315 285,342 285,342 C285,342 292,411 292,411 C292,411 280,447 280,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_14_G_D_1_P_0"
             d=" M177 447 C177,447 66,447 66,447 C66,447 109,355 109,355 C109,355 98,196 98,196 C98,196 124,188 124,188 C124,188 212,125 212,125 C212,125 202,272 202,272 C202,272 239,301 239,301 C239,301 211,323 211,323 C211,323 210,374 210,374 C210,374 177,447 177,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_14_G_D_2_P_0"
             d=" M92 347 C92,347 82,370 82,370 C82,370 28,355 28,355 C28,355 42,250 42,250 C42,250 84,240 84,240 C84,240 92,347 92,347z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_14_G_D_3_P_0"
             d=" M222 264 C222,264 228,114 228,114 C228,114 255,93 255,93 C255,93 304,102 304,102 C304,102 331,147 331,147 C331,147 331,220 331,220 C331,220 395,266 395,266 C395,266 413,318 413,318 C413,318 412,373 412,373 C412,373 306,365 306,365 C306,365 310,342 310,342 C310,342 222,264 222,264z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_14_G_D_4_P_0"
             d=" M342 166 C342,166 353,184 353,184 C353,184 343,208 343,208 C343,208 342,166 342,166z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_14_G_D_5_P_0"
             d=" M379 203 C379,203 436,168 436,168 C436,168 439,141 439,141 C439,141 425,114 425,114 C425,114 440,103 440,103 C440,103 391,52 391,52 C391,52 350,8 350,8 C350,8 284,47 284,47 C284,47 263,78 263,78 C263,78 316,88 316,88 C316,88 345,136 345,136 C345,136 345,146 345,146 C345,146 379,203 379,203z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_13_G_M">
-        <g id="_R_G_L_13_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.7272727;0.7272758;0.7575758;0.7575758;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_13_G_D_0_P_0"
             d=" M308 447 C308,447 226,447 226,447 C226,447 234,401 234,401 C234,401 316,424 316,424 C316,424 308,447 308,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_13_G_D_1_P_0"
             d=" M210 447 C210,447 102,447 102,447 C102,447 129,338 129,338 C129,338 90,216 90,216 C90,216 116,209 116,209 C116,209 137,189 137,189 C137,189 161,169 161,169 C161,169 217,126 217,126 C217,126 183,264 183,264 C183,264 220,354 220,354 C220,354 208,395 208,395 C208,395 220,397 220,397 C220,397 210,447 210,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_13_G_D_2_P_0"
             d=" M227 384 C227,384 334,411 334,411 C334,411 348,361 348,361 C348,361 345,333 345,333 C345,333 309,260 309,260 C309,260 328,160 328,160 C328,160 293,107 293,107 C293,107 243,100 243,100 C243,100 231,116 231,116 C231,116 199,262 199,262 C199,262 237,351 237,351 C237,351 227,384 227,384z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_13_G_D_3_P_0"
             d=" M328 230 C328,230 339,221 339,221 C339,221 349,193 349,193 C349,193 339,174 339,174 C339,174 328,230 328,230z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_13_G_D_4_P_0"
             d=" M376 205 C376,205 432,170 432,170 C432,170 435,143 435,143 C435,143 422,116 422,116 C422,116 435,104 435,104 C435,104 375,43 375,43 C375,43 345,11 345,11 C345,11 279,51 279,51 C279,51 254,86 254,86 C254,86 305,92 305,92 C305,92 376,205 376,205z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_13_G_D_5_P_0"
             d=" M99 398 C99,398 22,381 22,381 C22,381 36,280 36,280 C36,280 78,265 78,265 C78,265 84,242 84,242 C84,242 109,339 109,339 C109,339 99,398 99,398z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_12_G_M">
-        <g id="_R_G_L_12_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.6666667;0.6666697;0.7272727;0.7272728;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_12_G_D_0_P_0"
             d=" M289 301 C289,301 304,373 304,373 C304,373 269,448 269,448 C269,448 359,448 359,448 C359,448 375,384 375,384 C375,384 319,270 319,270 C319,270 289,301 289,301z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_12_G_D_1_P_0"
             d=" M244 447 C244,447 249,433 249,433 C249,433 130,426 130,426 C130,426 128,447 128,447 C128,447 244,447 244,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_12_G_D_2_P_0"
             d=" M262 419 C262,419 144,412 144,412 C144,412 166,367 166,367 C166,367 147,246 147,246 C147,246 240,100 240,100 C240,100 289,109 289,109 C289,109 323,165 323,165 C323,165 264,268 264,268 C264,268 284,373 284,373 C284,373 262,419 262,419z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_12_G_D_3_P_0"
             d=" M117 403 C117,403 92,416 92,416 C92,416 11,395 11,395 C11,395 26,297 26,297 C26,297 68,298 68,298 C68,298 74,259 74,259 C74,259 124,345 124,345 C124,345 117,403 117,403z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_12_G_D_4_P_0"
             d=" M134 400 C134,400 151,366 151,366 C151,366 131,244 131,244 C131,244 216,115 216,115 C216,115 146,201 146,201 C146,201 107,235 107,235 C107,235 85,244 85,244 C85,244 141,336 141,336 C141,336 134,400 134,400z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_12_G_D_5_P_0"
             d=" M279 269 C279,269 280,284 280,284 C280,284 329,232 329,232 C329,232 344,192 344,192 C344,192 334,175 334,175 C334,175 279,269 279,269z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_12_G_D_6_P_0"
             d=" M373 204 C373,204 430,167 430,167 C430,167 433,142 433,142 C433,142 418,114 418,114 C418,114 432,102 432,102 C432,102 341,10 341,10 C341,10 275,50 275,50 C275,50 251,85 251,85 C251,85 301,91 301,91 C301,91 373,204 373,204z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_11_G_M">
-        <g id="_R_G_L_11_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.6060606;0.6060636;0.6666667;0.6666667;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_11_G_D_0_P_0"
             d=" M328 263 C328,263 258,336 258,336 C258,336 312,426 312,426 C312,426 306,448 306,448 C306,448 401,448 401,448 C401,448 418,369 418,369 C418,369 337,244 337,244 C337,244 328,263 328,263z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_11_G_D_1_P_0"
             d=" M276 447 C276,447 284,428 284,428 C284,428 239,347 239,347 C239,347 229,404 229,404 C229,404 208,447 208,447 C208,447 276,447 276,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_11_G_D_2_P_0"
             d=" M192 441 C192,441 213,401 213,401 C213,401 238,279 238,279 C238,279 323,164 323,164 C323,164 282,111 282,111 C282,111 229,105 229,105 C229,105 123,254 123,254 C123,254 99,392 99,392 C99,392 78,432 78,432 C78,432 192,441 192,441z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_11_G_D_3_P_0"
             d=" M60 431 C60,431 1,431 1,431 C1,431 1,337 1,337 C1,337 49,304 49,304 C49,304 67,271 67,271 C67,271 92,345 92,345 C92,345 87,379 87,379 C87,379 60,431 60,431z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_11_G_D_4_P_0"
             d=" M100 323 C100,323 77,253 77,253 C77,253 104,253 104,253 C104,253 125,237 125,237 C125,237 110,256 110,256 C110,256 100,323 100,323z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_11_G_D_5_P_0"
             d=" M252 286 C252,286 246,321 246,321 C246,321 312,250 312,250 C312,250 344,191 344,191 C344,191 334,176 334,176 C334,176 252,286 252,286z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_11_G_D_6_P_0"
             d=" M375 197 C375,197 428,157 428,157 C428,157 429,130 429,130 C429,130 413,105 413,105 C413,105 425,92 425,92 C425,92 373,47 373,47 C373,47 327,7 327,7 C327,7 265,52 265,52 C265,52 243,89 243,89 C243,89 294,91 294,91 C294,91 375,197 375,197z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_10_G_M">
-        <g id="_R_G_L_10_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.5151515;0.5151545;0.6060606;0.6060606;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_10_G_D_0_P_0"
             d=" M0 352 C0,352 0,447 0,447 C0,447 44,447 44,447 C44,447 74,405 74,405 C74,405 85,369 85,369 C85,369 64,272 64,272 C64,272 0,352 0,352z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_10_G_D_1_P_0"
             d=" M76 257 C76,257 104,257 104,257 C104,257 153,215 153,215 C153,215 118,262 118,262 C118,262 94,343 94,343 C94,343 76,257 76,257z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_10_G_D_2_P_0"
             d=" M65 447 C65,447 188,447 188,447 C188,447 210,409 210,409 C210,409 239,293 239,293 C239,293 325,163 325,163 C325,163 277,106 277,106 C277,106 228,106 228,106 C228,106 132,269 132,269 C132,269 90,408 90,408 C90,408 65,447 65,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_10_G_D_3_P_0"
             d=" M206 447 C206,447 294,447 294,447 C294,447 302,428 302,428 C302,428 241,353 241,353 C241,353 228,412 228,412 C228,412 206,447 206,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_10_G_D_4_P_0"
             d=" M388 447 C388,447 484,447 484,447 C484,447 499,368 499,368 C499,368 364,210 364,210 C364,210 350,256 350,256 C350,256 297,311 297,311 C297,311 395,427 395,427 C395,427 388,447 388,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_10_G_D_5_P_0"
             d=" M251 326 C251,326 257,299 257,299 C257,299 337,177 337,177 C337,177 350,192 350,192 C350,192 331,246 331,246 C331,246 251,326 251,326z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_10_G_D_6_P_0"
             d=" M317 0 C317,0 256,49 256,49 C256,49 237,86 237,86 C237,86 287,87 287,87 C287,87 373,189 373,189 C373,189 424,146 424,146 C424,146 424,120 424,120 C424,120 406,94 406,94 C406,94 418,81 418,81 C418,81 317,0 317,0z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_9_G_M">
-        <g id="_R_G_L_9_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.4545455;0.4545485;0.5151515;0.5151515;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_9_G_D_0_P_0"
             d=" M3 349 C3,349 0,447 0,447 C0,447 48,447 48,447 C48,447 75,404 75,404 C75,404 95,335 95,335 C95,335 73,262 73,262 C73,262 3,349 3,349z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_9_G_D_1_P_0"
             d=" M84 257 C84,257 102,316 102,316 C102,316 118,262 118,262 C118,262 150,215 150,215 C150,215 103,258 103,258 C103,258 84,257 84,257z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_9_G_D_2_P_0"
             d=" M66 447 C66,447 194,447 194,447 C194,447 218,414 218,414 C218,414 247,289 247,289 C247,289 318,150 318,150 C318,150 288,109 288,109 C288,109 236,106 236,106 C236,106 219,112 219,112 C219,112 132,268 132,268 C132,268 90,409 90,409 C90,409 66,447 66,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_9_G_D_3_P_0"
             d=" M214 443 C214,443 300,426 300,426 C300,426 309,402 309,402 C309,402 244,351 244,351 C244,351 231,413 231,413 C231,413 214,443 214,443z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_9_G_D_4_P_0"
             d=" M254 326 C254,326 333,243 333,243 C333,243 347,193 347,193 C347,193 330,165 330,165 C330,165 262,292 262,292 C262,292 254,326 254,326z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_9_G_D_5_P_0"
             d=" M362 219 C362,219 371,232 371,232 C371,232 381,224 381,224 C381,224 491,350 491,350 C491,350 489,413 489,413 C489,413 390,441 390,441 C390,441 388,411 388,411 C388,411 299,308 299,308 C299,308 353,252 353,252 C353,252 362,219 362,219z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_9_G_D_6_P_0"
             d=" M375 200 C375,200 428,162 428,162 C428,162 430,135 430,135 C430,135 415,109 415,109 C415,109 428,97 428,97 C428,97 332,9 332,9 C332,9 268,53 268,53 C268,53 246,88 246,88 C246,88 297,92 297,92 C297,92 375,200 375,200z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_8_G_M">
-        <g id="_R_G_L_8_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.3939394;0.3939424;0.4545455;0.4545455;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_8_G_D_0_P_0"
             d=" M17 342 C17,342 1,448 1,448 C1,448 60,448 60,448 C60,448 86,405 86,405 C86,405 106,337 106,337 C106,337 68,261 68,261 C68,261 17,342 17,342z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_8_G_D_1_P_0"
             d=" M208 124 C208,124 143,269 143,269 C143,269 108,407 108,407 C108,407 84,448 84,448 C84,448 204,448 204,448 C204,448 228,408 228,408 C228,408 260,271 260,271 C260,271 317,141 317,141 C317,141 299,110 299,110 C299,110 247,104 247,104 C247,104 208,124 208,124z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_8_G_D_2_P_0"
             d=" M113 315 C113,315 83,252 83,252 C83,252 106,252 106,252 C106,252 172,174 172,174 C172,174 124,268 124,268 C124,268 113,315 113,315z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_8_G_D_3_P_0"
             d=" M277 275 C277,275 272,301 272,301 C272,301 346,224 346,224 C346,224 352,199 352,199 C352,199 330,157 330,157 C330,157 277,275 277,275z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_8_G_D_4_P_0"
             d=" M364 221 C364,221 371,233 371,233 C371,233 413,206 413,206 C413,206 460,287 460,287 C460,287 485,345 485,345 C485,345 476,413 476,413 C476,413 376,405 376,405 C376,405 381,368 381,368 C381,368 317,278 317,278 C317,278 358,238 358,238 C358,238 364,221 364,221z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_8_G_D_5_P_0"
             d=" M262 336 C262,336 306,368 306,368 C306,368 302,391 302,391 C302,391 247,409 247,409 C247,409 262,336 262,336z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_8_G_D_6_P_0"
             d=" M379 205 C379,205 436,169 436,169 C436,169 439,143 439,143 C439,143 425,116 425,116 C425,116 439,105 439,105 C439,105 386,50 386,50 C386,50 349,10 349,10 C349,10 283,51 283,51 C283,51 258,84 258,84 C258,84 308,92 308,92 C308,92 379,205 379,205z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_7_G_M">
-        <g id="_R_G_L_7_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.3636364;0.3636394;0.3939394;0.3939394;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_7_G_D_0_P_0"
             d=" M95 447 C95,447 7,447 7,447 C7,447 34,351 34,351 C34,351 83,291 83,291 C83,291 122,360 122,360 C122,360 112,403 112,403 C112,403 95,447 95,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_7_G_D_1_P_0"
             d=" M110 447 C110,447 126,404 126,404 C126,404 158,276 158,276 C158,276 221,121 221,121 C221,121 260,93 260,93 C260,93 309,105 309,105 C309,105 321,130 321,130 C321,130 270,286 270,286 C270,286 243,409 243,409 C243,409 224,447 224,447 C224,447 110,447 110,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_7_G_D_2_P_0"
             d=" M278 320 C278,320 298,341 298,341 C298,341 291,363 291,363 C291,363 267,374 267,374 C267,374 278,320 278,320z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_7_G_D_3_P_0"
             d=" M287 284 C287,284 349,209 349,209 C349,209 354,196 354,196 C354,196 334,151 334,151 C334,151 287,284 287,284z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_7_G_D_4_P_0"
             d=" M380 207 C380,207 439,177 439,177 C439,177 446,151 446,151 C446,151 435,122 435,122 C435,122 450,112 450,112 C450,112 411,64 411,64 C411,64 368,11 368,11 C368,11 299,44 299,44 C299,44 271,75 271,75 C271,75 320,88 320,88 C320,88 380,207 380,207z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_7_G_D_5_P_0"
             d=" M367 214 C367,214 374,228 374,228 C374,228 447,193 447,193 C447,193 454,184 454,184 C454,184 485,301 485,301 C485,301 490,353 490,353 C490,353 465,405 465,405 C465,405 375,354 375,354 C375,354 385,334 385,334 C385,334 354,228 354,228 C354,228 367,214 367,214z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_7_G_D_6_P_0"
             d=" M197 149 C197,149 127,218 127,218 C127,218 116,242 116,242 C116,242 84,268 84,268 C84,268 129,344 129,344 C129,344 152,264 152,264 C152,264 197,149 197,149z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_6_G_M">
-        <g id="_R_G_L_6_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.3333333;0.3333364;0.3636364;0.3636364;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_6_G_D_0_P_0"
             d=" M296 267 C296,267 355,190 355,190 C355,190 330,135 330,135 C330,135 296,267 296,267z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_6_G_D_1_P_0"
             d=" M363 209 C363,209 372,227 372,227 C372,227 440,195 440,195 C440,195 475,330 475,330 C475,330 451,383 451,383 C451,383 362,336 362,336 C362,336 362,332 362,332 C362,332 372,315 372,315 C372,315 339,235 339,235 C339,235 363,209 363,209z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_6_G_D_2_P_0"
             d=" M381 205 C381,205 440,177 440,177 C440,177 447,152 447,152 C447,152 437,122 437,122 C437,122 452,112 452,112 C452,112 373,9 373,9 C373,9 303,40 303,40 C303,40 274,72 274,72 C274,72 324,85 324,85 C324,85 381,205 381,205z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_6_G_D_3_P_0"
             d=" M210 123 C210,123 159,277 159,277 C159,277 145,407 145,407 C145,407 130,448 130,448 C130,448 242,448 242,448 C242,448 261,411 261,411 C261,411 277,279 277,279 C277,279 320,114 320,114 C320,114 312,98 312,98 C312,98 262,86 262,86 C262,86 210,123 210,123z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_6_G_D_4_P_0"
             d=" M190 145 C190,145 144,197 144,197 C144,197 115,217 115,217 C115,217 98,254 98,254 C98,254 76,272 76,272 C76,272 115,383 115,383 C115,383 131,383 131,383 C131,383 143,276 143,276 C143,276 190,145 190,145z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_6_G_D_5_P_0"
             d=" M32 448 C32,448 111,448 111,448 C111,448 128,410 128,410 C128,410 129,398 129,398 C129,398 104,398 104,398 C104,398 87,349 87,349 C87,349 32,448 32,448z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_5_G_M">
-        <g id="_R_G_L_5_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.3030303;0.3030333;0.3333333;0.3333334;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_5_G_D_0_P_0"
             d=" M366 8 C366,8 297,41 297,41 C297,41 269,72 269,72 C269,72 317,84 317,84 C317,84 378,204 378,204 C378,204 437,174 437,174 C437,174 443,150 443,150 C443,150 432,121 432,121 C432,121 447,110 447,110 C447,110 396,45 396,45 C396,45 366,8 366,8z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_5_G_D_1_P_0"
             d=" M322 125 C322,125 351,190 351,190 C351,190 297,250 297,250 C297,250 322,125 322,125z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_5_G_D_2_P_0"
             d=" M360 204 C360,204 370,227 370,227 C370,227 414,205 414,205 C414,205 448,314 448,314 C448,314 432,376 432,376 C432,376 341,341 341,341 C341,341 348,320 348,320 C348,320 316,254 316,254 C316,254 360,204 360,204z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_5_G_D_3_P_0"
             d=" M191 131 C191,131 159,277 159,277 C159,277 156,412 156,412 C156,412 142,448 142,448 C142,448 257,448 257,448 C257,448 278,400 278,400 C278,400 277,268 277,268 C277,268 309,100 309,100 C309,100 255,87 255,87 C255,87 191,131 191,131z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_5_G_D_4_P_0"
             d=" M142 386 C142,386 142,411 142,411 C142,411 126,447 126,447 C126,447 45,447 45,447 C45,447 75,406 75,406 C75,406 81,396 81,396 C81,396 117,394 117,394 C117,394 142,386 142,386z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_5_G_D_5_P_0"
             d=" M141 372 C141,372 119,380 119,380 C119,380 49,382 49,382 C49,382 60,273 60,273 C60,273 91,246 91,246 C91,246 95,215 95,215 C95,215 129,197 129,197 C129,197 171,154 171,154 C171,154 141,279 141,279 C141,279 141,372 141,372z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_4_G_M">
-        <g id="_R_G_L_4_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.2727273;0.2727303;0.3030303;0.3030303;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_4_G_D_0_P_0"
             d=" M168 149 C168,149 119,191 119,191 C119,191 97,197 97,197 C97,197 85,239 85,239 C85,239 47,258 47,258 C47,258 34,354 34,354 C34,354 112,379 112,379 C112,379 158,367 158,367 C158,367 149,292 149,292 C149,292 168,149 168,149z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_4_G_D_1_P_0"
             d=" M112 393 C112,393 101,390 101,390 C101,390 92,408 92,408 C92,408 66,448 66,448 C66,448 148,448 148,448 C148,448 163,415 163,415 C163,415 160,381 160,381 C160,381 112,393 112,393z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_4_G_D_2_P_0"
             d=" M187 132 C187,132 167,288 167,288 C167,288 181,409 181,409 C181,409 166,448 166,448 C166,448 284,448 284,448 C284,448 304,400 304,400 C304,400 285,270 285,270 C285,270 303,103 303,103 C303,103 245,97 245,97 C245,97 187,132 187,132z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_4_G_D_3_P_0"
             d=" M316 128 C316,128 352,189 352,189 C352,189 304,246 304,246 C304,246 316,128 316,128z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_4_G_D_4_P_0"
             d=" M358 206 C358,206 373,229 373,229 C373,229 404,209 404,209 C404,209 429,315 429,315 C429,315 415,374 415,374 C415,374 324,346 324,346 C324,346 326,321 326,321 C326,321 311,262 311,262 C311,262 358,206 358,206z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_4_G_D_5_P_0"
             d=" M379 203 C379,203 436,168 436,168 C436,168 439,141 439,141 C439,141 426,115 426,115 C426,115 440,103 440,103 C440,103 350,8 350,8 C350,8 284,47 284,47 C284,47 259,82 259,82 C259,82 309,89 309,89 C309,89 379,203 379,203z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_3_G_M">
-        <g id="_R_G_L_3_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.2424242;0.2424273;0.2727273;0.2727273;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_3_G_D_0_P_0"
             d=" M182 141 C182,141 175,296 175,296 C175,296 217,421 217,421 C217,421 211,448 211,448 C211,448 320,448 320,448 C320,448 339,389 339,389 C339,389 294,265 294,265 C294,265 294,107 294,107 C294,107 240,100 240,100 C240,100 182,141 182,141z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_3_G_D_1_P_0"
             d=" M310 128 C310,128 347,192 347,192 C347,192 310,236 310,236 C310,236 310,128 310,128z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_3_G_D_2_P_0"
             d=" M313 256 C313,256 353,214 353,214 C353,214 392,310 392,310 C392,310 374,377 374,377 C374,377 353,371 353,371 C353,371 313,256 313,256z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_3_G_D_3_P_0"
             d=" M377 205 C377,205 432,169 432,169 C432,169 436,144 436,144 C436,144 422,118 422,118 C422,118 422,115 422,115 C422,115 436,104 436,104 C436,104 382,50 382,50 C382,50 345,11 345,11 C345,11 280,51 280,51 C280,51 254,86 254,86 C254,86 305,92 305,92 C305,92 377,205 377,205z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_3_G_D_4_P_0"
             d=" M110 412 C110,412 106,448 106,448 C106,448 196,448 196,448 C196,448 201,426 201,426 C201,426 186,373 186,373 C186,373 110,412 110,412z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_3_G_D_5_P_0"
             d=" M170 367 C170,367 102,399 102,399 C102,399 21,381 21,381 C21,381 36,281 36,281 C36,281 78,266 78,266 C78,266 89,217 89,217 C89,217 112,211 112,211 C112,211 164,164 164,164 C164,164 156,300 156,300 C156,300 175,352 175,352 C175,352 166,352 166,352 C166,352 170,367 170,367z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_2_G_M">
-        <g id="_R_G_L_2_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.1818182;0.1818212;0.2424242;0.2424243;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_2_G_D_0_P_0"
             d=" M9 403 C9,403 25,296 25,296 C25,296 68,296 68,296 C68,296 76,248 76,248 C76,248 99,239 99,239 C99,239 163,171 163,171 C163,171 181,312 181,312 C181,312 205,351 205,351 C205,351 154,351 154,351 C154,351 154,384 154,384 C154,384 94,416 94,416 C94,416 9,403 9,403z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_2_G_D_1_P_0"
             d=" M171 369 C171,369 171,393 171,393 C171,393 136,411 136,411 C136,411 133,448 133,448 C133,448 243,448 243,448 C243,448 250,428 250,428 C250,428 218,369 218,369 C218,369 171,369 171,369z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_2_G_D_2_P_0"
             d=" M179 152 C179,152 200,305 200,305 C200,305 269,424 269,424 C269,424 262,448 262,448 C262,448 364,448 364,448 C364,448 383,382 383,382 C383,382 313,263 313,263 C313,263 290,108 290,108 C290,108 233,103 233,103 C233,103 179,152 179,152z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_2_G_D_3_P_0"
             d=" M308 127 C308,127 343,190 343,190 C343,190 323,222 323,222 C323,222 308,127 308,127z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_2_G_D_4_P_0"
             d=" M347 223 C347,223 363,289 363,289 C363,289 359,310 359,310 C359,310 327,244 327,244 C327,244 347,223 347,223z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_2_G_D_5_P_0"
             d=" M373 204 C373,204 429,167 429,167 C429,167 433,142 433,142 C433,142 418,114 418,114 C418,114 432,102 432,102 C432,102 382,51 382,51 C382,51 341,10 341,10 C341,10 275,51 275,51 C275,51 251,85 251,85 C251,85 301,91 301,91 C301,91 373,204 373,204z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_1_G_M">
-        <g id="_R_G_L_1_G">
+      </g><g class="frame">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="0"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.1212121;0.1212152;0.1818182;0.1818182;1"
+          repeatCount="indefinite"
+          to="0"
+          values="0;0;1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_1_G_D_0_P_0"
             d=" M327 7 C327,7 265,53 265,53 C265,53 243,89 243,89 C243,89 294,91 294,91 C294,91 375,198 375,198 C375,198 428,157 428,157 C428,157 429,131 429,131 C429,131 412,105 412,105 C412,105 425,92 425,92 C425,92 327,7 327,7z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_1_G_D_1_P_0"
             d=" M311 132 C311,132 350,187 350,187 C350,187 344,199 344,199 C344,199 311,132 311,132z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_1_G_D_2_P_0"
             d=" M188 175 C188,175 243,305 243,305 C243,305 314,423 314,423 C314,423 307,448 307,448 C307,448 405,448 405,448 C405,448 422,369 422,369 C422,369 350,252 350,252 C350,252 286,107 286,107 C286,107 233,105 233,105 C233,105 188,175 188,175z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_1_G_D_3_P_0"
             d=" M175 194 C175,194 225,311 225,311 C225,311 246,347 246,347 C246,347 243,351 243,351 C243,351 157,351 157,351 C157,351 131,395 131,395 C131,395 80,431 80,431 C80,431 1,431 1,431 C1,431 1,337 1,337 C1,337 51,301 51,301 C51,301 79,251 79,251 C79,251 107,251 107,251 C107,251 175,194 175,194z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_1_G_D_4_P_0"
             d=" M167 370 C167,370 154,385 154,385 C154,385 166,428 166,428 C166,428 158,448 158,448 C158,448 278,448 278,448 C278,448 286,428 286,428 C286,428 254,370 254,370 C254,370 167,370 167,370z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           />
         </g>
-      </g><g id="_R_G_L_0_G_M">
-        <g id="_R_G_L_0_G">
+      </g><g class="frame frame-first">
+        <animate
+          attributeName="opacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.1s"
+          fill="freeze"
+          from="1"
+          keySplines="0 0 0 0;0 0 0 0;0 0 0 0"
+          keyTimes="0;0.1212121;0.1212122;1"
+          repeatCount="indefinite"
+          to="0"
+          values="1;1;0;0"
+        />
+        <g>
           <path
-            id="_R_G_L_0_G_D_0_P_0"
             d=" M80 447 C80,447 1,447 1,447 C1,447 1,351 1,351 C1,351 74,257 74,257 C74,257 103,257 103,257 C103,257 175,194 175,194 C175,194 270,309 270,309 C270,309 243,350 243,350 C243,350 155,350 155,350 C155,350 80,447 80,447z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_0_G_D_1_P_0"
             d=" M164 369 C164,369 255,369 255,369 C255,369 302,428 302,428 C302,428 294,447 294,447 C294,447 176,447 176,447 C176,447 179,427 179,427 C179,427 151,385 151,385 C151,385 164,369 164,369z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_0_G_D_2_P_0"
             d=" M228 105 C228,105 186,179 186,179 C186,179 395,426 395,426 C395,426 388,448 388,448 C388,448 482,448 482,448 C482,448 500,368 500,368 C500,368 277,105 277,105 C277,105 228,105 228,105z "
             fill="currentColor"
             fill-opacity="1"
             fill-rule="nonzero"
           /><path
-            id="_R_G_L_0_G_D_3_P_0"
             d=" M316 0 C316,0 256,50 256,50 C256,50 237,86 237,86 C237,86 287,86 287,86 C287,86 373,189 373,189 C373,189 424,146 424,146 C424,146 424,120 424,120 C424,120 406,95 406,95 C406,95 419,81 419,81 C419,81 316,0 316,0z "
             fill="currentColor"
             fill-opacity="1"
@@ -1069,7 +941,7 @@
           />
         </g>
       </g>
-    </g><g id="time_group" />
+    </g>
   </svg>
 </template>
 
@@ -1078,11 +950,11 @@
   color: var(--kui-color-brand, $kui-color-brand);
 
   /** Hide all frames except the first until the animation kicks in */
-  [id^='_R_G_L_'][id$='_G_M'] {
+  .frame {
     opacity: 0;
   }
 
-  #_R_G_L_0_G_M {
+  .frame-first {
     opacity: 1;
   }
 }
