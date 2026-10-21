@@ -21,7 +21,7 @@ overrides:
   handlebars@<4.7.10: '>=4.7.10'
   immutable@>=5.0.0-beta.1 <5.1.8: '>=5.1.8 <6.0.0'
   js-yaml@<5.4.1: '>=5.4.1 <6.0.0'
-  launch-editor@<=2.14.0: '>=2.14.2'
+  launch-editor@<=2.14.1: '>=2.14.2'
   lodash@<=4.17.23: '>=4.18.0'
   nanoid@<3.3.18: '>=3.3.18'
   nuxt@>=4.0.0 <4.5.1: '>=4.5.1'
@@ -4104,8 +4104,8 @@ packages:
   kolorist@1.8.0:
     resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
 
-  launch-editor@2.14.1:
-    resolution: {integrity: sha512-QWBrQsMpH7gPr965dsKD/3cKWiNoTjpATQf++Xq63N6sKRGMwlVXz41O1IZTMfZQgBctD/K5Zt06+/I6pP6+HA==}
+  launch-editor@2.14.2:
+    resolution: {integrity: sha512-NHJEb30MGBCkmZXLZwz25t37QR4aY03ZzPYUJXOJaOa92uWwExI9SBQUuIznBYc1xkD7cJNGX7oc3Nl3sq2kQQ==}
 
   lazystream@1.0.1:
     resolution: {integrity: sha512-b94GiNHQNy6JNTrt5w6zNyffMrNkXZb3KTkCZJb2V1xaEGCk093vkZ2jk3tpaeP33/OiXC+WvK9AxUebnf5nbw==}
@@ -7974,7 +7974,7 @@ snapshots:
       hookable: 6.1.1
       image-meta: 0.2.2
       is-installed-globally: 1.0.0
-      launch-editor: 2.14.1
+      launch-editor: 2.14.2
       local-pkg: 1.2.1
       magicast: 0.5.4
       nypm: 0.6.9
@@ -11265,7 +11265,7 @@ snapshots:
 
   kolorist@1.8.0: {}
 
-  launch-editor@2.14.1:
+  launch-editor@2.14.2:
     dependencies:
       picocolors: 1.1.1
       shell-quote: 1.12.0
