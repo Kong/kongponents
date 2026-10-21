@@ -67,6 +67,29 @@ describe('KSkeleton', () => {
       await expect.element(page.getByCSS('[role="progressbar"]')).toBeVisible()
     })
 
+    it('renders full screen loader image', async () => {
+      await render(KSkeleton, {
+        props: {
+          type: 'fullscreen-kong',
+        },
+      })
+
+      await expect.element(page.getByRole('img', { name: 'Loading' })).toBeVisible()
+    })
+
+    it('hides full screen loader progress bar when hideProgress is true', async () => {
+      await render(KSkeleton, {
+        props: {
+          type: 'fullscreen-kong',
+          hideProgress: true,
+        },
+      })
+
+      await expect.element(page.getByTestId('full-screen-loader')).toBeVisible()
+
+      await expect.element(page.getByCSS('[role="progressbar"]')).not.toBeInTheDocument()
+    })
+
     it('renders full screen loader with custom zIndex', async () => {
       await render(KSkeleton, {
         props: {
