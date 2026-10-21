@@ -1,3 +1,10 @@
+## [9.66.4](https://github.com/Kong/kongponents/compare/v9.66.3...v9.66.4) (2026-10-21)
+
+
+### Bug Fixes
+
+* **kcard:** more component token customization options ([#3485](https://github.com/Kong/kongponents/issues/3485)) ([bb9f235](https://github.com/Kong/kongponents/commit/bb9f235e4cff2ef94c775a337d7517c493d66845))
+
 ## [9.66.3](https://github.com/Kong/kongponents/compare/v9.66.2...v9.66.3) (2026-10-21)
 
 
