@@ -57,14 +57,13 @@ const showCardHeader = (): boolean => {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
   gap: var(--kui-card-gap, var(--kui-space-70, $kui-space-70));
   width: 100%;
 
   .card-header {
     align-items: flex-start;
+    background-color: var(--kui-card-header-color-background, var(--kui-color-background-transparent, $kui-color-background-transparent));
     display: inline-flex;
-    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
     gap: var(--kui-card-header-gap, var(--kui-space-50, $kui-space-50));
     justify-content: space-between;
 
