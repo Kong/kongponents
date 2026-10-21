@@ -102,6 +102,7 @@ const showCardHeader = (): boolean => {
 
     display: flex;
     gap: var(--kui-card-footer-gap, var(--kui-space-30, $kui-space-30));
+    padding: var(--kui-card-footer-padding, var(--kui-space-0, $kui-space-0));
     width: 100%;
   }
 }
