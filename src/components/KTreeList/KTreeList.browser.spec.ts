@@ -4,6 +4,14 @@ import { defineComponent, h, ref } from 'vue'
 import { render } from 'vitest-browser-vue'
 import KTreeList from '@/components/KTreeList/KTreeList.vue'
 
+// SortableJS listens to pointer events, except in Safari-family browsers where it listens to mouse events,
+// so dispatch both to make sure a drag starts everywhere
+const dispatchPointer = (target: Element | Document, type: 'down' | 'move', x: number, y: number): void => {
+  const init = { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: 1 }
+  target.dispatchEvent(new PointerEvent(`pointer${type}`, { ...init, pointerId: 1, pointerType: 'mouse', isPrimary: true }))
+  target.dispatchEvent(new MouseEvent(`mouse${type}`, init))
+}
+
 describe('KTreeList', () => {
   it('renders items when passed as prop', async () => {
     const names = ['Name 1', 'Name 2', 'Name 3']
@@ -472,13 +480,6 @@ describe('KTreeList', () => {
   })
 
   it('does not flip-flop the dragged item when it is dragged across items of different heights', async () => {
-    // SortableJS listens to pointer events, except in Safari-family browsers where it listens to mouse events,
-    // so dispatch both to make sure the drag starts everywhere
-    const dispatchPointer = (target: Element | Document, type: 'down' | 'move', x: number, y: number): void => {
-      const init = { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: 1 }
-      target.dispatchEvent(new PointerEvent(`pointer${type}`, { ...init, pointerId: 1, pointerType: 'mouse', isPrimary: true }))
-      target.dispatchEvent(new MouseEvent(`mouse${type}`, init))
-    }
     const folder = (id: string, childIds: string[]) => ({
       id,
       name: id,
@@ -529,4 +530,64 @@ describe('KTreeList', () => {
     expect(seen[seen.length - 1].split(',')[0]).not.toBe('components')
     // the pointer is moved with real timers, which takes a few seconds and is slower on busy CI machines
   }, 20000)
+
+  it('keeps every item after being dragged many times, including between nested lists', async () => {
+    await render(KTreeList, {
+      props: {
+        items: [
+          { id: 'components', name: 'components', children: [{ id: 'profile-card', name: 'profile-card' }] },
+          {
+            id: 'pages',
+            name: 'pages',
+            children: [
+              { id: 'home', name: 'home' },
+              {
+                id: 'user',
+                name: 'user',
+                children: [{ id: 'user-list', name: 'user-list' }, { id: 'user-detail', name: 'user-detail' }, { id: 'settings', name: 'settings' }],
+              },
+            ],
+          },
+          { id: 'types', name: 'types', children: [{ id: 'user-types', name: 'user-types' }] },
+        ],
+      },
+    })
+
+    const labels = (): string[] => Array.from(document.querySelectorAll('.k-tree-list .tree-item-label'))
+      .filter(label => !label.closest('.sortable-fallback'))
+      .map(label => label.textContent?.trim() || '')
+      .sort()
+    const expected = labels()
+    expect(expected).toHaveLength(10)
+
+    // deterministic pseudo random numbers, so the sequence of drags is the same on every run
+    let seed = 42
+    const random = (): number => {
+      seed = (seed * 16807) % 2147483647
+      return seed / 2147483647
+    }
+
+    // Every drag only reorders or moves items, so the same items must still be rendered after each one
+    // (without a stable key, items were dropped after a handful of drags)
+    for (let drag = 1; drag <= 16; drag++) {
+      const items = Array.from(document.querySelectorAll('.k-tree-list .tree-item'))
+      const source = items[Math.floor(random() * items.length)]
+      const rect = source.getBoundingClientRect()
+      const x = rect.left + 60
+      const startY = rect.top + rect.height / 2
+      const direction = random() < 0.5 ? 1 : -1
+
+      dispatchPointer(source, 'down', x, startY)
+      for (let step = 1; step <= 70; step++) {
+        // wander sideways a bit so the item also moves in and out of the nested lists
+        dispatchPointer(document, 'move', x + Math.sin(step / 9) * 15, startY + direction * step * 2)
+        await new Promise(resolve => setTimeout(resolve, 16))
+      }
+      document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + direction * 140 }))
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      expect(labels(), `items after drag ${drag}`).toEqual(expected)
+    }
+    // 16 drags with real timers take about 20 seconds
+  }, 60000)
 })
