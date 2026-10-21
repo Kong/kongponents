@@ -81,7 +81,6 @@ const showCardHeader = (): boolean => {
     .card-actions {
       display: flex;
       flex-shrink: 0;
-      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
       gap: var(--kui-card-actions-gap, var(--kui-space-30, $kui-space-30));
       margin-left: var(--kui-space-auto, $kui-space-auto);
     }
@@ -100,7 +99,6 @@ const showCardHeader = (): boolean => {
     @include bodyText;
 
     display: flex;
-    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
     gap: var(--kui-card-footer-gap, var(--kui-space-30, $kui-space-30));
     width: 100%;
   }
