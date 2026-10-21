@@ -105,5 +105,11 @@ const showCardHeader = (): boolean => {
     padding: var(--kui-card-footer-padding, var(--kui-space-0, $kui-space-0));
     width: 100%;
   }
+
+  /** Card gap already separates sections; only the first section keeps its top padding */
+  .card-content:not(:first-child),
+  .card-footer:not(:first-child) {
+    padding-top: var(--kui-space-0, $kui-space-0);
+  }
 }
 </style>
