@@ -1,3 +1,10 @@
+## [9.66.3](https://github.com/Kong/kongponents/compare/v9.66.2...v9.66.3) (2026-10-21)
+
+
+### Bug Fixes
+
+* **kskeleton:** update kong walk full screen loader animation ([#3483](https://github.com/Kong/kongponents/issues/3483)) ([f68627f](https://github.com/Kong/kongponents/commit/f68627f9d50d39c06325cc3c1c336b3b8f1fd3aa))
+
 ## [9.66.2](https://github.com/Kong/kongponents/compare/v9.66.1...v9.66.2) (2026-10-19)
 
 
