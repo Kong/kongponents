@@ -1,3 +1,10 @@
+## [9.66.5](https://github.com/Kong/kongponents/compare/v9.66.4...v9.66.5) (2026-10-22)
+
+
+### Bug Fixes
+
+* **kcard:** header border radius ([#3486](https://github.com/Kong/kongponents/issues/3486)) ([bbb7197](https://github.com/Kong/kongponents/commit/bbb719765766e778181303b5fc2e3a7fea6ec4d8))
+
 ## [9.66.4](https://github.com/Kong/kongponents/compare/v9.66.3...v9.66.4) (2026-10-21)
 
 
