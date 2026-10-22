@@ -63,6 +63,8 @@ const showCardHeader = (): boolean => {
   .card-header {
     align-items: flex-start;
     background-color: var(--kui-card-header-color-background, var(--kui-color-background-transparent, $kui-color-background-transparent));
+    border-top-left-radius: var(--kui-card-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+    border-top-right-radius: var(--kui-card-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     display: inline-flex;
     gap: var(--kui-card-header-gap, var(--kui-space-50, $kui-space-50));
     justify-content: space-between;
