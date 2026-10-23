@@ -1,0 +1,15 @@
+{
+  "name": "kongponents-consumer-check",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "date-fns": "4.4.0",
+    "date-fns-tz": "3.2.0",
+    "vue": "3.5.40"
+  },
+  "devDependencies": {
+    "@nuxt/kit": "4.5.2",
+    "@vitejs/plugin-vue": "6.0.9",
+    "vite": "8.2.1"
+  }
+}
