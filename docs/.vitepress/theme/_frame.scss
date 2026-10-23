@@ -1,0 +1,89 @@
+// The frame is shared by the homepage, guide, component docs, and changelog.
+.Layout {
+  --docs-frame-width: 1440px;
+  --docs-frame-inset: max(16px, calc((100% - var(--docs-frame-width)) / 2));
+  --docs-sidebar-width: 232px;
+
+  position: relative;
+}
+
+.Layout::before,
+.Layout::after {
+  background: var(--vp-c-divider);
+  bottom: 0;
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 1px;
+  z-index: 100;
+}
+
+.Layout::before { left: var(--docs-frame-inset); }
+
+.Layout::after { right: var(--docs-frame-inset); }
+
+.Layout .VPNavBar::after {
+  background: var(--vp-c-divider);
+  bottom: -1px;
+  content: '';
+  height: 1px;
+  left: var(--docs-frame-inset);
+  pointer-events: none;
+  position: absolute;
+  right: var(--docs-frame-inset);
+  z-index: 2;
+}
+
+.Layout .VPNavBar:not(.has-sidebar) { border-bottom: 0; }
+
+.Layout .VPNavBar:not(.has-sidebar) .wrapper {
+  margin: 0 auto;
+  max-width: var(--docs-frame-width);
+  padding-inline: 24px;
+  width: calc(100% - 32px);
+}
+
+@media (min-width: 960px) {
+  .Layout .VPSidebar {
+    left: calc(var(--docs-frame-inset) + 1px);
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 0;
+    top: var(--vp-nav-height);
+    width: var(--docs-sidebar-width);
+  }
+
+  .Layout .VPContent.has-sidebar {
+    padding-left: calc(var(--docs-frame-inset) + var(--docs-sidebar-width) + 1px);
+    padding-right: var(--docs-frame-inset);
+  }
+
+  .Layout .VPNavBar.has-sidebar .container > .title {
+    left: var(--docs-frame-inset);
+    padding-left: 24px;
+    padding-right: 24px;
+    width: var(--docs-sidebar-width);
+  }
+
+  .Layout .VPNavBar.has-sidebar .content {
+    padding-left: calc(var(--docs-frame-inset) + var(--docs-sidebar-width));
+    padding-right: calc(var(--docs-frame-inset) + 24px);
+  }
+}
+
+@media (max-width: 959px) {
+  .Layout .VPNavBar.has-sidebar .wrapper {
+    margin: 0 auto;
+    max-width: var(--docs-frame-width);
+    padding-inline: 24px;
+    width: calc(100% - 32px);
+  }
+}
+
+@media (max-width: 640px) {
+  .Layout { --docs-frame-inset: 12px; }
+
+  .Layout .VPNavBar:not(.has-sidebar) .wrapper,
+  .Layout .VPNavBar.has-sidebar .wrapper { width: 100%; }
+}

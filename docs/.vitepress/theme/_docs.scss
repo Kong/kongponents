@@ -1,0 +1,219 @@
+// Shared reading surface for guides, components, and changelog.
+.VPDoc {
+  .container {
+    max-width: none;
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .aside {
+    flex: 0 0 288px;
+    max-width: 288px;
+    padding-left: 32px;
+  }
+
+  .aside-container,
+  .aside-curtain {
+    width: 256px;
+  }
+
+  .aside-container {
+    border-left: 1px solid var(--vp-c-divider);
+    height: calc(100vh - var(--vp-nav-height) - 1px);
+    padding-left: 32px;
+    padding-top: 20px;
+    top: calc(var(--vp-nav-height) + 1px);
+  }
+}
+
+// VitePress scopes its 688px default, so the frame selector must outrank it.
+.Layout .VPDoc.has-aside .content-container {
+  max-width: 900px;
+}
+
+.vp-doc {
+  color: var(--vp-c-text-1);
+
+  > div > h1 {
+    font-size: clamp(38px, 4vw, 52px);
+    font-weight: 680;
+    letter-spacing: -.055em;
+    line-height: 1.08;
+    margin: 0 0 18px;
+  }
+
+  > div > h1 + p {
+    color: var(--vp-c-text-2);
+    font-size: 18px;
+    line-height: 1.65;
+    margin: 0 0 48px;
+    max-width: 720px;
+  }
+
+  h2 {
+    border-color: var(--vp-c-divider);
+    font-size: 26px;
+    letter-spacing: -.04em;
+    margin-top: 64px;
+    padding-top: 27px;
+  }
+
+  h3 {
+    font-size: 20px;
+    letter-spacing: -.025em;
+    margin-top: 36px;
+  }
+
+  p,
+  li {
+    line-height: 1.75;
+  }
+
+  a:not(.header-anchor) {
+    text-decoration-color: color-mix(in srgb, currentColor 42%, transparent);
+    text-underline-offset: 3px;
+  }
+
+  div[class*='language-'] {
+    border: 1px solid #323c34;
+    border-radius: 8px;
+    box-shadow: 0 8px 28px #1224140d;
+  }
+
+  .custom-block {
+    border-radius: 6px;
+    padding: 18px 22px;
+  }
+
+  > table,
+  > div > table {
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 6px;
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  > table th,
+  > table td,
+  > div > table th,
+  > div > table td {
+    border-bottom: 1px solid var(--vp-c-divider);
+    padding: 11px 14px;
+    text-align: left;
+  }
+
+  > div > .vertical-container {
+    background: var(--vp-c-bg-soft);
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 8px;
+    margin-block: 24px;
+    padding: 28px;
+  }
+
+  > div > .vertical-container > :first-child {
+    margin-top: 0;
+  }
+
+  .spacing-container {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  pre:not(.vp-code) {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  pre.json {
+    overflow-wrap: anywhere;
+  }
+}
+
+.VPDocAsideOutline .outline-link {
+  line-height: 1.45;
+  overflow: visible;
+  white-space: normal;
+}
+
+.VPDocFooter {
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 24px;
+}
+
+.docs-quick-links {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 28px 0 48px;
+
+  a {
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 7px;
+    color: var(--vp-c-text-1);
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    min-height: 118px;
+    padding: 20px;
+    text-decoration: none;
+    transition: border-color .2s ease, background .2s ease;
+  }
+
+  a:hover {
+    background: var(--vp-c-bg-soft);
+    border-color: var(--vp-c-brand-1);
+  }
+
+  span {
+    color: var(--vp-c-text-2);
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    font-size: 18px;
+    font-weight: 650;
+    letter-spacing: -.025em;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPDoc .content {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .VPDoc {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  // VitePress pulls code blocks outside their content column on narrow screens.
+  // Keep them within the page frame so its vertical borders do not cross the code.
+  .vp-doc div[class*='language-'],
+  .vp-doc .vp-block {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .vp-doc .vp-code-group .tabs {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .vp-doc > div > .vertical-container {
+    padding: 18px;
+  }
+
+  .docs-quick-links {
+    grid-template-columns: 1fr;
+  }
+}
