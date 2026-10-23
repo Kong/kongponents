@@ -19,13 +19,6 @@ export interface LabelProps {
    * @default {}
    */
   tooltipAttributes?: TooltipAttributes
-
-  /**
-   * The information help text.
-   * @default ''
-   * @deprecated Use `info` instead.
-   */
-  help?: string
 }
 
 export interface LabelSlots {
@@ -44,7 +37,6 @@ export type LabelAttributes = Pick<LabelProps,
   | 'info'
   | 'required'
   | 'tooltipAttributes'
-  | 'help'
 > & {
   'data-testid'?: string
 }

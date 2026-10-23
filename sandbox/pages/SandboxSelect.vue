@@ -36,8 +36,6 @@
         title="items"
       >
         <KSelect :items="selectItems" />
-        <p>Old approach with group property (alphabetical): Birds, Fish</p>
-        <KSelect :items="selectItemsWithGroupProperty" />
       </SandboxSectionComponent>
       <SandboxSectionComponent
         title="label"
@@ -505,44 +503,6 @@ const onItemCreationQueryChange = (query: string): void => {
 const onDropdownFooterAction = (): void => {
   window.alert('Interactive dropdown footer action clicked!')
 }
-
-// Example using old group property approach
-const selectItemsWithGroupProperty: SelectItem[] = [
-  {
-    label: 'Salmon',
-    value: 'salmon',
-    group: 'Fish',
-  },
-  {
-    label: 'Cats',
-    value: 'cats',
-    selected: true,
-  },
-  {
-    label: 'Dogs',
-    value: 'dogs',
-  },
-  {
-    label: 'Bunnies',
-    value: 'bunnies',
-    disabled: true,
-  },
-  {
-    label: 'Duck',
-    value: 'duck',
-    group: 'Birds',
-  },
-  {
-    label: 'Trout',
-    value: 'trout',
-    group: 'Fish',
-  },
-  {
-    label: 'Oriole',
-    value: 'oriole',
-    group: 'Birds',
-  },
-]
 
 onMounted(() => {
   setAsyncItems()

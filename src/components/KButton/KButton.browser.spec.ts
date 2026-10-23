@@ -73,23 +73,6 @@ describe('KButton', () => {
     await expect.element(page.getByCSS('a')).toHaveAttribute('href', 'https://google.com')
   })
 
-  // TODO: remove this when we remove icon slot
-  it('renders an icon when using icon slot', async () => {
-    const iconText = 'Pretend I am an icon'
-    await render(KButton, {
-      props: {
-        // deprecated string usage that the component still supports at runtime
-        icon: 'spinner' as unknown as boolean,
-      },
-      slots: {
-        default: () => 'Click me',
-        icon: () => iconText,
-      },
-    })
-
-    await expect.element(page.getByCSS('.k-button')).toHaveTextContent(iconText)
-  })
-
   it('strips falsy disabled attribute on native link', async () => {
     await render(KButton, {
       props: {

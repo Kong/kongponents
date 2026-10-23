@@ -1,7 +1,7 @@
 <template>
   <div
     class="k-textarea"
-    :class="[$attrs.class, { 'input-error': error || hasError || charLimitExceeded }]"
+    :class="[$attrs.class, { 'input-error': error || charLimitExceeded }]"
   >
     <KLabel
       v-if="label || $slots.label"
@@ -47,7 +47,7 @@
         :aria-invalid="ariaInvalid"
         class="input-textarea"
         :class="{
-          resizable: resizable || isResizable,
+          resizable,
         }"
         :rows="rows"
         :value="getValue()"
@@ -108,21 +108,7 @@ const {
   resizable,
   autosize,
   help = '',
-  isResizable,
-  hasError,
 } = defineProps<TextAreaProps>()
-
-watch(() => isResizable, (val) => {
-  if (val) {
-    console.warn('KTextArea: `isResizable` prop is deprecated in favor of `resizable` prop. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
-  }
-}, { immediate: true })
-
-watch(() => hasError, (val) => {
-  if (val) {
-    console.warn('KTextArea: `hasError` prop is deprecated. Please use `error` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#ktextarea')
-  }
-}, { immediate: true })
 
 const emit = defineEmits<TextAreaEmits>()
 
@@ -137,9 +123,9 @@ const currValue = ref('') // We need this so that we don't lose the updated valu
 
 const strippedLabel = computed((): string => stripRequiredLabel(label, isRequired.value))
 
-const hasLabelTooltip = (): boolean => !!(labelAttributes?.help || labelAttributes?.info || slots['label-tooltip'])
+const hasLabelTooltip = (): boolean => !!(labelAttributes?.info || slots['label-tooltip'])
 
-const ariaInvalid = computed((): boolean | undefined => error || hasError || charLimitExceeded.value ? true : undefined)
+const ariaInvalid = computed((): boolean | undefined => error || charLimitExceeded.value ? true : undefined)
 
 const helpTextKey = ref<number>(0)
 

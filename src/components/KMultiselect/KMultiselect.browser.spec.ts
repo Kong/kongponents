@@ -774,36 +774,6 @@ describe('KMultiselect', () => {
     await expect.element(page.getByTestId('dropdown-footer')).toHaveTextContent(dropdownFooterText)
   })
 
-  it('should allow slotting dropdown footer text', async () => {
-    const labels = ['Label 1', 'Label 2', 'Label 3']
-    const vals = ['label1', 'label2', 'label3']
-    const dropdownFooterText = 'Dropdown footer text'
-
-    await render(KMultiselect, {
-      props: {
-        items: [{
-          label: labels[0],
-          value: vals[0],
-        }, {
-          label: labels[1],
-          value: vals[1],
-        }, {
-          label: labels[2],
-          value: vals[2],
-        }],
-        dropdownFooterText: 'This is getting replaced',
-      },
-      slots: {
-        'dropdown-footer-text': dropdownFooterText,
-      },
-    })
-
-    await page.getByCSS('.multiselect-trigger').click()
-
-    await expect.element(page.getByTestId('dropdown-footer')).toBeVisible()
-    await expect.element(page.getByTestId('dropdown-footer')).toHaveTextContent(dropdownFooterText)
-  })
-
   it('renders interactive content in the dropdown-footer slot', async () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['label1', 'label2', 'label3']
@@ -836,11 +806,10 @@ describe('KMultiselect', () => {
     await page.getByTestId('footer-button').click()
   })
 
-  it('dropdown-footer slot takes precedence over dropdownFooterText prop and dropdown-footer-text slot', async () => {
+  it('dropdown-footer slot takes precedence over dropdownFooterText prop', async () => {
     const labels = ['Label 1', 'Label 2', 'Label 3']
     const vals = ['label1', 'label2', 'label3']
     const footerTextProp = 'Footer text prop'
-    const deprecatedFooterSlot = 'Deprecated footer slot'
     const newFooterSlot = 'New footer slot'
 
     await render(KMultiselect, {
@@ -858,7 +827,6 @@ describe('KMultiselect', () => {
         dropdownFooterText: footerTextProp,
       },
       slots: {
-        'dropdown-footer-text': deprecatedFooterSlot,
         'dropdown-footer': newFooterSlot,
       },
     })
@@ -867,7 +835,6 @@ describe('KMultiselect', () => {
 
     await expect.element(page.getByTestId('dropdown-footer')).toBeVisible()
     await expect.element(page.getByTestId('dropdown-footer')).toHaveTextContent(newFooterSlot)
-    await expect.element(page.getByTestId('dropdown-footer')).not.toHaveTextContent(deprecatedFooterSlot)
     await expect.element(page.getByTestId('dropdown-footer')).not.toHaveTextContent(footerTextProp)
   })
 
@@ -887,72 +854,6 @@ describe('KMultiselect', () => {
 
     await expect.element(page.getByTestId('dropdown-footer')).toBeVisible()
     await expect.element(page.getByTestId('dropdown-footer')).toHaveClass(staticFooterClass)
-  })
-
-  it('supports the deprecated dropdownFooterTextPosition prop, with dropdownFooterPosition taking precedence', async () => {
-    const dropdownFooterText = 'Dropdown footer text'
-    const staticFooterClass = 'dropdown-footer-static'
-    const stickyFooterClass = 'dropdown-footer-sticky'
-
-    const screen = await render(KMultiselect, {
-      props: {
-        items: [{ label: 'Label 1', value: 'val1' }],
-        dropdownFooterText,
-        dropdownFooterTextPosition: 'static',
-      },
-    })
-
-    await page.getByCSS('.multiselect-trigger').click()
-
-    // deprecated prop still works
-    await expect.element(page.getByTestId('dropdown-footer')).toBeVisible()
-    await expect.element(page.getByTestId('dropdown-footer')).toHaveClass(staticFooterClass)
-
-    // Locators are strict, so the first instance has to go before the second is mounted —
-    // Cypress' second `cy.mount` replaced the first one implicitly.
-    await screen.unmount()
-
-    // new prop takes precedence over the deprecated one
-    await render(KMultiselect, {
-      props: {
-        items: [{ label: 'Label 1', value: 'val1' }],
-        dropdownFooterText,
-        dropdownFooterTextPosition: 'static',
-        dropdownFooterPosition: 'sticky',
-      },
-    })
-
-    await page.getByCSS('.multiselect-trigger').click()
-
-    await expect.element(page.getByTestId('dropdown-footer')).toBeVisible()
-    await expect.element(page.getByTestId('dropdown-footer')).toHaveClass(stickyFooterClass)
-  })
-
-  it('renders group titles and groups items in correct order', async () => {
-    const group1Title = 'Group 1'
-    const group2Title = 'Group 2'
-    const items = [
-      { label: 'Label 0', value: 'value0' },
-      { label: 'Label 1', value: 'value1', group: group1Title },
-      { label: 'Label 3', value: 'value3', group: group2Title },
-      { label: 'Label 2', value: 'value2', group: group1Title },
-      { label: 'Label 4', value: 'value4', group: group2Title },
-    ]
-
-    await render(KMultiselect, {
-      props: {
-        items,
-      },
-    })
-
-    await page.getByTestId('multiselect-trigger').click()
-    await expect.element(page.getByCSS('.multiselect-item').nth(0)).toHaveTextContent(items[0]!.label)
-    await expect.element(page.getByCSS('.multiselect-group-title').nth(0)).toHaveTextContent(group1Title)
-    await expect.element(page.getByCSS('.multiselect-group-title').nth(1)).toHaveTextContent(group2Title)
-    await expect.element(page.getByCSS('.multiselect-item').nth(1)).toHaveTextContent(items[1]!.label)
-    await expect.element(page.getByCSS('.multiselect-item').nth(2)).toHaveTextContent(items[3]!.label)
-    await expect.element(page.getByCSS('.multiselect-item').nth(3)).toHaveTextContent(items[2]!.label)
-    await expect.element(page.getByCSS('.multiselect-item').nth(4)).toHaveTextContent(items[4]!.label)
   })
 
   it('renders groups in custom order using MultiselectGroup interface', async () => {

@@ -47,11 +47,6 @@ export interface InputProps {
   characterLimit?: number
 
   /**
-   * @deprecated in favor of `error`
-   */
-  hasError?: boolean
-
-  /**
    * HTML Input Element `type` attribute.
    * @default 'text'
    */

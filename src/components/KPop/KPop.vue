@@ -93,7 +93,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, inject, provide, watch, useId } from 'vue'
 import { useFloating, autoUpdate, autoPlacement, flip, shift } from '@floating-ui/vue'
-import type { PopProps, PopEmits, PopSlots, PopPlacement } from '@/types'
+import type { PopProps, PopEmits, PopSlots } from '@/types'
 import KButton from '@/components/KButton/KButton.vue'
 import { CloseIcon } from '@kong/icons'
 import { KUI_ICON_SIZE_30, KUI_SPACE_60 } from '@kong/design-tokens'
@@ -235,17 +235,10 @@ const outsideClickHandler = (event: MouseEvent) => {
   hidePopover()
 }
 
-/**
- * Backwards compatibility for the placement prop
- * Converts the placement prop to the correct format for Floating UI
- * E.g.: 'topStart' -> 'top-start'
- */
-const popoverPlacement = computed((): PopPlacement => placement.trim().replace(/ /g, '-').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()).replace(/--+/g, '-').replace(/-+$/g, '') as PopPlacement)
-
 const { floatingStyles, placement: calculatedPlacement, update: updatePosition } = useFloating(popoverTrigger, popoverElement, {
-  ...(popoverPlacement.value === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
-  ...(popoverPlacement.value !== 'auto' && {
-    placement: popoverPlacement.value,
+  ...(placement === 'auto' && { middleware: [autoPlacement()] }), // when placement is auto just use autoPlacement middleware
+  ...(placement !== 'auto' && {
+    placement,
     middleware: [
       shift(), // Shifts the floating element to keep it in view.
       flip(), // Changes the placement of the floating element to keep it in view.

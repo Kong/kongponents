@@ -18,7 +18,6 @@ declare module 'vue' {
     KDateTimePicker: typeof components.KDateTimePicker
     KDropdown: typeof components.KDropdown
     KDropdownItem: typeof components.KDropdownItem
-    KDropdownMenu: typeof components.KDropdownMenu
     KEmptyState: typeof components.KEmptyState
     KExternalLink: typeof components.KExternalLink
     KFileUpload: typeof components.KFileUpload
@@ -26,7 +25,6 @@ declare module 'vue' {
     KInputSwitch: typeof components.KInputSwitch
     KLabel: typeof components.KLabel
     KModal: typeof components.KModal
-    KModalFullscreen: typeof components.KModalFullscreen
     KMultiselect: typeof components.KMultiselect
     KPagination: typeof components.KPagination
     KPop: typeof components.KPop
@@ -38,7 +36,6 @@ declare module 'vue' {
     KSkeletonBox: typeof components.KSkeletonBox
     KSlideout: typeof components.KSlideout
     KStepper: typeof components.KStepper
-    KTable: typeof components.KTable
     KTabs: typeof components.KTabs
     KTextArea: typeof components.KTextArea
     KThemeProvider: typeof components.KThemeProvider

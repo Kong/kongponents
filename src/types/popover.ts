@@ -23,16 +23,6 @@ export const PopPlacementsArray = [
 export type PopPlacement = AnyElementOf<typeof PopPlacementsArray>
 
 /**
- * @deprecated Use `PopPlacement` instead.
- */
-export type Placement = PopPlacement
-
-/**
- * @deprecated Use `PopPlacement` instead.
- */
-export type PopPlacements = PopPlacement
-
-/**
  * @internal
  */
 export interface PopTeleportWrapperProps {

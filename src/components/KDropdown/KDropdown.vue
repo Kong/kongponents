@@ -19,9 +19,9 @@
           :is="tooltipComponent"
           class="dropdown-trigger"
           data-testid="dropdown-trigger"
-          :label="disabledTooltip ? disabledTooltip : undefined"
           :max-width="!!disabledTooltip ? '240' : undefined"
           :position="!!disabledTooltip ? 'bottom' : undefined"
+          :text="disabledTooltip ? disabledTooltip : undefined"
         >
           <slot
             :is-open="isToggled.value"
@@ -93,22 +93,7 @@ const {
   items = [],
   disabled,
   disabledTooltip = '',
-  // Cannot set default value otherwise we cannot tell whether the prop is passed or not
-  label,
 } = defineProps<DropdownProps<T>>()
-
-watch(() => appearance, (value) => {
-  // @ts-ignore: allow comparing string values
-  if (value === 'menu' || value === 'selectionMenu') {
-    console.warn('KDropdown: the usage for the `appearance` prop has changed. Please see the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
-  }
-}, { immediate: true })
-
-watch(() => label, (value) => {
-  if (value) {
-    console.warn('KDropdown: `label` prop is deprecated. Please use `triggerText` prop instead. See the migration guide for more details: https://kongponents.konghq.com/guide/migrating-to-version-9.html#kdropdownmenu')
-  }
-}, { immediate: true })
 
 const emit = defineEmits<DropdownEmits<T>>()
 
@@ -129,7 +114,7 @@ const boundKPopAttributes: PopoverAttributes = {
   popoverClasses: `${defaultKPopAttributes.popoverClasses} ${kpopAttributes?.popoverClasses || ''}`,
 }
 
-const triggerButtonText = computed((): string => selectedItem.value?.label || triggerText || label || '')
+const triggerButtonText = computed((): string => selectedItem.value?.label || triggerText || '')
 
 const selectedItem = ref<DropdownItem<T>>()
 

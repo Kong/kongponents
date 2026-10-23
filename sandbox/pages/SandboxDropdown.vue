@@ -10,7 +10,7 @@
         title="Props"
       />
       <SandboxSectionComponent
-        title="triggerText (replacement for deprecated `label` prop)"
+        title="triggerText"
       >
         <KDropdown
           :items="[
@@ -22,7 +22,7 @@
         />
       </SandboxSectionComponent>
       <SandboxSectionComponent
-        title="selectionMenu (replacement for `appearance` prop)"
+        title="selectionMenu"
       >
         <KDropdown
           :items="selectionMenuItems"
@@ -301,79 +301,6 @@
         <pre>
         {{ slottedContentPositioningSnippet }}
       </pre>
-      </SandboxSectionComponent>
-
-      <!-- Legacy -->
-      <SandboxTitleComponent
-        is-subtitle
-        title="Legacy"
-      />
-      <SandboxSectionComponent
-        title="Props: label & appearance"
-      >
-        <KDropdown
-          appearance="selectionMenu"
-          :items="[
-            { label: 'Home', to: { name: 'home' } },
-            { label: 'KAlert', to: { name: 'alert' } },
-            { label: 'Stay', to: { name: 'dropdown' } },
-          ]"
-          label="Deprecated props"
-        />
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        description="The old KDropdownMenu component that utilizes the KDropdown under the hood still works as expected."
-        title="KDropdownMenu (deprecated)"
-      >
-        <KDropdownMenu
-          trigger-text="KDropdownMenu"
-        >
-          <template #items>
-            <KDropdownItem>
-              Updates
-              <KBadge
-                class="dropdown-item-content-end"
-                shape="rectangular"
-              >
-                14
-              </KBadge>
-            </KDropdownItem>
-            <KDropdownItem>
-              Support
-              <KBadge
-                appearance="success"
-                shape="rectangular"
-              >
-                Enterprise
-              </KBadge>
-              <ExternalLinkIcon class="dropdown-item-content-end" />
-            </KDropdownItem>
-            <KDropdownItem>
-              <BookIcon />
-              Docs
-              <KTooltip
-                class="dropdown-item-content-end"
-                text="This is a tooltip"
-              >
-                <InfoIcon />
-              </KTooltip>
-            </KDropdownItem>
-          </template>
-        </KDropdownMenu>
-      </SandboxSectionComponent>
-      <SandboxSectionComponent
-        title="KDropdownItem isDangerous prop (deprecated)"
-      >
-        <KDropdown trigger-text="Deprecated KDropdownItem prop">
-          <template #items>
-            <KDropdownItem
-              is-dangerous
-              @click="handleItemClick"
-            >
-              I am dangerous
-            </KDropdownItem>
-          </template>
-        </KDropdown>
       </SandboxSectionComponent>
     </div>
   </SandboxLayout>

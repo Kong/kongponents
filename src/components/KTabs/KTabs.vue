@@ -23,7 +23,7 @@
           :class="{ disabled: tab.disabled }"
           :disabled="tab.disabled"
           role="tab"
-          :tabindex="getAnchorTabindex(tab)"
+          :tabindex="tab.disabled ? '-1' : '0'"
           :to="tab.to"
           @click.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
           @keydown.enter.prevent="!tab.disabled ? handleTabChange(tab.hash) : undefined"
@@ -57,13 +57,12 @@
 <script lang="ts" setup generic="const Hash extends string = string">
 import { ref, watch } from 'vue'
 import KButton from '@/components/KButton/KButton.vue'
-import type { StripHash, Tab, TabsEmits, TabsProps, TabsSlots } from '@/types'
+import type { StripHash, TabsEmits, TabsProps, TabsSlots } from '@/types'
 
 const {
   tabs,
   modelValue = '',
   hidePanels,
-  anchorTabindex = 0,
   beforeChange = () => true,
   appearance = 'default',
 } = defineProps<TabsProps<Hash>>()
@@ -84,14 +83,6 @@ const handleTabChange = async (tab: Hash): Promise<void> => {
 }
 
 const getTabSlotName = (tabHash: Hash): StripHash<Hash> => tabHash.replace('#', '') as StripHash<Hash>
-
-const getAnchorTabindex = (tab: Tab): string => {
-  if (tab.disabled) {
-    return '-1'
-  }
-
-  return typeof anchorTabindex === 'number' && anchorTabindex >= -1 && anchorTabindex <= 32767 ? String(anchorTabindex) : '0'
-}
 
 watch(() => modelValue, (newTabHash) => {
   activeTab.value = newTabHash
