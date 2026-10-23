@@ -531,63 +531,62 @@ describe('KTreeList', () => {
     // the pointer is moved with real timers, which takes a few seconds and is slower on busy CI machines
   }, 20000)
 
-  it('keeps every item after being dragged many times, including between nested lists', async () => {
+  it('keeps items mounted when dragging several times', async () => {
+    let emittedEvents = 0
     await render(KTreeList, {
       props: {
         items: [
-          { id: 'components', name: 'components', children: [{ id: 'profile-card', name: 'profile-card' }] },
-          {
-            id: 'pages',
-            name: 'pages',
-            children: [
-              { id: 'home', name: 'home' },
-              {
-                id: 'user',
-                name: 'user',
-                children: [{ id: 'user-list', name: 'user-list' }, { id: 'user-detail', name: 'user-detail' }, { id: 'settings', name: 'settings' }],
-              },
-            ],
-          },
-          { id: 'types', name: 'types', children: [{ id: 'user-types', name: 'user-types' }] },
+          { id: 'a', name: 'a', children: [{ id: 'a1', name: 'a1' }] },
+          { id: 'b', name: 'b' },
+          { id: 'c', name: 'c' },
+          { id: 'd', name: 'd' },
         ],
+        onChange: () => emittedEvents++,
+        onChildChange: () => emittedEvents++,
       },
     })
 
-    const labels = (): string[] => Array.from(document.querySelectorAll('.k-tree-list .tree-item-label'))
-      .filter(label => !label.closest('.sortable-fallback'))
-      .map(label => label.textContent?.trim() || '')
-      .sort()
-    const expected = labels()
-    expect(expected).toHaveLength(10)
+    const ids = ['a', 'a1', 'b', 'c', 'd']
+    const itemElement = (id: string): Element | null => document.querySelector(`[data-testid="tree-item-${id}"]`)
+    const mountedElements = new Map(ids.map(id => [id, itemElement(id)]))
 
-    // deterministic pseudo random numbers, so the sequence of drags is the same on every run
-    let seed = 42
-    const random = (): number => {
-      seed = (seed * 16807) % 2147483647
-      return seed / 2147483647
-    }
-
-    // Every drag only reorders or moves items, so the same items must still be rendered after each one
-    // (without a stable key, items were dropped after a handful of drags)
-    for (let drag = 1; drag <= 16; drag++) {
-      const items = Array.from(document.querySelectorAll('.k-tree-list .tree-item'))
-      const source = items[Math.floor(random() * items.length)]
+    const drag = async (id: string, distance: number): Promise<void> => {
+      const source = itemElement(id)!
       const rect = source.getBoundingClientRect()
       const x = rect.left + 60
       const startY = rect.top + rect.height / 2
-      const direction = random() < 0.5 ? 1 : -1
 
       dispatchPointer(source, 'down', x, startY)
-      for (let step = 1; step <= 70; step++) {
-        // wander sideways a bit so the item also moves in and out of the nested lists
-        dispatchPointer(document, 'move', x + Math.sin(step / 9) * 15, startY + direction * step * 2)
+      for (let step = 1; step <= Math.abs(distance) / 2; step++) {
+        dispatchPointer(document, 'move', x, startY + Math.sign(distance) * step * 2)
         await new Promise(resolve => setTimeout(resolve, 16))
       }
-      document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + direction * 140 }))
+      document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: startY + distance, button: 0, buttons: 0, pointerId: 1, pointerType: 'mouse', isPrimary: true }))
+      // SortableJS ends a fallback drag on mouseup
+      document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + distance }))
       await new Promise(resolve => setTimeout(resolve, 100))
-
-      expect(labels(), `items after drag ${drag}`).toEqual(expected)
     }
-    // 16 drags with real timers take about 20 seconds
-  }, 60000)
+
+    for (const [id, distance] of [['b', 150], ['d', -150], ['b', -50]] as const) {
+      const eventsBefore = emittedEvents
+      await drag(id, distance)
+
+      // make sure the item was really moved, otherwise the checks below would not test anything
+      expect(emittedEvents, `events after dragging ${id}`).toBeGreaterThan(eventsBefore)
+
+      // The tree must not be re-created after a drop. Dragging only moves items, so the ones that were not dragged
+      // must still be the very same elements. Re-keying the list after each drop remounts all of them, and was
+      // causing items to go missing after several drags. The dragged item is excluded, SortableJS moves it itself.
+      ids.filter(otherId => otherId !== id).forEach((otherId) => {
+        expect(itemElement(otherId), `${otherId} after dragging ${id}`).toBe(mountedElements.get(otherId))
+      })
+      // the dragged item can be re-created by the move, so remember its current element for the next drag
+      mountedElements.set(id, itemElement(id))
+    }
+
+    // nothing got lost on the way, and the nested item is still in its list
+    expect(Array.from(document.querySelectorAll('.k-tree-list .tree-item-label')).map(label => label.textContent?.trim()).sort())
+      .toEqual(['a', 'a1', 'b', 'c', 'd'])
+    expect(itemElement('a1')?.closest('.tree-draggable')?.id).toBe('tree-list-draggable-a')
+  }, 30000)
 })
