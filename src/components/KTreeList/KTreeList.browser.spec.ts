@@ -519,7 +519,7 @@ describe('KTreeList', () => {
         seen.push(order)
       }
     }
-    // SortableJS ends a fallback drag on mouseup
+    // vue-draggable-next bundles its own SortableJS, which ends a fallback drag on mouseup in every browser
     document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + 400 }))
 
     const reversals = seen.filter((order, index) => index >= 2 && order === seen[index - 2]).length
@@ -561,8 +561,7 @@ describe('KTreeList', () => {
         dispatchPointer(document, 'move', x, startY + Math.sign(distance) * step * 2)
         await new Promise(resolve => setTimeout(resolve, 16))
       }
-      document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: startY + distance, button: 0, buttons: 0, pointerId: 1, pointerType: 'mouse', isPrimary: true }))
-      // SortableJS ends a fallback drag on mouseup
+      // vue-draggable-next bundles its own SortableJS, which ends a fallback drag on mouseup in every browser
       document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + distance }))
       await new Promise(resolve => setTimeout(resolve, 100))
     }
