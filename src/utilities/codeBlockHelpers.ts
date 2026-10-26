@@ -152,15 +152,16 @@ export function highlightMatchingChars(code: string, query: string, isRegExpMode
     return ''
   }
 
+  // We may take a fast path for the common case where there are no characters to escape
+  const skipEscape = !ESCAPE_REGEX.test(code)
+
   let regExp: RegExp
   try {
     regExp = new RegExp(`(?:${isRegExpMode ? query : escapeRegExp(query)})+`, 'sgi')
   } catch {
-    return code
+    return skipEscape ? code : escapeInnerHTML(code)
   }
 
-  // We may take a fast path for the common case where there are no characters to escape
-  const skipEscape = !ESCAPE_REGEX.test(code)
 
   let result = ''
   let lastIndex = 0
