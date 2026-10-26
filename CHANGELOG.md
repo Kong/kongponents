@@ -1,3 +1,73 @@
+## [9.66.5](https://github.com/Kong/kongponents/compare/v9.66.4...v9.66.5) (2026-10-22)
+
+
+### Bug Fixes
+
+* **kcard:** header border radius ([#3486](https://github.com/Kong/kongponents/issues/3486)) ([bbb7197](https://github.com/Kong/kongponents/commit/bbb719765766e778181303b5fc2e3a7fea6ec4d8))
+
+## [9.66.4](https://github.com/Kong/kongponents/compare/v9.66.3...v9.66.4) (2026-10-21)
+
+
+### Bug Fixes
+
+* **kcard:** more component token customization options ([#3485](https://github.com/Kong/kongponents/issues/3485)) ([bb9f235](https://github.com/Kong/kongponents/commit/bb9f235e4cff2ef94c775a337d7517c493d66845))
+
+## [9.66.3](https://github.com/Kong/kongponents/compare/v9.66.2...v9.66.3) (2026-10-21)
+
+
+### Bug Fixes
+
+* **kskeleton:** update kong walk full screen loader animation ([#3483](https://github.com/Kong/kongponents/issues/3483)) ([f68627f](https://github.com/Kong/kongponents/commit/f68627f9d50d39c06325cc3c1c336b3b8f1fd3aa))
+
+## [9.66.2](https://github.com/Kong/kongponents/compare/v9.66.1...v9.66.2) (2026-10-19)
+
+
+### Bug Fixes
+
+* **kinput, kmultiselect, ktableview:** apply new component tokens ([#3476](https://github.com/Kong/kongponents/issues/3476)) ([c4a76aa](https://github.com/Kong/kongponents/commit/c4a76aa5e23184ccd532c4b4d577262f084dd17f))
+
+## [9.66.1](https://github.com/Kong/kongponents/compare/v9.66.0...v9.66.1) (2026-10-16)
+
+
+### Bug Fixes
+
+* **deps:** align vue with @vue/server-renderer override to fix docs SSG [KHCP-22033] ([#3471](https://github.com/Kong/kongponents/issues/3471)) ([200eb74](https://github.com/Kong/kongponents/commit/200eb74004f7a05c81b130ff028952ec56f34302))
+
+# [9.66.0](https://github.com/Kong/kongponents/compare/v9.65.3...v9.66.0) (2026-10-16)
+
+
+### Features
+
+* **mcp:** POC - mcp server in Kongponents [KHCP-21913] ([#3432](https://github.com/Kong/kongponents/issues/3432)) ([7d94c8f](https://github.com/Kong/kongponents/commit/7d94c8fd54f8f838e2831ffd99a498270be2c539)), closes [#3467](https://github.com/Kong/kongponents/issues/3467)
+
+## [9.65.3](https://github.com/Kong/kongponents/compare/v9.65.2...v9.65.3) (2026-10-16)
+
+
+### Bug Fixes
+
+* **kdatetimepicker:** center calendar icon and add mono-lime [KHCP-22095] ([#3468](https://github.com/Kong/kongponents/issues/3468)) ([14e282f](https://github.com/Kong/kongponents/commit/14e282f966a203d558dc5ae77902d5d5ef173e68))
+
+## [9.65.2](https://github.com/Kong/kongponents/compare/v9.65.1...v9.65.2) (2026-10-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency virtua to ^0.51.0 ([#3422](https://github.com/Kong/kongponents/issues/3422)) ([63f89e5](https://github.com/Kong/kongponents/commit/63f89e5e4f065002803ef4994869b1e7c0b63e45))
+
+## [9.65.1](https://github.com/Kong/kongponents/compare/v9.65.0...v9.65.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* **themes:** classic night theme tweaks ([#3466](https://github.com/Kong/kongponents/issues/3466)) ([41117b2](https://github.com/Kong/kongponents/commit/41117b23f17281de160fa920bf0671abc4917e9a))
+
+# [9.65.0](https://github.com/Kong/kongponents/compare/v9.64.25...v9.65.0) (2026-10-14)
+
+
+### Features
+
+* **kcodeblock:** add actions slot [KM-3400] ([#3464](https://github.com/Kong/kongponents/issues/3464)) ([421c6fd](https://github.com/Kong/kongponents/commit/421c6fd9ec30adec90590600a67a1a80dbf0661f))
+
 ## [9.64.25](https://github.com/Kong/kongponents/compare/v9.64.24...v9.64.25) (2026-10-09)
 
 

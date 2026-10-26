@@ -4,10 +4,9 @@
     data-testid="full-screen-loader"
   >
     <div>
-      <img
-        alt="Loading"
-        :src="loaderImage"
-      >
+      <div class="loader-image">
+        <KongWalkLoader />
+      </div>
       <div
         v-if="!hideProgress"
         class="progress"
@@ -25,7 +24,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import loaderImage from './kong-loader.gif'
+import KongWalkLoader from './KongWalkLoader.vue'
 import type { SkeletonFullscreenProps } from '@/types'
 
 const {
@@ -61,6 +60,11 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .fullscreen-loading-container {
   @include fullScreenLoadingContainer(v-bind('zIndex'));
+
+  .loader-image {
+    display: flex;
+    justify-content: center;
+  }
 
   .progress {
     @include fullScreenLoadingProgressBar;

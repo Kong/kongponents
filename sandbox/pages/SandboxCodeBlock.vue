@@ -203,6 +203,26 @@
       />
       <SandboxSectionComponent
         class="limited-width"
+        title="actions"
+      >
+        <KCodeBlock
+          id="actions-slot"
+          :code="code"
+          language="json"
+          searchable
+        >
+          <template #actions>
+            <KButton
+              appearance="secondary"
+              size="small"
+            >
+              Action
+            </KButton>
+          </template>
+        </KCodeBlock>
+      </SandboxSectionComponent>
+      <SandboxSectionComponent
+        class="limited-width"
         title="secondary-actions"
       >
         <KCodeBlock
@@ -231,7 +251,7 @@ import { useSandboxTheme } from '../composables/useSandboxTheme'
 
 const { activeThemeLabel } = useSandboxTheme()
 
-// Classic Night + Electric Lime Night are the two "night" themes.
+// Any theme labelled "Night" (Classic, Electric Lime, Mono Lime) is a night theme.
 const isNightTheme = computed(() => activeThemeLabel.value.includes('Night'))
 
 const origLines = [2, 3, 4]
@@ -332,7 +352,7 @@ watch(code, async () => {
   max-width: 90%;
 }
 
-// Only apply Shiki's dark palette in the "night" themes (Classic Night / Electric Lime Night).
+// Only apply Shiki's dark palette in the "night" themes (any theme labelled "Night").
 .theme-night {
   :deep(.k-code-block code span) {
     /* stylelint-disable-next-line custom-property-pattern */

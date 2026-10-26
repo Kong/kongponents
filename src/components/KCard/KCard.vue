@@ -57,16 +57,18 @@ const showCardHeader = (): boolean => {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
   gap: var(--kui-card-gap, var(--kui-space-70, $kui-space-70));
   width: 100%;
 
   .card-header {
     align-items: flex-start;
+    background-color: var(--kui-card-header-color-background, var(--kui-color-background-transparent, $kui-color-background-transparent));
+    border-top-left-radius: var(--kui-card-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+    border-top-right-radius: var(--kui-card-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
     display: inline-flex;
-    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
     gap: var(--kui-card-header-gap, var(--kui-space-50, $kui-space-50));
     justify-content: space-between;
+    padding: var(--kui-card-header-padding, var(--kui-space-0, $kui-space-0));
 
     .card-title {
       align-items: center;
@@ -82,7 +84,6 @@ const showCardHeader = (): boolean => {
     .card-actions {
       display: flex;
       flex-shrink: 0;
-      /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
       gap: var(--kui-card-actions-gap, var(--kui-space-30, $kui-space-30));
       margin-left: var(--kui-space-auto, $kui-space-auto);
     }
@@ -94,6 +95,7 @@ const showCardHeader = (): boolean => {
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding: var(--kui-card-body-padding, var(--kui-space-0, $kui-space-0));
     width: 100%;
   }
 
@@ -101,9 +103,15 @@ const showCardHeader = (): boolean => {
     @include bodyText;
 
     display: flex;
-    /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
     gap: var(--kui-card-footer-gap, var(--kui-space-30, $kui-space-30));
+    padding: var(--kui-card-footer-padding, var(--kui-space-0, $kui-space-0));
     width: 100%;
+  }
+
+  /** Card gap already separates sections; only the first section keeps its top padding */
+  .card-content:not(:first-child),
+  .card-footer:not(:first-child) {
+    padding-top: var(--kui-space-0, $kui-space-0);
   }
 }
 </style>

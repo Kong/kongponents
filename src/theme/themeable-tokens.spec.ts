@@ -35,6 +35,10 @@ describe('KUI_THEMEABLE_TOKENS (from @kong/design-tokens)', () => {
     expect(names).toContain('--kui-card-padding')
     expect(names).toContain('--kui-input-shadow-border-hover')
     expect(names).toContain('--kui-badge-border-radius')
+    expect(names).toContain('--kui-input-icon-size')
+    expect(names).toContain('--kui-table-toolbar-gap')
+    expect(names).toContain('--kui-input-padding-y')
+    expect(names).toContain('--kui-input-padding-x')
   })
 
   it('marks value-less component tokens with category "component" and a null value', () => {
