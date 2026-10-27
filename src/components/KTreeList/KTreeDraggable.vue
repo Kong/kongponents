@@ -23,7 +23,7 @@
       }"
     >
       <KTreeItem
-        :key="`tree-item-${element.id}-${key}`"
+        :key="`tree-item-${element.id}`"
         ref="tree-items"
         :collapsible="collapsible"
         :controls-id="element.id"
@@ -56,7 +56,7 @@
       <KTreeDraggable
         v-show="getChildrenVisibility(element.id)"
         :id="`tree-list-draggable-${element.id}`"
-        :key="`tree-item-${element.id}-children-${key}`"
+        :key="`tree-item-${element.id}-children`"
         :class="{
           'collapsible': collapsible,
         }"
@@ -126,7 +126,6 @@ const emit = defineEmits<TreeDraggableEmits>()
 
 defineSlots<TreeListSlots>()
 
-const key = ref(0)
 const internalList = ref<TreeListItem[]>([])
 const draggableAttrs = {
   tag: 'div',
@@ -139,6 +138,10 @@ const draggableAttrs = {
   'drag-class': 'tree-item-grabbing',
   class: 'child-drop-zone',
   'fallback-tolerance': 10,
+  // Items vary a lot in height (a folder includes its nested children), so with the default threshold of 1
+  // the whole target area triggers a swap. After a swap the layout shifts under the pointer, which triggers the
+  // reverse swap, and the dragged item flips back and forth. Only swap when the pointer is over the middle half.
+  'swap-threshold': 0.5,
 }
 const dragging = ref<boolean>(false)
 
@@ -253,8 +256,6 @@ const onStartDrag = (draggedItem: any): void => {
 const onStopDrag = async (): Promise<void> => {
   dragging.value = false
   setDragCursor(false)
-
-  key.value++
 
   // set previous icon state after DOM was re-rendered
   await nextTick()

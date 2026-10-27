@@ -4,6 +4,14 @@ import { defineComponent, h, ref } from 'vue'
 import { render } from 'vitest-browser-vue'
 import KTreeList from '@/components/KTreeList/KTreeList.vue'
 
+// SortableJS listens to pointer events, except in Safari-family browsers where it listens to mouse events,
+// so dispatch both to make sure a drag starts everywhere
+const dispatchPointer = (target: Element | Document, type: 'down' | 'move', x: number, y: number): void => {
+  const init = { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: 1 }
+  target.dispatchEvent(new PointerEvent(`pointer${type}`, { ...init, pointerId: 1, pointerType: 'mouse', isPrimary: true }))
+  target.dispatchEvent(new MouseEvent(`mouse${type}`, init))
+}
+
 describe('KTreeList', () => {
   it('renders items when passed as prop', async () => {
     const names = ['Name 1', 'Name 2', 'Name 3']
@@ -470,4 +478,114 @@ describe('KTreeList', () => {
 
     await expect.element(page.getByTestId('tree-item-id1').getByTestId('tree-item-expanded-button')).not.toBeInTheDocument()
   })
+
+  it('does not flip-flop the dragged item when it is dragged across items of different heights', async () => {
+    const folder = (id: string, childIds: string[]) => ({
+      id,
+      name: id,
+      children: childIds.map(childId => ({ id: childId, name: childId })),
+    })
+
+    await render(KTreeList, {
+      props: {
+        items: [
+          folder('components', ['profile-card']),
+          folder('pages', ['home', 'user']),
+          folder('user', ['user-list', 'user-detail']),
+          folder('settings', ['settings-general']),
+          { id: 'symbols', name: 'symbols' },
+        ],
+      },
+    })
+
+    const labelOrder = (): string => Array.from(document.querySelectorAll('.k-tree-list .tree-item-label'))
+      .filter(label => !label.closest('.sortable-fallback'))
+      .map(label => label.textContent?.trim())
+      .join(',')
+
+    const source = page.getByTestId('tree-item-components').element()
+    const rect = source.getBoundingClientRect()
+    const x = rect.left + 70
+    const startY = rect.top + rect.height / 2
+
+    // Move the pointer down monotonically; the order may only ever progress, never return to a previous state
+    const seen: string[] = []
+    dispatchPointer(source, 'down', x, startY)
+    for (let i = 1; i <= 200; i++) {
+      dispatchPointer(document, 'move', x, startY + i * 2)
+      await new Promise(resolve => setTimeout(resolve, 16))
+      const order = labelOrder()
+      if (order !== seen[seen.length - 1]) {
+        seen.push(order)
+      }
+    }
+    // vue-draggable-next bundles its own SortableJS, which ends a fallback drag on mouseup in every browser
+    document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + 400 }))
+
+    const reversals = seen.filter((order, index) => index >= 2 && order === seen[index - 2]).length
+    expect(reversals).toBe(0)
+
+    // make sure the drag really happened, otherwise the check above passes without testing anything
+    expect(seen.length).toBeGreaterThan(1)
+    expect(seen[seen.length - 1].split(',')[0]).not.toBe('components')
+    // the pointer is moved with real timers, which takes a few seconds and is slower on busy CI machines
+  }, 20000)
+
+  it('keeps items mounted when dragging several times', async () => {
+    let emittedEvents = 0
+    await render(KTreeList, {
+      props: {
+        items: [
+          { id: 'a', name: 'a', children: [{ id: 'a1', name: 'a1' }] },
+          { id: 'b', name: 'b' },
+          { id: 'c', name: 'c' },
+          { id: 'd', name: 'd' },
+        ],
+        onChange: () => emittedEvents++,
+        onChildChange: () => emittedEvents++,
+      },
+    })
+
+    const ids = ['a', 'a1', 'b', 'c', 'd']
+    const itemElement = (id: string): Element | null => document.querySelector(`[data-testid="tree-item-${id}"]`)
+    const mountedElements = new Map(ids.map(id => [id, itemElement(id)]))
+
+    const drag = async (id: string, distance: number): Promise<void> => {
+      const source = itemElement(id)!
+      const rect = source.getBoundingClientRect()
+      const x = rect.left + 60
+      const startY = rect.top + rect.height / 2
+
+      dispatchPointer(source, 'down', x, startY)
+      for (let step = 1; step <= Math.abs(distance) / 2; step++) {
+        dispatchPointer(document, 'move', x, startY + Math.sign(distance) * step * 2)
+        await new Promise(resolve => setTimeout(resolve, 16))
+      }
+      // vue-draggable-next bundles its own SortableJS, which ends a fallback drag on mouseup in every browser
+      document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, clientX: x, clientY: startY + distance }))
+      await new Promise(resolve => setTimeout(resolve, 100))
+    }
+
+    for (const [id, distance] of [['b', 150], ['d', -150], ['b', -50]] as const) {
+      const eventsBefore = emittedEvents
+      await drag(id, distance)
+
+      // make sure the item was really moved, otherwise the checks below would not test anything
+      expect(emittedEvents, `events after dragging ${id}`).toBeGreaterThan(eventsBefore)
+
+      // The tree must not be re-created after a drop. Dragging only moves items, so the ones that were not dragged
+      // must still be the very same elements. Re-keying the list after each drop remounts all of them, and was
+      // causing items to go missing after several drags. The dragged item is excluded, SortableJS moves it itself.
+      ids.filter(otherId => otherId !== id).forEach((otherId) => {
+        expect(itemElement(otherId), `${otherId} after dragging ${id}`).toBe(mountedElements.get(otherId))
+      })
+      // the dragged item can be re-created by the move, so remember its current element for the next drag
+      mountedElements.set(id, itemElement(id))
+    }
+
+    // nothing got lost on the way, and the nested item is still in its list
+    expect(Array.from(document.querySelectorAll('.k-tree-list .tree-item-label')).map(label => label.textContent?.trim()).sort())
+      .toEqual(['a', 'a1', 'b', 'c', 'd'])
+    expect(itemElement('a1')?.closest('.tree-draggable')?.id).toBe('tree-list-draggable-a')
+  }, 30000)
 })
