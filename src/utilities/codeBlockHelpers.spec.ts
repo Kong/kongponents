@@ -77,6 +77,15 @@ describe('escapeHTMLIfNeeded', () => {
 })
 
 describe('highlightMatchingChars', () => {
+
+  it('continues to encode correctly when throwing', () => {
+    expect(highlightMatchingChars('<script>alert("hi")</script>', '(?:lets|throw', true)).toBe('&lt;script>alert("hi")&lt;/script>')
+  })
+
+  it('returns code unchanged when the regex throws and no characters need escaping', () => {
+    expect(highlightMatchingChars('plain code text', '(?:lets|throw', true)).toBe('plain code text')
+  })
+
   it('wraps matched characters matched by exact match with a <mark> element', () => {
     expect(highlightMatchingChars(code, 'true', false)).toBe(`{
   "compilerOptions": {
