@@ -1,3 +1,11 @@
+## [9.66.6](https://github.com/Kong/kongponents/compare/v9.66.5...v9.66.6) (2026-10-27)
+
+
+### Bug Fixes
+
+* **k-code-block:** ensure highlightMatching doesn't return too early ([#3490](https://github.com/Kong/kongponents/issues/3490)) ([98d1e8f](https://github.com/Kong/kongponents/commit/98d1e8fd290dff5e0492eb8fbb6fdb99983c9bab))
+* **ktreelist:** fix dragged item flickering and items disappearing after several drags ([#3479](https://github.com/Kong/kongponents/issues/3479)) ([029a3f5](https://github.com/Kong/kongponents/commit/029a3f59baeb1695af82ae323cf7aa981d5e4cfc))
+
 ## [9.66.5](https://github.com/Kong/kongponents/compare/v9.66.4...v9.66.5) (2026-10-22)
 
 
