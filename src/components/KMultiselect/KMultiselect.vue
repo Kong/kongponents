@@ -640,12 +640,17 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
   }
 }
 
+// Orders selections by `orderedValues` and keeps selections outside it (e.g. `item.selected`) after them.
 const reorderSelectedItems = (orderedValues: Value[]) => {
   const selectedItemsByValue = new Map(selectedItems.value.map(item => [item.value, item]))
+  const orderedValueSet = new Set(orderedValues)
 
-  selectedItems.value = orderedValues
-    .map(itemValue => selectedItemsByValue.get(itemValue))
-    .filter((item): item is Item => item !== undefined)
+  selectedItems.value = [
+    ...orderedValues
+      .map(itemValue => selectedItemsByValue.get(itemValue))
+      .filter((item): item is Item => item !== undefined),
+    ...selectedItems.value.filter(item => !orderedValueSet.has(item.value)),
+  ]
 }
 
 // handles programmatic selections
@@ -1043,11 +1048,8 @@ watch(() => items, (newValue, oldValue) => {
     }
   }
 
-  // The loop above adds selections in item order. Order modelValue selections by modelValue
-  // and keep selections outside it (e.g. `item.selected`) after them in their existing order.
-  const modelValueIndexes = new Map((modelValue as Value[]).map((itemValue, index) => [itemValue, index]))
-  const getModelValueIndex = (item: Item): number => modelValueIndexes.get(item.value) ?? modelValueIndexes.size
-  selectedItems.value.sort((a, b) => getModelValueIndex(a) - getModelValueIndex(b))
+  // The loop above adds selections in item order, so restore modelValue order.
+  reorderSelectedItems(modelValue as Value[])
 
   // Build normalized structure for NEW approach after processing
   if (hasMultiselectGroups) {
