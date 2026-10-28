@@ -1122,6 +1122,62 @@ describe('KMultiselect', () => {
     await assertBadgeOrder(['Region', 'Name', 'Environment', 'Team', 'Control plane'])
   })
 
+  it('orders initial selected badges by modelValue instead of item order', async () => {
+    const onUpdate = vi.fn()
+
+    await render(KMultiselect, {
+      props: {
+        items: [
+          { label: 'Error', value: 'error' },
+          { label: 'Method', value: 'method' },
+          { label: 'Status', value: 'status' },
+        ],
+        modelValue: ['method', 'error'],
+        'onUpdate:modelValue': onUpdate,
+      },
+    })
+
+    await expect.poll(badgeLabelTexts).toEqual(['Method', 'Error'])
+
+    await page.getByTestId('multiselect-trigger').click()
+    await page.getByTestId('multiselect-item-status').click()
+
+    expect(onUpdate).toHaveBeenLastCalledWith(['method', 'error', 'status'])
+  })
+
+  it('orders selected badges by modelValue when items arrive after the model', async () => {
+    const screen = await render(KMultiselect, {
+      props: {
+        items: [] as MultiselectItem[],
+        modelValue: ['method', 'error'],
+      },
+    })
+
+    await screen.rerender({
+      items: [
+        { label: 'Error', value: 'error' },
+        { label: 'Method', value: 'method' },
+      ],
+    })
+
+    await expect.poll(badgeLabelTexts).toEqual(['Method', 'Error'])
+  })
+
+  it('keeps item.selected selections that are not in a nonempty modelValue', async () => {
+    await render(KMultiselect, {
+      props: {
+        items: [
+          { label: 'Error', value: 'error' },
+          { label: 'Method', value: 'method' },
+          { label: 'Status', value: 'status', selected: true },
+        ],
+        modelValue: ['method', 'error'],
+      },
+    })
+
+    await expect.poll(badgeLabelTexts).toEqual(['Method', 'Error', 'Status'])
+  })
+
   it('keeps the open dropdown order stable while selecting and removing items', async () => {
     const items = [
       { label: 'Name', value: 'name' },
