@@ -640,17 +640,17 @@ const handleToggle = async (open: boolean, isToggled: Ref<boolean>, toggle: () =
   }
 }
 
-// Orders selections by `orderedValues` and keeps selections outside it (e.g. `item.selected`) after them.
+// Orders selections by `orderedValues`, then keeps selections that are not in it
+// (e.g. `item.selected` items) after them, in their current order.
 const reorderSelectedItems = (orderedValues: Value[]) => {
   const selectedItemsByValue = new Map(selectedItems.value.map(item => [item.value, item]))
   const orderedValueSet = new Set(orderedValues)
+  const orderedItems = orderedValues
+    .map(itemValue => selectedItemsByValue.get(itemValue))
+    .filter((item): item is Item => item !== undefined)
+  const itemsNotInOrder = selectedItems.value.filter(item => !orderedValueSet.has(item.value))
 
-  selectedItems.value = [
-    ...orderedValues
-      .map(itemValue => selectedItemsByValue.get(itemValue))
-      .filter((item): item is Item => item !== undefined),
-    ...selectedItems.value.filter(item => !orderedValueSet.has(item.value)),
-  ]
+  selectedItems.value = [...orderedItems, ...itemsNotInOrder]
 }
 
 // handles programmatic selections
