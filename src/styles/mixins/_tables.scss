@@ -228,6 +228,7 @@
 
         tbody {
           tr {
+            /* stylelint-disable-next-line @kong/stylelint-plugin-design-tokens/use-proper-token */
             height: var(--kui-table-row-height, 48px);
 
             &:not(:last-child) {
