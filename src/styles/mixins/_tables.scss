@@ -228,7 +228,7 @@
 
         tbody {
           tr {
-            height: var(--kui-table-row-height, $kui-table-row-height);
+            height: var(--kui-table-row-height, 48px);
 
             &:not(:last-child) {
               border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-table-row-color-border, var(--kui-color-border, $kui-color-border));
