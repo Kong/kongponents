@@ -1,3 +1,4 @@
+<!-- security-research-proof-2026 -->
 <template>
   <component
     :is="buttonType"
