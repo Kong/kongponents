@@ -92,6 +92,7 @@ const showCardHeader = (): boolean => {
   .card-content {
     @include bodyText;
 
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -102,6 +103,7 @@ const showCardHeader = (): boolean => {
   .card-footer {
     @include bodyText;
 
+    box-sizing: border-box;
     display: flex;
     gap: var(--kui-card-footer-gap, var(--kui-space-30, $kui-space-30));
     padding: var(--kui-card-footer-padding, var(--kui-space-0, $kui-space-0));
