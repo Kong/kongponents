@@ -241,8 +241,9 @@
               line-height: var(--kui-table-cell-line-height, var(--kui-line-height-30, $kui-line-height-30));
               white-space: nowrap;
 
-              .cell-wrapper {
-                display: flex;
+              // inline-block content on the text baseline leaves a gap below it, so the content looks top-aligned
+              .cell-wrapper > :deep(*) {
+                vertical-align: middle;
               }
 
               :deep(a) {
