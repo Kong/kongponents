@@ -1,3 +1,10 @@
+## [9.66.11](https://github.com/Kong/kongponents/compare/v9.66.10...v9.66.11) (2026-10-29)
+
+
+### Bug Fixes
+
+* **ktableview:** use table row height token ([#3495](https://github.com/Kong/kongponents/issues/3495)) ([590745e](https://github.com/Kong/kongponents/commit/590745e88762fa8a950ab18fdd0992de8b1e1251))
+
 ## [9.66.10](https://github.com/Kong/kongponents/compare/v9.66.9...v9.66.10) (2026-10-29)
 
 
