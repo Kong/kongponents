@@ -1,3 +1,10 @@
+## [9.66.9](https://github.com/Kong/kongponents/compare/v9.66.8...v9.66.9) (2026-10-29)
+
+
+### Bug Fixes
+
+* **kmultiselect:** order initial selections by modelValue [MA-5599] ([#3491](https://github.com/Kong/kongponents/issues/3491)) ([558baaa](https://github.com/Kong/kongponents/commit/558baaa75306359e12556a863c0c5eab6d2ca793))
+
 ## [9.66.8](https://github.com/Kong/kongponents/compare/v9.66.7...v9.66.8) (2026-10-29)
 
 
