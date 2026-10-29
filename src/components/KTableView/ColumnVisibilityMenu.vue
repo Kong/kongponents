@@ -237,7 +237,7 @@ onBeforeMount(() => {
     overflow-y: auto;
 
     &.is-bottom-overflowing {
-      $bottom-mask-size: 48px;
+      $bottom-mask-size: var(--kui-table-row-height, $kui-table-row-height);
 
       -webkit-mask-image: linear-gradient(to bottom, black calc(100% - $bottom-mask-size), transparent 100%);
       mask-image: linear-gradient(to bottom, black calc(100% - $bottom-mask-size), transparent 100%);
