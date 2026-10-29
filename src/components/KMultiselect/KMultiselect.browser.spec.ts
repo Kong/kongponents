@@ -1163,6 +1163,18 @@ describe('KMultiselect', () => {
     await expect.poll(badgeLabelTexts).toEqual(['Method', 'Error'])
   })
 
+  // Consumers that switch a field between single and multi values can briefly pass a string.
+  it('renders items when modelValue is not an array', async () => {
+    await render(KMultiselect, {
+      props: {
+        items: [{ label: 'Error', value: 'error', selected: true }],
+        modelValue: 'error' as unknown as string[],
+      },
+    })
+
+    await expect.poll(badgeLabelTexts).toEqual(['Error'])
+  })
+
   it('keeps item.selected selections that are not in a nonempty modelValue', async () => {
     await render(KMultiselect, {
       props: {

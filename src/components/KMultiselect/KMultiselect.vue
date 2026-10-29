@@ -1045,8 +1045,10 @@ watch(() => items, (newValue, oldValue) => {
 
   // The loop above adds selections in item order. Order modelValue selections by modelValue
   // and keep selections outside it (e.g. `item.selected`) after them in their existing order.
-  const modelValueIndexes = new Map((modelValue as Value[]).map((itemValue, index) => [itemValue, index]))
-  const getModelValueIndex = (item: Item): number => modelValueIndexes.get(item.value) ?? modelValueIndexes.size
+  // Some consumers briefly pass a non-array model, which the `includes` check above tolerates.
+  const modelValues = Array.isArray(modelValue) ? modelValue as Value[] : []
+  const modelValueIndexes = new Map(modelValues.map((itemValue, index) => [itemValue, index]))
+  const getModelValueIndex = (item: Item): number => modelValueIndexes.get(item.value) ?? modelValues.length
   selectedItems.value.sort((a, b) => getModelValueIndex(a) - getModelValueIndex(b))
 
   // Build normalized structure for NEW approach after processing
