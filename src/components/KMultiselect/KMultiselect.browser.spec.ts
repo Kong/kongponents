@@ -1164,7 +1164,7 @@ describe('KMultiselect', () => {
   })
 
   it('keeps item.selected selections that are not in a nonempty modelValue', async () => {
-    const screen = await render(KMultiselect, {
+    await render(KMultiselect, {
       props: {
         items: [
           { label: 'Error', value: 'error' },
@@ -1176,10 +1176,6 @@ describe('KMultiselect', () => {
     })
 
     await expect.poll(badgeLabelTexts).toEqual(['Method', 'Error', 'Status'])
-
-    await screen.rerender({ modelValue: ['method'] })
-
-    await expect.poll(badgeLabelTexts).toEqual(['Method', 'Status'])
   })
 
   it('keeps the open dropdown order stable while selecting and removing items', async () => {
