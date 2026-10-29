@@ -1,3 +1,10 @@
+## [9.66.8](https://github.com/Kong/kongponents/compare/v9.66.7...v9.66.8) (2026-10-29)
+
+
+### Bug Fixes
+
+* **kselect, kmultiselect:** prevent popover styles from affecting nested tooltips ([#3452](https://github.com/Kong/kongponents/issues/3452)) ([23d5773](https://github.com/Kong/kongponents/commit/23d577319ccabcead5f94d164ec539c9b622cdf5))
+
 ## [9.66.7](https://github.com/Kong/kongponents/compare/v9.66.6...v9.66.7) (2026-10-27)
 
 
