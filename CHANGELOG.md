@@ -1,3 +1,10 @@
+## [9.66.10](https://github.com/Kong/kongponents/compare/v9.66.9...v9.66.10) (2026-10-29)
+
+
+### Bug Fixes
+
+* **kcard:** content and footer box-sizing ([#3494](https://github.com/Kong/kongponents/issues/3494)) ([cd55393](https://github.com/Kong/kongponents/commit/cd553933a8c2a29d1bc2bf8b98a7266a47007931))
+
 ## [9.66.9](https://github.com/Kong/kongponents/compare/v9.66.8...v9.66.9) (2026-10-29)
 
 
