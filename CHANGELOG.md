@@ -1,3 +1,10 @@
+## [9.66.12](https://github.com/Kong/kongponents/compare/v9.66.11...v9.66.12) (2026-10-30)
+
+
+### Bug Fixes
+
+* **ktableview:** safari 27 table header collapsed border ([#3499](https://github.com/Kong/kongponents/issues/3499)) ([e9fc146](https://github.com/Kong/kongponents/commit/e9fc146d9b39878cfe862d1af9ee67368488384b))
+
 ## [9.66.11](https://github.com/Kong/kongponents/compare/v9.66.10...v9.66.11) (2026-10-29)
 
 
