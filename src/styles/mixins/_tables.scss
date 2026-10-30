@@ -85,7 +85,6 @@
 
         thead {
           border-bottom: var(--kui-border-width-10, $kui-border-width-10) solid var(--kui-color-border, $kui-color-border);
-          height: 44px;
           position: sticky;
           top: 0;
           z-index: 2;
@@ -95,6 +94,8 @@
           }
 
           tr {
+            // on the row, not on thead: Safari 27+ does not stretch the row to the thead height, so the collapsed border renders twice
+            height: 44px;
             position: relative;
 
             &:after {
