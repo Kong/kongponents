@@ -1033,4 +1033,118 @@ describe('KSelect', () => {
     await expect.element(page.getByCSS('.select-popover')).not.toBeVisible()
     await expect.poll(() => screen.emitted('close')?.length).toBe(1)
   })
+
+  describe('keyboard and focus', () => {
+    const items = [{ label: 'Label 1', value: 'val1' }, { label: 'Label 2', value: 'val2' }]
+
+    const getInput = () => page.getByTestId('select-input').element()
+
+    it.each([false, true])('does not open the dropdown when tabbing onto and away from the input (enableFiltering: %s)', async (enableFiltering) => {
+      // surround the select with inputs (WebKit doesn't tab to buttons by default) so that tabbing never moves focus out of the test page
+      await render(defineComponent({
+        setup: () => () => h('div', [
+          h('input', { 'data-testid': 'before' }),
+          h(KSelect, { items, enableFiltering }),
+          h('input', { 'data-testid': 'after' }),
+        ]),
+      }))
+
+      page.getByTestId('before').element().focus()
+      await userEvent.tab()
+      expect(document.activeElement).toBe(getInput())
+      await userEvent.tab()
+      expect(document.activeElement).toBe(page.getByTestId('after').element())
+      await userEvent.tab({ shift: true })
+      expect(document.activeElement).toBe(getInput())
+      await userEvent.tab({ shift: true })
+      expect(document.activeElement).toBe(page.getByTestId('before').element())
+      await expect.element(page.getByCSS('.select-popover')).not.toBeVisible()
+    })
+
+    it('opens the dropdown during IME composition with filtering enabled', async () => {
+      await render(KSelect, { props: { items, enableFiltering: true } })
+
+      getInput().dispatchEvent(new KeyboardEvent('keydown', { key: 'Process', bubbles: true }))
+      await expect.element(page.getByCSS('.select-popover')).toBeVisible()
+    })
+
+    it('opens the dropdown with the arrow keys and focuses the selected item', async () => {
+      await render(KSelect, { props: { items, modelValue: 'val2' } })
+
+      getInput().focus()
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.element(page.getByCSS('.select-popover')).toBeVisible()
+      await expect.poll(() => document.activeElement).toBe(page.getByTestId('select-item-val2').getByRole('button').element())
+    })
+
+    it('focuses the last item when opening with arrow up and nothing is selected', async () => {
+      await render(KSelect, { props: { items } })
+
+      getInput().focus()
+      await userEvent.keyboard('{ArrowUp}')
+      await expect.poll(() => document.activeElement).toBe(page.getByTestId('select-item-val2').getByRole('button').element())
+    })
+
+    it('focuses the selected item on arrow down after opening with enter', async () => {
+      await render(KSelect, { props: { items, modelValue: 'val2' } })
+
+      getInput().focus()
+      await userEvent.keyboard('{Enter}')
+      await expect.element(page.getByCSS('.select-popover')).toBeVisible()
+      expect(document.activeElement).toBe(getInput())
+
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.poll(() => document.activeElement).toBe(page.getByTestId('select-item-val2').getByRole('button').element())
+    })
+
+    it('opens the dropdown when typing with filtering enabled', async () => {
+      await render(KSelect, { props: { items, enableFiltering: true } })
+
+      getInput().focus()
+      await userEvent.keyboard('L')
+      await expect.element(page.getByCSS('.select-popover')).toBeVisible()
+      expect(document.activeElement).toBe(getInput())
+    })
+
+    it('returns focus to the input when an item is selected', async () => {
+      await render(KSelect, { props: { items } })
+
+      await page.getByTestId('select-input').click()
+      await page.getByTestId('select-item-val1').getByRole('button').click()
+      await expect.element(page.getByCSS('.select-popover')).not.toBeVisible()
+      expect(document.activeElement).toBe(getInput())
+    })
+
+    it('returns focus to the input when the dropdown is closed with escape', async () => {
+      await render(KSelect, { props: { items } })
+
+      getInput().focus()
+      await userEvent.keyboard('{ArrowDown}')
+      await expect.poll(() => document.activeElement).toBe(page.getByTestId('select-item-val1').getByRole('button').element())
+
+      await userEvent.keyboard('{Escape}')
+      await expect.element(page.getByCSS('.select-popover')).not.toBeVisible()
+      expect(document.activeElement).toBe(getInput())
+    })
+
+    it('does not return focus to the input when clicking outside', async () => {
+      await render(KSelect, { props: { items } })
+
+      await page.getByTestId('select-input').click()
+      await expect.element(page.getByCSS('.select-popover')).toBeVisible()
+      // a real outside click moves focus away from the input, a dispatched `mousedown` doesn't
+      getInput().blur()
+      document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }))
+      await expect.element(page.getByCSS('.select-popover')).not.toBeVisible()
+      expect(document.activeElement).not.toBe(getInput())
+    })
+
+    it('does not steal focus when the value changes programmatically', async () => {
+      const screen = await render(KSelect, { props: { items, modelValue: 'val1' } })
+
+      await screen.rerender({ modelValue: 'val2' })
+      await expect.element(page.getByTestId('select-item-val2')).toHaveAttribute('aria-selected', 'true')
+      expect(document.activeElement).not.toBe(getInput())
+    })
+  })
 })
