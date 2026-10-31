@@ -96,7 +96,7 @@
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
-    "@evilmartians/lefthook": "^2.1.10",
+    "@evilmartians/lefthook": "^2.2.2",
     "@kong-ui-public/sandbox-layout": "2.8.2",
     "@kong/design-tokens": "3.4.6",
     "@kong/eslint-config-kong-ui": "1.8.1",
@@ -221,7 +221,7 @@
   },
   "packageManager": "pnpm@10.34.5",
   "volta": {
-    "node": "24.21.0",
+    "node": "24.22.0",
     "pnpm": "10.34.5"
   },
   "config": {
