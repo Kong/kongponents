@@ -1,3 +1,10 @@
+## [9.66.13](https://github.com/Kong/kongponents/compare/v9.66.12...v9.66.13) (2026-11-03)
+
+
+### Bug Fixes
+
+* **kemptystate:** feature card header background color ([#3503](https://github.com/Kong/kongponents/issues/3503)) ([0ffbd5d](https://github.com/Kong/kongponents/commit/0ffbd5d5bf6100e72a7077b29be09bf681aeadc8))
+
 ## [9.66.12](https://github.com/Kong/kongponents/compare/v9.66.11...v9.66.12) (2026-10-30)
 
 
