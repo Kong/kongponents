@@ -264,8 +264,9 @@ $kEmptyStateFeaturesContainerGap: var(--kui-space-70, $kui-space-70);
     }
 
     .empty-state-feature-card {
-      // override the card header background color to match the empty state features container background color
-      --kui-card-header-color-background: var(--kui-color-background-neutral-weakest, #{$kui-color-background-neutral-weakest});
+      :deep(.card-header) {
+        background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
+      }
 
       background-color: var(--kui-color-background-neutral-weakest, $kui-color-background-neutral-weakest);
       gap: var(--kui-space-30, $kui-space-30);
