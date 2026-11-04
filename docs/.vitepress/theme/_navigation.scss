@@ -1,0 +1,237 @@
+:root {
+  --docs-active-color: color-mix(in srgb, var(--kui-color-brand, #98c900) 35%, var(--vp-c-text-1));
+  --vp-nav-height: 80px;
+}
+
+:root.dark {
+  --docs-active-color: color-mix(in srgb, var(--kui-color-brand, #98c900) 60%, var(--vp-c-text-1));
+}
+
+.Layout .VPNavBar { border-bottom: 0; }
+
+@media (min-width: 960px) {
+  .Layout .VPNavBar:not(.has-sidebar) .container > .title {
+    width: 224px;
+  }
+}
+
+.Layout .VPNavBar .content-body {
+  gap: 6px;
+  justify-content: flex-start;
+}
+
+.Layout .VPNavBar .menu { order: 1; }
+
+.Layout .VPNavBar .search {
+  flex-grow: 0;
+  margin-left: auto;
+  order: 2;
+  padding-left: 0;
+}
+
+.Layout .VPNavBar .translations { order: 3; }
+
+.Layout .VPNavBar .appearance { order: 4; }
+
+.Layout .VPNavBar .social-links { order: 5; }
+
+.Layout .VPNavBar .github-stars { order: 5; }
+
+.Layout .VPNavBar .extra { order: 6; }
+
+.Layout .VPNavBar .docs-theme-picker { order: 7; }
+
+@media (min-width: 1280px) {
+  .Layout .VPNavBar .social-links { display: none; }
+}
+
+.Layout .VPNavBar .hamburger { order: 8; }
+
+.Layout .VPNavBar .VPNavBarMenuLink,
+.Layout .VPNavBar .VPNavBarMenuGroup .button {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.Layout .VPNavBar .DocSearch-Button {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+}
+
+.Layout .VPNavBar .DocSearch-Button:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.Layout .VPNavBar .VPNavBarMenuLink.active {
+  color: var(--vp-c-brand-1);
+}
+
+.Layout .VPNavBar .VPNavBarMenuLink.active::after {
+  background: var(--kui-color-brand, #98c900);
+  bottom: 0;
+  content: '';
+  height: 2px;
+  left: 12px;
+  position: absolute;
+  right: 12px;
+}
+
+.Layout .VPNavBar .VPNavBarMenuLink { position: relative; }
+
+.Layout .VPSidebar {
+  background: var(--vp-c-bg);
+  border-right: 1px solid var(--vp-c-divider);
+}
+
+.Layout .VPSidebar .nav { padding-top: 24px; }
+
+.Layout .VPNavBar .VPNavBarTitle.has-sidebar .title {
+  background-color: transparent;
+  border-bottom: 0;
+}
+
+.Layout .VPNavBar .divider { display: none; }
+
+.Layout .VPNavBar .menu + .social-links::before,
+.Layout .VPNavBar .appearance + .social-links::before,
+.Layout .VPNavBar .menu + .appearance::before,
+.Layout .VPNavBar .translations + .appearance::before,
+.Layout .VPNavBar .translations + .social-links::before {
+  display: none;
+}
+
+.VPSidebar .group {
+  padding-top: 0;
+  width: 100%;
+}
+
+.VPSidebar .group + .group {
+  border-top: 1px solid var(--vp-c-divider);
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.VPSidebar .VPSidebarItem.level-0 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.VPSidebar .VPSidebarItem.level-0 > .item .text {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -.01em;
+}
+
+.VPSidebar .VPSidebarItem.level-1 > .item .text {
+  font-size: 14px;
+  line-height: 26px;
+}
+
+.VPSidebar .VPSidebarItem .indicator { display: none; }
+
+.Layout .VPSidebar .VPSidebarItem.level-1.is-active > .item > .link > .text {
+  color: var(--docs-active-color);
+  font-weight: 700;
+}
+
+.VPDoc .aside {
+  border-left: 0;
+}
+
+.VPDocAsideOutline .content {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.VPDocAsideOutline .outline-marker {
+  background: var(--docs-active-color);
+  left: -33px;
+  width: 3px;
+}
+
+.VPDocAsideOutline .outline-title {
+  align-items: center;
+  color: var(--vp-c-text-3);
+  display: flex;
+  font-size: 11px;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.VPDocAsideOutline .outline-title::before {
+  background-color: currentColor;
+  content: '';
+  flex: 0 0 16px;
+  height: 16px;
+  -webkit-mask: url('/img/outline-list.svg') center / contain no-repeat;
+  mask: url('/img/outline-list.svg') center / contain no-repeat;
+}
+
+.VPDocAsideOutline .outline-link {
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  line-height: 1.45;
+  padding-block: 4px;
+}
+
+.Layout .VPDocAsideOutline .outline-link.active {
+  color: var(--docs-active-color);
+  font-weight: 700;
+}
+
+.VPDocFooter .prev-next {
+  border-top: 0;
+  gap: 12px;
+  padding-top: 0;
+}
+
+.VPDocFooter .pager-link {
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+}
+
+.VPDocFooter .pager-link:hover {
+  background: var(--vp-c-bg-soft);
+  border-color: var(--vp-c-brand-1);
+}
+
+@media (min-width: 960px) {
+  .Layout .VPNavBar.has-sidebar .content-body {
+    padding-left: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .Layout .VPNavBar .VPNavBarMenuLink { padding-inline: 7px; }
+
+  .Layout .VPNavBar .DocSearch-Button { width: 42px; }
+
+  .Layout .VPNavBar .DocSearch-Button-Placeholder,
+  .Layout .VPNavBar .DocSearch-Button-Keys { display: none; }
+}
+
+@media (max-width: 767px) {
+  :root { --vp-nav-height: 64px; }
+
+  .Layout .VPNavBar .content-body { justify-content: flex-end; }
+
+  .Layout .VPNavBar .search { margin-left: 0; }
+
+  .Layout .VPNavBar .DocSearch-Button { background: transparent; border: 0; }
+
+  .Layout .VPNavBar .docs-theme-picker { margin-left: 0; }
+}
+
+@media (max-width: 360px) {
+  .Layout .VPNavBar:not(.has-sidebar) .wrapper { padding-inline: 12px; }
+
+  .Layout .VPNavBar .VPNavBarTitle .title { font-size: 12px; }
+
+  .Layout .VPNavBar .content-body { gap: 0; }
+
+  .Layout .VPNavBar .docs-theme-picker { gap: 4px; }
+}
