@@ -93,7 +93,7 @@ jobs:
       (inputs.pr != '' || inputs.issue_number != '' || inputs.work_ref != '' ||
       inputs.comment_id != '' || inputs.comment_kind != '')) ||
       needs.authorize.outputs.writes == 'true')
-    uses: Kong/ksai-public/.github/workflows/ksai.yml@bdb4a4473178b0210a9039ed2d9bc21675f7ac2e # v3.102.3
+    uses: Kong/ksai-public/.github/workflows/ksai.yml@86e9e205e61e0284e06261139334c9bbd2db9191 # v3.135.6
     permissions:
       contents: write       # checked out by every command, and pushed by one that changes code
       issues: write         # every command answers with a comment, and reacts to the one that asked
@@ -145,7 +145,7 @@ jobs:
       (github.event_name == 'pull_request' &&
       contains(fromJSON('["opened", "ready_for_review"]'), github.event.action) &&
       github.event.pull_request.head.repo.full_name == github.repository)
-    uses: Kong/ksai-public/.github/workflows/ksai-request.yml@bdb4a4473178b0210a9039ed2d9bc21675f7ac2e # v3.102.3
+    uses: Kong/ksai-public/.github/workflows/ksai-request.yml@86e9e205e61e0284e06261139334c9bbd2db9191 # v3.135.6
     permissions:
       actions: write  # dispatch this workflow onto the default branch
       contents: read  # download the actions this call runs
@@ -171,7 +171,7 @@ jobs:
       (github.event_name == 'pull_request_review' &&
       (github.event.sender.type != 'Bot' || github.event.action == 'dismissed') &&
       github.event.review.state != 'commented'))
-    uses: Kong/ksai-public/.github/workflows/ksai-hold.yml@bdb4a4473178b0210a9039ed2d9bc21675f7ac2e # v3.102.3
+    uses: Kong/ksai-public/.github/workflows/ksai-hold.yml@86e9e205e61e0284e06261139334c9bbd2db9191 # v3.135.6
     permissions:
       contents: read        # download the action this call runs
       pull-requests: write  # dismiss an approval from somebody who contributed to the pull request
