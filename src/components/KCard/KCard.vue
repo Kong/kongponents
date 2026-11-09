@@ -89,6 +89,13 @@ const showCardHeader = (): boolean => {
     }
   }
 
+  /** Header-only card: fill the card and round the bottom corners so the header background stays inside the card radius */
+  .card-header:only-child {
+    border-bottom-left-radius: var(--kui-card-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+    border-bottom-right-radius: var(--kui-card-border-radius, var(--kui-border-radius-30, $kui-border-radius-30));
+    flex: 1;
+  }
+
   .card-content {
     @include bodyText;
 
