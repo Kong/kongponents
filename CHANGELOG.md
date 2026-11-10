@@ -1,3 +1,10 @@
+## [9.66.15](https://github.com/Kong/kongponents/compare/v9.66.14...v9.66.15) (2026-11-10)
+
+
+### Bug Fixes
+
+* **kcard:** title only card styling fix ([#3505](https://github.com/Kong/kongponents/issues/3505)) ([85ce75c](https://github.com/Kong/kongponents/commit/85ce75c4bd44c2968a332345333cbf79d84fdb9f))
+
 ## [9.66.14](https://github.com/Kong/kongponents/compare/v9.66.13...v9.66.14) (2026-11-09)
 
 
