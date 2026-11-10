@@ -60,6 +60,42 @@
           </KPop>
         </div>
       </SandboxSectionComponent>
+      <SandboxSectionComponent title="placement: auto, equal room below and to the left">
+        <p>
+          Turn on the switch and hover the square pinned near the top of the window. The viewport is the
+          boundary, and the square is placed so that the room below it equals the room to its left. The
+          window must be at least {{ autoPlacementReproPosition.minWindowWidth }}px wide.
+        </p>
+        <p>
+          Placement: <code>{{ autoPlacementReproPlacement || '—' }}</code>,
+          changes while open: <code>{{ autoPlacementReproChanges }}</code>
+        </p>
+        <KInputSwitch
+          v-model="autoPlacementReproVisible"
+          label="Show the pinned trigger"
+        />
+        <div
+          v-if="autoPlacementReproVisible"
+          class="auto-placement-repro"
+          :style="{ left: `${autoPlacementReproPosition.left}px`, top: `${autoPlacementReproPosition.top}px` }"
+        >
+          <KPop
+            hide-close-icon
+            :popover-element-attributes="{ 'data-testid': 'auto-placement-repro-popover' }"
+            trigger="hover"
+            width="200px"
+            @close="stopTrackingAutoPlacement"
+            @open="startTrackingAutoPlacement"
+          >
+            <div class="auto-placement-repro-trigger" />
+            <template #content>
+              <div class="auto-placement-repro-content">
+                Popover content.
+              </div>
+            </template>
+          </KPop>
+        </div>
+      </SandboxSectionComponent>
       <SandboxSectionComponent title="width">
         <KPop
           button-text="Button"
@@ -350,7 +386,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import SandboxTitleComponent from '../components/SandboxTitleComponent.vue'
 import SandboxSectionComponent from '../components/SandboxSectionComponent.vue'
 import { PopPlacementsArray } from '@/types'
@@ -382,6 +418,52 @@ const startPopoverTimeout = () => {
 const onEvent = (message: string): void => {
   console.log(message)
 }
+
+// The sandbox uses `box-sizing: border-box`, so the popover box is 200px wide. It is 64px tall: 30px of
+// content, 16px of padding on each side and a 1px border.
+const AUTO_PLACEMENT_REPRO = { triggerSize: 20, boxWidth: 200, boxHeight: 64 }
+const windowSize = ref({ width: window.innerWidth, height: window.innerHeight })
+const updateWindowSize = (): void => {
+  windowSize.value = { width: window.innerWidth, height: window.innerHeight }
+}
+const autoPlacementReproVisible = ref(false)
+const autoPlacementReproPlacement = ref('')
+const autoPlacementReproChanges = ref(0)
+const autoPlacementReproPosition = computed(() => {
+  const { triggerSize, boxWidth, boxHeight } = AUTO_PLACEMENT_REPRO
+  // Top only fits on the cross axis. The room below and the room to the left are equal.
+  const top = boxHeight / 2 + 10
+  const left = windowSize.value.height - top - triggerSize + boxWidth - boxHeight
+
+  return { top, left, minWindowWidth: Math.ceil(left + triggerSize + boxWidth / 2 + 10) }
+})
+
+let autoPlacementFrame: number | undefined
+const startTrackingAutoPlacement = (): void => {
+  autoPlacementReproChanges.value = 0
+  autoPlacementReproPlacement.value = ''
+  const track = (): void => {
+    const placement = document.querySelector('[data-testid="auto-placement-repro-popover"]')?.getAttribute('x-placement') ?? ''
+    if (autoPlacementReproPlacement.value && placement !== autoPlacementReproPlacement.value) {
+      autoPlacementReproChanges.value++
+    }
+    autoPlacementReproPlacement.value = placement
+    autoPlacementFrame = requestAnimationFrame(track)
+  }
+  autoPlacementFrame = requestAnimationFrame(track)
+}
+const stopTrackingAutoPlacement = (): void => {
+  if (autoPlacementFrame !== undefined) {
+    cancelAnimationFrame(autoPlacementFrame)
+    autoPlacementFrame = undefined
+  }
+}
+
+onMounted(() => window.addEventListener('resize', updateWindowSize))
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateWindowSize)
+  stopTrackingAutoPlacement()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -389,5 +471,20 @@ const onEvent = (message: string): void => {
   display: flex;
   flex-wrap: wrap;
   gap: var(--kui-space-50, $kui-space-50);
+}
+
+.auto-placement-repro {
+  position: fixed;
+  z-index: 1;
+
+  .auto-placement-repro-trigger {
+    background-color: var(--kui-color-background-primary, $kui-color-background-primary);
+    height: 20px;
+    width: 20px;
+  }
+
+  .auto-placement-repro-content {
+    height: 30px;
+  }
 }
 </style>
