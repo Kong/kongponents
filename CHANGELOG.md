@@ -1,3 +1,10 @@
+## [9.66.16](https://github.com/Kong/kongponents/compare/v9.66.15...v9.66.16) (2026-11-12)
+
+
+### Bug Fixes
+
+* **kpop:** stop auto placement from jumping between sides ([#3506](https://github.com/Kong/kongponents/issues/3506)) ([7f8f06f](https://github.com/Kong/kongponents/commit/7f8f06fb74efb592aa2d5a640f319335ea419dec))
+
 ## [9.66.15](https://github.com/Kong/kongponents/compare/v9.66.14...v9.66.15) (2026-11-10)
 
 
