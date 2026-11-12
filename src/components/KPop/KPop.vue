@@ -256,22 +256,37 @@ const { floatingStyles, placement: calculatedPlacement, update: updatePosition }
 })
 
 const popoverOffset = computed(() => normalizeSize(offset))
+/**
+ * `autoPlacement` compares the sides by the size of the popover element, and that size includes the
+ * offset margin. A margin on the trigger side only makes the element taller for top and bottom, and
+ * wider for left and right, so a side change can resize the element and flip the choice back on the
+ * next update. In auto mode, split the same offset across the cross axis so that every side gives the
+ * same size. `autoPlacement` only picks centered sides, so the popover stays centered.
+ */
+const crossAxisOffset = computed(() => popoverPlacement.value === 'auto' ? `calc(${popoverOffset.value} / 2)` : undefined)
 const marginStyles = computed(() => {
+  const verticalCrossMargins = crossAxisOffset.value ? { marginLeft: crossAxisOffset.value, marginRight: crossAxisOffset.value } : {}
+  const horizontalCrossMargins = crossAxisOffset.value ? { marginTop: crossAxisOffset.value, marginBottom: crossAxisOffset.value } : {}
+
   if (calculatedPlacement.value.includes('top')) {
     return {
       marginBottom: popoverOffset.value,
+      ...verticalCrossMargins,
     }
   } else if (calculatedPlacement.value.includes('bottom')) {
     return {
       marginTop: popoverOffset.value,
+      ...verticalCrossMargins,
     }
   } else if (calculatedPlacement.value.includes('right')) {
     return {
       marginLeft: popoverOffset.value,
+      ...horizontalCrossMargins,
     }
   } else if (calculatedPlacement.value.includes('left')) {
     return {
       marginRight: popoverOffset.value,
+      ...horizontalCrossMargins,
     }
   } else {
     return {}

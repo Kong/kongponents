@@ -263,4 +263,47 @@ describe('KPop', () => {
 
     await expect.element(page.getByCSS(`.popover.${customClass}[data-testid="${testId}"]`)).toBeInTheDocument()
   })
+
+  it('keeps an automatic placement when the space below and to the left is equal', async () => {
+    // A fixed popover is not clipped by overflow ancestors, so the viewport is the boundary.
+    const triggerSize = 20
+    const contentWidth = 200
+    const contentHeight = 30
+    const offset = 16
+    const boxWidth = contentWidth + 2 * 16 + 2 // content + container padding + border
+    const boxHeight = contentHeight + 2 * 16 + 2
+    // Top fits only on the cross axis. Bottom, left and right fit, and bottom and left have the
+    // same room to spare, so neither of them wins by more than the offset.
+    const top = boxHeight / 2 + 10
+    const spaceBelow = window.innerHeight - top - triggerSize
+    const left = spaceBelow + boxWidth - boxHeight
+
+    await render({
+      render: () => h('div', { style: { position: 'fixed', left: `${left}px`, top: `${top}px` } }, [
+        h(KPop, { hideCloseIcon: true, width: `${contentWidth}px`, offset: `${offset}px` }, {
+          default: () => h('div', { class: 'auto-trigger', style: { width: `${triggerSize}px`, height: `${triggerSize}px` } }),
+          content: () => h('div', { style: { height: `${contentHeight}px` } }),
+        }),
+      ]),
+    })
+
+    await page.getByCSS('.auto-trigger').click()
+    await expect.element(page.getByCSS('.popover')).toBeVisible()
+
+    const placements = new Set<string>()
+    for (let frame = 0; frame < 30; frame++) {
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      placements.add(page.getByCSS('.popover').element().getAttribute('x-placement') ?? '')
+    }
+
+    expect([...placements]).toHaveLength(1)
+
+    // The cross-axis margins are equal, so the visible popover stays centered on the trigger.
+    const triggerRect = page.getByCSS('.auto-trigger').element().getBoundingClientRect()
+    const boxRect = page.getByCSS('.popover .popover-container').element().getBoundingClientRect()
+    const isVertical = ['top', 'bottom'].includes([...placements][0])
+    const triggerCenter = isVertical ? triggerRect.left + triggerRect.width / 2 : triggerRect.top + triggerRect.height / 2
+    const boxCenter = isVertical ? boxRect.left + boxRect.width / 2 : boxRect.top + boxRect.height / 2
+    expect(Math.abs(boxCenter - triggerCenter)).toBeLessThan(1)
+  })
 })
