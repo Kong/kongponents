@@ -2,6 +2,10 @@
 // https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
 @use "./variables";
 @use "./overrides";
+@use "./home";
+@use "./frame";
+@use "./docs";
+@use "./navigation";
 
 html,
 body {
@@ -75,7 +79,58 @@ pre.json {
     tab-size: 2 !important;
   }
 
-  .VPDoc.has-aside .content-container {
-    max-width: 768px; // Need to ensure the KStepper is rendered nicely on larger screens (the label in the steps is hidden below 768px)
+}
+
+.VPNavBar {
+  background: var(--vp-c-bg);
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.VPNavBarTitle .title {
+  font-weight: 750;
+  letter-spacing: -.035em;
+}
+
+.VPNavBarMenuLink.active,
+.VPNavBarMenuLink:hover,
+.VPSidebarItem.is-active > .item .link {
+  color: var(--vp-c-brand-1);
+}
+
+.VPSidebar {
+  border-right: 1px solid var(--vp-c-divider);
+}
+
+.Layout .VPFooter:not(.has-sidebar) {
+  background: var(--vp-c-bg-soft);
+  border-top: 0;
+  margin: 0 auto;
+  max-width: var(--docs-frame-width);
+  padding: 32px 56px;
+  width: calc(100% - 32px);
+}
+
+.VPFooter .container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: space-between;
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .Layout .VPFooter:not(.has-sidebar) {
+    padding: 28px 24px;
+    width: calc(100% - 24px);
   }
+}
+
+.VPDoc h1 {
+  font-size: clamp(36px, 4vw, 48px);
+  letter-spacing: -.05em;
+}
+
+.VPDoc h2 {
+  letter-spacing: -.035em;
 }
