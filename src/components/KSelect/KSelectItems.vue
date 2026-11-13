@@ -124,6 +124,19 @@ const moveItemFocus = (direction: 'down' | 'up'): void => {
   }
 }
 
+// focuses the selected item, or the first (down) or last (up) item when none is selected
+const focusSelectedItem = (direction: 'down' | 'up'): void => {
+  const container = itemsContainerRef.value
+  const selectedItem = container?.querySelector<HTMLButtonElement>(SELECTED_ITEM_SELECTOR)
+  if (selectedItem) {
+    selectedItem.focus()
+    return
+  }
+
+  const items = container?.querySelectorAll<HTMLButtonElement>(SELECTABLE_ITEM_SELECTOR)
+  items?.[direction === 'down' ? 0 : items.length - 1]?.focus()
+}
+
 const onKeyPress = ({ target, key } : KeyboardEvent) => {
   if (key === 'ArrowDown' || key === 'ArrowUp') {
     // all selectable items
@@ -141,7 +154,7 @@ const onKeyPress = ({ target, key } : KeyboardEvent) => {
   }
 }
 
-defineExpose({ setFocus: moveItemFocus })
+defineExpose({ setFocus: moveItemFocus, focusSelectedItem })
 </script>
 
 <style lang="scss" scoped>

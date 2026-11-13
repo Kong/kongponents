@@ -62,9 +62,9 @@
             @blur="onInputBlur"
             @click="onInputClick"
             @focus="onInputFocus"
+            @keydown="(evt: KeyboardEvent) => triggerFocus(evt, isToggled)"
             @keydown.enter="onInputEnter"
             @keypress="onInputKeypress"
-            @keyup="(evt: any) => triggerFocus(evt, isToggled)"
             @keyup.enter.stop
             @update:model-value="onQueryChange"
           >
@@ -118,7 +118,10 @@
           </Transition>
         </div>
         <template #content>
-          <div :aria-live="enableFiltering ? 'polite' : 'off'">
+          <div
+            :aria-live="enableFiltering ? 'polite' : 'off'"
+            @keydown.esc="focusInput"
+          >
             <div
               v-if="enableFiltering && loading"
               class="select-loading"
@@ -144,7 +147,7 @@
                 :item-creation-valid="itemCreationValidator(filterQuery)"
                 :items="filteredItems"
                 @add-item="handleAddItem"
-                @selected="handleItemSelect"
+                @selected="onItemSelect"
               >
                 <template #content="{ item }">
                   <slot
@@ -184,6 +187,7 @@
           <div
             v-if="hasDropdownFooter() && resolvedDropdownFooterPosition === 'sticky'"
             class="dropdown-footer dropdown-footer-sticky"
+            @keydown.esc="focusInput"
           >
             <slot
               v-if="$slots['dropdown-footer']"
@@ -483,6 +487,17 @@ const handleAddItem = (): void => {
 
   handleItemSelect(item as Item, true)
   filterQuery.value = ''
+  focusInput()
+}
+
+// return focus to the trigger, otherwise it is lost once the focused item is hidden along with the dropdown
+const focusInput = (): void => {
+  inputRef.value?.input?.focus()
+}
+
+const onItemSelect = (item: Item): void => {
+  handleItemSelect(item)
+  focusInput()
 }
 
 const handleItemSelect = (item: Item, isNew?: boolean) => {
@@ -534,20 +549,37 @@ const clearSelection = (): void => {
 
 const selectItemsRef = useTemplateRef('kSelectItems')
 
-const triggerFocus = (evt: any, isToggled: Ref<boolean>): void => {
-  // Ignore `esc` key
-  if (evt.keyCode === 27) {
-    isToggled.value = false
+// https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
+const NAVIGATION_KEYS = ['ArrowDown', 'ArrowUp']
+const OPEN_KEYS = [...NAVIGATION_KEYS, 'Enter', ' ']
+// keys that never open the dropdown, e.g. so that tabbing onto or away from the select doesn't open it
+const IGNORED_KEYS = ['Tab', 'Escape', 'Shift', 'Control', 'Alt', 'Meta', 'CapsLock']
+
+const triggerFocus = (evt: KeyboardEvent, isToggled: Ref<boolean>): void => {
+  const isNavigationKey = NAVIGATION_KEYS.includes(evt.key)
+  const direction = evt.key === 'ArrowDown' ? 'down' : 'up'
+
+  if (isToggled.value) {
+    // focus is still on the input, so move it into the dropdown starting from the selected item
+    if (isNavigationKey) {
+      evt.preventDefault()
+      selectItemsRef.value?.focusSelectedItem(direction)
+    }
     return
   }
 
-  const inputElem = selectWrapperRef.value?.children[0] as HTMLInputElement
-  if (!isToggled.value && inputElem) { // simulate click to trigger dropdown open
-    inputElem.click()
+  // when filtering is enabled, any key that may edit the query (including IME composition and paste) opens the dropdown
+  const shouldOpen = enableFiltering ? !IGNORED_KEYS.includes(evt.key) : OPEN_KEYS.includes(evt.key)
+  if (!shouldOpen) {
+    return
   }
 
-  if ((evt.key === 'ArrowDown' || evt.key === 'ArrowUp') && isToggled.value) {
-    selectItemsRef.value?.setFocus(evt.key === 'ArrowDown' ? 'down' : 'up')
+  popperRef.value?.showPopover()
+
+  if (isNavigationKey) {
+    // prevent the page from scrolling
+    evt.preventDefault()
+    nextTick(() => selectItemsRef.value?.focusSelectedItem(direction))
   }
 }
 
