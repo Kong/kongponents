@@ -82,6 +82,7 @@ const showCardHeader = (): boolean => {
     }
 
     .card-actions {
+      align-self: center;
       display: flex;
       flex-shrink: 0;
       gap: var(--kui-card-actions-gap, var(--kui-space-30, $kui-space-30));
