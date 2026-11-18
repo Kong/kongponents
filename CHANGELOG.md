@@ -1,3 +1,10 @@
+## [9.66.17](https://github.com/Kong/kongponents/compare/v9.66.16...v9.66.17) (2026-11-18)
+
+
+### Bug Fixes
+
+* **kcard:** actions container placement ([#3511](https://github.com/Kong/kongponents/issues/3511)) ([70f45a6](https://github.com/Kong/kongponents/commit/70f45a6dab498dfc278192d1e3110c60e2669a44))
+
 ## [9.66.16](https://github.com/Kong/kongponents/compare/v9.66.15...v9.66.16) (2026-11-12)
 
 
