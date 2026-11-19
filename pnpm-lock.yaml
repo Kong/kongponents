@@ -90,7 +90,7 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.43(typescript@5.9.3))
       virtua:
-        specifier: ^0.53.5
+        specifier: ^0.53.6
         version: 0.53.6(vue@3.5.43(typescript@5.9.3))
       vue-clamp:
         specifier: ^1.7.2
