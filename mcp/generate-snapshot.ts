@@ -4,7 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { gzipSync } from 'node:zlib'
 import { parse as parseYaml } from 'yaml'
-import { createComponentCatalog, UNDOCUMENTED_COMPONENT_EXPORTS } from './catalog'
+import { createComponentCatalog, isComponentReferencePage, UNDOCUMENTED_COMPONENT_EXPORTS } from './catalog'
 import { snapshotFilename } from './snapshot-format'
 import type { ComponentCatalogDefinition, ComponentRecord, DocumentationPage, DocumentationSection, McpSnapshot, SnapshotFile, StyleBlock } from './types'
 
@@ -156,7 +156,7 @@ const readComponentExports = async (): Promise<ComponentExport[]> => {
 
 /** Enforce complete docs/export coverage and unique user-facing component identifiers. */
 const validateCatalog = (docs: DocumentationPage[], catalog: ComponentCatalogDefinition[], componentExports: ComponentExport[]): void => {
-  const componentDocPaths = docs.filter((doc) => doc.section === 'components').map((doc) => doc.path).sort()
+  const componentDocPaths = docs.filter(isComponentReferencePage).map((doc) => doc.path).sort()
   const catalogDocPaths = [...new Set(catalog.map((entry) => entry.docPath))].sort()
   const missingCatalogEntries = componentDocPaths.filter((docPath) => !catalogDocPaths.includes(docPath))
   const missingDocs = catalogDocPaths.filter((docPath) => !componentDocPaths.includes(docPath))

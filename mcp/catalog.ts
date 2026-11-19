@@ -57,11 +57,14 @@ const sourceDirectoryFor = (componentExport: ComponentExport): string => {
   return `src/components/${relativeSource.split('/')[0]}`
 }
 
+/** The component landing page describes the library, not a public component export. */
+export const isComponentReferencePage = (doc: DocumentationPage): boolean => doc.section === 'components' && doc.path !== '/components/'
+
 /** Build the catalog from public docs and exports, applying explicit metadata only where conventions are ambiguous. */
 export const createComponentCatalog = ({ docs, componentExports, typeFilePaths }: CatalogInput): ComponentCatalogDefinition[] => {
   const exportsByName = new Map(componentExports.map((componentExport) => [componentExport.name, componentExport]))
   const availableTypeFiles = new Set(typeFilePaths)
-  const componentDocs = docs.filter((doc) => doc.section === 'components')
+  const componentDocs = docs.filter(isComponentReferencePage)
 
   const catalog = componentDocs.map((doc): ComponentCatalogDefinition => {
     const override = PAGE_OVERRIDES[doc.path] ?? {}
