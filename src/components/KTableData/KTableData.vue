@@ -472,9 +472,12 @@ const sortHandler = ({ sortColumnKey: columnKey, prevKey, sortColumnOrder: sortO
 
   // Reset offset cursors whenever the sort key or order changes (including a sort clear),
   // so the fetcher never receives a cursor that belongs to a previous sort order.
+  // nextOffset must be cleared too: it mints the next Next request and would otherwise
+  // keep the previous order's cursor until the new response lands.
   if (paginationAttributes?.offset && (!sortColumnKey.value || columnKey !== sortColumnKey.value || sortOrder !== sortColumnOrder.value)) {
     offsets.value = [null]
     offset.value = null
+    nextOffset.value = null
   }
 
   sortColumnKey.value = columnKey

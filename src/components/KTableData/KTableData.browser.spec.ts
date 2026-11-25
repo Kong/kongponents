@@ -1017,6 +1017,46 @@ describe('KTableData', () => {
       expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
     })
 
+    it('disables Next after a sort change until a fresh cursor arrives (clientSort with offset pagination)', async () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 30; i++) {
+        data.push({ name: `row${String(i).padStart(2, '0')}` })
+      }
+      // clientSort means a sort click never refetches: with offset pagination there is
+      // no fresh response to repopulate nextOffset, so Next must stay disabled rather
+      // than send the previous sort order's cursor.
+      const fetcher = vi.fn(() => {
+        return {
+          data: data.slice(0, 10),
+          pagination: { offset: 'asc_10', hasNextPage: true },
+        }
+      })
+
+      await render(KTableData, {
+        props: {
+          fetcher,
+          loading: false,
+          headers: options.headers,
+          clientSort: true,
+          initialFetcherParams: { pageSize: 10 },
+          paginationAttributes: {
+            offset: true,
+            pageSizes: [10],
+          },
+          cacheIdentifier: 'offset-sort-change-client-sort-next-disabled',
+        },
+      })
+
+      await expect.poll(() => fetcher.mock.calls.length).toBe(1)
+      await expect.element(page.getByTestId('next-button')).toBeEnabled()
+
+      // sort on page 1: no refetch happens, and the stale next cursor must not survive
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(1)
+      await expect.element(page.getByTestId('next-button')).toBeDisabled()
+      await expect.element(page.getByTestId('previous-button')).toBeDisabled()
+    })
+
     it('refetch with pagination offset: false', async () => {
       const data: Array<{ name: string }> = []
       for (let i = 0; i < 12; i++) {
