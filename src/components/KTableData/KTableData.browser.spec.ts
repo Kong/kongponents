@@ -883,6 +883,140 @@ describe('KTableData', () => {
       expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 2, offset: '10', query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
     })
 
+    // Fetcher for offset-based pagination tests that encode the current sort order and
+    // requested offset into the returned cursor, so a stale cursor from a previous sort
+    // order is detectable in subsequent fetch params. Row names are prefixed with the
+    // sort order embedded in the cursor (or the requested order when there is no cursor),
+    // so cursor correctness is observable in the rendered data even when a response is
+    // served from the SWRV cache without a new fetcher call.
+    const createOffsetSortFetcher = () => {
+      const data: Array<{ name: string }> = []
+      for (let i = 0; i < 30; i++) {
+        data.push({ name: `row${String(i).padStart(2, '0')}` })
+      }
+
+      return vi.fn((params: FetchParams) => {
+        const { pageSize, offset, sortColumnOrder } = params
+        const cursorOrder = offset ? offset.split('_')[0] : sortColumnOrder
+        const start = offset ? Number(offset.split('_')[1]) : 0
+
+        return {
+          data: data.slice(start, start + pageSize).map(row => ({ ...row, name: `${cursorOrder}-${row.name}` })),
+          pagination: {
+            offset: `${sortColumnOrder}_${start + pageSize}`,
+            hasNextPage: start + pageSize < data.length,
+          },
+        }
+      })
+    }
+
+    const renderOffsetSortTable = async (fetcher: any, cacheIdentifier: string) => {
+      return await render(KTableData, {
+        props: {
+          fetcher,
+          loading: false,
+          headers: options.headers,
+          initialFetcherParams: { pageSize: 10 },
+          paginationAttributes: {
+            offset: true,
+            pageSizes: [10],
+          },
+          cacheIdentifier,
+        },
+      })
+    }
+
+    it('resets the offset cursor when the sort order changes on the same column', async () => {
+      const fetcher = createOffsetSortFetcher()
+
+      await renderOffsetSortTable(fetcher, 'offset-sort-change-resets-cursor')
+
+      // initial fetch: page 1, no offset, no sort
+      await expect.poll(() => fetcher.mock.calls.length).toBe(1)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+
+      // sort ascending
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(2)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: 'name', sortColumnOrder: 'asc' })
+
+      // go to page 2 under the asc sort
+      await page.getByTestId('next-button').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(3)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 2, offset: 'asc_10', query: '', sortColumnKey: 'name', sortColumnOrder: 'asc' })
+
+      // toggle the same column to desc: must refetch page 1 with no offset
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(4)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: 'name', sortColumnOrder: 'desc' })
+    })
+
+    it('uses cursors from the new sort order when paginating after a sort change', async () => {
+      const fetcher = createOffsetSortFetcher()
+
+      await renderOffsetSortTable(fetcher, 'offset-sort-change-cursor-history')
+
+      // sort asc and advance to page 2
+      await expect.poll(() => fetcher.mock.calls.length).toBe(1)
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(2)
+      await page.getByTestId('next-button').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(3)
+      await expect.element(page.getByCSS('.table tbody')).toHaveTextContent('asc-row10')
+
+      // sort desc on the same column, then Next, Next, Previous, Previous.
+      // All cursors must come from the desc sort, not the stale asc ones.
+      // Calls 4-6 fetch desc pages 1-3; the Previous clicks revisit pages whose
+      // desc responses were already fetched, so they may be served from cache —
+      // assert on the rendered rows instead of new fetcher calls.
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(4)
+      await expect.element(page.getByCSS('.table tbody')).toHaveTextContent('desc-row00')
+
+      await page.getByTestId('next-button').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(5)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 2, offset: 'desc_10', query: '', sortColumnKey: 'name', sortColumnOrder: 'desc' })
+      await expect.element(page.getByCSS('.table tbody')).toHaveTextContent('desc-row10')
+
+      await page.getByTestId('next-button').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(6)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 3, offset: 'desc_20', query: '', sortColumnKey: 'name', sortColumnOrder: 'desc' })
+      await expect.element(page.getByCSS('.table tbody')).toHaveTextContent('desc-row20')
+
+      await page.getByTestId('previous-button').click()
+      await expect.element(page.getByCSS('.table tbody')).toHaveTextContent('desc-row10')
+      await expect.element(page.getByCSS('.table tbody')).not.toHaveTextContent('desc-row20')
+      await expect.element(page.getByCSS('.table tbody')).not.toHaveTextContent('asc-row')
+
+      await page.getByTestId('previous-button').click()
+      await expect.element(page.getByCSS('.table tbody')).toHaveTextContent('desc-row00')
+      await expect.element(page.getByCSS('.table tbody')).not.toHaveTextContent('desc-row10')
+      await expect.element(page.getByCSS('.table tbody')).not.toHaveTextContent('asc-row')
+    })
+
+    it('resets the offset cursor when the sort is cleared from page 2', async () => {
+      const fetcher = createOffsetSortFetcher()
+
+      await renderOffsetSortTable(fetcher, 'offset-sort-change-clear')
+
+      // sort asc, advance to page 2, toggle to desc (back to page 1), advance to page 2 again
+      await expect.poll(() => fetcher.mock.calls.length).toBe(1)
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(2)
+      await page.getByTestId('next-button').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(3)
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(4)
+      await page.getByTestId('next-button').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(5)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 2, offset: 'desc_10', query: '', sortColumnKey: 'name', sortColumnOrder: 'desc' })
+
+      // third click clears the sort while on page 2: must refetch page 1 with no offset
+      await page.getByTestId('table-header-name').click()
+      await expect.poll(() => fetcher.mock.calls.length).toBe(6)
+      expect(fetcher).toHaveBeenLastCalledWith({ pageSize: 10, page: 1, offset: null, query: '', sortColumnKey: '', sortColumnOrder: 'desc' })
+    })
+
     it('refetch with pagination offset: false', async () => {
       const data: Array<{ name: string }> = []
       for (let i = 0; i < 12; i++) {
