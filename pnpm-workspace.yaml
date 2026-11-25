@@ -51,6 +51,12 @@ overrides:
   launch-editor@<=2.14.1: '>=2.14.2'
   lodash@<=4.17.23: '>=4.18.0'
   minimatch@<11.0.1: '>=11.0.1'
+  # glob@7 (commitizen, copyfiles) reads minimatch's legacy `_glob` segment property,
+  # which only exists in minimatch 3; pair it with a real minimatch 3 or glob.sync
+  # throws "Cannot read properties of undefined (reading 'charAt')" (breaks `pnpm commit`).
+  # minimatch@3.1.5 is the final patched 3.x release, so this keeps the audit fix intact
+  # for every other consumer.
+  'glob@7>minimatch': '3.1.5'
   nanoid@<3.3.18: '>=3.3.18'
   node-forge@<=1.4.0: '>=1.4.1'
   nuxt@>=4.0.0 <4.6.3: '>=4.6.3'
