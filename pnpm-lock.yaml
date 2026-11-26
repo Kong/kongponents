@@ -217,7 +217,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       playwright:
-        specifier: ^1.65.0
+        specifier: ^1.65.1
         version: 1.65.1
       postcss-cli:
         specifier: ^11.0.1
