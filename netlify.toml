@@ -28,6 +28,7 @@
 #   - fonts.googleapis.com / fonts.gstatic.com  Inter font-family (see `head` in docs/.vitepress/config.ts)
 #   - picsum.photos                             KEmptyState `image` slot example
 #   - jsonplaceholder.typicode.com              KTableData / KTable fetcher examples
+#   - api.github.com                             GitHub star count in the navigation
 #   - codepen.io                                embedded "Kongponents for Vue" pen in the guide
 #
 # `style-src 'unsafe-inline'` is required because Shiki code highlighting and Vue
@@ -50,7 +51,7 @@
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
       font-src 'self' data: https://fonts.gstatic.com; \
       img-src 'self' data: blob: https://picsum.photos; \
-      connect-src 'self' https://jsonplaceholder.typicode.com; \
+      connect-src 'self' https://jsonplaceholder.typicode.com https://api.github.com; \
       frame-src https://codepen.io; \
       worker-src 'self' blob:; \
       manifest-src 'self'; \

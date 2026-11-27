@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
+import BadgeAppearanceCatalog from '../.vitepress/theme/components/BadgeAppearanceCatalog.vue'
+
+const showDismissableBadge = ref<boolean>(true)
+
+const handleIconClick = () => {
+  showDismissableBadge.value = !showDismissableBadge.value
+}
+</script>
+
 # Badge
 
 KBadge is a visual text label that presents small amount of information.
@@ -14,118 +26,11 @@ KBadge is a visual text label that presents small amount of information.
 
 KBadge component takes one of the following appearance values:
 
-| Standard         | Methods   | Status Codes |
-| ---------------- | --------- | ------------ |
-| `info` (default) | `connect` | `status-1xx` |
-| `success`        | `custom`  | `status-2xx` |
-| `warning`        | `delete`  | `status-3xx` |
-| `danger`         | `get`     | `status-4xx` |
-| `decorative`     | `head`    | `status-5xx` |
-| `neutral`        | `options` |              |
-|                  | `patch`   |              |
-|                  | `post`    |              |
-|                  | `put`     |              |
-|                  | `trace`   |              |
+<BadgeAppearanceCatalog />
 
 :::tip TIP
 Passing one of the methods appearances will apply `text-transform: uppercase` and set the `min-width` on the badge container. You may pass `custom` to apply method badge styling should you need a badge for your custom method.
 :::
-
-<div class="vertical-spacing-container">
-  <div class="horizontal-spacing-container">
-    <KBadge appearance="info">
-      Info
-    </KBadge>
-    <KBadge appearance="success">
-      Success
-    </KBadge>
-    <KBadge appearance="warning">
-      Warning
-    </KBadge>
-    <KBadge appearance="danger">
-      Danger
-    </KBadge>
-    <KBadge appearance="decorative">
-      Decorative
-    </KBadge>
-    <KBadge appearance="neutral">
-      Neutral
-    </KBadge>
-  </div>
-  <div class="horizontal-spacing-container">
-    <KBadge appearance="connect">
-      Connect
-    </KBadge>
-    <KBadge appearance="custom">
-      Custom
-    </KBadge>
-    <KBadge appearance="delete">
-      Delete
-    </KBadge>
-    <KBadge appearance="get">
-      Get
-    </KBadge>
-    <KBadge appearance="head">
-      Head
-    </KBadge>
-    <KBadge appearance="options">
-      Options
-    </KBadge>
-    <KBadge appearance="patch">
-      Patch
-    </KBadge>
-    <KBadge appearance="post">
-      Post
-    </KBadge>
-    <KBadge appearance="put">
-      Put
-    </KBadge>
-    <KBadge appearance="trace">
-      Trace
-    </KBadge>
-  </div>
-  <div class="horizontal-spacing-container">
-    <KBadge appearance="status-1xx">
-      1XX
-    </KBadge>
-    <KBadge appearance="status-2xx">
-      2XX
-    </KBadge>
-    <KBadge appearance="status-3xx">
-      3XX
-    </KBadge>
-    <KBadge appearance="status-4xx">
-      4XX
-    </KBadge>
-    <KBadge appearance="status-5xx">
-      5XX
-    </KBadge>
-  </div>
-</div>
-
-```html
-<KBadge appearance="info">Info</KBadge>
-<KBadge appearance="success">Success</KBadge>
-<KBadge appearance="warning">Warning</KBadge>
-<KBadge appearance="danger">Danger</KBadge>
-<KBadge appearance="decorative">Decorative</KBadge>
-<KBadge appearance="neutral">Neutral</KBadge>
-<KBadge appearance="connect">Connect</KBadge>
-<KBadge appearance="custom">Custom</KBadge>
-<KBadge appearance="delete">Delete</KBadge>
-<KBadge appearance="get">Get</KBadge>
-<KBadge appearance="head">Head</KBadge>
-<KBadge appearance="options">Options</KBadge>
-<KBadge appearance="patch">Patch</KBadge>
-<KBadge appearance="post">Post</KBadge>
-<KBadge appearance="put">Put</KBadge>
-<KBadge appearance="trace">Trace</KBadge>
-<KBadge appearance="status-1xx">1XX</KBadge>
-<KBadge appearance="status-2xx">2XX</KBadge>
-<KBadge appearance="status-3xx">3XX</KBadge>
-<KBadge appearance="status-4xx">4XX</KBadge>
-<KBadge appearance="status-5xx">5XX</KBadge>
-```
 
 ### size
 
@@ -336,24 +241,7 @@ Should you decide to use your own custom icons, you can use design tokens export
 We also recommend setting the icon style `color` property to a value of `currentColor` to utilize default KBadge styling for slotted content.
 :::
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import { KongIcon, WarningOutlineIcon, CloseIcon } from '@kong/icons'
-
-const showDismissableBadge = ref<boolean>(true)
-
-const handleIconClick = () => {
-  showDismissableBadge.value = !showDismissableBadge.value
-}
-</script>
-
 <style lang="scss">
-.vertical-spacing-container {
-  display: flex;
-  flex-direction: column;
-  gap: $kui-space-50;
-}
-
 .horizontal-spacing-container {
   display: flex;
   gap: $kui-space-50;

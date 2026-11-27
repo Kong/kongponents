@@ -4,11 +4,13 @@
 
 @use "@kong/design-tokens/tokens/scss/variables" as *;
 
-:root {
-  // Brand — bridge button tokens so CTA buttons on the home page follow the active theme.
-  // --vp-c-brand-1/-2 (links, active nav) intentionally keep VitePress's indigo default;
-  // primary text tokens (e.g. lime for Konnect Day) are designed for dark-surface contexts
-  // and have poor legibility as link text on the docs' white background.
+:root,
+:root.dark {
+  // VitePress reserves 64px inside its layout width for the navigation wrapper.
+  --vp-layout-max-width: 1504px;
+
+  --vp-c-brand-1: color-mix(in srgb, var(--kui-color-text-primary, #3d443d) 85%, var(--kui-color-text, #3d443d));
+  --vp-c-brand-2: color-mix(in srgb, var(--kui-color-text-primary, #3d443d) 70%, var(--kui-color-text, #3d443d));
   --vp-c-brand-3: var(--kui-color-background-primary, #{$kui-color-background-primary});
   --vp-c-brand-soft: var(--kui-color-background-primary-weakest, #{$kui-color-background-primary-weakest});
   --vp-button-brand-text: var(--kui-button-color-text-primary, var(--kui-color-text-inverse, #{$kui-color-text-inverse}));
@@ -17,20 +19,20 @@
 
   --vp-button-alt-text: var(--kui-color-text-neutral, #{$kui-color-text-neutral});
 
-  // Homepage site name color
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, #169fcc, #42d782);
-
   // Surface, text, and font — bridge Kongponents tokens so theme switcher affects the docs UI.
   // SCSS fallbacks ensure Classic Day still has correct values, since
   // --kui-* CSS custom properties are not loaded at runtime without an active theme.
   --vp-c-bg: var(--kui-color-background, #{$kui-color-background});
-  --vp-c-bg-elv: var(--kui-color-background, #{$kui-color-background});
+  --vp-c-bg-elv: color-mix(in srgb, var(--kui-color-background, #{$kui-color-background}) 92%, var(--kui-color-text, #{$kui-color-text}));
   --vp-c-bg-soft: var(--kui-color-background-neutral-weakest, #{$kui-color-background-neutral-weakest});
   --vp-c-bg-alt: var(--kui-color-background-neutral-weakest, #{$kui-color-background-neutral-weakest});
   --vp-c-text-1: var(--kui-color-text, #{$kui-color-text});
   --vp-c-text-2: var(--kui-color-text-neutral-strong, #{$kui-color-text-neutral-strong});
   --vp-c-text-3: var(--kui-color-text-neutral, #{$kui-color-text-neutral});
+  --vp-c-divider: var(--kui-color-border, #{$kui-color-border});
+  --vp-c-gutter: var(--kui-color-border, #{$kui-color-border});
+  --vp-nav-bg-color: var(--vp-c-bg);
+  --vp-sidebar-bg-color: var(--vp-c-bg);
   --vp-font-family-base: var(--kui-font-family-text, #{$kui-font-family-text});
   --vp-font-family-mono: var(--kui-font-family-code, #{$kui-font-family-code});
 
@@ -45,4 +47,10 @@
   --vp-code-copy-code-hover-border-color: rgba(128, 128, 128, 1); // grey to match default icon color
   --vp-code-copy-code-hover-bg: #{$kui-color-background-neutral-stronger};
   --vp-code-copy-code-active-text: rgba(128, 128, 128, 1); // grey to match default icon color
+}
+
+:root.dark {
+  color-scheme: dark;
+  --vp-c-brand-1: color-mix(in srgb, var(--kui-color-text-primary, #d2d7d2) 62%, var(--kui-color-text, #d2d7d2));
+  --vp-c-brand-2: color-mix(in srgb, var(--kui-color-text-primary, #d2d7d2) 48%, var(--kui-color-text, #d2d7d2));
 }
