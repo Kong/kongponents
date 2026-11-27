@@ -137,7 +137,6 @@
 <script lang="ts" setup>
 import { computed, reactive, ref, useTemplateRef, watch, type CSSProperties } from 'vue'
 import { format } from 'date-fns'
-import { formatInTimeZone } from 'date-fns-tz'
 import KButton from '@/components/KButton/KButton.vue'
 import KPop from '@/components/KPop/KPop.vue'
 import KSegmentedControl from '@/components/KSegmentedControl/KSegmentedControl.vue'
@@ -312,6 +311,17 @@ const clearSelection = (): void => {
 }
 
 /**
+ * Short time zone abbreviation for a timestamp, e.g. `(EST)`.
+ * The locale is left to the runtime on purpose.
+ */
+const timeZoneAbbreviation = (date: Date): string => {
+  const abbr = new Intl.DateTimeFormat(undefined, { timeZone: localTz, timeZoneName: 'short' })
+    .formatToParts(date)
+    .find((part) => part.type === 'timeZoneName')?.value
+  return `(${abbr})`
+}
+
+/**
  * Displays selected date/time/range as a human readable string.
  * The date formatting string is dynamically determined based on
  * the current mode of the instance (Custom vs Relative)
@@ -321,7 +331,7 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   const { start, end } = range
   let fmtStr = timeGranularity === 'secondly' ? 'PP hh:mm:ss a' : 'PP hh:mm a'
 
-  const tzAbbrev = formatInTimeZone((start as Date), localTz, '(z)')
+  const tzAbbrev = timeZoneAbbreviation(start as Date)
 
   // Determines the human timestamp readout format string; subject to change
   if (!hasCalendar.value && hasTimePeriods.value) {
@@ -333,8 +343,8 @@ const formatDisplayDate = (range: TimeRange, htmlFormat: boolean): string => {
   // Display a formatted time range
   if (!isSingleDatepicker.value) {
     return htmlFormat
-      ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}</div>`
-      : `${format(start as Date, fmtStr)} - ${formatInTimeZone(end as Date, localTz, fmtStr)} ${tzAbbrev}`
+      ? `<div>${format(start as Date, fmtStr)} -&nbsp;</div><div>${format(end as Date, fmtStr)} ${tzAbbrev}</div>`
+      : `${format(start as Date, fmtStr)} - ${format(end as Date, fmtStr)} ${tzAbbrev}`
   } else {
     return `${format(start as Date, fmtStr)} ${tzAbbrev}`
   }
@@ -358,16 +368,27 @@ const submitTimeFrame = async (): Promise<void> => {
 }
 
 /**
+ * `format` renders `null` as 1970-01-01 and parses strings instead of throwing, so only
+ * Date and number values update the display.
+ */
+const isFormatableDate = (value?: Date | null): boolean =>
+  !!value && (value instanceof Date || typeof value === 'number')
+
+/**
  * Updates the input field value as a visual confirmation after a choice is made
  *
  * If the calendar tab has focus, display the time range and timezone
  * Otherwise, display the chosen relative timeframe
  */
 const updateDisplay = (): void => {
-  if (showCalendar.value && !!state.selectedRange?.start) {
+  if (
+    showCalendar.value &&
+    isFormatableDate(state.selectedRange?.start) &&
+    (isSingleDatepicker.value || isFormatableDate(state.selectedRange?.end))
+  ) {
     state.abbreviatedDisplay = formatDisplayDate(state.selectedRange, true)
   } else if (hasTimePeriods.value && !showCalendar.value) {
-    const tzAbbrev = formatInTimeZone(new Date(), localTz, '(z)')
+    const tzAbbrev = timeZoneAbbreviation(new Date())
     state.abbreviatedDisplay = `${state.selectedTimeframe?.display} ${tzAbbrev}`
   }
 }
